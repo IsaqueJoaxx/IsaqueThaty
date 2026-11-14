@@ -614,6 +614,25 @@ public sealed partial class CmdRotatoria
         pkt.Keywords.Default = cfg.Trajetorias ? "Sim" : "Nao";
         var pt = ed.GetKeywords(pkt);
         if (pt.Status == PromptStatus.Cancel || pt.Status == PromptStatus.Error) return false;
+        if (!PedirMontagens(ed, cfg)) return false;
+        cfg.Dci = dci; cfg.LarguraAnel = la; cfg.Apron = apr; cfg.FaixaEntrada = fe; cfg.FaixaSaida = fs;
+        cfg.IlhaLargura = il; cfg.IlhaComprimento = ic; cfg.IlhaNariz = inz; cfg.IlhaRecuo = ir;
+        cfg.MeiaLarguraRamo = mr; cfg.RaioEntrada = re; cfg.RaioSaida = rs; cfg.Caimento = ca / 100;
+        if (pk.Status == PromptStatus.OK && !string.IsNullOrEmpty(pk.StringResult)) cfg.CotaAnel = pk.StringResult;
+        if (pt.Status == PromptStatus.OK && !string.IsNullOrEmpty(pt.StringResult)) cfg.Trajetorias = pt.StringResult == "Sim";
+        cfg.ParametrosDoUsuario = true;
+        ConfigRotatoria.Salvar(cfg);
+        return true;
+    }
+
+    /// <summary>Perguntas das montagens do corredor (rotatória e interseção). false = cancelou.</summary>
+    private static bool PedirMontagens(Editor ed, ConfigRotatoria cfg)
+    {
+        double? N(string m, double v, bool neg = false, bool zero = false)
+        {
+            var r = ed.GetDouble(new PromptDoubleOptions($"\n{m}") { AllowNone = true, AllowNegative = neg, AllowZero = zero, DefaultValue = v, UseDefaultValue = true });
+            return r.Status == PromptStatus.OK ? r.Value : r.Status == PromptStatus.None ? v : null;
+        }
         var pkm = new PromptKeywordOptions("\nCriar as montagens do corredor (subassemblies) [Sim/Nao]", "Sim Nao") { AllowNone = true };
         pkm.Keywords.Default = cfg.Montagens ? "Sim" : "Nao";
         var pm = ed.GetKeywords(pkm);
@@ -638,13 +657,6 @@ public sealed partial class CmdRotatoria
         cfg.Revestimento = rv; cfg.Base = bs; cfg.SubBase = sbb; cfg.MeioFioAltura = mh; cfg.MeioFioLargura = ml;
         cfg.MeioFioProfundidade = Math.Max(cfg.MeioFioProfundidade, mh + 0.10);
         cfg.SarjetaLargura = sj; cfg.Passeio = pa; cfg.TaludeCorte = tco; cfg.TaludeAterro = tat;
-        cfg.Dci = dci; cfg.LarguraAnel = la; cfg.Apron = apr; cfg.FaixaEntrada = fe; cfg.FaixaSaida = fs;
-        cfg.IlhaLargura = il; cfg.IlhaComprimento = ic; cfg.IlhaNariz = inz; cfg.IlhaRecuo = ir;
-        cfg.MeiaLarguraRamo = mr; cfg.RaioEntrada = re; cfg.RaioSaida = rs; cfg.Caimento = ca / 100;
-        if (pk.Status == PromptStatus.OK && !string.IsNullOrEmpty(pk.StringResult)) cfg.CotaAnel = pk.StringResult;
-        if (pt.Status == PromptStatus.OK && !string.IsNullOrEmpty(pt.StringResult)) cfg.Trajetorias = pt.StringResult == "Sim";
-        cfg.ParametrosDoUsuario = true;
-        ConfigRotatoria.Salvar(cfg);
         return true;
     }
 

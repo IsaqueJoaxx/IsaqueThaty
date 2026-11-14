@@ -190,6 +190,36 @@ internal static class MontagensRotatoria
         return defs;
     }
 
+    /// <summary>
+    /// Montagens da interseção em nível: para cada eixo, pista completa (faixas, meio-fio, passeio e talude dos dois lados) e
+    /// pista só com as faixas (dentro da interseção, onde o meio-fio é o das esquinas); e a esquina (meio-fio no eixo da
+    /// curva, passeio para fora, faixa até o bordo das vias).
+    /// </summary>
+    public static List<Definicao> DefinirIntersecao(ConfigRotatoria c, IEnumerable<(string Eixo, double MeiaLargura)> eixos)
+    {
+        double cai = c.Caimento;
+        List<Peca> ComMeioFio(Peca faixa) => new() { faixa, MeioFio(c), Passeio(c), Talude(c) };
+        var defs = new List<Definicao>();
+        foreach (var (eixo, w) in eixos)
+        {
+            defs.Add(new($"Pista completa - {eixo}", AssemblyType.UndividedCrownedRoad,
+                $"'{eixo}' fora da interseção, a partir das tangências das esquinas",
+                ComMeioFio(Faixa("Faixa", w, cai, c)), ComMeioFio(Faixa("Faixa", w, cai, c))));
+            defs.Add(new($"Pista só faixas - {eixo}", AssemblyType.UndividedCrownedRoad,
+                $"'{eixo}' dentro da interseção (o meio-fio ali é o das esquinas)",
+                new List<Peca> { Faixa("Faixa", w, cai, c) }, new List<Peca> { Faixa("Faixa", w, cai, c) }));
+        }
+        foreach (var (lado, direita) in new[] { ("direita", true), ("esquerda", false) })
+        {
+            var fora = new List<Peca> { MeioFio(c), Passeio(c), Talude(c) };
+            var dentro = new List<Peca> { Faixa("Faixa até o bordo das vias", c.MeiaLarguraRamo, -cai, c) };
+            defs.Add(new($"Esquina - passeio à {lado}", AssemblyType.Other,
+                $"eixo da esquina (no bordo da pista): meio-fio, passeio e talude à {lado}, faixa até o bordo das vias (alvo mais perto)",
+                direita ? fora : dentro, direita ? dentro : fora));
+        }
+        return defs;
+    }
+
     /// <summary>Cria as montagens lado a lado a partir de <paramref name="origem"/> (uma a cada <paramref name="passo"/> m em X).</summary>
     public static List<Criada> Criar(CivilDocument civ, Transaction tr, string prefixo, IReadOnlyList<Definicao> defs, Point3d origem, double passo, List<string> avisos)
     {

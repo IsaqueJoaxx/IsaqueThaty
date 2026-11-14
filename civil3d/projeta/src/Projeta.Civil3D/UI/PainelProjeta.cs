@@ -73,8 +73,9 @@ internal sealed class PainelProjeta : UserControl
             ("Volume rápido", "PRJVOLRAPIDO", "Corte e aterro numa região (polilinha ou pontos clicados), mapa de cores transparente e tabela-resumo no desenho"),
             ("Faixas de cota / declividade", "PRJFAIXAS", "Colore a superfície por faixas de cota ou de declividade (classes da EMBRAPA) e insere a tabela de áreas"),
         }),
-        ("Rotatória", new[]
+        ("Interseções e rotatórias", new[]
         {
+            ("Montar a interseção", "PRJINTERSECAO", "Clique perto do cruzamento e selecione os eixos: esquinas com raio e greide, bordos, visibilidade de quem para no PARE, verificações, montagens, corredor (existente ou novo) e Excel"),
             ("Montar a rotatória", "PRJROTATORIA", "Clique no centro e selecione os eixos dos ramos: anel e greide, conexões de entrada e saída, ilhas divisórias, bordos, retenção, trajetória mais rápida (R1–R5), verificações e Excel"),
             ("Conferir se os eixos casam", "PRJCASAMENTO", "Clique em dois alinhamentos (ou Varios): se a ponta encosta no eixo, se é tangente e se as cotas e rampas dos greides batem; marca verde/vermelho e acerta a cota da ponta"),
             ("Conectar dois eixos", "PRJCONECTAREIXO", "Clique num alinhamento e no outro, perto do canto: cria a conexão (arco tangente nos eixos ou nos bordos) com o greide casando com os dois"),

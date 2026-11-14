@@ -234,6 +234,10 @@ internal sealed class ConfigRotatoria
     public double RaioSaida { get; set; } = 20;
     public string CotaAnel { get; set; } = "Greides";
     public double CotaFixa { get; set; } = 0;
+    // PRJINTERSECAO
+    public double RaioEsquina { get; set; } = 12;
+    public double VelPrincipal { get; set; } = 40;
+    public bool IntersecaoParametrosDoUsuario { get; set; }
     // montagens do corredor (subassemblies padrão do Civil)
     public bool Montagens { get; set; } = true;
     public double Revestimento { get; set; } = 0.05;

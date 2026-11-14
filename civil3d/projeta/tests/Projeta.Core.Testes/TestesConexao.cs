@@ -18,6 +18,15 @@ internal static class TestesConexao
         Ok(c1 is not null && !c1.AntiHorario && Q(c1.AnguloCentral, Math.PI / 2) && Q(c1.Desenvolvimento, 5 * Math.PI) && Q(c1.Bulge, -Math.Tan(Math.PI / 8)), "sentido, ângulo central, desenvolvimento e bulge");
         Ok(c1 is not null && c1.SentidoA == -1 && c1.SentidoB == +1 && Q(c1.Meio.X, 10 - 10 / Math.Sqrt(2)), "sentido do arco em relação a A e B e ponto do meio");
 
+        // interseção: centro da esquina entre braços a 0° e 90° (bordos 3 e 4 m, R 10) = (4 + 10; 3 + 10); em linha não há esquina
+        var ce = GeometriaIntersecao.CentroEsquina(0, Math.PI / 2, 3, 4, 10);
+        Ok(ce is { } e1 && Q(e1.X, 14) && Q(e1.Y, 13), $"centro da esquina da interseção ({ce})");
+        Ok(GeometriaIntersecao.CentroEsquina(0, Math.PI, 3, 3, 10) is null, "braços em linha: sem esquina");
+        var ce2 = GeometriaIntersecao.CentroEsquina(Math.PI / 2, Math.PI, 3.5, 3.5, 12);
+        Ok(ce2 is { } e2 && Q(e2.X, -15.5) && Q(e2.Y, 15.5), $"esquina do quadrante noroeste ({ce2})");
+        Ok(Q(GeometriaIntersecao.DistanciaVisibilidade(40), 83.4, 1e-9), "visibilidade de cruzamento: 0,278 × 40 × 7,5 = 83,4 m");
+        Ok(GeometriaIntersecao.SegmentoCortaCirculo((0, 0), (10, 0), (5, 1), 2) && !GeometriaIntersecao.SegmentoCortaCirculo((0, 0), (10, 0), (5, 3), 2), "visada cortando a esquina");
+
         // com afastamento de bordo (3 m em A e 4 m em B)
         var c2 = Conexao.Calcular(a, 105, -1, 3, b, 105, +1, 4, 10);
         Ok(c2 is not null && Q(c2.Centro.X, 14) && Q(c2.Centro.Y, 13) && Q(c2.TangenteA.X, 14) && Q(c2.TangenteA.Y, 3) && Q(c2.TangenteB.X, 4) && Q(c2.TangenteB.Y, 13),

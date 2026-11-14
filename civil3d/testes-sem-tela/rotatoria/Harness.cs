@@ -145,6 +145,36 @@ public sealed class Cmd
         doc.Editor.WriteMessage("\nROTPREP4 OK");
     }
 
+    /// <summary>Interseção em (7000; 7000): avenida leste-oeste atravessando (com corredor existente), rua norte chegando no
+    /// cruzamento e rua sul saindo dele a ~80° (com 2 cm de diferença de cota, para a verificação reprovar).</summary>
+    [CommandMethod("PRJINTPREP")]
+    public static void PrepIntersecao()
+    {
+        var doc = AcCore.DocumentManager.MdiActiveDocument;
+        var db = doc.Database;
+        var civ = CivilApplication.ActiveDocument;
+        using var tr = db.TransactionManager.StartTransaction();
+        var av = Eixo(tr, db, civ, "Avenida Principal", Reta(6800, 7000, 7200, 7000));
+        Greide(tr, civ, av, "Avenida Principal - greide", 905, 903);
+        var rn = Eixo(tr, db, civ, "Rua Norte", Reta(7000, 7200, 7000, 7000));
+        Greide(tr, civ, rn, "Rua Norte - greide", 906, 904);
+        var rs = Eixo(tr, db, civ, "Rua Sul", Reta(7000, 7000, 7035, 6801.5));
+        Greide(tr, civ, rs, "Rua Sul - greide", 904.02, 902);
+        var asmId = civ.AssemblyCollection.Add("Seção existente", AssemblyType.UndividedCrownedRoad, new Point3d(7300, 6900, 0));
+        var asm = (Autodesk.Civil.DatabaseServices.Assembly)tr.GetObject(asmId, OpenMode.ForWrite);
+        foreach (bool esq in new[] { false, true })
+        {
+            var sid = civ.SubassemblyCollection.ImportStockSubassembly(esq ? "Faixa existente E" : "Faixa existente D", "Subassembly.BasicLane", new Point3d(7300, 6900, 0));
+            var sa = (Subassembly)tr.GetObject(sid, OpenMode.ForWrite);
+            sa.ParamsLong["Side"].Value = esq ? 1 : 0;
+            asm.AddSubassembly(sid);
+        }
+        var pid = ((Alignment)tr.GetObject(av, OpenMode.ForRead)).GetProfileIds().Cast<ObjectId>().First(id => ((Profile)tr.GetObject(id, OpenMode.ForRead)).ProfileType != ProfileType.EG);
+        var cid = civ.CorridorCollection.Add("Corredor da avenida", "Avenida Principal", av, pid, "Avenida - existente", asmId);
+        ((Corridor)tr.GetObject(cid, OpenMode.ForWrite)).Rebuild();
+        tr.Commit();
+        doc.Editor.WriteMessage("\nINTPREP OK");
+    }
     [CommandMethod("PRJROTCHECK")]
     public static void Check()
     {
