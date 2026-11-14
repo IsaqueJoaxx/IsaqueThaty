@@ -2,7 +2,7 @@
 
 Prévia 19, versão 0.19.0, para Civil 3D 2026 e 2027.
 
-O assistente analisa resultados de IRI já calculados por levantamento. Abra pela aba PROJETA, botão IRI RODOVIÁRIO — IFM, ou digite PROJETAIRI. Também está disponível como aba do painel existente.
+O assistente analisa resultados de IRI já calculados por levantamento. Abra pela aba Point top, botão IRI RODOVIÁRIO — IFM, ou digite PROJETAIRI. Também está disponível como aba do painel existente.
 
 ## Entrada
 

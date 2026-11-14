@@ -12,7 +12,7 @@ using Pen = System.Windows.Media.Pen;
 
 namespace Projeta.Civil3D;
 
-// Aba PROJETA no ribbon. Criada por código a cada sessão (não grava nada no CUI).
+// Aba "Point top" no ribbon (antes "PROJETA": o nome ficou para a aba do PROJETA Assistente Civil). Criada por código a cada sessão (não grava nada no CUI).
 // Os botões abrem o painel na aba certa, ou (IR AO PERFIL) rodam um comando que só muda a vista;
 // nenhum deles altera o desenho.
 internal static class ProjetaRibbon
@@ -59,7 +59,7 @@ internal static class ProjetaRibbon
             ToolTip = "Clique no eixo e a tela vai para a vista de perfil dele; clique na vista de perfil para voltar ao eixo. Enter sai. Comando: PROJETAPERFIL.",
             Id = "PROJETA_irperfil", CommandParameter = "PROJETAPERFIL", CommandHandler = RunCommand.Instance
         });
-        var tab = new RibbonTab { Title = "PROJETA", Id = TabId };
+        var tab = new RibbonTab { Title = "Point top", Id = TabId };
         tab.Panels.Add(new RibbonPanel { Source = source });
         ribbon.Tabs.Add(tab);
     }

@@ -1,6 +1,6 @@
 # CORREÇÃO DO GREIDE — IFM
 
-Versão 0.20.0, Previa20-CorrecaoIFM. Comando PROJETACORRECAO ou botão CORREÇÃO DO GREIDE — IFM na aba PROJETA. Preserva o módulo de análise de IRI medido.
+Versão 0.20.0, Previa20-CorrecaoIFM. Comando PROJETACORRECAO ou botão CORREÇÃO DO GREIDE — IFM na aba Point top. Preserva o módulo de análise de IRI medido.
 
 Importe um CSV UTF-8 ou cole uma série por eixo com este cabeçalho e dados fictícios:
 

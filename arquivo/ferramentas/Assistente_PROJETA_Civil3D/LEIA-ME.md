@@ -2,7 +2,7 @@
 
 ## Estado da entrega - Prévia 08 (12/10/2026)
 
-Painel acoplável com quatro abas (Superfícies, Volumes, Seções e Corredores) e uma aba PROJETA no ribbon. O painel lê o desenho ativo sozinho. Calcular volumes não grava nada. Criar superfície de volume, seções ou corredores só acontece depois de uma prévia e de uma confirmação, e cada criação é um único comando: um `U` (Ctrl+Z) desfaz tudo o que ele criou.
+Painel acoplável com quatro abas (Superfícies, Volumes, Seções e Corredores) e uma aba Point top no ribbon. O painel lê o desenho ativo sozinho. Calcular volumes não grava nada. Criar superfície de volume, seções ou corredores só acontece depois de uma prévia e de uma confirmação, e cada criação é um único comando: um `U` (Ctrl+Z) desfaz tudo o que ele criou.
 
 Fontes anteriores: Prévia 04 em `_versoes antigas\Previa04-IFM`; a Prévia 06 (feita pelo Codex, antes destas mudanças) em `_versoes antigas\Estado-12-10-1320`.
 
@@ -27,7 +27,7 @@ As seções tipo do template que usam submontagens do Subassembly Composer guard
 
 - **Leitura automática.** Depois de cada comando, ao trocar de desenho e ao reabrir a paleta. As abas só são atualizadas se algo mudou, então escolhas e resultados não se perdem. O botão "Atualizar" força a releitura.
 - **Desfazer reconhecido.** Depois de `U` ou Refazer o painel relê o desenho e tira da tela o "criado" que foi desfeito. Na aba Volumes, o botão de criar volta a ficar disponível, porque o cálculo continua valendo.
-- **Aba PROJETA no ribbon**, com os botões Superfícies, Volumes, Seções e Corredores. Ela volta sozinha se o espaço de trabalho for trocado.
+- **Aba Point top no ribbon**, com os botões Superfícies, Volumes, Seções e Corredores. Ela volta sozinha se o espaço de trabalho for trocado.
 - **Leitura leve.** A lista não lê triângulos; a ficha completa só é lida ao selecionar a superfície.
 - **Clique do limite só enxerga polilinhas.** Antes, clicar na borda da polilinha pegava a superfície que estava por baixo.
 - **Exportar volumes para CSV.**
@@ -83,7 +83,7 @@ Feche o Civil 3D e rode:
 .\Instalar.ps1
 ```
 
-O script pede permissão de administrador e copia as duas versões para `C:\Program Files\Autodesk\ApplicationPlugins\Projeta.Civil3D.bundle`. Essa pasta é confiável para o Civil 3D por padrão, então não é preciso alterar "Locais confiáveis" nem o SECURELOAD. O Civil 3D escolhe sozinho a versão certa (2026 ou 2027) e carrega o complemento ao abrir; a aba PROJETA aparece no ribbon.
+O script pede permissão de administrador e copia as duas versões para `C:\Program Files\Autodesk\ApplicationPlugins\Projeta.Civil3D.bundle`. Essa pasta é confiável para o Civil 3D por padrão, então não é preciso alterar "Locais confiáveis" nem o SECURELOAD. O Civil 3D escolhe sozinho a versão certa (2026 ou 2027) e carrega o complemento ao abrir; a aba Point top aparece no ribbon.
 
 Cada instalação usa um nome de arquivo com data e hora, então dá para reinstalar com o Civil 3D aberto; a versão nova entra na próxima vez que ele abrir.
 
@@ -97,7 +97,7 @@ Cada versão foi carregada com NETLOAD ("Carregar uma vez") numa janela separada
 
 | Verificação | 2027 | 2026 |
 |---|---|---|
-| DLL carrega; aba PROJETA no ribbon com os 4 botões | sim | sim |
+| DLL carrega; aba Point top no ribbon com os 4 botões | sim | sim |
 | Leitura automática ao abrir o painel, após comandos e ao trocar/fechar desenho | sim | sim |
 | Ficha da superfície lida ao selecionar (121 pontos, 200 triângulos, 4 ha) | sim | sim |
 | Volumes na área comum: corte 10.000 m³ e aterro 10.000 m³ (esperado: 10.000 e 10.000) | sim | sim |
@@ -127,7 +127,7 @@ As janelas de teste abriram com licença educacional; por isso nada foi salvo ne
 - `Commands.cs` registra os comandos, mantém uma única paleta e faz a leitura automática: no fim de cada comando agenda uma releitura para o próximo momento ocioso, com o documento travado, e só repassa às abas se a assinatura do desenho mudou (ou depois de `U`/Refazer).
 - O painel nunca escreve no desenho diretamente. Cada botão guarda o pedido (`Requests.cs`) e chama um comando fixo pelo nome; a escrita acontece dentro desse comando (`Operations.cs`). O Civil 3D agrupa tudo o que um comando faz numa única etapa de desfazer, por isso um `U` desfaz a operação inteira.
 - `DrawingModel.cs` faz a leitura leve (nomes, tipos, eixos, greides, seções tipo) e a ficha detalhada sob demanda.
-- `Ribbon.cs` cria a aba PROJETA; `MainPanel.cs`, `ToolPage.cs` e as quatro páginas formam o painel; `Theme.cs` acompanha o tema claro ou escuro (COLORTHEME).
+- `Ribbon.cs` cria a aba Point top; `MainPanel.cs`, `ToolPage.cs` e as quatro páginas formam o painel; `Theme.cs` acompanha o tema claro ou escuro (COLORTHEME).
 - Cuidado para quem for mexer: no teste, `SampleLineGroup.GetSectionSources()` derrubou o Civil 3D quando chamado num `OpenCloseTransaction` com o grupo aberto só para leitura. O complemento usa transação normal com o grupo aberto para escrita.
 
 ## Próximo marco
