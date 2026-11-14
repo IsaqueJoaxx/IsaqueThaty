@@ -109,13 +109,27 @@ internal static class TestesTrajetoria
         var mf = Modelo(rEntrada: 40, rSaida: 40);
         var fs = VerificacaoRotatoria.Folga(mf, 0);
         Ok(fs is < 0, $"raios grandes demais: folga negativa ({fs:F2} m)");
+        // visibilidade à esquerda
+        Ok(Q(VisibilidadeRotatoria.Distancia(30), 41.7, 1e-9), "d = 0,278 × 5 s × 30 km/h = 41,7 m");
+        var vel = VisibilidadeRotatoria.Velocidades(analises, 3)!.Value;
+        var vis = VisibilidadeRotatoria.Calcular(m, 0, vel.VEntrante, vel.VCirculante)!;
+        double rObs = Math.Sqrt(vis.Observador.X * vis.Observador.X + vis.Observador.Y * vis.Observador.Y);
+        double rCirc = Math.Sqrt(vis.Circulante.X * vis.Circulante.X + vis.Circulante.Y * vis.Circulante.Y);
+        Ok(Q(rObs, Math.Sqrt(35 * 35 + 4.0 * 4.0), 0.05) && Q(rCirc, 17, 1e-9) && vis.Circulante.Y < 0 && vis.D1 > 20 && vis.D2 > 20,
+           $"visada: observador a 15 m da retenção, circulante a {vis.D2:F1} m pelo anel vindo do sul; entrante a {vis.D1:F1} m");
+        var ver2 = VerificacaoRotatoria.Avaliar(m, analises, crit, new[] { vis });
+        Ok(ver2.Count == ver.Count + 1 && ver2.Any(v => v.Item.StartsWith("Visibilidade")), "verificação de visibilidade entra na tabela");
+        Ok(VisibilidadeRotatoria.CortaCirculo((-10, 0), (10, 0), 0, 1, 2) && !VisibilidadeRotatoria.CortaCirculo((-10, 0), (10, 0), 0, 3, 2)
+           && VisibilidadeRotatoria.CortaPoligono((-10, 0), (10, 0), new[] { (-1.0, -1.0), (1.0, -1.0), (1.0, 1.0), (-1.0, 1.0) }), "cruzamento de visada com círculo e polígono");
+
         var rel = new RelatorioRotatoria { Titulo = "Rotatória teste", Modelo = m, GreideAnel = "plano" };
+        rel.Visadas.Add(vis);
         rel.Analises.AddRange(analises); rel.Verificacoes.AddRange(ver);
         rel.Parametros.Add(new ParametroRotatoria("DCI", "40,00", "m", "[PREMISSA]"));
         rel.Pendencias.Add("Giro do veículo de projeto.");
         var pasta = rel.Planilha();
         var bytes = pasta.Bytes();
-        Ok(pasta.Folhas.Count == 6 && bytes.Length > 3000 && pasta.Folhas.First(f => f.Nome == "Trajetórias").Valor(2, 2) is double, $"planilha com {pasta.Folhas.Count} abas ({bytes.Length} bytes)");
+        Ok(pasta.Folhas.Count == 7 && bytes.Length > 3000 && pasta.Folhas.First(f => f.Nome == "Trajetórias").Valor(2, 2) is double, $"planilha com {pasta.Folhas.Count} abas ({bytes.Length} bytes)");
 
         // 3 braços (T): direto existe
         var mt = Modelo(bracos: 3, angulos: new[] { 0.0, Math.PI / 2, Math.PI });

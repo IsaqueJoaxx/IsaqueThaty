@@ -28,6 +28,7 @@ public sealed partial class CmdRotatoria
     internal const string LayerBordo = "PRJ-ROTATORIA-BORDO";
     internal const string LayerRetencao = "PRJ-ROTATORIA-RETENCAO";
     internal const string LayerTrajetoria = "PRJ-ROTATORIA-TRAJETORIA";
+    internal const string LayerVisibilidade = "PRJ-ROTATORIA-VISIBILIDADE";
 
     /// <summary>Braço da rotatória: onde um eixo de ramo cruza o eixo do anel.</summary>
     private sealed record Braco(Alignment Eixo, double S, Point3d J, double Angulo, int SentidoFora, string Rumo);
@@ -227,9 +228,31 @@ public sealed partial class CmdRotatoria
                 }
             }
 
+            // visibilidade à esquerda em cada entrada (pelas velocidades do braço de montante)
+            var visadas = new List<Visada>();
+            if (analises.Count > 0)
+            {
+                var layVis = Ctx.GarantirLayer(s.Tr, s.Db, LayerVisibilidade, 6);
+                double hv = Math.Clamp(rIlha / 20, 0.35, 1.2);
+                for (int i = 0; i < mod.Bracos.Count; i++)
+                {
+                    int up = (i + mod.Bracos.Count - 1) % mod.Bracos.Count;
+                    if (VisibilidadeRotatoria.Velocidades(analises, up) is not { } vv) continue;
+                    if (VisibilidadeRotatoria.Calcular(mod, i, vv.VEntrante, vv.VCirculante) is not { } vi) continue;
+                    visadas.Add(vi);
+                    Desenhar(s, ms, vi.PernaCirculante, false, layVis, 6);
+                    Desenhar(s, ms, vi.PernaEntrante, false, layVis, 4);
+                    Desenhar(s, ms, new[] { vi.Observador, vi.Circulante }, false, layVis, 6);
+                    Desenhar(s, ms, new[] { vi.Observador, vi.Entrante }, false, layVis, 4);
+                    var tv = Ctx.Texto($"visibilidade: d1 {vi.D1:0.0} m · d2 {vi.D2:0.0} m", new Point3d(vi.Observador.X, vi.Observador.Y, 0), hv);
+                    tv.Layer = layVis;
+                    Ctx.Adicionar(s.Tr, ms, tv);
+                }
+            }
+
             // verificações
             var crit = new CriteriosRotatoria { VelMaxEntrada = cfg.VelMaxEntrada, DifVelMax = cfg.DifVelMax };
-            var verif = VerificacaoRotatoria.Avaliar(mod, analises, crit);
+            var verif = VerificacaoRotatoria.Avaliar(mod, analises, crit, visadas);
 
             s.Tr.Commit();
 
@@ -249,7 +272,7 @@ public sealed partial class CmdRotatoria
             Ctx.Msg($"Verificações: {ap} aprovada(s), {verif.Count(v => v.Resultado == VerificacaoRotatoria.Reprovado)} REPROVADA(S), {verif.Count(v => v.Resultado == VerificacaoRotatoria.Atencao)} com atenção.");
             foreach (var v in ruins) Ctx.Msg($"  {v.Resultado}: {v.Item} — {v.Braco}: {v.Valor} (critério {v.Criterio}; {v.Fonte})");
             foreach (var a in avisos) Ctx.Msg("AVISO: " + a);
-            Ctx.Msg($"Desenho nas camadas {LayerRotatoria}, {LayerIlha}, {LayerBordo}, {LayerRetencao} e {LayerTrajetoria} (vermelho = direto, azul = à esquerda, verde = à direita). " +
+            Ctx.Msg($"Desenho nas camadas {LayerRotatoria}, {LayerIlha}, {LayerBordo}, {LayerRetencao}, {LayerTrajetoria} (vermelho = direto, azul = à esquerda, verde = à direita) e {LayerVisibilidade} (triângulos de visibilidade: magenta = circulante, ciano = entrante). " +
                     "Confira com PRJCASAMENTO › Varios. U desfaz a rotatória inteira.");
 
             // relatório
@@ -258,6 +281,7 @@ public sealed partial class CmdRotatoria
             for (int i = 0; i < bracos.Count; i++)
                 rel.Dados.Add(new DadosBraco(bracos[i].Eixo.Name, bracos[i].S, RotatoriaCivil.Est(bracos[i].S), cotas[i], feitas[i, 0]?.C.Desenvolvimento, feitas[i, 1]?.C.Desenvolvimento));
             rel.Analises.AddRange(analises);
+            rel.Visadas.AddRange(visadas);
             rel.Verificacoes.AddRange(verif);
             rel.Avisos.AddRange(avisos);
             rel.Pendencias.AddRange(Pendencias());
@@ -336,12 +360,14 @@ public sealed partial class CmdRotatoria
         yield return new("Início e fim da trajetória antes/depois da retenção", "50.00", "m", "NCHRP 672 (pelo menos 50 m, método britânico)");
         yield return new("Velocidade máxima de entrada V1", c.VelMaxEntrada.ToString("0"), "km/h", "TxDOT RDM 14.4.5 / NCHRP 672: 25 mph em uma faixa — referência complementar");
         yield return new("Diferença máxima V1–V2 e V1–V4", c.DifVelMax.ToString("0"), "km/h", "AASHTO via TORUS (20 km/h); o TxDOT usa 10 mph (16 km/h)");
+        yield return new("Visibilidade à esquerda: tempo crítico tc", VisibilidadeRotatoria.TcPadrao.ToString("0.0"), "s", "NCHRP 672, 6.7.3 (d = 0,278·tc·V) — referência complementar [A CONFIRMAR na norma do órgão]");
+        yield return new("Visibilidade à esquerda: observador antes da retenção", VisibilidadeRotatoria.RecuoObservador.ToString("0.00"), "m", "NCHRP 672, 6.7.3 (15 m)");
     }
 
     private static IEnumerable<string> Pendencias() => new[]
     {
         "Giro do veículo de projeto em todos os movimentos (inclusive retorno de 180°) com o PROJETA Giro (GIROSEGUIR / GIROVERIFICAR): largura varrida e folgas ao bordo e à ilha central.",
-        "Visibilidade: distância de visibilidade de parada na aproximação e visibilidade à esquerda na entrada.",
+        "Visibilidade: distância de visibilidade de parada na aproximação, na pista anelar e nas travessias; conferir os triângulos de visibilidade à esquerda (desenhados) contra os obstáculos reais (paisagismo da ilha, postes, placas, muros).",
         "Confirmar os parâmetros na norma do órgão (DNIT — Manual de Projeto de Interseções, 2005; IPR 740 em travessia urbana): os critérios usados aqui são referências complementares (NCHRP 672, TxDOT, FDOT, MaineDOT).",
         "Sinalização horizontal e vertical (linha de retenção / dê a preferência, faixas de pedestres) conforme o CONTRAN.",
         "Corredor, superfície de projeto e drenagem (montagens próprias; o PRJREDE para a drenagem).",

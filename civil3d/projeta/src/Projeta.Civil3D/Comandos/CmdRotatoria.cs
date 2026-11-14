@@ -78,7 +78,12 @@ public sealed partial class CmdRotatoria
             // começam perto uma da outra no bordo do anel não estão ligadas entre si
             int ignorados = encontros.RemoveAll(e => (e.EhPonta && Math.Abs(e.Afastamento) > TolFalta && !Tangente(e))
                 || (e.Tipo == "ponta com ponta" && (Math.Abs(e.Afastamento) > TolFalta || (!Tangente(e) && Math.Abs(e.Afastamento) > cfg.TolPlanta))));
-            string sobreIgnorados = ignorados > 0 ? $" {ignorados} ponta(s) que só passam perto de outro eixo (a mais de {TolFalta:0.0} m e oblíquas) não contam como encontro." : "";
+            // encontros dentro do anel de uma rotatória (eixos de ramos que seguem até o centro) ficam na ilha central: não contam
+            var aneis = Aneis(s.Tr);
+            int naIlha = encontros.RemoveAll(e => !RotatoriaCivil.Fechado(e.Principal) && !RotatoriaCivil.Fechado(e.Ponta)
+                && aneis.Any(a => e.P.DistanceTo(a.C) < a.R - 1));
+            string sobreIgnorados = (ignorados > 0 ? $" {ignorados} ponta(s) que só passam perto de outro eixo (a mais de {TolFalta:0.0} m e oblíquas) não contam como encontro." : "")
+                + (naIlha > 0 ? $" {naIlha} encontro(s) dentro do anel de uma rotatória (na ilha central) não contam." : "");
             if (encontros.Count == 0)
             {
                 Ctx.Msg($"Nenhum encontro entre os alinhamentos.{sobreIgnorados}");
@@ -205,6 +210,26 @@ public sealed partial class CmdRotatoria
 
     /// <summary>Até onde uma ponta oblíqua que não encosta conta como "falta X m" (além disso é só um eixo passando perto).</summary>
     private const double TolFalta = 1.5;
+
+    /// <summary>Anéis de rotatória do desenho (eixos fechados feitos de arcos de mesmo centro): centro e raio do eixo.</summary>
+    private static List<(Point3d C, double R)> Aneis(Transaction tr)
+    {
+        var r = new List<(Point3d C, double R)>();
+        foreach (ObjectId id in CivilApplication.ActiveDocument.GetAlignmentIds())
+        {
+            if (tr.GetObject(id, OpenMode.ForRead) is not Alignment al || !RotatoriaCivil.Fechado(al)) continue;
+            try
+            {
+                var arcos = al.Entities.Cast<AlignmentEntity>().OfType<AlignmentArc>().ToList();
+                if (arcos.Count == 0 || arcos.Count != al.Entities.Count) continue;
+                var c = arcos[0].CenterPoint;
+                if (arcos.All(a => a.CenterPoint.GetDistanceTo(c) < 0.01 && Math.Abs(a.Radius - arcos[0].Radius) < 0.01))
+                    r.Add((new Point3d(c.X, c.Y, 0), arcos[0].Radius));
+            }
+            catch { }
+        }
+        return r;
+    }
 
     private static bool Tangente(Enc e) { double a = RotatoriaCivil.Angulo(e); return Math.Min(a, Math.PI - a) <= 15 * Math.PI / 180; }
 

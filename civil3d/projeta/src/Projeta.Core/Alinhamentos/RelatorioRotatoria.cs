@@ -60,7 +60,7 @@ public static class VerificacaoRotatoria
 
     public static string Nome(BracoRotatoria b) => $"{b.Rumo} ({b.Nome})";
 
-    public static List<Verificacao> Avaliar(ModeloRotatoria m, IReadOnlyList<AnaliseBraco> analises, CriteriosRotatoria c)
+    public static List<Verificacao> Avaliar(ModeloRotatoria m, IReadOnlyList<AnaliseBraco> analises, CriteriosRotatoria c, IReadOnlyList<Visada>? visadas = null)
     {
         var r = new List<Verificacao>();
         const string fVel = "NCHRP 672 / TxDOT RDM 14.4.5 (referência complementar; confirmar na norma do órgão)";
@@ -114,6 +114,11 @@ public static class VerificacaoRotatoria
                     "FDOT FDM 213 (100 ft) — referência complementar", comp >= c.IlhaCompMin - 1e-6 ? Aprovado : Atencao));
             }
             else r.Add(new Verificacao("Ilha divisória", nb, "sem ilha", "ilha elevada separando entrada e saída", "NCHRP 672 (referência complementar)", Atencao));
+            if (visadas?.FirstOrDefault(x => x.Braco == i) is { } vi)
+                r.Add(new Verificacao("Visibilidade à esquerda (triângulo de visibilidade)", nb,
+                    $"d1 = {N(vi.D1)} m (entrante a {N(vi.VEntrante, 0)} km/h), d2 = {N(vi.D2)} m (circulante a {N(vi.VCirculante, 0)} km/h)" + (vi.Atravessa.Count > 0 ? "; " + string.Join("; ", vi.Atravessa) : ""),
+                    "triângulo livre de obstáculos (vegetação alta, muros, postes, placas)", "NCHRP 672 6.7.3 (tc = 5 s, observador a 15 m; velocidades das pernas [A CONFIRMAR])",
+                    vi.Atravessa.Count > 0 ? Atencao : Aprovado));
             double dv = DesvioDoCentro(m, b);
             string lado = Math.Abs(dv) < 0.25 ? "passa pelo centro (radial)" : dv > 0 ? $"passa {N(Math.Abs(dv), 2)} m à DIREITA do centro" : $"passa {N(Math.Abs(dv), 2)} m à esquerda do centro";
             r.Add(new Verificacao("Alinhamento do ramo em relação ao centro", nb, lado, "radial ou à esquerda do centro",
@@ -136,6 +141,7 @@ public sealed class RelatorioRotatoria
     public List<ParametroRotatoria> Parametros { get; } = new();
     public List<DadosBraco> Dados { get; } = new();
     public List<AnaliseBraco> Analises { get; } = new();
+    public List<Visada> Visadas { get; } = new();
     public List<Verificacao> Verificacoes { get; } = new();
     public List<string> Avisos { get; } = new();
     public List<string> Pendencias { get; } = new();
@@ -237,6 +243,24 @@ public sealed class RelatorioRotatoria
         lt++;
         ft.Texto(lt++, 1, "Trajetória mais rápida: curva mais suave a 1,5 m de meios-fios, ilhas e do eixo da via, começando e terminando a 50 m das linhas de retenção (NCHRP 672). Raios pelo arco de 3 pontos de 10 m.", txt with { Borda = false, Italico = true });
         ft.Texto(lt++, 1, "V = 8,7602·R^0,3861 (e = +0,02: R1, R3, R5) e V = 8,6164·R^0,3673 (e = −0,02: R2, R4), V em km/h e R em m (NCHRP 672).", txt with { Borda = false, Italico = true });
+
+        // Visibilidade
+        if (Visadas.Count > 0)
+        {
+            var fs = pasta.NovaFolha("Visibilidade");
+            Cab(fs, 1, ("Braço", 10), ("d1 entrante (m)", 11), ("Ve (km/h)", 9), ("d2 circulante (m)", 11), ("Vc (km/h)", 9), ("O que as visadas cruzam", 70));
+            int ls = 2;
+            foreach (var v in Visadas)
+            {
+                fs.Texto(ls, 1, Modelo.Bracos[v.Braco].Rumo, txt);
+                fs.Numero(ls, 2, v.D1, n1); fs.Numero(ls, 3, v.VEntrante, n1);
+                fs.Numero(ls, 4, v.D2, n1); fs.Numero(ls, 5, v.VCirculante, n1);
+                fs.Texto(ls, 6, v.Atravessa.Count == 0 ? "nada: as visadas ficam sobre a pista" : string.Join("; ", v.Atravessa), q);
+                ls++;
+            }
+            ls++;
+            fs.Texto(ls++, 1, "Observador a 15 m da retenção, no meio da faixa de entrada; d = 0,278·tc·V com tc = 5 s; Ve = média de V1 e V2 do braço de montante, Vc = V4 (NCHRP 672, 6.7.3). O triângulo desenhado tem de ficar livre de obstáculos; o NCHRP também recomenda não dar muito mais visibilidade que a mínima.", txt with { Borda = false, Italico = true });
+        }
 
         // Verificações
         var fv = pasta.NovaFolha("Verificações");
