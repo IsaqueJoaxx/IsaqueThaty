@@ -128,6 +128,19 @@ public sealed class Cmd
         Greide(tr, civ, l, "Rua Leste - greide", 903, 901);
         var o = Eixo(tr, db, civ, "Rua Oeste", Reta(4970, 5000, 4800, 5000));
         Greide(tr, civ, o, "Rua Oeste - greide", 900.5, 899);
+        // corredor existente na Via NS (faixa simples dos dois lados), para testar o recorte das regiões
+        var asmId = civ.AssemblyCollection.Add("Seção existente", AssemblyType.UndividedCrownedRoad, new Point3d(5300, 4900, 0));
+        var asm = (Autodesk.Civil.DatabaseServices.Assembly)tr.GetObject(asmId, OpenMode.ForWrite);
+        foreach (bool esq in new[] { false, true })
+        {
+            var sid = civ.SubassemblyCollection.ImportStockSubassembly(esq ? "Faixa existente E" : "Faixa existente D", "Subassembly.BasicLane", new Point3d(5300, 4900, 0));
+            var sa = (Subassembly)tr.GetObject(sid, OpenMode.ForWrite);
+            sa.ParamsLong["Side"].Value = esq ? 1 : 0;
+            asm.AddSubassembly(sid);
+        }
+        var pidNS = ((Alignment)tr.GetObject(v, OpenMode.ForRead)).GetProfileIds().Cast<ObjectId>().First(id => ((Profile)tr.GetObject(id, OpenMode.ForRead)).ProfileType != ProfileType.EG);
+        var cid = civ.CorridorCollection.Add("Corredor existente", "Via NS", v, pidNS, "Via NS - existente", asmId);
+        ((Corridor)tr.GetObject(cid, OpenMode.ForWrite)).Rebuild();
         tr.Commit();
         doc.Editor.WriteMessage("\nROTPREP4 OK");
     }
@@ -178,6 +191,22 @@ public sealed class Cmd
         Directory.CreateDirectory(@"C:\Temp\rot\saida");
         File.WriteAllText(@"C:\Temp\rot\saida\rot_check.txt", sb.ToString(), Encoding.UTF8);
         sb.Clear();
+        // corredores: baselines e regiões
+        foreach (ObjectId cid in civ.CorridorCollection)
+        {
+            try
+            {
+                var c = (Corridor)tr.GetObject(cid, OpenMode.ForRead);
+                File.AppendAllText(@"C:\Temp\rot\saida\rot_check.txt", "CORREDOR " + c.Name + Environment.NewLine, Encoding.UTF8);
+                foreach (Baseline b in c.Baselines)
+                {
+                    var linha = new StringBuilder("  BASELINE " + b.Name + ":");
+                    foreach (BaselineRegion r in b.BaselineRegions) linha.Append(string.Format(I, " [{0} {1:0.00}-{2:0.00}]", r.Name, r.StartStation, r.EndStation));
+                    File.AppendAllText(@"C:\Temp\rot\saida\rot_check.txt", linha + Environment.NewLine, Encoding.UTF8);
+                }
+            }
+            catch (System.Exception e) { File.AppendAllText(@"C:\Temp\rot\saida\rot_check.txt", "  erro corredor: " + e.Message + Environment.NewLine, Encoding.UTF8); }
+        }
         // montagens: só os nomes (ler grupos e pontos de uma montagem já gravada derruba o accoreconsole)
         foreach (ObjectId aid in civ.AssemblyCollection)
         {

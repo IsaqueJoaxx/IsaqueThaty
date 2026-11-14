@@ -172,7 +172,7 @@ public sealed partial class CmdRotatoria
             var lay = Ctx.GarantirLayer(s.Tr, s.Db, LayerRotatoria, 30);
             var ms = Ctx.EspacoModelo(s.Tr, s.Db);
             // bordo externo e ilha central como polilinhas (servem de alvo de largura no corredor)
-            Ctx.Adicionar(s.Tr, ms, CirculoPolilinha(o, rExt, lay));
+            var bordoExternoId = Ctx.Adicionar(s.Tr, ms, CirculoPolilinha(o, rExt, lay));
             Ctx.Adicionar(s.Tr, ms, CirculoPolilinha(o, rIlha, lay));
             if (cfg.Apron > 0 && cfg.Apron < rIlha - 0.5) Ctx.Adicionar(s.Tr, ms, new Circle(o, Vector3d.ZAxis, rIlha - cfg.Apron) { Layer = lay, ColorIndex = 8 });
             var rotulo = Ctx.Texto(Ctx.MTextLinhas(prefixo, $"DCI {cfg.Dci:0.##} m"), o, Math.Clamp(rIlha / 6, 0.5, 3), 0, AttachmentPoint.MiddleCenter);
@@ -236,12 +236,16 @@ public sealed partial class CmdRotatoria
             var layIlha = Ctx.GarantirLayer(s.Tr, s.Db, LayerIlha, 40);
             var layBordo = Ctx.GarantirLayer(s.Tr, s.Db, LayerBordo, 30);
             var layRet = Ctx.GarantirLayer(s.Tr, s.Db, LayerRetencao, 7);
-            foreach (var br in mod.Bracos)
+            var bordosDoBraco = new List<ObjectId>[mod.Bracos.Count];
+            for (int i = 0; i < mod.Bracos.Count; i++)
             {
+                var br = mod.Bracos[i];
+                bordosDoBraco[i] = new List<ObjectId>();
                 if (br.TemIlha) Desenhar(s, ms, mod.Ilha(br), true, layIlha, 256);
                 double ate = Math.Min(br.Eixo.Comprimento, br.SAlargFim + 15);
-                if (br.MeioFioEntrada is not null) Desenhar(s, ms, mod.BordoRamo(br, true, ate), false, layBordo, 256);
-                if (br.MeioFioSaida is not null) Desenhar(s, ms, mod.BordoRamo(br, false, ate), false, layBordo, 256);
+                if (br.MeioFioEntrada is not null) bordosDoBraco[i].Add(Desenhar(s, ms, mod.BordoRamo(br, true, ate), false, layBordo, 256));
+                if (br.MeioFioSaida is not null) bordosDoBraco[i].Add(Desenhar(s, ms, mod.BordoRamo(br, false, ate), false, layBordo, 256));
+                bordosDoBraco[i].RemoveAll(id => id.IsNull);
                 Desenhar(s, ms, mod.Retencao(br), false, layRet, 256);
             }
 
@@ -298,6 +302,9 @@ public sealed partial class CmdRotatoria
             // montagens do corredor (subassemblies padrão do Civil) e trechos de cada eixo
             var montagens = new List<MontagensRotatoria.Criada>();
             var corredor = new List<RegiaoCorredor>();
+            var msgsCorredor = new List<string>();
+            string? nomeCorredor = null;
+            int regioesCorredor = 0;
             if (cfg.Montagens)
             {
                 var defs = MontagensRotatoria.Definir(cfg);
@@ -314,7 +321,17 @@ public sealed partial class CmdRotatoria
                 var titulo = Ctx.Texto($"{prefixo} - montagens do corredor", new Point3d(o.X, org.Y + 18, 0), 2.0, 0, AttachmentPoint.BottomCenter);
                 titulo.Layer = layM;
                 Ctx.Adicionar(s.Tr, ms, titulo);
-                corredor = GuiaDoCorredor(s, anel, o, rExt, st0, comp, bracos, alvos.Select(a => st0 + a.Estaca).ToList(), feitas, mod, comIlha, prefixo, avisos);
+                var trechos = GuiaDoCorredor(s, anel, o, rExt, st0, comp, bracos, alvos.Select(a => st0 + a.Estaca).ToList(), feitas, mod, comIlha, bordoExternoId, bordosDoBraco, avisos);
+                corredor = trechos.Select(t => new RegiaoCorredor(t.Eixo, t.De, t.Ate, $"{prefixo} - {t.Montagem}", t.Obs)).ToList();
+                if (CorredorProjeta.Escolher(s, civ, prefixo) is { } corrId)
+                {
+                    var sup = CorredorProjeta.Superficie(s);
+                    if (sup.IsNull) avisos.Add("Corredor: não há superfície de terreno no desenho; os taludes ficaram sem alvo (defina depois nas regiões).");
+                    Ctx.Msg("Montando o corredor...");
+                    msgsCorredor = CorredorProjeta.Inserir(s.Tr, corrId, trechos, al => EscolherGreide(s, al)?.ObjectId, montagens.ToDictionary(m => m.Tipo, m => m.Id),
+                                                           sup, prefixo, recortar: true, out regioesCorredor);
+                    nomeCorredor = ((Corridor)s.Tr.GetObject(corrId, OpenMode.ForRead)).Name;
+                }
             }
 
             s.Tr.Commit();
@@ -341,6 +358,11 @@ public sealed partial class CmdRotatoria
                         $"talude {cfg.TaludeCorte:0.##}:1 no corte e {cfg.TaludeAterro:0.##}:1 no aterro{(cfg.ParametrosDoUsuario ? "" : " [PREMISSA]")}. Trechos de cada eixo:");
                 foreach (var g in corredor.GroupBy(c => c.Baseline))
                     Ctx.Msg($"  {g.Key}: " + string.Join("; ", g.Select(c => $"{RotatoriaCivil.Est(c.De)} a {RotatoriaCivil.Est(c.Ate)} → {c.Montagem.Replace(prefixo + " - ", "")}")));
+            }
+            if (nomeCorredor is not null)
+            {
+                Ctx.Msg($"Corredor '{nomeCorredor}': {regioesCorredor} região(ões) da rotatória, com as montagens, os alvos de largura e o talude na superfície do terreno.");
+                foreach (var m in msgsCorredor) Ctx.Msg("  corredor: " + m);
             }
             foreach (var a in avisos) Ctx.Msg("AVISO: " + a);
             Ctx.Msg($"Desenho nas camadas {LayerRotatoria}, {LayerIlha}, {LayerBordo}, {LayerRetencao}, {LayerTrajetoria} (vermelho = direto, azul = à esquerda, verde = à direita) e {LayerVisibilidade} (triângulos de visibilidade: magenta = circulante, ciano = entrante). " +
@@ -388,19 +410,24 @@ public sealed partial class CmdRotatoria
     /// passeio), ramos (junto do anel só pista, depois ilha divisória, depois pista completa) e conexões (passeio do lado do
     /// centro da curva, que é o canto fora da pista).
     /// </summary>
-    private static List<RegiaoCorredor> GuiaDoCorredor(Sessao s, Alignment anel, Point3d o, double rExt, double st0, double comp,
-        List<Braco> bracos, IReadOnlyList<double> sAnel, Conectada?[,] feitas, ModeloRotatoria mod, bool comIlha, string prefixo, List<string> avisos)
+    private static List<TrechoCorredor> GuiaDoCorredor(Sessao s, Alignment anel, Point3d o, double rExt, double st0, double comp,
+        List<Braco> bracos, IReadOnlyList<double> sAnel, Conectada?[,] feitas, ModeloRotatoria mod, bool comIlha,
+        ObjectId bordoExterno, IReadOnlyList<List<ObjectId>> bordosDoBraco, List<string> avisos)
     {
-        string M(string tipo) => $"{prefixo} - {tipo}";
         double Mod(double x) => ((x % comp) + comp) % comp;
-        var r = new List<RegiaoCorredor>();
-        void Add(string eixo, double a, double b, string montagem, string obs)
+        var r = new List<TrechoCorredor>();
+        void Add(Alignment eixo, double a, double b, string montagem, string obs, IEnumerable<ObjectId>? alvos = null, bool maisPerto = false)
         {
             if (Math.Abs(b - a) < 0.01) return;
-            r.Add(new RegiaoCorredor(eixo, Math.Min(a, b), Math.Max(a, b), montagem, obs));
+            r.Add(new TrechoCorredor(eixo.ObjectId, eixo.Name, Math.Min(a, b), Math.Max(a, b), montagem, obs)
+            {
+                AlvosLargura = alvos?.Where(id => !id.IsNull).ToList() ?? new List<ObjectId>(),
+                AlvoMaisPerto = maisPerto,
+            });
         }
+        List<ObjectId> Conexoes(int i) => new[] { feitas[i, 0]?.Id, feitas[i, 1]?.Id }.Where(id => id is { IsNull: false }).Select(id => id!.Value).ToList();
 
-        // anel
+        // anel: aberturas dos braços (entre as tangências das duas conexões) só com pista; o resto com meio-fio e passeio
         var ints = new List<(double A, double B, string Rumo)>();
         for (int i = 0; i < bracos.Count; i++)
         {
@@ -422,13 +449,13 @@ public sealed partial class CmdRotatoria
         double pos = 0;
         foreach (var (a, b, rumo) in ints.OrderBy(x => x.A))
         {
-            if (a > pos) Add(anel.Name, st0 + pos, st0 + a, M("Anel - pista, meio-fio e passeio"), "entre dois braços: bordo externo com meio-fio");
-            Add(anel.Name, st0 + Math.Max(a, pos), st0 + b, M("Anel - só pista"), $"abertura do braço {rumo} (entre as conexões)");
+            if (a > pos) Add(anel, st0 + pos, st0 + a, "Anel - pista, meio-fio e passeio", "entre dois braços: bordo externo com meio-fio");
+            Add(anel, st0 + Math.Max(a, pos), st0 + b, "Anel - só pista", $"abertura do braço {rumo} (entre as conexões)");
             pos = Math.Max(pos, b);
         }
-        if (pos < comp) Add(anel.Name, st0 + pos, st0 + comp, M("Anel - pista, meio-fio e passeio"), "entre dois braços: bordo externo com meio-fio");
+        if (pos < comp) Add(anel, st0 + pos, st0 + comp, "Anel - pista, meio-fio e passeio", "entre dois braços: bordo externo com meio-fio");
 
-        // ramos
+        // ramos: junto do anel só pista (até as tangências), ilha divisória, alargamento e seção normal
         for (int i = 0; i < bracos.Count && i < mod.Bracos.Count; i++)
         {
             var b = bracos[i];
@@ -437,44 +464,46 @@ public sealed partial class CmdRotatoria
             double sBordo = EstacaNoRaio(br.Eixo, o, rExt);
             double sTang = new[] { br.STangEntrada, br.STangSaida }.Where(v => !double.IsNaN(v)).DefaultIfEmpty(sBordo).Max();
             sTang = Math.Max(sTang, sBordo);
-            Add(b.Eixo.Name, Sm(sBordo), Sm(sTang), M("Ramo junto do anel - só pista"),
-                $"braço {b.Rumo}: da borda do anel às tangências das conexões; alvo de largura das faixas nos eixos das conexões");
+            Add(b.Eixo, Sm(sBordo), Sm(sTang), "Ramo junto do anel - só pista",
+                $"braço {b.Rumo}: da borda do anel às tangências das conexões; faixas até os eixos das conexões", Conexoes(i));
             double depois = sTang;
             if (comIlha && br.TemIlha && br.SIlhaFim > sTang)
             {
-                Add(b.Eixo.Name, Sm(sTang), Sm(br.SIlhaFim), M("Ramo com ilha divisória"),
-                    $"braço {b.Rumo}: até o nariz da ilha; alvo de largura nos bordos (PRJ-ROTATORIA-BORDO) e na ilha (PRJ-ROTATORIA-ILHA)");
+                Add(b.Eixo, Sm(sTang), Sm(br.SIlhaFim), "Ramo com ilha divisória",
+                    $"braço {b.Rumo}: até o nariz da ilha; faixas até os bordos (PRJ-ROTATORIA-BORDO)", bordosDoBraco[i]);
                 depois = br.SIlhaFim;
             }
             if (br.SAlargFim > depois)
-                Add(b.Eixo.Name, Sm(depois), Sm(br.SAlargFim), M("Pista completa"), $"braço {b.Rumo}: alargamento; alvo de largura das faixas nos bordos (PRJ-ROTATORIA-BORDO)");
-            Add(b.Eixo.Name, Sm(Math.Max(depois, br.SAlargFim)), Sm(Math.Max(depois, br.SAlargFim) + 20), M("Pista completa"),
-                $"braço {b.Rumo}: seção normal daqui para fora (siga com o corredor da via)");
+                Add(b.Eixo, Sm(depois), Sm(br.SAlargFim), "Pista completa", $"braço {b.Rumo}: alargamento; faixas até os bordos (PRJ-ROTATORIA-BORDO)", bordosDoBraco[i]);
+            Add(b.Eixo, Sm(Math.Max(depois, br.SAlargFim)), Sm(Math.Max(depois, br.SAlargFim) + 20), "Pista completa",
+                $"braço {b.Rumo}: seção normal daqui para fora (depois segue o corredor da via)");
         }
 
-        // conexões
+        // conexões: passeio do lado do centro da curva (o canto fora da pista); faixa até o bordo do anel ou do ramo, o que estiver mais perto
         for (int i = 0; i < bracos.Count; i++)
             for (int k = 0; k < 2; k++)
                 if (feitas[i, k] is { } f && s.Tr.GetObject(f.Id, OpenMode.ForRead) is Alignment ca)
                 {
                     var arco = ca.Entities.Cast<AlignmentEntity>().OfType<AlignmentArc>().FirstOrDefault();
                     string lado = arco is not null && arco.Clockwise ? "direita" : "esquerda";
-                    Add(ca.Name, ca.StartingStation, ca.EndingStation, M($"Conexão - passeio à {lado}"),
-                        $"meio-fio, passeio e talude à {lado} (fora da curva); faixa com alvo de largura no bordo externo do anel e no bordo do ramo");
+                    var alvos = new List<ObjectId> { bordoExterno };
+                    if (i < bordosDoBraco.Count) alvos.AddRange(bordosDoBraco[i]);
+                    Add(ca, ca.StartingStation, ca.EndingStation, $"Conexão - passeio à {lado}",
+                        $"meio-fio, passeio e talude à {lado} (fora da curva); faixa até o bordo do anel ou do ramo", alvos, maisPerto: true);
                 }
         return r;
     }
 
-    private static void Desenhar(Sessao s, BlockTableRecord ms, IReadOnlyList<(double X, double Y)> pts, bool fechada, string layer, short cor)
+    private static ObjectId Desenhar(Sessao s, BlockTableRecord ms, IReadOnlyList<(double X, double Y)> pts, bool fechada, string layer, short cor)
     {
-        if (pts.Count < 2) return;
+        if (pts.Count < 2) return ObjectId.Null;
         var p = new Polyline();
         for (int i = 0; i < pts.Count; i++) p.AddVertexAt(i, new Point2d(pts[i].X, pts[i].Y), 0, 0, 0);
         p.Closed = fechada;
         p.SetDatabaseDefaults();
         p.Layer = layer;
         p.ColorIndex = cor;
-        Ctx.Adicionar(s.Tr, ms, p);
+        return Ctx.Adicionar(s.Tr, ms, p);
     }
 
     /// <summary>O eixo do ramo do encontro para fora, amostrado a cada 1 m (até <paramref name="comprimento"/> ou o fim do eixo).</summary>
@@ -749,7 +778,7 @@ public sealed partial class CmdRotatoria
             if (z.All(v => v is null))
             {
                 Ctx.Msg("Nenhum ramo tem greide de projeto no encontro com o anel.");
-                var resp = s.PedirPalavra("Cota do anel pelo [Terreno/Fixa]", new[] { "Terreno", "Fixa" }, "Terreno");
+                var resp = s.PedirPalavra("Cota do anel pelo", new[] { "Terreno", "Fixa" }, "Terreno");
                 if (resp is null) return null;
                 modo = resp;
             }
