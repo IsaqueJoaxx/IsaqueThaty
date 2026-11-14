@@ -19,6 +19,7 @@ internal static class RegistroProjeta
         FerramentasRedes.Registrar(r);
         FerramentasPavimentacao.Registrar(r);
         FerramentasSuperficies.Registrar(r);
+        FerramentasGeo.Registrar(r);
         return r;
     }
 }

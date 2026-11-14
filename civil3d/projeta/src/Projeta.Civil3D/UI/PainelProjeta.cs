@@ -64,6 +64,15 @@ internal sealed class PainelProjeta : UserControl
             ("Volumes entre superfícies", "PRJVOLUMES", "Corte e aterro (terreno × projeto ou levantamentos), por polígono, com mapa de cores e Excel"),
             ("Projeto × obra", "PRJCONFORMIDADE", "Compara o levantamento da obra com o projeto: o que está fora da tolerância, mapa, pontos críticos, controle por estaca e Excel"),
         }),
+        ("Geo e terreno", new[]
+        {
+            ("Relevo de satélite", "PRJRELEVO", "Baixa o relevo gratuito Copernicus 30 m da área (polilinha ou janela) e cria a superfície no Civil 3D, em SIRGAS 2000 / UTM"),
+            ("Georreferenciar desenho", "PRJGEORREF", "Clique pontos e digite lat/long ou UTM: move, gira e escala o desenho e define o sistema (liga o mapa de satélite do Civil)"),
+            ("Exportar para o Google Earth", "PRJKMZ", "Polilinhas, eixos, feature lines, pontos COGO, blocos, textos e superfícies (contorno ou triângulos 3D) para KMZ"),
+            ("Importar do Google Earth", "PRJKML", "Marcadores, caminhos e polígonos de um KML/KMZ para o desenho (pontos COGO e polilinhas), com cotas do arquivo ou de uma superfície"),
+            ("Volume rápido", "PRJVOLRAPIDO", "Corte e aterro numa região (polilinha ou pontos clicados), mapa de cores transparente e tabela-resumo no desenho"),
+            ("Faixas de cota / declividade", "PRJFAIXAS", "Colore a superfície por faixas de cota ou de declividade (classes da EMBRAPA) e insere a tabela de áreas"),
+        }),
         ("Terraplenagem", new[]
         {
             ("Platôs", "PRJPLATO", "Platô em cada polígono: cota que compensa corte e aterro (ou fixa), caimento, taludes até o terreno, superfícies, volumes e Excel"),

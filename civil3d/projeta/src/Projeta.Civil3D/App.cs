@@ -15,6 +15,8 @@ using Projeta.Civil3D.Infra;
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdConformidade))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdPlato))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdCubacao))]
+[assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdGeo))]
+[assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdMapas))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdLongitudinal))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdSimulacao))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdModelador))]

@@ -26,8 +26,31 @@ internal static class UiUtil
         return f;
     }
 
+    /// <summary>FILEDIA = 0 (scripts, console): os nomes de arquivo são pedidos na linha de comando.</summary>
+    private static bool SemDialogo()
+    {
+        try { return Convert.ToInt32(Autodesk.AutoCAD.ApplicationServices.Core.Application.GetSystemVariable("FILEDIA")) == 0; }
+        catch { return false; }
+    }
+
+    private static string? PedirCaminho(string msg, string sugestao)
+    {
+        var o = new Autodesk.AutoCAD.EditorInput.PromptStringOptions($"\n{msg}{(sugestao.Length > 0 ? $" <{sugestao}>" : "")}: ") { AllowSpaces = true };
+        var r = Infra.Ctx.Ed.GetString(o);
+        if (r.Status != Autodesk.AutoCAD.EditorInput.PromptStatus.OK) return null;
+        var c = r.StringResult.Trim().Trim('"');
+        if (c.Length == 0) c = sugestao;
+        return c.Length == 0 ? null : c;
+    }
+
     public static string? SalvarArquivo(string filtro, string nomeSugerido)
     {
+        if (SemDialogo())
+        {
+            var p0 = Infra.Config.Atual.UltimaPasta;
+            if (string.IsNullOrEmpty(p0) || !Directory.Exists(p0)) p0 = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            return PedirCaminho("Arquivo para gravar", Path.Combine(p0, nomeSugerido));
+        }
         using var d = new SaveFileDialog { Filter = filtro, FileName = nomeSugerido, OverwritePrompt = true };
         var pasta = Infra.Config.Atual.UltimaPasta;
         if (!string.IsNullOrEmpty(pasta) && Directory.Exists(pasta)) d.InitialDirectory = pasta;
@@ -39,6 +62,12 @@ internal static class UiUtil
 
     public static string? AbrirArquivo(string filtro)
     {
+        if (SemDialogo())
+        {
+            var c = PedirCaminho("Arquivo para abrir", "");
+            if (c is not null && !File.Exists(c)) { Infra.Ctx.Msg("Arquivo não encontrado: " + c); return null; }
+            return c;
+        }
         using var d = new OpenFileDialog { Filter = filtro, CheckFileExists = true };
         var pasta = Infra.Config.Atual.UltimaPasta;
         if (!string.IsNullOrEmpty(pasta) && Directory.Exists(pasta)) d.InitialDirectory = pasta;

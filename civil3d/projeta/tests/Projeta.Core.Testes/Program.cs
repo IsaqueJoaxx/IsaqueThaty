@@ -857,6 +857,16 @@ Teste("cubação: áreas exatas por seção, áreas médias, compensação later
     Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join("; ", erros)}");
 });
 
+Console.WriteLine("== Geo (UTM, coordenadas, GeoTIFF, relevo, KML, faixas)");
+Teste("geo: UTM x PROJ, GMS, Helmert, GeoTIFF/LZW/GDAL, relevo, KML/KMZ, faixas de cota e declividade", () =>
+{
+    var erros = new List<string>();
+    int n = 0;
+    Projeta.Core.Testes.TestesGeo.Rodar((c, m) => { n++; if (!c) erros.Add(m); }, saida);
+    Console.WriteLine($"       {n} verificações");
+    Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
+});
+
 Console.WriteLine();
 Console.WriteLine($"Resultado: {ok} ok, {falhas} falha(s). Arquivos em {saida}");
 if (falhas > 0) { File.WriteAllLines(Path.Combine(saida, "falhas.log"), log); Environment.Exit(1); }

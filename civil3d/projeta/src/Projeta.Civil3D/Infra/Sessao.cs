@@ -123,7 +123,8 @@ internal sealed class Sessao : IDisposable
         if (itens.Count == 0) return -1;
         Ctx.Msg($"--- {titulo} ---");
         for (int i = 0; i < itens.Count; i++) Ctx.Msg($"  {i + 1}) {itens[i]}");
-        var pio = new PromptIntegerOptions($"\nNúmero [1-{itens.Count}] <{padrao + 1}>: ")
+        // o AutoCAD já acrescenta o "<padrão>" à mensagem quando UseDefaultValue está ligado
+        var pio = new PromptIntegerOptions($"\nNúmero [1-{itens.Count}]: ")
         {
             AllowNone = true, LowerLimit = 1, UpperLimit = itens.Count, DefaultValue = padrao + 1, UseDefaultValue = true,
         };
@@ -134,7 +135,7 @@ internal sealed class Sessao : IDisposable
 
     public double? PedirNumero(string msg, double padrao, bool permitirNegativo = false)
     {
-        var o = new PromptDoubleOptions($"\n{msg} <{padrao.ToString("0.###", Projeta.Core.Comum.Num.Br)}>: ")
+        var o = new PromptDoubleOptions($"\n{msg}: ")
         {
             AllowNone = true, DefaultValue = padrao, UseDefaultValue = true, AllowNegative = permitirNegativo, AllowZero = true,
         };
@@ -145,7 +146,7 @@ internal sealed class Sessao : IDisposable
 
     public string? PedirTexto(string msg, string padrao)
     {
-        var o = new PromptStringOptions($"\n{msg} <{padrao}>: ") { AllowSpaces = true, DefaultValue = padrao, UseDefaultValue = true };
+        var o = new PromptStringOptions($"\n{msg}: ") { AllowSpaces = true, DefaultValue = padrao, UseDefaultValue = true };
         var r = Ed.GetString(o);
         if (r.Status != PromptStatus.OK) return null;
         return string.IsNullOrWhiteSpace(r.StringResult) ? padrao : r.StringResult.Trim();
