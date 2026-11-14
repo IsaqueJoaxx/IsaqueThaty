@@ -27,6 +27,20 @@ internal static class TestesConexao
         Ok(Q(GeometriaIntersecao.DistanciaVisibilidade(40), 83.4, 1e-9), "visibilidade de cruzamento: 0,278 × 40 × 7,5 = 83,4 m");
         Ok(GeometriaIntersecao.SegmentoCortaCirculo((0, 0), (10, 0), (5, 1), 2) && !GeometriaIntersecao.SegmentoCortaCirculo((0, 0), (10, 0), (5, 3), 2), "visada cortando a esquina");
 
+        // faixa de conversão: Tabela 6 do DNIT (desaceleração até parar e teiper) e alargamento com teiper linear
+        Ok(GeometriaIntersecao.DesaceleracaoDnit(40) == (60, 40, 40) && GeometriaIntersecao.DesaceleracaoDnit(45) == (75, 45, 50)
+           && GeometriaIntersecao.DesaceleracaoDnit(30) == (60, 40, 40) && GeometriaIntersecao.DesaceleracaoDnit(130) == (200, 100, 120), "Tabela 6 do DNIT por velocidade");
+        Ok(Q(GeometriaIntersecao.MeiaLarguraAlargada(3.5, 3.6, 50, 40, 10), 5.3) && Q(GeometriaIntersecao.MeiaLarguraAlargada(3.5, 3.6, 50, 40, 70), 4.4)
+           && Q(GeometriaIntersecao.MeiaLarguraAlargada(3.5, 3.6, 50, 40, 95), 3.5), "alargamento da faixa de conversão com teiper");
+
+        // ilha canalizadora a 90°: bordos a 3,5 m, raio 25, pista de conversão de 5,4 m, afastamento 0,6 m
+        var ilha = GeometriaIntersecao.Ilha(0, Math.PI / 2, 3.5, 3.5, 25, 5.4, 0.6);
+        double ladoIlha = 24.4 - Math.Sqrt(30.4 * 30.4 - 24.4 * 24.4);
+        Ok(ilha is { Cabe: true } il && Q(il.Nariz.X, 4.1) && Q(il.Nariz.Y, 4.1) && Q(il.LadoA, ladoIlha, 1e-6) && Q(il.LadoB, ladoIlha, 1e-6)
+           && Q(il.Area, 17.715, 0.02) && Q(il.LadoArco, 30.4 * 2 * Math.Asin(ladoIlha * Math.Sqrt(2) / 2 / 30.4), 1e-6),
+           $"ilha canalizadora: área {ilha?.Area:0.000} m², lados {ilha?.LadoA:0.000} m");
+        Ok(GeometriaIntersecao.Ilha(0, Math.PI / 2, 3.5, 3.5, 10, 5.4, 0.6) is { Cabe: false }, "ilha que não cabe com raio de 10 m");
+
         // com afastamento de bordo (3 m em A e 4 m em B)
         var c2 = Conexao.Calcular(a, 105, -1, 3, b, 105, +1, 4, 10);
         Ok(c2 is not null && Q(c2.Centro.X, 14) && Q(c2.Centro.Y, 13) && Q(c2.TangenteA.X, 14) && Q(c2.TangenteA.Y, 3) && Q(c2.TangenteB.X, 4) && Q(c2.TangenteB.Y, 13),

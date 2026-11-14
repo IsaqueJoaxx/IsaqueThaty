@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Folha de conferência dos ícones da aba PROJETA, sem abrir o Civil 3D:
+       dotnet run -c Release (argumentos: PainelProjeta.cs e a imagem de saída) -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\projeta\src\Projeta.Civil3D\UI\IconesProjeta.cs" Link="IconesProjeta.cs" />
+  </ItemGroup>
+</Project>

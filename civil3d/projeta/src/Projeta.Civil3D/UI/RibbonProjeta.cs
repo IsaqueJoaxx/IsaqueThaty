@@ -17,17 +17,6 @@ internal static class RibbonProjeta
     private const string IdAba = "PROJETA_ABA_COMANDOS";
     private static bool _ligado;
 
-    private static readonly System.Windows.Media.Color[] Cores =
-    {
-        System.Windows.Media.Color.FromRgb(0x1F, 0x6F, 0xB2), System.Windows.Media.Color.FromRgb(0x2E, 0x8B, 0x57),
-        System.Windows.Media.Color.FromRgb(0xC2, 0x6A, 0x1B), System.Windows.Media.Color.FromRgb(0x7B, 0x4F, 0xA6),
-        System.Windows.Media.Color.FromRgb(0x0F, 0x8A, 0x8A), System.Windows.Media.Color.FromRgb(0xB0, 0x3A, 0x3A),
-        System.Windows.Media.Color.FromRgb(0x5D, 0x6D, 0x7E), System.Windows.Media.Color.FromRgb(0x8D, 0x6E, 0x2F),
-        System.Windows.Media.Color.FromRgb(0x2B, 0x5C, 0x8A), System.Windows.Media.Color.FromRgb(0x6A, 0x8E, 0x23),
-        System.Windows.Media.Color.FromRgb(0xA0, 0x40, 0x7A), System.Windows.Media.Color.FromRgb(0x3F, 0x51, 0xB5),
-        System.Windows.Media.Color.FromRgb(0x55, 0x55, 0x55), System.Windows.Media.Color.FromRgb(0x00, 0x79, 0x6B),
-    };
-
     /// <summary>Cria a aba agora, ou assim que a faixa de opções existir (o plugin carrega antes dela).</summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void Garantir()
@@ -64,7 +53,7 @@ internal static class RibbonProjeta
         for (int g = 0; g < grupos.Count; g++)
         {
             var (grupo, itens) = grupos[g];
-            var cor = Cores[g % Cores.Length];
+            var cor = IconesProjeta.CorDoGrupo(g);
             var fonte = new RibbonPanelSource { Title = grupo, Id = "PROJETA_" + g };
             if (itens.Length <= 3)
                 foreach (var (rotulo, cmd, dica) in itens) fonte.Items.Add(Botao(rotulo, cmd, dica, cor, grande: true));
@@ -111,11 +100,13 @@ internal static class RibbonProjeta
     }
 
     /// <summary>
-    /// Ícone quadrado na cor do grupo com a sigla: nos comandos do PROJETA, o começo do comando sem o PRJ (REL, CAS, ROT);
+    /// Ícone do comando: o desenho de <see cref="IconesProjeta"/> ou, se não houver, o quadrado na cor do grupo com a sigla: nos comandos do PROJETA, o começo do comando sem o PRJ (REL, CAS, ROT);
     /// nos de outros aplicativos, as iniciais do rótulo (Street View → SV) ou o começo dele.
     /// </summary>
     private static ImageSource Icone(string cmd, string rotulo, System.Windows.Media.Color cor, int px)
     {
+        var desenho = IconesProjeta.Criar(cmd, cor, px);
+        if (desenho is not null) return desenho;
         int n = px >= 32 ? 3 : 2;
         string sigla;
         if (cmd.StartsWith("PRJ", StringComparison.Ordinal)) sigla = cmd[3..];

@@ -126,7 +126,9 @@ internal static class CorredorProjeta
                     ap.FrequencyAlongProfileCurves = 5;
                 }
                 catch { }
-                try { Alvos(reg, t, superficie); }
+                string nomeMontagem = "";
+                try { nomeMontagem = ((Autodesk.Civil.DatabaseServices.Assembly)tr.GetObject(asmId, OpenMode.ForRead)).Name; } catch { }
+                try { Alvos(reg, t, superficie, nomeMontagem); }
                 catch (System.Exception e) { msgs.Add($"alvos da região {t.Montagem} de '{al.Name}': {e.Message}"); }
             }
         }
@@ -135,7 +137,7 @@ internal static class CorredorProjeta
         return msgs;
     }
 
-    private static void Alvos(BaselineRegion reg, TrechoCorredor t, ObjectId superficie)
+    private static void Alvos(BaselineRegion reg, TrechoCorredor t, ObjectId superficie, string nomeMontagem)
     {
         var tg = reg.GetTargets();
         bool mudou = false;
@@ -146,8 +148,7 @@ internal static class CorredorProjeta
                 ti.TargetIds = new ObjectIdCollection(new[] { superficie });
                 mudou = true;
             }
-            else if (ti.TargetType == SubassemblyLogicalNameType.Offset && t.AlvosLargura.Count > 0
-                     && (ti.SubassemblyName.Contains("Faixa", StringComparison.OrdinalIgnoreCase) || ti.SubassemblyName.Contains("Pista anelar", StringComparison.OrdinalIgnoreCase)))
+            else if (ti.TargetType == SubassemblyLogicalNameType.Offset && t.AlvosLargura.Count > 0 && EhFaixa(ti.SubassemblyName, nomeMontagem))
             {
                 ti.TargetIds = new ObjectIdCollection(t.AlvosLargura.ToArray());
                 if (t.AlvoMaisPerto) { ti.UseSameSideTarget = false; ti.TargetToOption = SubassemblyTargetToOption.Nearest; }
@@ -156,6 +157,18 @@ internal static class CorredorProjeta
             }
         }
         if (mudou) reg.SetTargets(tg);
+    }
+
+    /// <summary>
+    /// Se a peça é uma faixa (recebe o alvo de largura): olha só o nome da peça, tirando o da montagem do começo do nome
+    /// da subassembly ("{montagem} - {peça} (D)"). O nome da montagem pode ter "faixas" ("Pista só faixas com meio-fio...")
+    /// e não pode puxar o alvo para o meio-fio e o passeio.
+    /// </summary>
+    private static bool EhFaixa(string nomeSubassembly, string nomeMontagem)
+    {
+        string peca = nomeMontagem.Length > 0 && nomeSubassembly.StartsWith(nomeMontagem + " - ", StringComparison.OrdinalIgnoreCase)
+            ? nomeSubassembly[(nomeMontagem.Length + 3)..] : nomeSubassembly;
+        return peca.Contains("Faixa", StringComparison.OrdinalIgnoreCase) || peca.Contains("Pista anelar", StringComparison.OrdinalIgnoreCase);
     }
 
     private static string Unico(IEnumerable<string> usados, string nome)

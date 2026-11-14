@@ -195,7 +195,8 @@ internal static class MontagensRotatoria
     /// pista só com as faixas (dentro da interseção, onde o meio-fio é o das esquinas); e a esquina (meio-fio no eixo da
     /// curva, passeio para fora, faixa até o bordo das vias).
     /// </summary>
-    public static List<Definicao> DefinirIntersecao(ConfigRotatoria c, IEnumerable<(string Eixo, double MeiaLargura)> eixos)
+    public static List<Definicao> DefinirIntersecao(ConfigRotatoria c, IEnumerable<(string Eixo, double MeiaLargura)> eixos, bool canalizada = false,
+        (string Eixo, double MeiaLargura, string Lado)? continuo = null)
     {
         double cai = c.Caimento;
         List<Peca> ComMeioFio(Peca faixa) => new() { faixa, MeioFio(c), Passeio(c), Talude(c) };
@@ -209,6 +210,15 @@ internal static class MontagensRotatoria
                 $"'{eixo}' dentro da interseção (o meio-fio ali é o das esquinas)",
                 new List<Peca> { Faixa("Faixa", w, cai, c) }, new List<Peca> { Faixa("Faixa", w, cai, c) }));
         }
+        if (continuo is { } ct)
+        {
+            bool dir = ct.Lado == "direita";
+            var mf = ComMeioFio(Faixa("Faixa", ct.MeiaLargura, cai, c));
+            var so = new List<Peca> { Faixa("Faixa", ct.MeiaLargura, cai, c) };
+            defs.Add(new($"Pista só faixas com meio-fio à {ct.Lado} - {ct.Eixo}", AssemblyType.UndividedCrownedRoad,
+                $"'{ct.Eixo}' dentro da interseção em T: faixas dos dois lados; meio-fio, passeio e talude só à {ct.Lado} (o lado sem via transversal)",
+                dir ? mf : so, dir ? so : mf));
+        }
         foreach (var (lado, direita) in new[] { ("direita", true), ("esquerda", false) })
         {
             var fora = new List<Peca> { MeioFio(c), Passeio(c), Talude(c) };
@@ -216,9 +226,27 @@ internal static class MontagensRotatoria
             defs.Add(new($"Esquina - passeio à {lado}", AssemblyType.Other,
                 $"eixo da esquina (no bordo da pista): meio-fio, passeio e talude à {lado}, faixa até o bordo das vias (alvo mais perto)",
                 direita ? fora : dentro, direita ? dentro : fora));
+            if (!canalizada) continue;
+            var giro = new List<Peca> { Faixa("Faixa do giro até a ilha", c.CanalLargura, -cai, c), MeioFioIlhaCanal(c) };
+            defs.Add(new($"Esquina canalizada - passeio à {lado}", AssemblyType.Other,
+                $"eixo da esquina no trecho da ilha canalizadora: meio-fio, passeio e talude à {lado}; do outro lado a pista de conversão até a ilha (alvo no contorno da ilha) e o meio-fio da ilha",
+                direita ? MeioFioPasseioTalude(c) : giro, direita ? giro : MeioFioPasseioTalude(c)));
         }
         return defs;
     }
+
+    private static List<Peca> MeioFioPasseioTalude(ConfigRotatoria c) => new() { MeioFio(c), Passeio(c), Talude(c) };
+
+    /// <summary>Meio-fio da ilha canalizadora, encostado pela face no bordo da pista de conversão.</summary>
+    private static Peca MeioFioIlhaCanal(ConfigRotatoria c) =>
+        new("BasicCurb", "Meio-fio da ilha canalizadora", sa =>
+        {
+            L(sa, "AttachmentPoint", 1);     // Front
+            D(sa, "Width", c.MeioFioLargura);
+            D(sa, "Depth", c.MeioFioProfundidade);
+            D(sa, "DepthBelow", Math.Max(0, c.MeioFioProfundidade - c.MeioFioAltura));
+            D(sa, "BackHeight", 0);
+        });
 
     /// <summary>Cria as montagens lado a lado a partir de <paramref name="origem"/> (uma a cada <paramref name="passo"/> m em X).</summary>
     public static List<Criada> Criar(CivilDocument civ, Transaction tr, string prefixo, IReadOnlyList<Definicao> defs, Point3d origem, double passo, List<string> avisos)

@@ -238,6 +238,21 @@ internal sealed class ConfigRotatoria
     public double RaioEsquina { get; set; } = 12;
     public double VelPrincipal { get; set; } = 40;
     public bool IntersecaoParametrosDoUsuario { get; set; }
+    /// <summary>Faixa de conversão à esquerda na via principal: largura (DNIT 2024, Manual de Acessos, p. 47: 3,60 m) e armazenamento.</summary>
+    public double ConvLargura { get; set; } = 3.6;
+    public double ConvArmazenamento { get; set; } = 15;
+    /// <summary>Desaceleração e teiper da faixa de conversão; 0 = pela Tabela 6 do Manual de Acessos (DNIT 2024) e a V da principal.</summary>
+    public double ConvDesaceleracao { get; set; } = 0;
+    public double ConvTeiper { get; set; } = 0;
+    /// <summary>Ilha canalizadora (giro à direita): raio do bordo interno da pista de conversão, largura dela e afastamento da ilha.</summary>
+    public double CanalRaio { get; set; } = 25;
+    public double CanalLargura { get; set; } = 5.4;
+    public double CanalRecuo { get; set; } = 0.6;
+    /// <summary>Área e lado mínimos da ilha (AASHTO: 50 ft² urbano, 75 ft² rural; lados de 12 ft depois de arredondar).</summary>
+    public double CanalAreaMin { get; set; } = 4.6;
+    public double CanalLadoMin { get; set; } = 3.6;
+    /// <summary>Os parâmetros da faixa de conversão e da ilha já passaram pelo usuário.</summary>
+    public bool IntersecaoExtrasDoUsuario { get; set; }
     // montagens do corredor (subassemblies padrão do Civil)
     public bool Montagens { get; set; } = true;
     public double Revestimento { get; set; } = 0.05;

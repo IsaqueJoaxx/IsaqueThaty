@@ -26,8 +26,13 @@ public sealed partial class CmdRotatoria
     internal const string LayerIntersecaoBordo = "PRJ-INTERSECAO-BORDO";
     internal const string LayerIntersecaoVisib = "PRJ-INTERSECAO-VISIBILIDADE";
     internal const string LayerIntersecaoMont = "PRJ-INTERSECAO-MONTAGENS";
+    internal const string LayerIntersecaoConv = "PRJ-INTERSECAO-CONVERSAO";
+    internal const string LayerIntersecaoIlha = "PRJ-INTERSECAO-ILHA";
 
     private const double AnguloMinimoIntersecao = 60, RampaAproximacaoMax = 0.03, ComprimentoAproximacao = 20, TrechoForaIntersecao = 30;
+
+    /// <summary>Linha de retenção da faixa de conversão: a 1 m do bordo da via transversal [PREMISSA].</summary>
+    private const double RetencaoConversao = 1.0;
 
     [CommandMethod("PRJINTERSECAO", CommandFlags.Modal)]
     public static void Intersecao()
@@ -155,12 +160,56 @@ public sealed partial class CmdRotatoria
                 principal = ordem[k];
             }
             double wP = w[principal.ObjectId];
+            var principaisIdx = Enumerable.Range(0, n).Where(i => bracos[i].Eixo.ObjectId == principal.ObjectId).ToList();
+            var secundariosIdx = Enumerable.Range(0, n).Where(i => bracos[i].Eixo.ObjectId != principal.ObjectId).ToList();
+
+            // faixa de conversão à esquerda: nas aproximações da principal que têm via secundária à esquerda de quem chega
+            var temConversao = new bool[n];
+            foreach (int i in principaisIdx)
+                temConversao[i] = secundariosIdx.Any(k => GeometriaIntersecao.AnguloAntiHorario(bracos[k].Angulo, bracos[i].Angulo) is var d
+                                                          && d > 10 * Math.PI / 180 && d < 170 * Math.PI / 180);
+            bool conversao = false;
+            double convDes = 0, convTeiper = 0;
+            int vTabela = 0;
+            if (temConversao.Any(x => x))
+            {
+                var r = s.PedirPalavra("Faixa de conversão à esquerda na via principal", new[] { "Sim", "Nao" }, "Nao");
+                if (r is null) return;
+                conversao = r == "Sim";
+                (convDes, convTeiper, vTabela) = GeometriaIntersecao.DesaceleracaoDnit(cfg.VelPrincipal);
+                if (cfg.ConvDesaceleracao > 0) convDes = cfg.ConvDesaceleracao;
+                if (cfg.ConvTeiper > 0) convTeiper = cfg.ConvTeiper;
+            }
+            double alarg = conversao ? cfg.ConvLargura : 0;
+            // meia largura junto do centro: na principal, com metade do alargamento de cada lado
+            double W0(int i) => w[bracos[i].Eixo.ObjectId] + (bracos[i].Eixo.ObjectId == principal.ObjectId ? alarg / 2 : 0);
+
+            // interseção em T: o lado da principal sem via transversal tem meio-fio contínuo (direita/esquerda do sentido do eixo)
+            string? ladoContinuo = null;
+            if (principaisIdx.Count >= 2 && secundariosIdx.Count > 0)
+            {
+                var (pdx, pdy) = RotatoriaCivil.Direcao(principal, RotatoriaCivil.EstacaPerto(principal, o));
+                double Lado(int k) => pdx * Math.Sin(bracos[k].Angulo) - pdy * Math.Cos(bracos[k].Angulo);   // + = à esquerda do eixo
+                bool aEsquerda = secundariosIdx.Any(k => Lado(k) > 0.1), aDireita = secundariosIdx.Any(k => Lado(k) < -0.1);
+                ladoContinuo = !aDireita ? "direita" : !aEsquerda ? "esquerda" : null;
+            }
+
+            // ilha canalizadora nas esquinas (giro à direita com pista de conversão)
+            string modoIlha = "Nao";
+            {
+                var r = s.PedirPalavra($"Ilha canalizadora nas esquinas (giro à direita: bordo interno R {cfg.CanalRaio:0.##} m, pista de {cfg.CanalLargura:0.##} m)",
+                                       new[] { "Nao", "Todas", "Escolher" }, "Nao");
+                if (r is null) return;
+                modoIlha = r;
+            }
 
             string prefixo = PrefixoIntersecao(s.Tr, civ);
             var ms = Ctx.EspacoModelo(s.Tr, s.Db);
 
             // esquinas: curva de raio R tangente ao bordo anti-horário do braço i e ao bordo horário do braço seguinte
             var esquinas = new List<(int I, int J, Conectada? C, double Alfa)>();
+            var raios = new List<double>();
+            var ilhas = new List<IlhaCanalizadora?>();
             for (int i = 0; i < n; i++)
             {
                 int j = (i + 1) % n;
@@ -170,14 +219,25 @@ public sealed partial class CmdRotatoria
                 double alfa = GeometriaIntersecao.AnguloAntiHorario(bi.Angulo, bj.Angulo);
                 if (n == 2 && alfa > Math.PI) { (bi, bj) = (bj, bi); (i, j) = (1, 0); alfa = 2 * Math.PI - alfa; }
                 if (bi.Eixo.ObjectId == bj.Eixo.ObjectId || alfa >= 175 * Math.PI / 180 || alfa < 10 * Math.PI / 180) { if (n == 2) break; continue; }
-                double wi = w[bi.Eixo.ObjectId], wj = w[bj.Eixo.ObjectId];
-                if (GeometriaIntersecao.CentroEsquina(bi.Angulo, bj.Angulo, wi, wj, cfg.RaioEsquina) is not { } cc) continue;
+                double wi = W0(i), wj = W0(j);
+                bool comIlha = modoIlha == "Todas";
+                if (modoIlha == "Escolher")
+                {
+                    var r = s.PedirPalavra($"Ilha canalizadora na esquina {bi.Rumo}-{bj.Rumo}", new[] { "Sim", "Nao" }, "Sim");
+                    if (r is null) return;
+                    comIlha = r == "Sim";
+                }
+                double raio = comIlha ? cfg.CanalRaio : cfg.RaioEsquina;
+                if (GeometriaIntersecao.CentroEsquina(bi.Angulo, bj.Angulo, wi, wj, raio) is not { } cc) continue;
                 var centro = new Point3d(o.X + cc.X, o.Y + cc.Y, 0);
                 var pA = RotatoriaCivil.Ponto(bi.Eixo, RotatoriaCivil.EstacaPerto(bi.Eixo, centro), 0);
                 var pB = RotatoriaCivil.Ponto(bj.Eixo, RotatoriaCivil.EstacaPerto(bj.Eixo, centro), 0);
-                var feito = Conectar(s, cfg, bi.Eixo.ObjectId, pA, bj.Eixo.ObjectId, pB, cfg.RaioEsquina, $"{prefixo} - esquina {bi.Rumo}-{bj.Rumo}", wi, wj);
-                if (feito is null) avisos.Add($"Esquina {bi.Rumo}-{bj.Rumo}: o raio de {cfg.RaioEsquina:0.##} m não coube entre '{bi.Eixo.Name}' e '{bj.Eixo.Name}'.");
+                var feito = Conectar(s, cfg, bi.Eixo.ObjectId, pA, bj.Eixo.ObjectId, pB, raio, $"{prefixo} - esquina {bi.Rumo}-{bj.Rumo}", wi, wj);
+                if (feito is null) avisos.Add($"Esquina {bi.Rumo}-{bj.Rumo}: o raio de {raio:0.##} m não coube entre '{bi.Eixo.Name}' e '{bj.Eixo.Name}'.");
                 esquinas.Add((i, j, feito, alfa));
+                raios.Add(raio);
+                ilhas.Add(comIlha && feito is not null && GeometriaIntersecao.Ilha(bi.Angulo, bj.Angulo, wi, wj, raio, cfg.CanalLargura, cfg.CanalRecuo) is { } il
+                    ? il with { Entre = $"{bi.Rumo}-{bj.Rumo}" } : null);
                 if (n == 2) break;
             }
 
@@ -195,7 +255,19 @@ public sealed partial class CmdRotatoria
                 tang[j] = Math.Max(tang[j], Math.Sqrt(Math.Pow(c.C.TangenteB.X - o.X, 2) + Math.Pow(c.C.TangenteB.Y - o.Y, 2)));
             }
 
-            // bordos de cada braço (do centro até 30 m depois da esquina): desenho e alvo de largura das esquinas
+            // alargamento da principal: largura plena até o fim do armazenamento e da desaceleração (aproximação com conversão) ou
+            // até a esquina (o braço do outro lado do T: transição de saída), depois o teiper
+            var dPlena = new double[n];
+            double dRetencao = (secundariosIdx.Count > 0 ? secundariosIdx.Max(k => w[bracos[k].Eixo.ObjectId]) : 0) + RetencaoConversao;
+            if (conversao)
+                foreach (int i in principaisIdx)
+                    dPlena[i] = temConversao[i] ? Math.Max(tang[i], dRetencao + cfg.ConvArmazenamento + convDes) : tang[i];
+            bool alargado(int i) => conversao && bracos[i].Eixo.ObjectId == principal.ObjectId;
+            // até onde vão os bordos e as regiões da interseção em cada braço (distância do centro)
+            var alcance = new double[n];
+            for (int i = 0; i < n; i++) alcance[i] = Math.Max(tang[i] + TrechoForaIntersecao, alargado(i) ? dPlena[i] + convTeiper + 10 : 0);
+
+            // bordos de cada braço (do centro até 30 m depois da esquina ou do teiper): desenho e alvo de largura
             var layB = Ctx.GarantirLayer(s.Tr, s.Db, LayerIntersecaoBordo, 30);
             var bordos = new List<ObjectId>[n];
             var sCentro = new double[n];
@@ -204,7 +276,7 @@ public sealed partial class CmdRotatoria
                 var b = bracos[i];
                 bordos[i] = new List<ObjectId>();
                 sCentro[i] = RotatoriaCivil.EstacaPerto(b.Eixo, o);
-                double sFim = EstacaNaDistancia(b, sCentro[i], o, tang[i] + TrechoForaIntersecao);
+                double sFim = EstacaNaDistancia(b, sCentro[i], o, alcance[i]);
                 double wi = w[b.Eixo.ObjectId];
                 foreach (int lado in new[] { +1, -1 })
                 {
@@ -213,12 +285,82 @@ public sealed partial class CmdRotatoria
                     for (int k = 0; k <= m; k++)
                     {
                         double st = sCentro[i] + (sFim - sCentro[i]) * k / m;
-                        var p = RotatoriaCivil.Ponto(b.Eixo, st, lado * wi);
+                        double wk = alargado(i) ? GeometriaIntersecao.MeiaLarguraAlargada(wi, alarg, dPlena[i], convTeiper, Math.Abs(st - sCentro[i])) : wi;
+                        var p = RotatoriaCivil.Ponto(b.Eixo, st, lado * wk);
                         pts.Add((p.X, p.Y));
                     }
                     var id = Desenhar(s, ms, pts, false, layB, 256);
                     if (!id.IsNull) bordos[i].Add(id);
                 }
+            }
+
+            // faixa de conversão: contorno (centrada no eixo, da retenção ao fim do teiper) e o resumo de cada braço alargado
+            var conversoes = new List<ConversaoIntersecao>();
+            if (conversao)
+            {
+                var layC = Ctx.GarantirLayer(s.Tr, s.Db, LayerIntersecaoConv, 4);
+                foreach (int i in principaisIdx)
+                {
+                    var b = bracos[i];
+                    double lim = b.SentidoFora > 0 ? b.Eixo.EndingStation : b.Eixo.StartingStation;
+                    double St(double d) => b.SentidoFora > 0 ? Math.Min(lim, sCentro[i] + d) : Math.Max(lim, sCentro[i] - d);
+                    double dFim = dPlena[i] + convTeiper;
+                    double falta = dFim - Math.Abs(lim - sCentro[i]);
+                    if (falta > 0.01)
+                        avisos.Add($"Faixa de conversão: '{b.Eixo.Name}' acaba {falta:0.0} m antes do fim do teiper do braço {b.Rumo}; o alargamento ficou cortado na ponta do eixo.");
+                    if (!temConversao[i])
+                    {
+                        conversoes.Add(new ConversaoIntersecao(b.Rumo, b.Eixo.Name, "transição de saída (sem conversão à esquerda neste braço)", alarg, 0, 0, convTeiper,
+                            dPlena[i], RotatoriaCivil.Est(sCentro[i]), RotatoriaCivil.Est(St(dFim))));
+                        continue;
+                    }
+                    var cont = new List<(double X, double Y)>();
+                    int m = Math.Max(4, (int)Math.Ceiling((dFim - dRetencao) / 2));
+                    for (int k = 0; k <= m; k++)
+                    {
+                        double d = dRetencao + (dFim - dRetencao) * k / m;
+                        var p = RotatoriaCivil.Ponto(b.Eixo, St(d), GeometriaIntersecao.MeiaLarguraAlargada(0, alarg, dPlena[i], convTeiper, d));
+                        cont.Add((p.X, p.Y));
+                    }
+                    for (int k = m; k >= 0; k--)
+                    {
+                        double d = dRetencao + (dFim - dRetencao) * k / m;
+                        var p = RotatoriaCivil.Ponto(b.Eixo, St(d), -GeometriaIntersecao.MeiaLarguraAlargada(0, alarg, dPlena[i], convTeiper, d));
+                        cont.Add((p.X, p.Y));
+                    }
+                    Desenhar(s, ms, cont, true, layC, 4);
+                    double dMeio = (dRetencao + dPlena[i]) / 2;
+                    var (tx0, ty0) = RotatoriaCivil.Direcao(b.Eixo, St(dMeio));
+                    double giroTx = Math.Atan2(ty0, tx0);
+                    if (giroTx > Math.PI / 2) giroTx -= Math.PI; else if (giroTx < -Math.PI / 2) giroTx += Math.PI;
+                    var tc = Ctx.Texto($"conversão à esquerda: {cfg.ConvArmazenamento:0} + {convDes:0} m, teiper {convTeiper:0} m",
+                                       RotatoriaCivil.Ponto(b.Eixo, St(dMeio), 0), 0.6, giroTx, AttachmentPoint.MiddleCenter);
+                    tc.Layer = layC;
+                    Ctx.Adicionar(s.Tr, ms, tc);
+                    conversoes.Add(new ConversaoIntersecao(b.Rumo, b.Eixo.Name, "faixa de conversão à esquerda (aproximação)", alarg, cfg.ConvArmazenamento, convDes, convTeiper,
+                        dPlena[i], RotatoriaCivil.Est(St(dRetencao)), RotatoriaCivil.Est(St(dFim))));
+                }
+            }
+
+            // ilhas canalizadoras: contorno da ilha e bordo da pista de conversão do lado da ilha
+            var ilhaIds = new List<ObjectId>();
+            var layI = ilhas.Any(x => x is not null) ? Ctx.GarantirLayer(s.Tr, s.Db, LayerIntersecaoIlha, 3) : "";
+            foreach (var ilha in ilhas)
+            {
+                var idIlha = ObjectId.Null;
+                if (ilha is not null)
+                {
+                    if (ilha.BordoGiro.Count > 1) Desenhar(s, ms, ilha.BordoGiro.Select(p => (o.X + p.X, o.Y + p.Y)).ToList(), false, layI, 3);
+                    if (ilha.Cabe)
+                    {
+                        idIlha = Desenhar(s, ms, ilha.Contorno.Select(p => (o.X + p.X, o.Y + p.Y)).ToList(), true, layI, 3);
+                        double gx = ilha.Contorno.Average(p => p.X), gy = ilha.Contorno.Average(p => p.Y);
+                        var ti = Ctx.Texto($"ilha {ilha.Area:0.0} m²", new Point3d(o.X + gx, o.Y + gy, 0), 0.5, 0, AttachmentPoint.MiddleCenter);
+                        ti.Layer = layI;
+                        Ctx.Adicionar(s.Tr, ms, ti);
+                    }
+                }
+                ilhaIds.Add(idIlha);
             }
 
             // visibilidade das aproximações com PARE (as das vias que não são a principal)
@@ -231,7 +373,7 @@ public sealed partial class CmdRotatoria
                 if (bracos[i].Eixo.ObjectId == principal.ObjectId || bracosPrincipais.Count == 0) continue;
                 var b = bracos[i];
                 double wi = w[b.Eixo.ObjectId];
-                double s0 = EstacaNaDistancia(b, sCentro[i], o, wP + GeometriaIntersecao.RecuoMotorista);
+                double s0 = EstacaNaDistancia(b, sCentro[i], o, wP + alarg / 2 + GeometriaIntersecao.RecuoMotorista);
                 var p0 = RotatoriaCivil.Ponto(b.Eixo, s0, 0);
                 var (dx, dy) = RotatoriaCivil.Direcao(b.Eixo, s0);
                 dx *= b.SentidoFora; dy *= b.SentidoFora;
@@ -297,6 +439,34 @@ public sealed partial class CmdRotatoria
                     ? new Verificacao("Esquina", $"{bracos[i].Rumo}-{bracos[j].Rumo}", $"o raio de {cfg.RaioEsquina:0.##} m não coube", "a curva cabe entre os bordos", "geometria", VerificacaoRotatoria.Reprovado)
                     : new Verificacao("Esquina", $"{bracos[i].Rumo}-{bracos[j].Rumo}", $"R {c.C.Raio:0.00} m, {c.C.Desenvolvimento:0.00} m de curva, ângulo {alfa * 180 / Math.PI:0.0}°{(c.ComGreide ? "" : ", sem greide")}",
                         "giro do veículo de projeto", "conferir com o PROJETA Giro (GIROSEGUIR / GIROVERIFICAR) [A CONFIRMAR]", VerificacaoRotatoria.Informativo));
+            foreach (var il in ilhas)
+            {
+                if (il is null) continue;
+                string onde = $"esquina {il.Entre}";
+                if (!il.Cabe)
+                {
+                    verif.Add(new Verificacao("Ilha canalizadora", onde, $"não cabe: pista de conversão de {il.LarguraGiro:0.00} m com bordo interno de raio {il.RaioGiro:0.##} m encosta nos bordos das vias",
+                        "a ilha cabe entre a pista de conversão e os bordos das vias", "geometria: aumente o raio ou diminua a largura da pista de conversão (Parametros)", VerificacaoRotatoria.Reprovado));
+                    continue;
+                }
+                verif.Add(new Verificacao("Ilha canalizadora - área", onde, $"{il.Area:0.00} m²", $"≥ {cfg.CanalAreaMin:0.0} m²",
+                    "AASHTO Green Book (50 ft² urbano, 75 ft² rural, 100 ft² preferível) — referência complementar [A CONFIRMAR]",
+                    il.Area >= cfg.CanalAreaMin - 1e-9 ? VerificacaoRotatoria.Aprovado : VerificacaoRotatoria.Reprovado));
+                double ladoMin = Math.Min(Math.Min(il.LadoA, il.LadoB), il.LadoArco);
+                verif.Add(new Verificacao("Ilha canalizadora - lados", onde, $"{il.LadoA:0.00} / {il.LadoB:0.00} / {il.LadoArco:0.00} m (vértices sem arredondar)", $"≥ {cfg.CanalLadoMin:0.0} m",
+                    "AASHTO Green Book (12 ft depois de arredondar os vértices com 0,3 a 0,6 m) — referência complementar [A CONFIRMAR]",
+                    ladoMin >= cfg.CanalLadoMin - 1e-9 ? VerificacaoRotatoria.Aprovado : VerificacaoRotatoria.Reprovado));
+                verif.Add(new Verificacao("Pista de conversão à direita", onde, $"largura {il.LarguraGiro:0.00} m, bordo interno R {il.RaioGiro:0.##} m, ilha afastada {il.Recuo:0.00} m dos bordos",
+                    "giro do veículo de projeto", "DNIT (2024), Manual de Projeto de Acessos, Tabela 10 (90°: pista de 4,2 / 5,4 / 6,0 m nas classes A / B / C) e p. 41 (afastamento de 0,60 m); conferir com o PROJETA Giro [A CONFIRMAR]",
+                    VerificacaoRotatoria.Informativo));
+            }
+            string fonteConv = (cfg.ConvDesaceleracao > 0 || cfg.ConvTeiper > 0 ? "desaceleração / teiper informados pelo usuário" : $"DNIT (2024), Manual de Projeto de Acessos, Tabela 6 (V {vTabela} km/h, desaceleração até a parada; usada por analogia na conversão à esquerda) [A CONFIRMAR]")
+                + $"; largura {(cfg.IntersecaoExtrasDoUsuario ? "informada pelo usuário" : "DNIT (2024), p. 47 (faixa de giro de 3,60 m)")}; armazenamento {(cfg.IntersecaoExtrasDoUsuario ? "informado pelo usuário" : "[PREMISSA] 2 veículos de 7,5 m, sem estudo de tráfego")}";
+            foreach (var cv in conversoes)
+                verif.Add(new Verificacao("Faixa de conversão à esquerda", $"{cv.Braco} ({cv.Eixo})",
+                    cv.Armazenamento > 0 ? $"largura {cv.Largura:0.00} m; armazenamento {cv.Armazenamento:0.0} + desaceleração {cv.Desaceleracao:0.0} m; teiper {cv.Teiper:0.0} m (est. {cv.Inicio} a {cv.Fim})"
+                                         : $"transição de saída: largura plena até {cv.DistanciaPlena:0.0} m do centro, teiper {cv.Teiper:0.0} m (até a est. {cv.Fim})",
+                    "comprimentos da tabela e armazenamento pela fila do estudo de tráfego", fonteConv, VerificacaoRotatoria.Informativo));
             foreach (var v in visadas)
                 verif.Add(new Verificacao("Visibilidade de cruzamento (aproximação com PARE)", v.Aproximacao, $"{v.Distancia:0.0} m ao longo da via principal; {v.Situacao}",
                     "triângulo livre de obstáculos", $"d = 0,278·V·tg, V {v.Velocidade:0} km/h, tg {v.Tempo:0.0} s (AASHTO, caso B1) — referência complementar [A CONFIRMAR]",
@@ -310,7 +480,8 @@ public sealed partial class CmdRotatoria
             int regioes = 0;
             if (cfg.Montagens)
             {
-                var defs = MontagensRotatoria.DefinirIntersecao(cfg, distintos.Select(a => (a.Name, w[a.ObjectId])));
+                var defs = MontagensRotatoria.DefinirIntersecao(cfg, distintos.Select(a => (a.Name, w[a.ObjectId])), canalizada: ilhaIds.Any(id => !id.IsNull),
+                    continuo: ladoContinuo is null ? null : (principal.Name, wP, ladoContinuo));
                 const double passo = 40;
                 var org = new Point3d(o.X - (defs.Count - 1) * passo / 2, o.Y - rBusca - 80, 0);
                 montagens = MontagensRotatoria.Criar(civ, s.Tr, prefixo, defs, org, passo, avisos);
@@ -321,7 +492,7 @@ public sealed partial class CmdRotatoria
                     tm.Layer = layM;
                     Ctx.Adicionar(s.Tr, ms, tm);
                 }
-                trechos = TrechosIntersecao(s, o, bracos, sCentro, tang, wP, principal, esquinas, ladoEsquina, bordos);
+                trechos = TrechosIntersecao(s, o, bracos, sCentro, tang, wP + alarg / 2, principal, esquinas, ladoEsquina, bordos, alcance, conversao, ilhas, ilhaIds, ladoContinuo);
                 if (CorredorProjeta.Escolher(s, civ, prefixo) is { } corrId)
                 {
                     var sup = CorredorProjeta.Superficie(s);
@@ -341,7 +512,14 @@ public sealed partial class CmdRotatoria
 
             // mensagens
             string premissa = cfg.IntersecaoParametrosDoUsuario ? "" : " [PREMISSA: valores de partida, troque em Parametros]";
-            Ctx.Msg($"{prefixo} criada no centro ({o.X:0.000}; {o.Y:0.000}) — {origemCentro}: {n} braços, via principal '{principal.Name}', raio de esquina {cfg.RaioEsquina:0.##} m, V da principal {cfg.VelPrincipal:0} km/h{premissa}.");
+            Ctx.Msg($"{prefixo} criada no centro ({o.X:0.000}; {o.Y:0.000}) — {origemCentro}: {n} braços, via principal '{principal.Name}', raio de esquina {cfg.RaioEsquina:0.##} m" + (ilhas.Any(x => x is not null) ? $" ({cfg.CanalRaio:0.##} m nas esquinas canalizadas)" : "") + $", V da principal {cfg.VelPrincipal:0} km/h{premissa}.");
+            foreach (var cv in conversoes)
+                Ctx.Msg(cv.Armazenamento > 0
+                    ? $"  conversão à esquerda no braço {cv.Braco}: faixa de {cv.Largura:0.00} m, armazenamento {cv.Armazenamento:0} m + desaceleração {cv.Desaceleracao:0} m + teiper {cv.Teiper:0} m (est. {cv.Inicio} a {cv.Fim})"
+                    : $"  braço {cv.Braco}: só a transição de saída do alargamento (teiper {cv.Teiper:0} m até a est. {cv.Fim})");
+            foreach (var il in ilhas.Where(x => x is not null))
+                Ctx.Msg(il!.Cabe ? $"  ilha canalizadora {il.Entre}: {il.Area:0.0} m², lados {il.LadoA:0.0} / {il.LadoB:0.0} / {il.LadoArco:0.0} m, pista de conversão {il.LarguraGiro:0.0} m com bordo interno R {il.RaioGiro:0.##} m"
+                                 : $"  ilha canalizadora {il.Entre}: NÃO coube (aumente o raio ou diminua a largura da pista de conversão)");
             foreach (var b in bracos) Ctx.Msg($"  braço {b.Rumo,-2} '{b.Eixo.Name}' (meia largura {w[b.Eixo.ObjectId]:0.00} m)");
             foreach (var (i, j, c, alfa) in esquinas)
                 Ctx.Msg($"  esquina {bracos[i].Rumo}-{bracos[j].Rumo} ({alfa * 180 / Math.PI:0.0}°): " + (c is null ? "NÃO coube" : $"R {c.C.Raio:0.##} m, {c.C.Desenvolvimento:0.00} m{(c.ComGreide ? ", greide casando com os dois" : ", sem greide")}"));
@@ -361,7 +539,8 @@ public sealed partial class CmdRotatoria
                 foreach (var m in msgsCorredor) Ctx.Msg("  corredor: " + m);
             }
             foreach (var a in avisos) Ctx.Msg("AVISO: " + a);
-            Ctx.Msg($"Desenho nas camadas {LayerIntersecaoBordo} (bordos) e {LayerIntersecaoVisib} (visadas). Confira com PRJCASAMENTO › Varios. U desfaz a interseção inteira.");
+            Ctx.Msg($"Desenho nas camadas {LayerIntersecaoBordo} (bordos), {LayerIntersecaoVisib} (visadas)" + (conversoes.Count > 0 ? $", {LayerIntersecaoConv} (faixa de conversão)" : "")
+                    + (ilhas.Any(x => x is not null) ? $", {LayerIntersecaoIlha} (ilhas)" : "") + ". Confira com PRJCASAMENTO › Varios. U desfaz a interseção inteira.");
 
             // relatório
             var rel = new RelatorioIntersecao { Titulo = prefixo, Desenho = s.Doc.Name, Ox = o.X, Oy = o.Y, Principal = principal.Name };
@@ -375,14 +554,18 @@ public sealed partial class CmdRotatoria
             {
                 var (i, j, c, alfa) = esquinas[e];
                 string lado = c is null ? "-" : ladoEsquina[e];
-                rel.Esquinas.Add(new EsquinaIntersecao(c?.Nome ?? $"{prefixo} - esquina {bracos[i].Rumo}-{bracos[j].Rumo}", $"{bracos[i].Rumo}-{bracos[j].Rumo}", cfg.RaioEsquina, c?.C.Desenvolvimento, alfa * 180 / Math.PI, lado, c?.ComGreide ?? false, c is not null));
+                rel.Esquinas.Add(new EsquinaIntersecao(c?.Nome ?? $"{prefixo} - esquina {bracos[i].Rumo}-{bracos[j].Rumo}", $"{bracos[i].Rumo}-{bracos[j].Rumo}" + (ilhas[e] is not null ? " (canalizada)" : ""),
+                    raios[e], c?.C.Desenvolvimento, alfa * 180 / Math.PI, lado, c?.ComGreide ?? false, c is not null));
             }
             rel.Visadas.AddRange(visadas);
+            rel.Conversoes.AddRange(conversoes);
+            rel.Ilhas.AddRange(ilhas.Where(x => x is not null)!);
+            rel.Parametros.AddRange(ParametrosExtras(cfg, conversoes.Count > 0, convDes, convTeiper, vTabela, ilhas.Any(x => x is not null), dRetencao));
             rel.Verificacoes.AddRange(verif);
             rel.Corredor.AddRange(trechos.Select(t => new RegiaoCorredor(t.Eixo, t.De, t.Ate, $"{prefixo} - {t.Montagem}", t.Obs)));
             rel.Montagens.AddRange(montagens.Select(m => $"{m.Nome}: {m.Uso}"));
             rel.Avisos.AddRange(avisos);
-            rel.Pendencias.AddRange(PendenciasIntersecao());
+            rel.Pendencias.AddRange(PendenciasIntersecao(conversoes.Count > 0, ilhas.Any(x => x is not null)));
             if (s.PedirPalavra("Gravar o relatório da interseção em Excel", new[] { "Sim", "Nao" }, "Sim") == "Sim")
             {
                 var arq = UiUtil.SalvarArquivo("Planilha do Excel (*.xlsx)|*.xlsx", Texto.IdSeguro(prefixo.Replace(' ', '_'), 60) + ".xlsx");
@@ -400,10 +583,12 @@ public sealed partial class CmdRotatoria
     /// <summary>
     /// Trechos do corredor da interseção: a via principal passa só com as faixas entre as esquinas; as outras começam no bordo
     /// da principal só com as faixas até as esquinas; depois das esquinas, pista completa; as esquinas com o passeio do lado do
-    /// centro da curva e a faixa até o bordo mais perto das vias.
+    /// centro da curva e a faixa até o bordo mais perto das vias. Com faixa de conversão, as faixas da principal vão até os
+    /// bordos alargados; com ilha canalizadora, a esquina tem, no trecho da ilha, a pista de conversão até o contorno da ilha.
     /// </summary>
     private static List<TrechoCorredor> TrechosIntersecao(Sessao s, Point3d o, List<Braco> bracos, double[] sCentro, double[] tang, double wP,
-        Alignment principal, List<(int I, int J, Conectada? C, double Alfa)> esquinas, List<string> ladoEsquina, List<ObjectId>[] bordos)
+        Alignment principal, List<(int I, int J, Conectada? C, double Alfa)> esquinas, List<string> ladoEsquina, List<ObjectId>[] bordos,
+        double[] alcance, bool conversao, List<IlhaCanalizadora?> ilhas, List<ObjectId> ilhaIds, string? ladoContinuo = null)
     {
         var r = new List<TrechoCorredor>();
         void Add(Alignment al, double a, double b, string montagem, string obs, IEnumerable<ObjectId>? alvos = null, bool maisPerto = false)
@@ -416,9 +601,19 @@ public sealed partial class CmdRotatoria
         var principais = Enumerable.Range(0, n).Where(i => bracos[i].Eixo.ObjectId == principal.ObjectId).ToList();
         if (principais.Count > 0)
         {
-            var ests = principais.Select(i => EstacaNaDistancia(bracos[i], sCentro[i], o, tang[i])).ToList();
-            if (principais.Count == 1) ests.Add(sCentro[principais[0]]);
-            Add(principal, ests.Min(), ests.Max(), $"Pista só faixas - {principal.Name}", "via principal dentro da interseção (o meio-fio ali é o das esquinas)");
+            string montagem = ladoContinuo is null ? $"Pista só faixas - {principal.Name}" : $"Pista só faixas com meio-fio à {ladoContinuo} - {principal.Name}";
+            string obs = "via principal dentro da interseção (o meio-fio ali é o das esquinas" + (ladoContinuo is null ? ")" : $"; à {ladoContinuo}, o lado sem via transversal, meio-fio contínuo)");
+            if (conversao)
+                // com a faixa de conversão, uma região por braço, cada uma com os bordos alargados do seu braço (com os quatro
+                // bordos numa região só, o Civil perde o passeio depois do centro)
+                foreach (int i in principais)
+                    Add(principal, sCentro[i], EstacaNaDistancia(bracos[i], sCentro[i], o, tang[i]), montagem, obs + $"; braço {bracos[i].Rumo}: faixas até os bordos alargados", bordos[i]);
+            else
+            {
+                var ests = principais.Select(i => EstacaNaDistancia(bracos[i], sCentro[i], o, tang[i])).ToList();
+                if (principais.Count == 1) ests.Add(sCentro[principais[0]]);
+                Add(principal, ests.Min(), ests.Max(), montagem, obs);
+            }
         }
         for (int i = 0; i < n; i++)
         {
@@ -426,15 +621,30 @@ public sealed partial class CmdRotatoria
             double sT = EstacaNaDistancia(b, sCentro[i], o, tang[i]);
             if (b.Eixo.ObjectId != principal.ObjectId)
                 Add(b.Eixo, EstacaNaDistancia(b, sCentro[i], o, wP), sT, $"Pista só faixas - {b.Eixo.Name}", $"braço {b.Rumo}: do bordo da via principal às esquinas");
-            Add(b.Eixo, sT, EstacaNaDistancia(b, sCentro[i], o, tang[i] + TrechoForaIntersecao), $"Pista completa - {b.Eixo.Name}",
-                $"braço {b.Rumo}: a partir das esquinas (depois segue o corredor da via)");
+            bool alargado = conversao && b.Eixo.ObjectId == principal.ObjectId;
+            Add(b.Eixo, sT, EstacaNaDistancia(b, sCentro[i], o, alcance[i]), $"Pista completa - {b.Eixo.Name}",
+                $"braço {b.Rumo}: a partir das esquinas (depois segue o corredor da via)" + (alargado ? "; faixas até os bordos alargados (conversão e teiper)" : ""),
+                alargado ? bordos[i] : null);
         }
         for (int e = 0; e < esquinas.Count; e++)
         {
             var (i, j, c, _) = esquinas[e];
             if (c is null || s.Tr.GetObject(c.Id, OpenMode.ForRead) is not Alignment ca) continue;
             string lado = ladoEsquina[e];
-            Add(ca, ca.StartingStation, ca.EndingStation, $"Esquina - passeio à {lado}", $"esquina {bracos[i].Rumo}-{bracos[j].Rumo}: meio-fio, passeio e talude à {lado}; faixa até o bordo mais perto das vias",
+            string nome = $"esquina {bracos[i].Rumo}-{bracos[j].Rumo}";
+            if (e < ilhas.Count && ilhas[e] is { Cabe: true } il && !ilhaIds[e].IsNull)
+            {
+                // trecho da ilha: projeção das pontas da ilha no eixo da esquina (radial: o eixo é um arco concêntrico)
+                double s1 = RotatoriaCivil.EstacaPerto(ca, new Point3d(o.X + il.PontaA.X, o.Y + il.PontaA.Y, 0));
+                double s2 = RotatoriaCivil.EstacaPerto(ca, new Point3d(o.X + il.PontaB.X, o.Y + il.PontaB.Y, 0));
+                if (s1 > s2) (s1, s2) = (s2, s1);
+                Add(ca, ca.StartingStation, s1, $"Esquina - passeio à {lado}", $"{nome}: antes da ilha canalizadora; faixa até o bordo mais perto das vias", bordos[i].Concat(bordos[j]), maisPerto: true);
+                Add(ca, s1, s2, $"Esquina canalizada - passeio à {lado}", $"{nome}: trecho da ilha canalizadora; pista de conversão até o contorno da ilha e meio-fio da ilha (o topo da ilha fica fora do corredor)",
+                    new[] { ilhaIds[e] }.Concat(bordos[i]).Concat(bordos[j]), maisPerto: true);
+                Add(ca, s2, ca.EndingStation, $"Esquina - passeio à {lado}", $"{nome}: depois da ilha canalizadora; faixa até o bordo mais perto das vias", bordos[i].Concat(bordos[j]), maisPerto: true);
+                continue;
+            }
+            Add(ca, ca.StartingStation, ca.EndingStation, $"Esquina - passeio à {lado}", $"{nome}: meio-fio, passeio e talude à {lado}; faixa até o bordo mais perto das vias",
                 bordos[i].Concat(bordos[j]), maisPerto: true);
         }
         return r;
@@ -468,6 +678,8 @@ public sealed partial class CmdRotatoria
     private static string ResumoIntersecao(ConfigRotatoria c) =>
         $"Interseção: raio de esquina {c.RaioEsquina:0.##} m, meia largura padrão {c.MeiaLarguraRamo:0.##} m, caimento {Pct(c.Caimento, 1)}, V da via principal {c.VelPrincipal:0} km/h, " +
         (c.Montagens ? $"montagens (revestimento {c.Revestimento:0.00}, base {c.Base:0.00}, sub-base {c.SubBase:0.00}, passeio {c.Passeio:0.00} m)" : "sem montagens") +
+        $"; conversão {c.ConvLargura:0.00} m, armazenamento {c.ConvArmazenamento:0} m" + (c.ConvDesaceleracao > 0 ? $", desaceleração {c.ConvDesaceleracao:0} m" : "") + (c.ConvTeiper > 0 ? $", teiper {c.ConvTeiper:0} m" : "") +
+        $"; ilha: bordo interno R {c.CanalRaio:0.##} m, pista {c.CanalLargura:0.##} m" +
         (c.IntersecaoParametrosDoUsuario ? "" : " [PREMISSA]") + ".";
 
     private static bool PedirParametrosIntersecao(Editor ed, ConfigRotatoria cfg)
@@ -482,6 +694,27 @@ public sealed partial class CmdRotatoria
         if (N("Caimento transversal do eixo até o bordo (%; negativo = desce)", cfg.Caimento * 100, neg: true, zero: true) is not { } ca) return false;
         if (N("Velocidade de projeto da via principal (km/h)", cfg.VelPrincipal) is not { } vp) return false;
         if (!PedirMontagens(ed, cfg)) return false;
+        var pk = new PromptKeywordOptions("\nAjustar a faixa de conversão e a ilha canalizadora") { AllowNone = true };
+        pk.Keywords.Add("Sim");
+        pk.Keywords.Add("Nao");
+        pk.Keywords.Default = "Nao";
+        var rk = ed.GetKeywords(pk);
+        if (rk.Status == PromptStatus.Cancel) return false;
+        if (rk.Status == PromptStatus.OK && rk.StringResult == "Sim")
+        {
+            if (N("Largura da faixa de conversão à esquerda (m)", cfg.ConvLargura) is not { } cl) return false;
+            if (N("Armazenamento da faixa de conversão: veículos na fila × 7,5 m (m)", cfg.ConvArmazenamento, zero: true) is not { } carm) return false;
+            if (N("Desaceleração (m; 0 = Tabela 6 do DNIT pela V da principal)", cfg.ConvDesaceleracao, zero: true) is not { } cd) return false;
+            if (N("Teiper (m; 0 = Tabela 6 do DNIT pela V da principal)", cfg.ConvTeiper, zero: true) is not { } ct) return false;
+            if (N("Ilha canalizadora: raio do bordo interno da pista de conversão (m)", cfg.CanalRaio) is not { } cr) return false;
+            if (N("Largura da pista de conversão à direita (m)", cfg.CanalLargura) is not { } cg) return false;
+            if (N("Afastamento da ilha aos bordos das vias (m)", cfg.CanalRecuo, zero: true) is not { } ce) return false;
+            if (N("Área mínima da ilha (m²)", cfg.CanalAreaMin, zero: true) is not { } ca2) return false;
+            if (N("Lado mínimo da ilha (m)", cfg.CanalLadoMin, zero: true) is not { } cm) return false;
+            cfg.ConvLargura = cl; cfg.ConvArmazenamento = carm; cfg.ConvDesaceleracao = cd; cfg.ConvTeiper = ct;
+            cfg.CanalRaio = cr; cfg.CanalLargura = cg; cfg.CanalRecuo = ce; cfg.CanalAreaMin = ca2; cfg.CanalLadoMin = cm;
+            cfg.IntersecaoExtrasDoUsuario = true;
+        }
         cfg.RaioEsquina = re; cfg.MeiaLarguraRamo = mr; cfg.Caimento = ca / 100; cfg.VelPrincipal = vp;
         cfg.IntersecaoParametrosDoUsuario = true;
         ConfigRotatoria.Salvar(cfg);
@@ -505,13 +738,38 @@ public sealed partial class CmdRotatoria
         yield return new("Montagens: talude de corte / aterro (H:V)", $"{c.TaludeCorte:0.##}:1 / {c.TaludeAterro:0.##}:1", "", P("estudo geotécnico [A CONFIRMAR]"));
     }
 
-    private static IEnumerable<string> PendenciasIntersecao() => new[]
+    /// <summary>Parâmetros da faixa de conversão e da ilha canalizadora (só os que foram usados).</summary>
+    private static IEnumerable<ParametroRotatoria> ParametrosExtras(ConfigRotatoria c, bool conversao, double desac, double teiper, int vTabela, bool ilha, double dRetencao)
     {
+        string U(string fonte) => c.IntersecaoExtrasDoUsuario ? "informado pelo usuário" : fonte;
+        if (conversao)
+        {
+            yield return new("Faixa de conversão: largura", c.ConvLargura.ToString("0.00"), "m", U("DNIT (2024), Manual de Projeto de Acessos de Áreas Lindeiras, p. 47 (faixa de giro de 3,60 m; 3,00 m em locais restritos)"));
+            yield return new("Faixa de conversão: armazenamento", c.ConvArmazenamento.ToString("0.0"), "m", U("[PREMISSA] 2 veículos de 7,5 m; sem estudo de tráfego — com estudo, fila × 7,5 m"));
+            string t6 = $"DNIT (2024), Manual de Projeto de Acessos, Tabela 6 (V {vTabela} km/h, saída a 0 km/h), por analogia na conversão à esquerda [A CONFIRMAR]";
+            yield return new("Faixa de conversão: desaceleração", desac.ToString("0.0"), "m", c.ConvDesaceleracao > 0 ? "informado pelo usuário" : t6);
+            yield return new("Faixa de conversão: teiper", teiper.ToString("0.0"), "m", c.ConvTeiper > 0 ? "informado pelo usuário" : t6);
+            yield return new("Linha de retenção da conversão", dRetencao.ToString("0.00"), "m do centro", $"[PREMISSA] {RetencaoConversao:0.0} m antes do bordo da via transversal");
+        }
+        if (ilha)
+        {
+            yield return new("Ilha canalizadora: raio do bordo interno da pista de conversão", c.CanalRaio.ToString("0.00"), "m", U("[PREMISSA] curva simples; conferir com a Tabela 9 / 10 do Manual de Acessos (DNIT, 2024) e o giro do veículo"));
+            yield return new("Ilha canalizadora: largura da pista de conversão", c.CanalLargura.ToString("0.00"), "m", U("DNIT (2024), Manual de Acessos, Tabela 10 (90°, classe B: 5,4 m)"));
+            yield return new("Ilha canalizadora: afastamento aos bordos das vias", c.CanalRecuo.ToString("0.00"), "m", U("DNIT (2024), Manual de Acessos, p. 41 (afastamento mínimo de 0,60 m)"));
+            yield return new("Ilha canalizadora: área mínima", c.CanalAreaMin.ToString("0.0"), "m²", U("AASHTO Green Book (50 ft² urbano; 75 ft² rural) — referência complementar [A CONFIRMAR]"));
+            yield return new("Ilha canalizadora: lado mínimo", c.CanalLadoMin.ToString("0.0"), "m", U("AASHTO Green Book (12 ft depois de arredondar) — referência complementar [A CONFIRMAR]"));
+        }
+    }
+
+    private static IEnumerable<string> PendenciasIntersecao(bool conversao = false, bool ilha = false) => new[]
+    {
+        conversao ? "Faixa de conversão: armazenamento pela fila do estudo de tráfego (veículos × 7,5 m), sinalização (setas, linhas de canalização e de retenção) e confirmação dos comprimentos na norma do órgão." : "",
+        ilha ? "Ilhas canalizadoras: arredondar os vértices (0,3 a 0,6 m) e conferir de novo os lados; modelar o topo das ilhas (fica fora do corredor); giro do veículo na pista de conversão." : "",
         "Giro do veículo de projeto em todas as conversões com o PROJETA Giro (GIROSEGUIR / GIROVERIFICAR): largura varrida e folga ao meio-fio das esquinas.",
         "Visibilidade: distância de visibilidade de parada nas aproximações e conferência dos triângulos de visibilidade (desenhados) contra os obstáculos reais (muros, vegetação, postes, placas).",
         "Confirmar os parâmetros na norma do órgão (DNIT — Manual de Projeto de Interseções, 2005; IPR 740 em travessia urbana): os critérios usados aqui são referências complementares (AASHTO).",
-        "Sinalização horizontal e vertical (PARE / dê a preferência, faixas de pedestres, linhas de retenção) conforme o CONTRAN; ilha canalizadora e faixa de conversão, se o tráfego pedir.",
+        "Sinalização horizontal e vertical (PARE / dê a preferência, faixas de pedestres, linhas de retenção) conforme o CONTRAN" + (conversao || ilha ? "." : "; ilha canalizadora e faixa de conversão (Sim no comando), se o tráfego pedir."),
         "Drenagem das esquinas (sarjetas e bocas de lobo nos pontos baixos) com o PRJREDE.",
         "Interferências (postes, árvores, acessos de lote, redes, faixa de domínio) e desapropriação, se houver.",
-    };
+    }.Where(p => p.Length > 0);
 }
