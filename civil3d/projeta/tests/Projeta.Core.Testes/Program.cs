@@ -867,6 +867,16 @@ Teste("geo: UTM x PROJ, GMS, Helmert, GeoTIFF/LZW/GDAL, relevo, KML/KMZ, faixas 
     Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
 });
 
+Console.WriteLine("== Conexão de eixos (rotatórias)");
+Teste("conexão: arco tangente a retas e anel, bordos afastados, greide da conexão, casamento de cotas", () =>
+{
+    var erros = new List<string>();
+    int n = 0;
+    Projeta.Core.Testes.TestesConexao.Rodar((c, m) => { n++; if (!c) erros.Add(m); });
+    Console.WriteLine($"       {n} verificações");
+    Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
+});
+
 Console.WriteLine();
 Console.WriteLine($"Resultado: {ok} ok, {falhas} falha(s). Arquivos em {saida}");
 if (falhas > 0) { File.WriteAllLines(Path.Combine(saida, "falhas.log"), log); Environment.Exit(1); }

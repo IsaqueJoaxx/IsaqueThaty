@@ -1,0 +1,123 @@
+using System.Globalization;
+using System.Text;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.Runtime;
+using Autodesk.Civil.ApplicationServices;
+using Autodesk.Civil.DatabaseServices;
+using AcCore = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using Entity = Autodesk.AutoCAD.DatabaseServices.Entity;
+
+[assembly: CommandClass(typeof(RotHarness.Cmd))]
+
+namespace RotHarness;
+
+/// <summary>Teste sem tela dos comandos de rotatória: anel R 30 com três ramos (um casa, um não encosta, um com cota errada).</summary>
+public sealed class Cmd
+{
+    static readonly CultureInfo I = CultureInfo.InvariantCulture;
+    const double X0 = 1000, Y0 = 1000, R = 30;
+
+    static ObjectId Eixo(Transaction tr, Database db, CivilDocument civ, string nome, Polyline pl)
+    {
+        var ms = (BlockTableRecord)tr.GetObject(SymbolUtilityServices.GetBlockModelSpaceId(db), OpenMode.ForWrite);
+        pl.SetDatabaseDefaults();
+        var pid = ms.AppendEntity(pl); tr.AddNewlyCreatedDBObject(pl, true);
+        var st = civ.Styles.AlignmentStyles[0];
+        var ls = civ.Styles.LabelSetStyles.AlignmentLabelSetStyles[0];
+        return Alignment.Create(civ, new PolylineOptions { PlineId = pid, AddCurvesBetweenTangents = false, EraseExistingEntities = true }, nome, ObjectId.Null, db.Clayer, st, ls);
+    }
+
+    static void Greide(Transaction tr, CivilDocument civ, ObjectId alId, string nome, double z0, double z1)
+    {
+        var al = (Alignment)tr.GetObject(alId, OpenMode.ForRead);
+        var gid = Profile.CreateByLayout(nome, alId, al.LayerId, civ.Styles.ProfileStyles[0], civ.Styles.LabelSetStyles.ProfileLabelSetStyles[0]);
+        var g = (Profile)tr.GetObject(gid, OpenMode.ForWrite);
+        g.PVIs.AddPVI(al.StartingStation, z0);
+        g.PVIs.AddPVI(al.EndingStation, z1);
+    }
+
+    static Polyline Reta(double x0, double y0, double x1, double y1)
+    {
+        var pl = new Polyline();
+        pl.AddVertexAt(0, new Point2d(x0, y0), 0, 0, 0);
+        pl.AddVertexAt(1, new Point2d(x1, y1), 0, 0, 0);
+        return pl;
+    }
+
+    [CommandMethod("PRJROTPREP")]
+    public static void Prep()
+    {
+        var doc = AcCore.DocumentManager.MdiActiveDocument;
+        var db = doc.Database;
+        var civ = CivilApplication.ActiveDocument;
+        using var tr = db.TransactionManager.StartTransaction();
+        // anel: círculo anti-horário começando a leste
+        var anel = new Polyline();
+        anel.AddVertexAt(0, new Point2d(X0 + R, Y0), 1, 0, 0);
+        anel.AddVertexAt(1, new Point2d(X0 - R, Y0), 1, 0, 0);
+        anel.Closed = true;
+        var a = Eixo(tr, db, civ, "Anel", anel);
+        Greide(tr, civ, a, "Anel - greide", 850, 850);
+        // ramo leste: chega exatamente no começo do anel (emenda do eixo fechado), cota casa
+        var l = Eixo(tr, db, civ, "Ramo Leste", Reta(X0 + 130, Y0, X0 + R, Y0));
+        Greide(tr, civ, l, "Ramo Leste - greide", 851, 850);
+        // ramo norte: para 12 cm antes do eixo do anel
+        var n = Eixo(tr, db, civ, "Ramo Norte", Reta(X0, Y0 + 130, X0, Y0 + R + 0.12));
+        Greide(tr, civ, n, "Ramo Norte - greide", 852, 850);
+        // ramo oeste: encosta, mas a cota final está 15 cm acima
+        var o = Eixo(tr, db, civ, "Ramo Oeste", Reta(X0 - 130, Y0, X0 - R, Y0));
+        Greide(tr, civ, o, "Ramo Oeste - greide", 853, 850.15);
+        tr.Commit();
+        doc.Editor.WriteMessage("\nROTPREP OK");
+    }
+
+    [CommandMethod("PRJROTCHECK")]
+    public static void Check()
+    {
+        var doc = AcCore.DocumentManager.MdiActiveDocument;
+        var db = doc.Database;
+        var civ = CivilApplication.ActiveDocument;
+        var sb = new StringBuilder();
+        using var tr = db.TransactionManager.StartTransaction();
+        foreach (ObjectId id in civ.GetAlignmentIds())
+        {
+            var al = (Alignment)tr.GetObject(id, OpenMode.ForRead);
+            double x0 = 0, y0 = 0, x1 = 0, y1 = 0;
+            al.PointLocation(al.StartingStation, 0, ref x0, ref y0);
+            al.PointLocation(al.EndingStation, 0, ref x1, ref y1);
+            sb.AppendLine(string.Format(I, "ALINHAMENTO {0}: est {1:0.000} a {2:0.000}; ini ({3:0.0000}; {4:0.0000}) fim ({5:0.0000}; {6:0.0000}); entidades {7}",
+                al.Name, al.StartingStation, al.EndingStation, x0, y0, x1, y1, al.Entities.Count));
+            foreach (AlignmentEntity e in al.Entities)
+                if (e is AlignmentArc arc)
+                    sb.AppendLine(string.Format(I, "  arco R {0:0.0000} centro ({1:0.0000}; {2:0.0000}) L {3:0.0000} horario {4}", arc.Radius, arc.CenterPoint.X, arc.CenterPoint.Y, arc.Length, arc.Clockwise));
+            foreach (ObjectId pid in al.GetProfileIds())
+            {
+                var p = (Profile)tr.GetObject(pid, OpenMode.ForRead);
+                sb.Append(string.Format(I, "  GREIDE {0} ({1}):", p.Name, p.ProfileType));
+                foreach (ProfilePVI v in p.PVIs) sb.Append(string.Format(I, " [{0:0.000}; {1:0.0000}]", v.RawStation, v.Elevation));
+                sb.AppendLine();
+                double l = p.EndingStation - p.StartingStation;
+                for (int k = 0; k <= 4; k++)
+                {
+                    double s = p.StartingStation + l * k / 4;
+                    sb.AppendLine(string.Format(I, "    z({0:0.000}) = {1:0.0000}", s, p.ElevationAt(s)));
+                }
+            }
+        }
+        var ms = (BlockTableRecord)tr.GetObject(SymbolUtilityServices.GetBlockModelSpaceId(db), OpenMode.ForRead);
+        int circ = 0, txt = 0;
+        foreach (ObjectId id in ms)
+        {
+            var en = (Entity)tr.GetObject(id, OpenMode.ForRead);
+            if (en.Layer != "PRJ-CASAMENTO") continue;
+            if (en is Circle c) { circ++; sb.AppendLine(string.Format(I, "MARCA cor {0} em ({1:0.000}; {2:0.000})", c.ColorIndex, c.Center.X, c.Center.Y)); }
+            if (en is MText m) { txt++; sb.AppendLine("  texto: " + m.Contents); }
+        }
+        sb.AppendLine($"MARCAS {circ} circulos {txt} textos");
+        tr.Commit();
+        Directory.CreateDirectory(@"C:\Temp\rot\saida");
+        File.WriteAllText(@"C:\Temp\rot\saida\rot_check.txt", sb.ToString(), Encoding.UTF8);
+        doc.Editor.WriteMessage("\nROTCHECK OK");
+    }
+}

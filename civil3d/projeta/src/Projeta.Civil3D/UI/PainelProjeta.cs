@@ -73,6 +73,11 @@ internal sealed class PainelProjeta : UserControl
             ("Volume rápido", "PRJVOLRAPIDO", "Corte e aterro numa região (polilinha ou pontos clicados), mapa de cores transparente e tabela-resumo no desenho"),
             ("Faixas de cota / declividade", "PRJFAIXAS", "Colore a superfície por faixas de cota ou de declividade (classes da EMBRAPA) e insere a tabela de áreas"),
         }),
+        ("Rotatória", new[]
+        {
+            ("Conferir se os eixos casam", "PRJCASAMENTO", "Clique em dois alinhamentos (ou Varios): se a ponta encosta no eixo, se é tangente e se as cotas e rampas dos greides batem; marca verde/vermelho e acerta a cota da ponta"),
+            ("Conectar dois eixos", "PRJCONECTAREIXO", "Clique num alinhamento e no outro, perto do canto: cria a conexão (arco tangente nos eixos ou nos bordos) com o greide casando com os dois"),
+        }),
         ("Terraplenagem", new[]
         {
             ("Platôs", "PRJPLATO", "Platô em cada polígono: cota que compensa corte e aterro (ou fixa), caimento, taludes até o terreno, superfícies, volumes e Excel"),
