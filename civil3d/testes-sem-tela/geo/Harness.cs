@@ -97,21 +97,20 @@ public sealed class Cmd
             try { foreach (var a in s.Analysis.GetElevationData()) sb.AppendLine($"   cota {a.MinimumElevation.ToString("0.###", I)}..{a.MaximumElevation.ToString("0.###", I)} cor={a.Scheme.ColorValue.R},{a.Scheme.ColorValue.G},{a.Scheme.ColorValue.B}"); } catch (System.Exception ex) { sb.AppendLine("   cota ERRO " + ex.Message); }
             try { foreach (var a in s.Analysis.GetSlopeData()) sb.AppendLine($"   decliv {a.MinimumSlope.ToString("0.####", I)}..{a.MaximumSlope.ToString("0.####", I)} cor={a.Scheme.ColorValue.R},{a.Scheme.ColorValue.G},{a.Scheme.ColorValue.B}"); } catch (System.Exception ex) { sb.AppendLine("   decliv ERRO " + ex.Message); }
         }
-        // cotas de referência (arquivo E N Z gerado pelo GDAL), se houver
-        var refs = @"C:\Temp\geo\pontos_ref.txt";
-        if (File.Exists(refs))
+        // cotas de referência (arquivos E N Z gerados pelo GDAL) para cada superfície de relevo
+        foreach (ObjectId sid in CivilApplication.ActiveDocument.GetSurfaceIds())
         {
-            Surface? rel = null;
-            foreach (ObjectId id in CivilApplication.ActiveDocument.GetSurfaceIds())
-                if (tr.GetObject(id, OpenMode.ForRead) is Surface s && s.Name.StartsWith("PRJ Relevo")) rel = s;
+            if (tr.GetObject(sid, OpenMode.ForRead) is not Surface rel || !rel.Name.StartsWith("PRJ Relevo")) continue;
+            var refs = rel.Name.Contains("ANADEM") ? @"C:\Temp\geo\pontos_ref_anadem.txt" : @"C:\Temp\geo\pontos_ref.txt";
+            if (!File.Exists(refs)) continue;
             foreach (var linha in File.ReadAllLines(refs))
             {
                 var p = linha.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                if (p.Length < 3 || rel is null) continue;
+                if (p.Length < 3) continue;
                 double e = double.Parse(p[0], I), n = double.Parse(p[1], I), z = double.Parse(p[2], I);
                 double zs = double.NaN;
                 try { zs = rel.FindElevationAtXY(e, n); } catch { }
-                sb.AppendLine($"ref {e.ToString("0.000", I)} {n.ToString("0.000", I)} gdal={z.ToString("0.000", I)} superficie={zs.ToString("0.000", I)} dif={(zs - z).ToString("0.0000", I)}");
+                sb.AppendLine($"ref [{rel.Name}] {e.ToString("0.000", I)} {n.ToString("0.000", I)} gdal={z.ToString("0.000", I)} superficie={zs.ToString("0.000", I)} dif={(zs - z).ToString("0.0000", I)}");
             }
         }
         tr.Commit();

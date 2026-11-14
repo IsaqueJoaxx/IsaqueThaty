@@ -41,19 +41,31 @@ public sealed class CmdGeo
                 Ctx.Msg("A área não está em coordenadas UTM (E entre 100.000 e 900.000 e N até 10.000.000). Georreferencie o desenho com PRJGEORREF antes.");
                 return;
             }
+            // ANADEM (terreno, América do Sul) quando cobre a área; senão Copernicus (superfície, mundial)
+            var (la, lo) = Utm.ParaGeo(contorno[0].X, contorno[0].Y, sis);
+            bool temAnadem = ModeloRelevo.Anadem.Cobre(la, la, lo, lo);
+            ModeloRelevo modelo = ModeloRelevo.Copernicus;
+            if (temAnadem)
+            {
+                var m = s.PedirPalavra("Modelo [Anadem = terreno, sem a vegetação (ANA) / Copernicus = superfície, com árvores e prédios]",
+                                       new[] { "Anadem", "Copernicus" }, cfg.ModeloRelevo.StartsWith("cop", StringComparison.OrdinalIgnoreCase) ? "Copernicus" : "Anadem");
+                if (m is null) return;
+                modelo = m == "Anadem" ? ModeloRelevo.Anadem : ModeloRelevo.Copernicus;
+                cfg.ModeloRelevo = modelo.Id;
+            }
+            else Ctx.Msg("Fora da América do Sul: usando o Copernicus 30 m (mundial).");
             var margem = s.PedirNumero("Margem além da área, em m (o relevo é recortado na área no fim)", cfg.MargemRelevo);
             if (margem is null) return;
             cfg.MargemRelevo = Math.Max(0, margem.Value);
             ConfigGeo.Salvar(cfg);
 
-            var r = GeoCivil.CriarRelevo(s.Tr, s.Db, sis, contorno, cfg.MargemRelevo, Ctx.Msg);
+            var r = GeoCivil.CriarRelevo(s.Tr, s.Db, sis, contorno, cfg.MargemRelevo, Ctx.Msg, modelo);
             s.Tr.Commit();
 
-            Ctx.Msg($"Superfície '{r.Nome}': {r.Pontos:N0} pontos da grade de 1\" (~30 m), cotas de {r.Zmin.ToString("0.0", Num.Br)} a {r.Zmax.ToString("0.0", Num.Br)} m, recortada na área escolhida.");
-            Ctx.Msg($"  Blocos: {string.Join(", ", r.Ladrilhos)}; baixados agora {(r.Baixados / 1024.0).ToString("0", Num.Br)} kB (cache em {Copernicus.PastaCachePadrao}).");
-            Ctx.Msg("  Atenção: é um modelo de SUPERFÍCIE (copas de árvores e prédios entram como relevo), com erro vertical típico de alguns metros. Serve para estudo, traçado e anteprojeto; não substitui o levantamento topográfico.");
-            Ctx.Msg("  Altitudes no geoide EGM2008: podem diferir de decímetros a cerca de 1 m da altitude oficial do IBGE (hgeoHNOR).");
-            Ctx.Msg("  Fonte: " + Copernicus.Atribuicao + ".");
+            Ctx.Msg($"Superfície '{r.Nome}': {r.Pontos:N0} pontos (grade de ~30 m), cotas de {r.Zmin.ToString("0.0", Num.Br)} a {r.Zmax.ToString("0.0", Num.Br)} m, recortada na área escolhida.");
+            Ctx.Msg($"  Blocos: {string.Join(", ", r.Ladrilhos)}; baixados agora {(r.Baixados / 1024.0).ToString("0", Num.Br)} kB (cache em {modelo.PastaCache}).");
+            foreach (var a in GeoCivil.Avisos(modelo)) Ctx.Msg(a);
+            Ctx.Msg("  Fonte: " + modelo.Atribuicao + ".");
         }
         catch (System.Exception ex) { Ctx.Msg("[ERRO] PRJRELEVO: " + ex.Message); }
     }

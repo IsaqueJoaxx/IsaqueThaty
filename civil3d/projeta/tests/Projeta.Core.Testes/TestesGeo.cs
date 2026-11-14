@@ -167,6 +167,23 @@ internal static class TestesGeo
         Ok(rel2.Ausentes.Count == 2 && rel2.Pontos.Count == 0, "relevo: ladrilho inexistente (mar) não quebra");
         Ok(Copernicus.Ladrilho(-20, -44) == "Copernicus_DSM_COG_10_S20_00_W044_00_DEM" && Copernicus.Ladrilho(2, 10) == "Copernicus_DSM_COG_10_N02_00_E010_00_DEM", "nome dos ladrilhos");
 
+        // ANADEM: ladrilhos pela zona MGRS (fuso + faixa de 8°) no servidor da ANA
+        Ok(ModeloRelevo.AnademLadrilhoDe(-19.92, -43.94) == "anadem_v1_23K" && ModeloRelevo.AnademLadrilhoDe(-5, -42.5) == "anadem_v1_23M" && ModeloRelevo.AnademLadrilhoDe(-5, -42) == "anadem_v1_24M"
+           && ModeloRelevo.AnademLadrilhoDe(2.8, -60.67) == "anadem_v1_20N" && ModeloRelevo.AnademLadrilhoDe(-30.03, -51.23) == "anadem_v1_22J", "nomes ANADEM (MGRS)");
+        Ok(ModeloRelevo.Anadem.Url("anadem_v1_23K") == "https://metadados.snirh.gov.br/files/anadem_v1_tiles/anadem_v1_23K.tif", "endereço ANADEM");
+        var cruz = ModeloRelevo.Anadem.Ladrilhos(-16.1, -15.9, -48.1, -47.9).Select(x => x.Nome).OrderBy(x => x).ToList();
+        Ok(cruz.SequenceEqual(new[] { "anadem_v1_22K", "anadem_v1_22L", "anadem_v1_23K", "anadem_v1_23L" }), $"área no canto de 4 ladrilhos ({string.Join(", ", cruz)})");
+        Ok(ModeloRelevo.Anadem.Cobre(-20, -19, -44, -43) && !ModeloRelevo.Anadem.Cobre(40, 41, 10, 11) && ModeloRelevo.DoId("anadem") == ModeloRelevo.Anadem && ModeloRelevo.DoId("cop") == ModeloRelevo.Copernicus, "cobertura e escolha do modelo");
+        // dois ladrilhos vizinhos com borda sobreposta: cada ponto vem de um só (22K valor 100, 23K valor 200)
+        float[,] Cheio(int l, int c, float v) { var a = new float[l, c]; for (int i = 0; i < l; i++) for (int j = 0; j < c; j++) a[i, j] = v; return a; }
+        var t22 = GeoTiff.Gravar(Cheio(161, 121, 100), -54.01, -15.99, 0.05, 0.05, 4326, true);
+        var t23 = GeoTiff.Gravar(Cheio(161, 121, 200), -48.01, -15.99, 0.05, 0.05, 4326, true);
+        var ra = ModeloRelevo.Anadem.Ler(-20.1, -19.9, -48.2, -47.8, Path.Combine(saida, "cache_anadem"),
+            nome => nome switch { "anadem_v1_22K" => new FonteMemoria(t22), "anadem_v1_23K" => new FonteMemoria(t23), _ => throw new FileNotFoundException() });
+        bool posse = ra.Pontos.All(p => p.Lon < -48 ? p.Z == 100 : p.Z == 200);
+        int dup = ra.Pontos.GroupBy(p => (Math.Round(p.Lat, 6), Math.Round(p.Lon, 6))).Count(g => g.Count() > 1);
+        Ok(ra.Ladrilhos.Count == 2 && posse && dup == 0 && ra.Pontos.Any(p => p.Z == 100) && ra.Pontos.Any(p => p.Z == 200), $"bordas sobrepostas sem pontos duplicados ({ra.Pontos.Count} pontos, {dup} duplicados)");
+
         // ---------------------------------------------------------------- KML/KMZ
         var doc = new DocumentoKml { Nome = "Teste" };
         var m1 = new MarcadorKml { Nome = "PV-01", Pasta = "Drenagem / PVs", Cor = "FF0000" };

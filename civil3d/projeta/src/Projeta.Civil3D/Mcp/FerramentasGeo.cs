@@ -26,13 +26,15 @@ internal static class FerramentasGeo
                 .Texto("sistema_desenho", "Sistema do desenho, se definido.", anulavel: true)
                 .ListaObjetos("pontos", "lat, lon, e, n, fuso, fator_escala, convergencia_graus, gms.", new Esquema().Aberto())));
 
-        r.Adicionar(new FerramentaDelegada("civil_relevo_satelite", "Relevo de satélite (Copernicus 30 m)",
-            "Cria uma superfície TIN do Civil 3D com o relevo gratuito Copernicus DEM GLO-30 (grade de 1\" ≈ 30 m, mundial, uso livre com atribuição) " +
-            "da área pedida, convertido para o UTM do desenho e recortado no contorno. A área é uma polilinha fechada (handle) ou um retângulo " +
-            "[x_min, y_min, x_max, y_max] em coordenadas do desenho (UTM). O desenho precisa estar em UTM (PRJGEORREF). Baixa só os blocos da área " +
-            "(cache local). É um modelo de SUPERFÍCIE (inclui vegetação e prédios), altitudes no geoide EGM2008, erro vertical de alguns metros: " +
-            "serve para estudo, traçado e anteprojeto, não substitui levantamento. Altera o DWG (desfaz com U).",
+        r.Adicionar(new FerramentaDelegada("civil_relevo_satelite", "Relevo de satélite (ANADEM / Copernicus 30 m)",
+            "Cria uma superfície TIN do Civil 3D com relevo gratuito de ~30 m da área pedida, convertido para o UTM do desenho e recortado no contorno. " +
+            "Modelos: 'anadem' (padrão na América do Sul) = ANADEM v1.0 da ANA/UFRGS, modelo de TERRENO com a vegetação removida; " +
+            "'copernicus' = Copernicus DEM GLO-30, mundial, modelo de SUPERFÍCIE (inclui vegetação e prédios). A área é uma polilinha fechada (handle) " +
+            "ou um retângulo [x_min, y_min, x_max, y_max] em coordenadas do desenho (UTM). O desenho precisa estar em UTM (PRJGEORREF). Baixa só os " +
+            "blocos da área (cache local). Altitudes derivadas do geoide EGM2008, erro vertical de alguns metros: serve para estudo, traçado e " +
+            "anteprojeto, não substitui levantamento. Altera o DWG (desfaz com U).",
             () => new Esquema()
+                .Texto("modelo", "'anadem' (terreno, América do Sul; padrão) ou 'copernicus' (superfície, mundial).")
                 .Texto("poligono", "Handle da polilinha/círculo fechado da área.")
                 .ListaNumeros("retangulo", "Alternativa: x_min, y_min, x_max, y_max (m, UTM do desenho).", maxItens: 4)
                 .Numero("margem", "Margem além da área (m) lida antes do recorte.", minimo: 0, maximo: 2000, padrao: 60)
@@ -105,18 +107,27 @@ internal static class FerramentasGeo
             double x0 = Math.Min(rr[0], rr[2]), x1 = Math.Max(rr[0], rr[2]), y0 = Math.Min(rr[1], rr[3]), y1 = Math.Max(rr[1], rr[3]);
             contorno = new List<(double X, double Y)> { (x0, y0), (x1, y0), (x1, y1), (x0, y1) };
         }
+        var nm = a.Texto("modelo");
+        ModeloRelevo modelo;
+        if (!string.IsNullOrWhiteSpace(nm)) modelo = ModeloRelevo.DoId(nm) ?? throw new ErroArgumento("modelo: use 'anadem' ou 'copernicus'.");
+        else
+        {
+            var (la, lo) = Utm.ParaGeo(contorno[0].X, contorno[0].Y, sis);
+            modelo = ModeloRelevo.Anadem.Cobre(la, la, lo, lo) ? ModeloRelevo.Anadem : ModeloRelevo.Copernicus;
+        }
         GeoCivil.Relevo r;
-        try { r = GeoCivil.CriarRelevo(tr, db, sis, contorno, a.Numero("margem", 60)); }
+        try { r = GeoCivil.CriarRelevo(tr, db, sis, contorno, a.Numero("margem", 60), null, modelo); }
         catch (InvalidOperationException ex) { throw new ErroFerramenta(ex.Message); }
         tr.Commit();
         return ResultadoFerramenta.Ok(
             $"Superfície '{r.Nome}' criada em {sis}: {r.Pontos} pontos (grade de ~30 m), cotas de {r.Zmin:0.0} a {r.Zmax:0.0} m. " +
-            "Modelo de superfície (inclui vegetação e prédios), geoide EGM2008. Fonte: " + Copernicus.Atribuicao + ".",
+            (modelo.Terreno ? "Modelo de terreno (vegetação removida). " : "Modelo de superfície (inclui vegetação e prédios). ") +
+            "Altitudes derivadas do geoide EGM2008. Fonte: " + modelo.Atribuicao + ".",
             new JsonObject
             {
                 ["superficie"] = r.Nome, ["pontos"] = r.Pontos, ["cota_min"] = Math.Round(r.Zmin, 2), ["cota_max"] = Math.Round(r.Zmax, 2),
                 ["area_km2"] = Math.Round(r.AreaKm2, 4), ["ladrilhos"] = JsonMcp.Array(r.Ladrilhos, l => JsonValue.Create(l)),
-                ["kb_baixados"] = Math.Round(r.Baixados / 1024.0, 1), ["sistema"] = sis.Nome,
+                ["kb_baixados"] = Math.Round(r.Baixados / 1024.0, 1), ["sistema"] = sis.Nome, ["modelo"] = modelo.Nome,
             });
     }
 }

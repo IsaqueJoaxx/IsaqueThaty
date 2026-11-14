@@ -167,7 +167,20 @@ internal static class GeoCivil
 
     // ------------------------------------------------------------------ relevo de satélite
 
-    public sealed record Relevo(string Nome, int Pontos, double Zmin, double Zmax, double AreaKm2, List<string> Ladrilhos, long Baixados);
+    public sealed record Relevo(string Nome, int Pontos, double Zmin, double Zmax, double AreaKm2, List<string> Ladrilhos, long Baixados, ModeloRelevo Modelo);
+
+    /// <summary>O que dizer ao usuário sobre o modelo (tipo, erro esperado, datum vertical).</summary>
+    public static string[] Avisos(ModeloRelevo m) => m.Terreno
+        ? new[]
+        {
+            "  ANADEM é modelo de TERRENO: a vegetação foi removida do Copernicus por aprendizado de máquina (ANA/UFRGS). Ainda tem erro vertical de alguns metros e pode ter artefatos em áreas de mata densa; serve para estudo, traçado e anteprojeto, não substitui o levantamento topográfico.",
+            "  Altitudes derivadas do Copernicus (geoide EGM2008): podem diferir de decímetros a cerca de 1 m da altitude oficial do IBGE (hgeoHNOR).",
+        }
+        : new[]
+        {
+            "  Atenção: é um modelo de SUPERFÍCIE (copas de árvores e prédios entram como relevo), com erro vertical típico de alguns metros. Serve para estudo, traçado e anteprojeto; não substitui o levantamento topográfico.",
+            "  Altitudes no geoide EGM2008: podem diferir de decímetros a cerca de 1 m da altitude oficial do IBGE (hgeoHNOR).",
+        };
 
     /// <summary>Retângulo geográfico que contém o retângulo UTM (amostra as bordas, por causa da convergência).</summary>
     public static (double LatMin, double LatMax, double LonMin, double LonMax) LimitesGeo(SistemaUtm sis, double x0, double y0, double x1, double y1)
@@ -186,8 +199,9 @@ internal static class GeoCivil
     /// Lê o relevo Copernicus 30 m da área (com margem), converte para o UTM do desenho e cria a superfície TIN recortada
     /// pelo contorno. Lança InvalidOperationException com a explicação quando não dá.
     /// </summary>
-    public static Relevo CriarRelevo(Transaction tr, Database db, SistemaUtm sis, IReadOnlyList<(double X, double Y)> contorno, double margem, Action<string>? progresso = null)
+    public static Relevo CriarRelevo(Transaction tr, Database db, SistemaUtm sis, IReadOnlyList<(double X, double Y)> contorno, double margem, Action<string>? progresso = null, ModeloRelevo? modelo = null)
     {
+        modelo ??= ModeloRelevo.Copernicus;
         if (contorno.Count < 3) throw new InvalidOperationException("A área precisa de pelo menos 3 vértices.");
         if (!PareceUtm(contorno[0].X, contorno[0].Y))
             throw new InvalidOperationException("A área não está em coordenadas UTM (E entre 100.000 e 900.000 e N até 10.000.000). Georreferencie o desenho com PRJGEORREF antes.");
@@ -197,10 +211,12 @@ internal static class GeoCivil
         double km2 = (x1 - x0) * (y1 - y0) / 1e6;
         if (km2 > 900) throw new InvalidOperationException($"Área de {km2:0} km² é grande demais para uma superfície só (limite 900 km²). Divida a área.");
         var (latMin, latMax, lonMin, lonMax) = LimitesGeo(sis, x0, y0, x1, y1);
-        progresso?.Invoke($"Lendo o relevo Copernicus 30 m de {km2.ToString("0.###", Num.Br)} km² (baixa só os blocos da área; ficam guardados para a próxima vez)...");
-        var rel = Copernicus.Ler(latMin - 1 / 3600.0, latMax + 1 / 3600.0, lonMin - 1 / 3600.0, lonMax + 1 / 3600.0, progresso: m => progresso?.Invoke("  " + m));
+        if (!modelo.Cobre(latMin, latMax, lonMin, lonMax))
+            throw new InvalidOperationException($"O {modelo.Nome} não cobre esta área; use o Copernicus (mundial).");
+        progresso?.Invoke($"Lendo o relevo {modelo.Nome} de {km2.ToString("0.###", Num.Br)} km² (baixa só os blocos da área; ficam guardados para a próxima vez)...");
+        var rel = modelo.Ler(latMin - 1 / 3600.0, latMax + 1 / 3600.0, lonMin - 1 / 3600.0, lonMax + 1 / 3600.0, progresso: m => progresso?.Invoke("  " + m));
         if (rel.Pontos.Count == 0)
-            throw new InvalidOperationException(rel.Ausentes.Count > 0 ? "Não há relevo Copernicus para esta área (mar ou fora da cobertura)." : "Nenhum ponto de relevo dentro da área.");
+            throw new InvalidOperationException(rel.Ausentes.Count > 0 ? $"Não há relevo {modelo.Nome} para esta área (mar ou fora da cobertura)." : "Nenhum ponto de relevo dentro da área.");
         var pts = new Point3dCollection();
         double zmin = double.MaxValue, zmax = double.MinValue;
         foreach (var p in rel.Pontos)
@@ -212,17 +228,19 @@ internal static class GeoCivil
         }
         if (pts.Count < 3) throw new InvalidOperationException("Pontos de relevo insuficientes dentro da área.");
 
-        var nome = VolumesCivil.NomeLivre(tr, "PRJ Relevo Copernicus 30 m");
+        var nome = VolumesCivil.NomeLivre(tr, modelo.Terreno ? "PRJ Relevo ANADEM 30 m" : "PRJ Relevo Copernicus 30 m");
         var id = TinSurface.Create(db, nome);
         var tin = (TinSurface)tr.GetObject(id, OpenMode.ForWrite);
-        tin.Description = $"{rel.Fonte}, {sis}, {DateTime.Now:dd/MM/yyyy}. Modelo de superfície (inclui vegetação e prédios), altitudes no geoide EGM2008. {Copernicus.Atribuicao}.";
+        tin.Description = $"{rel.Fonte}, {sis}, {DateTime.Now:dd/MM/yyyy}. " +
+                          (modelo.Terreno ? "Modelo de terreno (vegetação removida), altitudes derivadas do Copernicus (EGM2008). " : "Modelo de superfície (inclui vegetação e prédios), altitudes no geoide EGM2008. ") +
+                          modelo.Atribuicao + ".";
         tin.AddVertices(pts);
         var lim = new Point2dCollection();
         foreach (var (x, y) in contorno) lim.Add(new Point2d(x, y));
         lim.Add(new Point2d(contorno[0].X, contorno[0].Y));
         tin.BoundariesDefinition.AddBoundaries(lim, 0.1, Autodesk.Civil.SurfaceBoundaryType.Outer, true);
         try { tin.Rebuild(); } catch { }
-        return new Relevo(nome, pts.Count, zmin, zmax, km2, rel.Ladrilhos, rel.BytesBaixados);
+        return new Relevo(nome, pts.Count, zmin, zmax, km2, rel.Ladrilhos, rel.BytesBaixados, modelo);
     }
 
     // ------------------------------------------------------------------ objetos do desenho
@@ -333,6 +351,7 @@ internal sealed class ConfigGeo
     public string KmzSuperficie { get; set; } = "Contorno";
     public string KmlCotas { get; set; } = "Kml";
     public double MargemRelevo { get; set; } = 60;
+    public string ModeloRelevo { get; set; } = "anadem";
     public int FaixasQuantidade { get; set; } = 8;
 
     private static string Arquivo => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Projeta", "geo.json");
