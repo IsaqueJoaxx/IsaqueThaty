@@ -51,6 +51,35 @@ internal static class TestesConexao
         Ok(p5.Count == 4 && Q(Rampa(p5, 0, 0.01), 0.03, 1e-9) && Q(Rampa(p5, 29.99, 0.01), 0.02, 1e-9) && Q(PerfilConexao.Cota(p5, 30), 100.3),
            "greide: cruzamento fora do trecho → dois PVIs que casam as duas rampas");
 
+        // geometria da rotatória
+        Ok(GeometriaRotatoria.Rumo(0) == "L" && GeometriaRotatoria.Rumo(Math.PI / 2) == "N" && GeometriaRotatoria.Rumo(Math.PI) == "O"
+           && GeometriaRotatoria.Rumo(-Math.PI / 4) == "SE" && GeometriaRotatoria.Rumo(3 * Math.PI / 4) == "NO" && GeometriaRotatoria.Rumo(2 * Math.PI - 0.1) == "L", "rumo dos braços");
+        Ok(Q(GeometriaRotatoria.AnguloEmenda(new[] { 0.0, Math.PI / 2, Math.PI }), 1.5 * Math.PI) && Q(GeometriaRotatoria.AnguloEmenda(new[] { 1.0 }), 1 + Math.PI)
+           && Q(GeometriaRotatoria.AnguloEmenda(new[] { 0.2, 6.0 }), 3.1), "emenda do anel no meio do maior vão");
+        var ch = GeometriaRotatoria.ChuteCentroConexao(17, 0, 1, 0, +1, 18.5, 0, 0, 35);
+        var chs = GeometriaRotatoria.ChuteCentroConexao(17, 0, 1, 0, -1, 18.5, 0, 0, 35);
+        Ok(Q(ch.X, Math.Sqrt(882.75), 1e-9) && Q(ch.Y, 18.5) && Q(chs.Y, -18.5), $"palpite do centro da conexão de entrada/saída ({ch.X:F3}; {ch.Y:F3})");
+        Ok(Q(GeometriaRotatoria.Folga(0, 0.3, Math.PI / 2, Math.PI / 2 - 0.4), Math.PI / 2 - 0.7) && GeometriaRotatoria.Folga(0, 0.9, Math.PI / 2, Math.PI / 2 - 0.8) < 0
+           && Q(GeometriaRotatoria.Folga(1.5 * Math.PI, 1.5 * Math.PI + 0.2, 0.1, 0.05), 0.5 * Math.PI + 0.1 - 0.25), "folga entre conexões vizinhas no bordo do anel (inclusive passando pelo leste)");
+
+        // greide do anel passando nas cotas dos braços
+        double cAnel = 2 * Math.PI * 17;
+        var alvos = new[] { new PerfilAnel.Alvo(13.35, 850.2), new PerfilAnel.Alvo(40.05, 850.0), new PerfilAnel.Alvo(66.76, 849.7), new PerfilAnel.Alvo(93.46, 850.1) };
+        var ga = PerfilAnel.Calcular(cAnel, alvos);
+        double erroAlvo = alvos.Max(x => Math.Abs(PerfilConexao.Cota(ga, x.Estaca) - x.Cota));
+        Ok(ga.Count == 6 && erroAlvo < 1e-7 && ga.Skip(1).Take(4).All(v => v.Curva > 0), $"anel: a curva passa na cota de cada braço (erro {erroAlvo:E1})");
+        Ok(Q(Rampa(ga, 0, 0.01), Rampa(ga, cAnel - 0.01, 0.01), 1e-9) && Q(ga[0].Cota, ga[^1].Cota), "anel: sem quebra de rampa na emenda");
+        bool semSobrepor = true;
+        for (int i = 1; i < ga.Count - 1; i++)
+        {
+            double ini = ga[i].Estaca - ga[i].Curva / 2, fim = ga[i].Estaca + ga[i].Curva / 2;
+            if (ini < ga[i - 1].Estaca + ga[i - 1].Curva / 2 - 1e-9 || fim > ga[i + 1].Estaca - ga[i + 1].Curva / 2 + 1e-9) semSobrepor = false;
+        }
+        var rm = PerfilAnel.RampaMaxima(ga);
+        Ok(semSobrepor && Math.Abs(rm.Rampa) > 0.005 && Math.Abs(rm.Rampa) < 0.05, $"anel: curvas sem se sobrepor, rampa máxima {rm.Rampa * 100:F2}%");
+        var plano = PerfilAnel.Calcular(cAnel, new[] { new PerfilAnel.Alvo(30, 851) });
+        Ok(plano.Count == 2 && Q(plano[0].Cota, 851) && Q(plano[1].Cota, 851), "anel com um braço só fica plano");
+
         // casamento de cotas e rampas
         var v1 = Casamento.Avaliar(850, 0.02, 849.93, 0.021, 0, 3.5, -0.02);
         Ok(v1.CotaCasa && Q(v1.CotaAAjustada, 849.93) && Q(v1.Dz, 0, 1e-9) && v1.RampaComparavel && v1.RampaCasa, "casa: bordo a 3,5 m com caimento de 2 %");

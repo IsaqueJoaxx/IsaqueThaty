@@ -213,6 +213,16 @@ internal sealed class ConfigRotatoria
     public double TolPlanta { get; set; } = 0.005;
     public double TolCota { get; set; } = 0.01;
     public double TolRampa { get; set; } = 0.005;
+    // PRJROTATORIA
+    public double Dci { get; set; } = 40;
+    public double LarguraAnel { get; set; } = 6;
+    public double MeiaLarguraRamo { get; set; } = 3.5;
+    public double RaioEntrada { get; set; } = 15;
+    public double RaioSaida { get; set; } = 20;
+    public string CotaAnel { get; set; } = "Greides";
+    public double CotaFixa { get; set; } = 0;
+    /// <summary>Os parâmetros da rotatória já passaram pelo usuário (senão são os de partida, [PREMISSA]).</summary>
+    public bool ParametrosDoUsuario { get; set; }
     /// <summary>Distância do eixo ao bordo onde a conexão encosta, por nome de alinhamento.</summary>
     public Dictionary<string, double> Bordos { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 

@@ -72,6 +72,29 @@ public sealed class Cmd
         doc.Editor.WriteMessage("\nROTPREP OK");
     }
 
+    /// <summary>
+    /// Para o PRJROTATORIA, centro (2000; 2000): via principal leste-oeste atravessando o centro (2 braços), ramo norte que
+    /// termina no centro, ramo sudoeste que termina a 14 m do centro (dentro do anel) e um ramo sul curto que não chega no anel.
+    /// </summary>
+    [CommandMethod("PRJROTPREP2")]
+    public static void Prep2()
+    {
+        var doc = AcCore.DocumentManager.MdiActiveDocument;
+        var db = doc.Database;
+        var civ = CivilApplication.ActiveDocument;
+        using var tr = db.TransactionManager.StartTransaction();
+        var v = Eixo(tr, db, civ, "Via Principal", Reta(1880, 2000, 2120, 2000));
+        Greide(tr, civ, v, "Via Principal - greide", 852, 848);
+        var n = Eixo(tr, db, civ, "Ramo Norte", Reta(2000, 2130, 2000, 2000));
+        Greide(tr, civ, n, "Ramo Norte - greide", 851, 850);
+        var so = Eixo(tr, db, civ, "Ramo Sudoeste", Reta(1900, 1900, 1990, 1990));
+        Greide(tr, civ, so, "Ramo Sudoeste - greide", 853, 850.4);
+        var su = Eixo(tr, db, civ, "Ramo Sul Curto", Reta(2000, 1850, 2000, 1950));
+        Greide(tr, civ, su, "Ramo Sul Curto - greide", 851, 850);
+        tr.Commit();
+        doc.Editor.WriteMessage("\nROTPREP2 OK");
+    }
+
     [CommandMethod("PRJROTCHECK")]
     public static void Check()
     {

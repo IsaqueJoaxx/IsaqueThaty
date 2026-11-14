@@ -18,7 +18,7 @@ namespace Projeta.Civil3D.Comandos;
 /// PRJCONECTAREIXO — clica num alinhamento, clica no outro e cria a conexão (arco tangente aos dois, nos eixos ou nos
 /// bordos) já com o greide casando com os dois.
 /// </summary>
-public sealed class CmdRotatoria
+public sealed partial class CmdRotatoria
 {
     internal const string LayerMarcas = "PRJ-CASAMENTO";
 
@@ -73,12 +73,22 @@ public sealed class CmdRotatoria
                 return;
             }
 
+            // ponta oblíqua que só passa perto de outro eixo (nem encosta nele nem corre junto do bordo dele) não é encontro
+            int ignorados = encontros.RemoveAll(e => e.EhPonta && Math.Abs(e.Afastamento) > TolFalta && !Tangente(e));
+            string sobreIgnorados = ignorados > 0 ? $" {ignorados} ponta(s) que só passam perto de outro eixo (a mais de {TolFalta:0.0} m e oblíquas) não contam como encontro." : "";
+            if (encontros.Count == 0)
+            {
+                Ctx.Msg($"Nenhum encontro entre os alinhamentos.{sobreIgnorados}");
+                s.Tr.Commit();
+                return;
+            }
+
             // greide de cada alinhamento envolvido
             var greides = new Dictionary<ObjectId, Profile?>();
             foreach (var al in encontros.SelectMany(e => new[] { e.Principal, e.Ponta }).DistinctBy(a => a.ObjectId))
                 greides[al.ObjectId] = EscolherGreide(s, al);
 
-            double maxFora = encontros.Where(e => Math.Abs(e.Afastamento) > 0.30 && greides[e.Principal.ObjectId] is not null && greides[e.Ponta.ObjectId] is not null)
+            double maxFora = encontros.Where(e => NoBordo(e) && greides[e.Principal.ObjectId] is not null && greides[e.Ponta.ObjectId] is not null)
                                       .Select(e => Math.Abs(e.Afastamento)).DefaultIfEmpty(0).Max();
             if (maxFora > 0)
             {
@@ -110,9 +120,10 @@ public sealed class CmdRotatoria
 
                 // planta
                 string planta;
+                bool bordo = NoBordo(e);
                 if (fora <= cfg.TolPlanta) planta = $"encosta no eixo ({fora:0.000} m)";
-                else if (fora <= 0.30) { planta = $"NÃO ENCOSTA: falta {fora:0.000} m até o eixo de '{e.Principal.Name}'"; problemas.Add($"falta {fora:0.000} m"); }
-                else planta = $"chega a {fora:0.000} m do eixo de '{e.Principal.Name}' ({(e.Afastamento > 0 ? "direita" : "esquerda")}; ligação no bordo?)";
+                else if (bordo) planta = $"liga no bordo, a {fora:0.000} m do eixo de '{e.Principal.Name}' ({(e.Afastamento > 0 ? "direita" : "esquerda")})";
+                else { planta = $"NÃO ENCOSTA: falta {fora:0.000} m até o eixo de '{e.Principal.Name}'"; problemas.Add($"falta {fora:0.000} m"); }
                 if (e.EhPonta && desvio > 0.01 && desvio < 15) { planta += $"; quebra de {desvio:0.00}° (não é tangente)"; problemas.Add($"quebra {desvio:0.0}°"); }
                 else planta += $"; ângulo entre os eixos {ang * 180 / Math.PI:0.0}°";
                 linhas.Add("  planta: " + planta);
@@ -135,8 +146,8 @@ public sealed class CmdRotatoria
                 }
                 else
                 {
-                    var av = Projeta.Core.Alinhamentos.Casamento.Avaliar(cp.Value.Z, cp.Value.G, ct.Value.Z, ct.Value.G, ang, fora > 0.30 ? fora : 0, cfg.Caimento, cfg.TolCota, cfg.TolRampa);
-                    string ref_ = fora > 0.30 ? $"{av.CotaAAjustada:0.000} (eixo {cp.Value.Z:0.000} {Pct(cfg.Caimento, 1)} × {fora:0.00} m)" : $"{cp.Value.Z:0.000}";
+                    var av = Projeta.Core.Alinhamentos.Casamento.Avaliar(cp.Value.Z, cp.Value.G, ct.Value.Z, ct.Value.G, ang, bordo ? fora : 0, cfg.Caimento, cfg.TolCota, cfg.TolRampa);
+                    string ref_ = bordo ? $"{av.CotaAAjustada:0.000} (eixo {cp.Value.Z:0.000} {Pct(cfg.Caimento, 1)} × {fora:0.00} m)" : $"{cp.Value.Z:0.000}";
                     linhas.Add($"  cotas: '{gp!.Name}' {ref_} | '{gt!.Name}' {ct.Value.Z:0.000} → diferença {Sn(av.Dz, 3)} m  {(av.CotaCasa ? "casa" : "NÃO CASA")}");
                     if (!av.CotaCasa) problemas.Add($"Δz {Sn(av.Dz, 3)}");
                     if (av.RampaComparavel)
@@ -163,7 +174,7 @@ public sealed class CmdRotatoria
                 Ctx.Adicionar(s.Tr, ms, txt);
             }
             Ctx.Msg($"{encontros.Count} encontro(s): {ok} casa(m), {ruins} não casa(m){(semGreide > 0 ? $", {semGreide} sem greide para conferir a cota" : "")}. " +
-                    $"Marcas na camada {LayerMarcas} (verde casa, vermelho não casa, amarelo sem greide){(apagadas > 0 ? "; as marcas da conferência anterior foram apagadas" : "")}.");
+                    $"Marcas na camada {LayerMarcas} (verde casa, vermelho não casa, amarelo sem greide){(apagadas > 0 ? "; as marcas da conferência anterior foram apagadas" : "")}.{sobreIgnorados}");
 
             // acertar as cotas das pontas
             int feitos = 0;
@@ -188,6 +199,14 @@ public sealed class CmdRotatoria
     private static string Sn(double v, int casas) { double r = Math.Round(v, casas); if (r == 0) r = 0; return (r > 0 ? "+" : "") + r.ToString("F" + casas); }
 
     private static string Pct(double fracao, int casas = 2) => Sn(fracao * 100, casas) + "%";
+
+    /// <summary>Até onde uma ponta oblíqua que não encosta conta como "falta X m" (além disso é só um eixo passando perto).</summary>
+    private const double TolFalta = 1.5;
+
+    private static bool Tangente(Enc e) { double a = RotatoriaCivil.Angulo(e); return Math.Min(a, Math.PI - a) <= 15 * Math.PI / 180; }
+
+    /// <summary>Ponta que corre junto do eixo do outro, afastada (conexão encostada no bordo).</summary>
+    private static bool NoBordo(Enc e) => e.EhPonta && Math.Abs(e.Afastamento) > 0.30 && Tangente(e);
 
     private static bool PedirTolerancias(Editor ed, ConfigRotatoria cfg)
     {
@@ -262,7 +281,7 @@ public sealed class CmdRotatoria
                 ConfigRotatoria.Salvar(cfg);
 
                 using var s = Sessao.Abrir();
-                if (Conectar(s, cfg, a.Id, a.P, b.Id, b.P, raio.Value)) { s.Tr.Commit(); feitas++; }
+                if (Conectar(s, cfg, a.Id, a.P, b.Id, b.P, raio.Value) is not null) { s.Tr.Commit(); feitas++; }
             }
             if (feitas > 0) Ctx.Msg($"{feitas} conexão(ões) criada(s). Confira tudo com o PRJCASAMENTO (opção Varios). U desfaz a última.");
         }
@@ -343,12 +362,18 @@ public sealed class CmdRotatoria
         }
     }
 
-    /// <summary>Cria o alinhamento de conexão (e o greide, quando os dois têm greide). Devolve false se não deu.</summary>
-    private static bool Conectar(Sessao s, ConfigRotatoria cfg, ObjectId idA, Point3d pA, ObjectId idB, Point3d pB, double raio)
+    internal sealed record Conectada(Concordancia C, ObjectId Id, string Nome, bool ComGreide);
+
+    /// <summary>
+    /// Cria o alinhamento de conexão (e o greide, quando os dois têm greide). pA/pB: pontos nos eixos perto do canto (o lado
+    /// de cada um sai da posição do ponto do outro). Devolve null se não deu.
+    /// </summary>
+    internal static Conectada? Conectar(Sessao s, ConfigRotatoria cfg, ObjectId idA, Point3d pA, ObjectId idB, Point3d pB, double raio,
+                                        string? nomePedido = null, double? bordoA = null, double? bordoB = null)
     {
         var alA = (Alignment)s.Tr.GetObject(idA, OpenMode.ForRead);
         var alB = (Alignment)s.Tr.GetObject(idB, OpenMode.ForRead);
-        double afA = cfg.Bordo(alA.Name), afB = cfg.Bordo(alB.Name);
+        double afA = bordoA ?? cfg.Bordo(alA.Name), afB = bordoB ?? cfg.Bordo(alB.Name);
         int ladoA = RotatoriaCivil.Lado(alA, pB), ladoB = RotatoriaCivil.Lado(alB, pA);
         var c = Conexao.Calcular(RotatoriaCivil.Eixo(alA), RotatoriaCivil.EstacaPerto(alA, pA), ladoA, afA,
                                  RotatoriaCivil.Eixo(alB), RotatoriaCivil.EstacaPerto(alB, pB), ladoB, afB, raio);
@@ -356,7 +381,7 @@ public sealed class CmdRotatoria
         {
             Ctx.Msg($"Não cabe um arco de raio {raio:0.##} m tocando '{alA.Name}' e '{alB.Name}' desse lado" +
                     (afA > 0 || afB > 0 ? $" (bordos a {afA:0.00} e {afB:0.00} m)" : "") + ". Tente um raio menor ou clique mais perto do canto.");
-            return false;
+            return null;
         }
         double sA = RotatoriaCivil.Ajustar(alA, c.EstacaA), sB = RotatoriaCivil.Ajustar(alB, c.EstacaB);
 
@@ -367,7 +392,7 @@ public sealed class CmdRotatoria
         pl.SetDatabaseDefaults();
         var plId = Ctx.Adicionar(s.Tr, Ctx.EspacoModelo(s.Tr, s.Db), pl);
         var civ = CivilApplication.ActiveDocument;
-        string nome = RotatoriaCivil.NomeUnico(s.Tr, civ, $"PRJ Conexão {alA.Name} - {alB.Name}");
+        string nome = RotatoriaCivil.NomeUnico(s.Tr, civ, nomePedido ?? $"PRJ Conexão {alA.Name} - {alB.Name}");
         ObjectId rotulos = ObjectId.Null;
         try { if (civ.Styles.LabelSetStyles.AlignmentLabelSetStyles.Count > 0) rotulos = civ.Styles.LabelSetStyles.AlignmentLabelSetStyles[0]; } catch { }
         var alId = Alignment.Create(civ, new PolylineOptions { PlineId = plId, AddCurvesBetweenTangents = false, EraseExistingEntities = true },
@@ -386,7 +411,7 @@ public sealed class CmdRotatoria
             string por = gA is null ? $"'{alA.Name}' não tem greide de projeto" : ca is null ? $"o greide '{gA.Name}' não chega na tangência"
                        : gB is null ? $"'{alB.Name}' não tem greide de projeto" : $"o greide '{gB.Name}' não chega na tangência";
             Ctx.Msg($"  greide da conexão não criado: {por}.");
-            return true;
+            return new Conectada(c, alId, nome, false);
         }
         double z0 = ca.Value.Z + cfg.Caimento * afA, z1 = cb.Value.Z + cfg.Caimento * afB;
         double g0 = ca.Value.G * c.SentidoA, g1 = cb.Value.G * c.SentidoB;
@@ -409,6 +434,6 @@ public sealed class CmdRotatoria
         }
         Ctx.Msg($"  greide '{nome}': sai com {z0:0.000} e {Pct(g0)} (de '{gA.Name}'), chega com {z1:0.000} e {Pct(g1)} (de '{gB!.Name}'); " +
                 $"{(meio.Count == 0 ? "rampa única" : string.Join("; ", meio))}.");
-        return true;
+        return new Conectada(c, alId, nome, true);
     }
 }
