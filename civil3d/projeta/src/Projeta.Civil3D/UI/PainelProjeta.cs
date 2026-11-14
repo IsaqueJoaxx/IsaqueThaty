@@ -19,6 +19,9 @@ internal sealed class PainelProjeta : UserControl
             ("Ligar tubo", "PRJTUBO", "Liga dois nós existentes"),
             ("Criar bacia", "PRJBACIA", "Polilinha fechada → bacia de contribuição"),
             ("Propriedades", "PRJPROPRIEDADES", "Edita nó, tubo ou bacia"),
+            ("Salvar rede (JSON)", "PRJEXPORTARREDE", "Salva uma rede em JSON para levar a outro desenho"),
+            ("Carregar rede (JSON)", "PRJIMPORTARREDE", "Adiciona uma rede salva em JSON e a desenha"),
+            ("Excluir rede", "PRJEXCLUIRREDE", "Remove uma rede inteira (modelo e desenho)"),
         }),
         ("Edição", new[]
         {
@@ -103,9 +106,17 @@ internal sealed class PainelProjeta : UserControl
         ("Modelador", new[]
         {
             ("Modelador", "PRJMODELADOR", "Cria e edita dispositivos e seções"),
+            ("Seções-tipo", "PRJSECOES", "Abre o modelador nas seções-tipo dos dispositivos longitudinais"),
             ("Inserir dispositivo", "PRJDISPOSITIVO", "Insere um dispositivo avulso"),
+            ("Biblioteca", "PRJBIBLIOTECA", "Abre a pasta da sua biblioteca de dispositivos e recarrega as definições"),
             ("Demonstração", "PRJDEMO", "Monta uma rede de exemplo completa (autoteste)"),
+        }),
+        ("Geral", new[]
+        {
+            ("Painel lateral", "PRJPAINEL", "Painel com todos os comandos do PROJETA"),
+            ("Ponte com o Claude", "PRJMCP", "Liga ou desliga a ponte com o Claude (MCP), mostra o status e configura o início automático"),
             ("Ajuda", "PRJAJUDA", "Lista de comandos"),
+            ("Recriar a aba", "PRJABA", "Recria a aba PROJETA na faixa de opções (se ela sumir ao trocar o espaço de trabalho)"),
         }),
     };
 

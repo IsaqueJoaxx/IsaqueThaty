@@ -13,6 +13,7 @@
     <TargetFramework Condition="'$(CivilVersao)' == '2027'">net10.0-windows</TargetFramework>
     <TargetFramework Condition="'$(CivilVersao)' != '2027'">net8.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
@@ -29,6 +30,7 @@
   <ItemGroup>
     <Using Remove="System.Windows.Forms" />
     <Using Remove="System.Drawing" />
+    <Using Include="System.IO" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +38,7 @@
     <Reference Include="AcDbMgd"><HintPath>$(AcadDir)\AcDbMgd.dll</HintPath><Private>False</Private></Reference>
     <Reference Include="AcMgd"><HintPath>$(AcadDir)\AcMgd.dll</HintPath><Private>False</Private></Reference>
     <Reference Include="AecBaseMgd"><HintPath>$(AcadDir)\ACA\AecBaseMgd.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AdWindows"><HintPath>$(AcadDir)\AdWindows.dll</HintPath><Private>False</Private></Reference>
     <Reference Include="AeccDbMgd"><HintPath>$(AcadDir)\C3D\AeccDbMgd.dll</HintPath><Private>False</Private></Reference>
   </ItemGroup>
 

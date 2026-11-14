@@ -33,13 +33,19 @@ public sealed class App : IExtensionApplication
         try
         {
             if (Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.MdiActiveDocument is not null)
-                Ctx.Msg("PROJETA • Assistente Civil (drenagem, longitudinais, SWMM/EPANET, modelador) carregado. Digite PRJPAINEL ou PRJAJUDA.");
+                Ctx.Msg("PROJETA • Assistente Civil carregado: os comandos estão na aba PROJETA da faixa de opções (ou PRJPAINEL / PRJAJUDA).");
         }
         catch { }
         // ponte com o Claude (MCP): liga sozinha se o usuário ativou PRJMCP → Automatico
         try { Mcp.PonteCivil.IniciarSeConfigurado(); }
         catch { }
+        // aba PROJETA na faixa de opções (no accoreconsole não há faixa: fica quieto)
+        try { CriarAba(); }
+        catch { }
     }
+
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    private static void CriarAba() => UI.RibbonProjeta.Garantir();
 
     public void Terminate()
     {

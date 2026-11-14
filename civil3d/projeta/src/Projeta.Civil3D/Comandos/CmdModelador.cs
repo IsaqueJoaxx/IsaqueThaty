@@ -101,13 +101,25 @@ public sealed class CmdGeral
 {
     private static PaletteSet? _painel;
 
+    /// <summary>PRJABA — recria a aba PROJETA na faixa de opções e a deixa na frente.</summary>
+    [CommandMethod("PRJABA", CommandFlags.Modal)]
+    public static void Aba()
+    {
+        try
+        {
+            if (UI.RibbonProjeta.Criar(true)) Ctx.Msg("Aba PROJETA pronta na faixa de opções.");
+            else Ctx.Msg("A faixa de opções ainda não está disponível. Ligue-a com RIBBON e rode PRJABA de novo.");
+        }
+        catch (System.Exception ex) { Ctx.Msg($"[ERRO] PRJABA: {ex.Message}"); }
+    }
+
     /// <summary>PRJPAINEL — mostra o painel lateral com todos os comandos.</summary>
     [CommandMethod("PRJPAINEL", CommandFlags.Modal)]
     public static void Painel()
     {
         if (_painel is null)
         {
-            _painel = new PaletteSet("PROJETA • Drenagem e Dispositivos", new Guid("6F1C1E64-2B1D-4C8E-9A57-6B1E4B9B5A11"))
+            _painel = new PaletteSet("PROJETA • Assistente Civil", new Guid("6F1C1E64-2B1D-4C8E-9A57-6B1E4B9B5A11"))
             {
                 MinimumSize = new System.Drawing.Size(250, 400),
                 DockEnabled = DockSides.Left | DockSides.Right,
