@@ -120,12 +120,55 @@ internal sealed class PainelProjeta : UserControl
         }),
     };
 
+    /// <summary>
+    /// Aplicativos de terceiros que ganham um grupo na aba e no painel quando estão instalados (pasta do bundle em
+    /// ApplicationPlugins). Os botões só chamam os comandos deles; o aplicativo continua sendo do autor.
+    /// </summary>
+    public static readonly (string Grupo, string Bundle, (string Rotulo, string Comando, string Dica)[] Itens)[] Externos =
+    {
+        ("CTGeo (CivilTools)", "CivilTools.CTGeo.bundle", new[]
+        {
+            ("CTGeo", "CTGEO", "Paleta lateral com Street View, navegador e Google Earth Pro a partir de um ponto do desenho. CivilTools CTGeo, de Marcus Philippe A. P. Pinto"),
+            ("Street View", "CTSTREET", "Street View a partir de um ponto do desenho (CTGeo)"),
+            ("Navegador", "CTBROWSER", "Mapa no navegador a partir de um ponto do desenho (CTGeo)"),
+            ("Google Earth Pro", "CTEARTH", "Google Earth Pro a partir de um ponto do desenho; precisa do Earth Pro instalado (CTGeo)"),
+            ("Exportar KML", "CTGEOEXPORT", "Exporta KML (CTGeo)"),
+            ("Abrir KML", "CTKMLABRIR", "Abre um KML (CTGeo)"),
+            ("Importar KML", "CTKMLIMPORTAR", "Importa um KML para o desenho (CTGeo)"),
+            ("CSTKML", "CSTKML", "Rotina LISP CSTKML V1.5, que vem com o CTGeo"),
+            ("Coordenadas", "CTGEOCOORD", "Coordenadas de um ponto do desenho (CTGeo)"),
+            ("Status do CTGeo", "CTGEOSTATUS", "Versão e diagnóstico do CTGeo (mande a mensagem ao autor se algo falhar)"),
+        }),
+    };
+
+    /// <summary>Grupos do PROJETA mais os dos aplicativos de terceiros instalados.</summary>
+    public static IReadOnlyList<(string Grupo, (string Rotulo, string Comando, string Dica)[] Itens)> Todos()
+    {
+        var r = Grupos.ToList();
+        foreach (var (grupo, bundle, itens) in Externos)
+            if (Instalado(bundle)) r.Add((grupo, itens));
+        return r;
+    }
+
+    private static bool Instalado(string bundle)
+    {
+        foreach (var raiz in new[]
+                 {
+                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                     Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                     Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                 })
+            try { if (Directory.Exists(Path.Combine(raiz, "Autodesk", "ApplicationPlugins", bundle))) return true; }
+            catch { }
+        return false;
+    }
+
     public PainelProjeta()
     {
         Font = UiUtil.FonteNormal;
         var fluxo = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoScroll = true, FlowDirection = FlowDirection.TopDown, WrapContents = false, Padding = new Padding(4) };
         var dicas = new ToolTip();
-        foreach (var (grupo, itens) in Grupos)
+        foreach (var (grupo, itens) in Todos())
         {
             fluxo.Controls.Add(new Label { Text = grupo.ToUpperInvariant(), AutoSize = false, Width = 230, Height = 22, Font = new Font("Segoe UI", 8.5f, FontStyle.Bold), ForeColor = Color.SteelBlue, Padding = new Padding(0, 6, 0, 0) });
             foreach (var (rotulo, cmd, dica) in itens)

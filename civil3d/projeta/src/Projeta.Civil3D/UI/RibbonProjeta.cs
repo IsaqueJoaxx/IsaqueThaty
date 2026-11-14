@@ -60,9 +60,10 @@ internal static class RibbonProjeta
 
         var aba = new RibbonTab { Title = "PROJETA", Id = IdAba };
         ribbon.Tabs.Add(aba);
-        for (int g = 0; g < PainelProjeta.Grupos.Length; g++)
+        var grupos = PainelProjeta.Todos();
+        for (int g = 0; g < grupos.Count; g++)
         {
-            var (grupo, itens) = PainelProjeta.Grupos[g];
+            var (grupo, itens) = grupos[g];
             var cor = Cores[g % Cores.Length];
             var fonte = new RibbonPanelSource { Title = grupo, Id = "PROJETA_" + g };
             if (itens.Length <= 3)
@@ -92,8 +93,8 @@ internal static class RibbonProjeta
         ShowImage = true,
         Size = grande ? RibbonItemSize.Large : RibbonItemSize.Standard,
         Orientation = grande ? System.Windows.Controls.Orientation.Vertical : System.Windows.Controls.Orientation.Horizontal,
-        Image = Icone(cmd, cor, 16),
-        LargeImage = Icone(cmd, cor, 32),
+        Image = Icone(cmd, rotulo, cor, 16),
+        LargeImage = Icone(cmd, rotulo, cor, 32),
         CommandParameter = cmd,
         CommandHandler = Executor.Instancia,
         ToolTip = new RibbonToolTip { Title = rotulo, Command = cmd, Content = dica },
@@ -109,12 +110,21 @@ internal static class RibbonProjeta
         return melhor < 0 ? s : s[..melhor] + "\n" + s[(melhor + 1)..];
     }
 
-    /// <summary>Ícone quadrado com a sigla do comando (sem o PRJ) na cor do grupo.</summary>
-    private static ImageSource Icone(string cmd, System.Windows.Media.Color cor, int px)
+    /// <summary>
+    /// Ícone quadrado na cor do grupo com a sigla: nos comandos do PROJETA, o começo do comando sem o PRJ (REL, CAS, ROT);
+    /// nos de outros aplicativos, as iniciais do rótulo (Street View → SV) ou o começo dele.
+    /// </summary>
+    private static ImageSource Icone(string cmd, string rotulo, System.Windows.Media.Color cor, int px)
     {
-        string nome = cmd.StartsWith("PRJ", StringComparison.Ordinal) ? cmd[3..] : cmd;
         int n = px >= 32 ? 3 : 2;
-        string sigla = nome.Length > n ? nome[..n] : nome;
+        string sigla;
+        if (cmd.StartsWith("PRJ", StringComparison.Ordinal)) sigla = cmd[3..];
+        else
+        {
+            var palavras = rotulo.Split(' ', StringSplitOptions.RemoveEmptyEntries).Where(p => p.Length > 2 || p.All(char.IsUpper)).ToList();
+            sigla = palavras.Count >= 2 ? string.Concat(palavras.Select(p => char.ToUpperInvariant(p[0]))) : rotulo.Replace(" ", "").ToUpperInvariant();
+        }
+        if (sigla.Length > n) sigla = sigla[..n];
         var dv = new DrawingVisual();
         using (var dc = dv.RenderOpen())
         {
