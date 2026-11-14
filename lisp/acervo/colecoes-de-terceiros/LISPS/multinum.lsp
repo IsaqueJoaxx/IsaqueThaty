@@ -1,0 +1,26 @@
+;Write a starting number and increase it by any multiple
+;
+(defun c:mnum ()
+	(setq tstyle (getstring "\nTxt style <standard>: "))
+	(setq tstyle (if (= tstyle "") "standard" tstyle))
+	(setq thgt (getreal "\nTxt height: "))
+	(setq tspace (getpoint "\nDistance between numbers (x,y): "))
+	(setq snum (getint "\nStarting number: "))
+	(setq inc (getint "\nIncrease numbers by: "))
+	(setq tnum (getint "\nHow many numbers do you want to show: "))
+	(setq just (getstring "\nJustification, LCR:(L) "))
+		(if (= just "") (setq just nil))
+	(setq pt1 (getpoint "\nLocate start point of first number: "))
+	(setq st 1)
+	(while (<= st tnum)
+		(if (null just)
+			(command "text" "s" tstyle pt1 thgt 0 snum)
+			(command "text" "s" tstyle just pt1 thgt 0 snum)
+		)
+		(setq snum (+ snum inc))
+		(setq st (1+ st))
+		(setq pt1 (mapcar '+ pt1 tspace))
+	)
+)
+
+

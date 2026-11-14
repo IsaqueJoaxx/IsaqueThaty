@@ -1,0 +1,110 @@
+﻿{
+  "Schema": 1,
+  "Nome": "Exemplo fict\u00EDcio",
+  "Origens": [
+    {
+      "Nome": "C1",
+      "Progressiva_m": 0,
+      "Volume_banco_m3": 1000,
+      "Categoria": 1,
+      "CBR_pct": 15,
+      "Expansao_pct": 1,
+      "Permeabilidade_m_s": 0,
+      "Acesso_m": 0,
+      "Jazida": false,
+      "SoDescarte": false
+    },
+    {
+      "Nome": "C2",
+      "Progressiva_m": 1200,
+      "Volume_banco_m3": 800,
+      "Categoria": 1,
+      "CBR_pct": 5,
+      "Expansao_pct": 1,
+      "Permeabilidade_m_s": 0,
+      "Acesso_m": 0,
+      "Jazida": false,
+      "SoDescarte": false
+    },
+    {
+      "Nome": "J1",
+      "Progressiva_m": 2000,
+      "Volume_banco_m3": 600,
+      "Categoria": 1,
+      "CBR_pct": 20,
+      "Expansao_pct": 1,
+      "Permeabilidade_m_s": 0,
+      "Acesso_m": 300,
+      "Jazida": true,
+      "SoDescarte": false
+    }
+  ],
+  "Destinos": [
+    {
+      "Nome": "A1",
+      "Progressiva_m": 300,
+      "Volume_geometrico_m3": 700,
+      "Banco_por_geometrico": 1.1,
+      "CBR_min_pct": 10,
+      "Expansao_max_pct": 100,
+      "Permeabilidade_max_m_s": 1,
+      "Categoria_exigida": 0,
+      "Acesso_m": 0,
+      "ADME": false,
+      "Energia": "Informar"
+    },
+    {
+      "Nome": "A2",
+      "Progressiva_m": 1400,
+      "Volume_geometrico_m3": 800,
+      "Banco_por_geometrico": 1.1,
+      "CBR_min_pct": 4,
+      "Expansao_max_pct": 100,
+      "Permeabilidade_max_m_s": 1,
+      "Categoria_exigida": 0,
+      "Acesso_m": 0,
+      "ADME": false,
+      "Energia": "Informar"
+    },
+    {
+      "Nome": "ADME1",
+      "Progressiva_m": 1700,
+      "Volume_geometrico_m3": 300,
+      "Banco_por_geometrico": 1,
+      "CBR_min_pct": 0,
+      "Expansao_max_pct": 100,
+      "Permeabilidade_max_m_s": 1,
+      "Categoria_exigida": 0,
+      "Acesso_m": 0,
+      "ADME": true,
+      "Energia": "Informar"
+    }
+  ],
+  "Faixas": [
+    {
+      "Nome": "0\u2013200 m",
+      "Ate_m": 200,
+      "Custo_por_m3_banco": 1
+    },
+    {
+      "Nome": "200\u20131000 m",
+      "Ate_m": 1000,
+      "Custo_por_m3_banco": 2
+    },
+    {
+      "Nome": "Acima de 1000 m",
+      "Ate_m": 1000000000,
+      "Custo_por_m3_banco": 4
+    }
+  ],
+  "Rotas": [],
+  "Barreiras": [],
+  "Cubacao": [],
+  "Fonte": "Entrada manual",
+  "CompensacaoLateral": [],
+  "FatorCubacao": 1,
+  "DMT_max_m": 1000000000,
+  "Franquia_m": 0,
+  "UsarCustos": false,
+  "MinimizarExtraordinario": false
+}

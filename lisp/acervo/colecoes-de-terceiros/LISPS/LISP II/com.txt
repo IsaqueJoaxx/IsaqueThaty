@@ -1,0 +1,2902 @@
+;;;   AutoCAD SCIENTIFIC CALCULATOR 
+;;;   COM.lsp
+;;;   Copyright (C) 1995 by Redeem S. Legaspi Jr.
+;;;  
+;;;   THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED WARRANTY. 
+;;;   ALL IMPLIED WARRANTIES OF FITNESS FOR ANY PARTICULAR PURPOSE AND OF 
+;;;   MERCHANTABILITY ARE HEREBY DISCLAIMED.
+;;; 
+;;;   by Redeem S. Legaspi Jr. for AutoDESK
+;;;   15 August 1995
+;;;   Cebu City, Philippines
+;;;
+;;;
+;;;
+;;;==================== load-time error checking ========================
+
+  (defun ai_abort (app msg)
+     (defun *error* (s)
+        (if old_error (setq *error* old_error))
+        (princ)
+     )
+     (if msg
+       (alert (strcat " Application error: "
+                      app
+                      " \n\n  "
+                      msg
+                      "  \n"
+              )
+       )
+     )
+     (exit)
+  )
+
+;;; Check to see if AI_UTILS is loaded, If not, try to find it,
+;;; and then try to load it.
+;;;
+;;; If it can't be found or it can't be loaded, then abort the
+;;; loading of this file immediately, preserving the (autoload)
+;;; stub function.
+
+  (cond
+     (  (and ai_dcl (listp ai_dcl)))          ; it's already loaded.
+
+     (  (not (findfile "ai_utils.lsp"))                     ; find it
+        (ai_abort "COM"
+                  (strcat "Can't locate file AI_UTILS.LSP."
+                          "\n Check support directory.")))
+
+     (  (eq "failed" (load "ai_utils" "failed"))            ; load it
+        (ai_abort "COM" "Can't load file AI_UTILS.LSP"))
+  )
+
+  (if (not (ai_acadapp))               ; defined in AI_UTILS.LSP
+      (ai_abort "COM" nil)         ; a Nil <msg> supresses
+  )                                    ; ai_abort's alert box dialog.
+
+;;;==================== end load-time operations ========================
+
+
+;; Calculator key function.
+(defun com_key (key)
+   (cond 
+
+      ;; Numeral "0" key
+      ((and (= key "0") (not lock))
+       (setq num (chr 48))
+      )
+
+      ;; Numeral "1" key
+      ((and (= key "1") (not lock))
+       (setq num (chr 49))
+      )
+
+      ;; Numeral "2" key
+      ((and (= key "2") (not lock))
+       (setq num (chr 50))
+      )
+
+      ;; Numeral "3" key
+      ((and (= key "3") (not lock))
+       (setq num (chr 51))
+      )
+
+      ;; Numeral "4" key
+      ((and (= key "4") (not lock))
+       (setq num (chr 52))
+      )
+
+      ;; Numeral "5" key
+      ((and (= key "5") (not lock))
+       (setq num (chr 53))
+      )
+
+      ;; Numeral "6" key
+      ((and (= key "6") (not lock))
+       (setq num (chr 54))
+      )
+
+      ;; Numeral "7" key
+      ((and (= key "7") (not lock))
+       (setq num (chr 55))
+      )
+
+      ;; Numeral "8" key
+      ((and (= key "8") (not lock))
+       (setq num (chr 56))
+      )
+
+      ;; Numeral "9" key
+      ((and (= key "9") (not lock))
+       (setq num (chr 57))
+      )
+
+      ;; Multiplication function command key
+      ((and (= key "x") (not lock))
+       (fract_test) 
+       (clear_var (list 'expo 'power 'neg 'ctr))
+       (setq num "*")
+      )
+
+      ;; Addition function command key
+      ((and (= key "+") (not lock))
+       (fract_test) 
+       (clear_var (list 'expo 'power 'neg 'ctr))
+       (setq num "+")
+      )
+
+      ;; Equal function command key
+      ((and (= key "=") (not lock))
+       (fract_test) 
+       (clear_var (list 'expo 'power 'neg 'ctr))
+       (setq num "=")
+      )
+
+      ;; Division function command key
+      ((and (= key "/") (not lock))
+       (fract_test) 
+       (clear_var (list 'expo 'power 'neg 'ctr))
+       (setq num "/")
+      )
+
+      ;; Subtraction function command key
+      ((and (= key "-") (not lock))
+       (fract_test) 
+       (clear_var (list 'expo 'power 'neg 'ctr))
+       (setq num "-")
+      )
+
+      ;; Memory clear function activator key
+      ((= key "AC") (com_clear))
+
+      ;; Memory all clear function activator key
+      ((= key "kac") (mem_kclear) (clear_var 'num))
+
+      ;; Cancel function activator key
+      ((and (= key "C") (not lock))
+       (clear_var (list 'expo 'power 'ctr 'fract))
+       (com_cancel)
+      )
+
+      ;; Deviation data input 
+      ;; function activator key
+      ((and (= key "data") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'power 'ctr 'num))
+       (data)
+      )
+
+      ;; Square function activator key
+      ((and (= key "sqr") (not lock))
+       (fract_test) (com_square)
+       (clear_var (list 'expo 'power 'ctr))
+      )
+
+      ;; Square root function activator key
+      ((and (= key "sqrt") (not lock))
+       (fract_test) (com_sqrt)
+       (clear_var (list 'expo 'power 'ctr))
+      )
+
+      ;; Cube root function key
+      ((and (= key "cubt") (not lock))
+       (fract_test) (com_cubrt) 
+       (clear_var (list 'expo 'power 'ctr))
+      )
+
+      ;; Fraction function activator key
+      ((and (= key "frc") (not lock))
+       (setq fract t num "/")
+       (com_fraction)
+       (clear_var 'num)
+      )
+
+      ;; Multi-memory-out function activator key
+      ((and (= key "ko") (not lock))
+       (clear_var (list 'expo 'power 'ctr 'fract))
+       (memory "out")
+      )
+
+      ;; Register exchange function activator key
+      ((and (= key "x-y") (not lock))
+       (x-y)
+       (clear_var (list 'expo 'power 'ctr 'neg 'fract))
+      )
+
+      ;; Register exchange function activator key
+      ((and (= key "xk") (not lock))
+       (clear_var (list 'expo 'power 'ctr 'fract))
+       (num_eval nval)
+       (clear_var (list 'nval 'input))
+      )
+
+      ;; Unit converter activator key
+      ((and (= key "cvrt") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'power 'ctr))
+       (com_convert)
+      )
+    
+      ;; Factorial function activator key
+      ((and (= key "fact") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'power 'ctr))
+       (com_fact)
+      )
+
+      ;; Reciprocal function activator key
+      ((and (= key "rcp") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'power 'ctr))
+       (com_reciprocal)
+      )
+
+      ;; Digit eraser function activator key
+      ((and (= key "ers") (not lock))
+       (clear_var 'ctr)
+       (com_erase)
+      )
+
+      ;; Numeral dot (decimal point) key
+      ((and (= key "dot") (not lock)) (setq num "dot"))
+
+      ;;Random function key
+      ((and (= key "rand") (not lock))
+       (setq random t)
+       (com_random)
+       (clear_var (list 'expo 'power 'ctr 'fract))
+      )
+
+      ;;Constant function key
+      ((and (= key "cnst") (not lock))
+       (num_eval (eval (cadr (assoc const_num (constant_list)))))
+       (clear_var (list 'expo 'power 'ctr 'fract 'input))
+      )
+
+      ;; Keyboard input function 
+      ((and (= key "kbrd") (not lock))
+       (clear_var 'ctr)
+       (cond
+         (fract (clear_var 'num))
+         (t (num_eval distans) (clear_var 'input))
+       )
+      )
+
+      ;; Exponent/Pi function activator key
+      ((and (= key "exp") (not lock))
+       (clear_var 'ctr)
+       (cond
+         ((and (not fract) (or input power)) 
+          (setq expo t) 
+          (if (not expnt) (setq num "00"))
+         )
+         (t (cond
+              (fract (clear_var 'num))
+              (t (num_eval pi) (clear_var 'input))
+            )
+         )
+       )
+      )
+
+      ;; Exponential function command key
+      ((and (= key "xy") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'power 'neg 'ctr))
+       (setq num "expt")
+      ) 
+
+      ;; Inverse exponential function command key
+      ((and (= key "root") (not lock))
+       (fract_test) 
+       (clear_var (list 'expo 'power 'neg 'ctr))
+       (setq num "invexpt")
+      ) 
+
+      ;; Natural log function activator key
+      ((and (= key "ln") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'power 'ctr))
+       (com_ln)
+      )
+
+      ;; Anti-natural log 
+      ;; function activator key
+      ((and (= key "aln") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'power 'ctr))
+       (com_antiln) 
+      )
+
+
+      ;; Logarithm 
+      ;; function activator key
+      ((and (= key "log") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'power 'ctr))
+       (com_log)
+      )
+
+      ;; Anti-logarithm 
+      ;; function activator key
+      ((and (= key "alog") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'power 'ctr))
+       (com_antilog)
+      )
+
+      ;; Sexagesimal input activator key
+      ((and (= key "sexa") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'power))
+       (com_sexa)
+      )
+
+      ;; Sexagesimal display activator key
+      ((and (= key "asex") (not lock))
+       (fract_test)
+       (com_ang)
+       (clear_var (list 'expo 'power 'ctr 'num))
+      )
+
+
+      ;; Sine function activator key
+      ((and (= key "sin") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_sin)
+      )
+
+
+      ;; Cosine function activator key
+      ((and (= key "cos") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_cos)
+      )
+
+      ;; Tangent function activator key
+      ((and (= key "tan") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_tan)
+      )
+
+      ;; Inverse sine function 
+      ;; activator key
+      ((and (= key "asin") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_arcsine)
+      )
+
+      ;; Inverse arccosine function 
+      ;; activator key
+      ((and (= key "acos") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_arccosine)
+      )
+
+      ;; Inverse tangent function 
+      ;; activator key
+      ((and (= key "atan") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_arctangent)
+      )
+
+      ;; Hyperbolic sine function 
+      ;; activator key
+      ((and (= key "sinh") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_sinh) 
+      )
+
+      ;; Inverse Hyperbolic sine function 
+      ;; activator key
+      ((and (= key "isinh") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_arcsinh)
+      )
+
+      ;; Hyperbolic cosine function 
+      ;; activator key
+      ((and (= key "cosh") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_cosh) 
+      )
+
+      ;; Inverse Hyperbolic cosine function 
+      ;; activator key
+      ((and (= key "icosh") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_arccosh)
+      )
+
+      ;; Hyperbolic tangent function 
+      ;; activator key
+      ((and (= key "tanh") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_tanh) 
+      )
+
+      ;; Inverse Hyperbolic tangent function 
+      ;; activator key
+      ((and (= key "itanh") (not lock))
+       (fract_test)
+       (clear_var (list 'expo 'ctr 'power))
+       (com_arctanh)
+      )
+
+      ;; Memory-recall function activator key
+      ((and (= key "mo") (not lock))
+       (clear_var (list 'expo 'ctr 'power 'fract))
+       (com_recall)
+      )
+
+      ;; Sign number indicator
+      ;; function key
+      ((and (= key "pm") (not lock))
+       (cond
+         (expo 
+           (if neg (setq neg nil) (setq neg t))
+           (clear_var 'num) (com_exponent)
+         )
+         (t (if input (setq power t))
+            (if fract (setq num "-") (com_sign))
+         )
+       )
+      )
+
+      ;; Statistics function keys
+      ((and (member key 
+           '("sqr2" "dts" "dtn" "ave" "strd0" "strd1"))
+            (not lock)
+       )
+       (clear_var 'fract)
+       (deviation key)
+      )
+
+
+      (t (clear_var 'num))
+   )
+
+   (if (not fract) (clear_var 'fval))
+   (read_input)
+)
+
+;;Input analyzer
+(defun read_input ()
+   (cond
+     (input 
+        (if (= (type (read input)) 'INT)
+            (setq lenv (strlen input))
+        )
+        (if (= (type (read input)) 'REAL)
+            (setq lenv (- (strlen input) 1))
+        )
+     ) 
+     (t (setq lenv 0))
+   )
+   (if num 
+      (cond
+         (fract (com_fraction))
+         (expo (com_exponent))
+         (t (if (or (numberp (read num)) (= num "dot"))
+                (if (<= lenv (- max_digit 2)) 
+                    (progn
+                      (setq tstn t)
+                      (if (not lock) (com_intrpt))
+                    )
+                )
+                (cond 
+                    ((= num "error") (print_error))
+                    (t (if (not tstn) (setq input "0.0"))
+                       (if (not lock) (com_oper))
+                    )
+                )
+            )
+         )
+      )
+   )
+)
+
+;; Numeric input interpreter.
+(defun com_intrpt () 
+    (if (not input) 
+        (if (and (/= num (chr 48)) (= num "dot"))
+            (setq input (strcat (chr 48) (chr 46)))
+            (setq input num)
+        )
+        (if (= num "dot")
+            (if (= (type (read input)) 'INT)
+                (setq input (strcat input (chr 46)))
+            )
+            (cond
+              ((and (zerop (read num)) (zerop (read input)) 
+                    (= (type (read input)) 'INT)
+               )
+               (setq input (chr 48))
+              )
+              (t (if (and (zerop (read input)) 
+                          (= (type (read input)) 'INT)
+                     )
+                     (setq input num)
+                     (setq input (strcat input num))
+                  )
+               )
+            )
+        )
+    )
+    (if (= (type (read input)) 'INT)
+        (cond
+          (funct (print_value (strcat input (chr 46)) rmv))
+          (t (print_value (strcat input (chr 46)) nil))
+        )
+    )
+    (if (= (type (read input)) 'REAL)
+        (cond
+          (funct (print_value input rmv))
+          (t (print_value input nil))
+        )
+    )
+    (setq rdc nil)
+    (setq saver nil);; always set to nil everytime a numeric key is hit.
+    (if input (setq temp input))
+    (if funct (setq input nil saver dmv funct nil))
+)
+
+;; Calc-exponent function.
+(defun com_exponent ()
+    (cond
+      (expnt (if (and num (/= num "dot"))
+         (setq expnt (strcat expnt num)))
+      )
+      (t (setq expnt num))
+    )
+    (setq lenx (strlen expnt))
+    (if (> lenx 2) (setq expnt (substr expnt (- lenx 1))))
+    (if neg (setq expnt (strcat "-" expnt))
+            (setq expnt (strcat "+" expnt))
+    )
+    (setq input (strcat temp "e" expnt))
+    (print_expo (strcat temp "e" expnt) nil)
+    (clear_var 'num)
+)
+
+;; Character occurence counter/
+;; Character position determiner
+(defun counter (val char var)
+   (setq n 1 m 0)
+   (while (/= (setq ch (substr val n 1)) "")
+      (if (= ch char) 
+          (progn
+            (setq m (+ m 1))
+            (if var (set (read (strcat var (itoa m))) n))
+          )
+      )
+      (setq n (+ n 1))
+   ) (eval m)
+)
+
+;; Calc-fraction function.
+(defun com_fraction ()
+   (if (not fval) 
+      (if (and input (not (zerop (atof input)))
+          (= (type (read input)) 'INT)) 
+          (setq fval input m1 nil m2 nil)
+      )
+   )
+   (cond
+     ((and fval (not rdc))
+       (setq lenf (strlen fval))
+       (counter fval (chr 47) "m")
+       (if (and num (/= num "dot") (<= lenf 21))
+           (if (and (not (and (= num "/") 
+                    (if (> lenf 0) (= (substr fval lenf) "/")))) 
+                    (not (and m1 m2 (= num "/")))
+               )
+               (progn
+                 (if (= num "-")
+                     (setq fval (strcat 
+                         (itoa (* -1 (atoi (substr fval 1 (- m1 1)))))
+                         (substr fval m1))
+                     )
+                     (setq fval (strcat fval num))
+                 )
+               )
+           )
+       )
+       (print_fraction fval)
+     )
+     (t (clear_var 'fract))
+   )
+)
+
+;; Fractional input converter
+;; (converts input in fraction format to real no.)
+(defun fract_test ()
+   (if fract 
+     (cond
+       ((setq rval (distof (eval_fract)))
+        (digi_deter rval)
+        (setq sval (rtos rval 2 prec))
+       )
+       (t (setq code "Invalid fraction")
+          (print_error)
+       )
+     )
+   )
+   (clear_var (list 'm1 'm2 'fval 'fract))
+)
+
+;; Fraction input evaluator
+(defun eval_fract ()
+   (cond
+     ((= (counter fval (chr 47) "k") 2)
+      (setq fa (substr fval 1 (- k1 1)))
+      (setq fb (substr fval (+ k1 1) (- k2 1)))
+      (setq fc (substr fval (+ k2 1)))
+      (if (= fc "") (setq fc "0"))
+      (setq input 
+        (strcat (itoa (+ (* (abs (atoi fa)) (atoi fc)) (atoi fb))) "/" fc)
+      )
+      (if (minusp (atoi fa)) (setq input (strcat "-" input)))
+     )
+     ((= (counter fval (chr 47) "k") 1)  
+      (setq fa (substr fval 1 (- k1 1)))
+      (setq fb (substr fval (+ k1 1)))
+      (if (= fb "") (setq fb "0"))
+      (setq input (strcat fa "/" fb))
+     )
+     (t (setq input fval))
+   ) 
+   (clear_var (list 'k1 'k2))
+   (eval input)
+)
+
+
+;; Conversion of mixed fraction into normal form
+(defun norm_fract ()
+   (if fract
+     (cond
+       ((/= (counter (eval_fract) (chr 47) "m") 0)
+        (cond
+           ((distof (eval_fract))
+            (setq a (atoi (substr (eval_fract) 1 (- m1 1))))
+            (setq b (atoi (substr (eval_fract) (+ m1 1))))
+            (setq c (gcd (abs a) b)) 
+            (setq d (/ a c) e (/ b c))
+            (if (= e 1) (print_fraction (itoa d))
+              (print_fraction (strcat (itoa d) (chr 47) (itoa e)))
+            )
+           )
+           (t (setq code "Invalid fraction")
+              (print_error)
+           )
+        )
+       )
+       (t (print_fraction (eval_fract)))
+     )
+   )
+   (clear_var (list 'm1 'a 'b 'c 'd 'e))
+)
+
+(defun ptor ()
+   (if (not polar_pick)
+      (progn
+         (ptor_test)
+         (if (not pr)
+           (cond
+             (input (setq pr (atof input)))
+             (t (setq pr rval))
+           )
+         )
+         (if ptr (print_value input nil))
+         (setq ptr t input nil polar_pick t)
+      )
+   )
+)
+
+(defun rtop ()
+   (if (not polar_pick)
+      (progn
+         (rtop_test)
+         (if (not rp) (setq rp rval))
+         (if rtp (print_value input nil))
+         (setq rtp t input nil polar_pick t)
+      )
+   )
+)
+
+(defun ptor_test ()
+   (if ptr
+     (progn
+       (if ansr 
+         (setq exch 0.0)
+         (setq exch (* pr (sin (/ (convert rval) (/ 180 pi)))))
+       )
+       (setq input (rtos (setq pr 
+             (* pr (cos (/ (convert rval) (/ 180 pi))))) 2 100)
+       )
+     )
+   )
+)
+
+(defun rtop_test ()
+   (if rtp
+      (progn
+        (if ansr
+          (setq exch 0.0)
+          (setq exch (inverse (* (atan rval rp) (/ 180 pi))))
+        )
+        (setq input (rtos (setq rp 
+              (sqrt (+ (expt rp 2.0) (expt rval 2.0)))) 2 100)
+        )
+      )
+   )
+)
+
+(defun x-y ()
+   (if (not exch) (setq exch 0.0))
+   (if (and (not rtp) (not ptr)) (setq ansr rval))
+   (num_eval exch)
+   (setq exch rval input nil)
+)
+
+;; Sexagisemal input function.
+(defun com_sexa ()
+   (if (not ctr) (setq ctr 3))
+   (cond
+      ((= (rem ctr 3) 0) 
+       (setq sex-val rval)
+      )
+      ((= (rem ctr 3) 1) 
+       (setq sex-val (+ sex-val (/ rval 60.0)))
+      )
+      ((= (rem ctr 3) 2) 
+       (setq sex-val (+ sex-val (/ rval 3600.0)))
+      )
+    )
+    (setq ctr (+ ctr 1))
+    (num_eval sex-val)
+    (clear_var 'input)
+)
+
+;; Input list modifier.
+(defun modify_list ()
+    (cond
+       ((or (and (= oper "*") (= opr "*"))
+            (and (= oper "/") (= opr "*"))
+        )
+        (setq a (nth 3 (reverse numlst)))
+        (setq b (* (nth 2 (reverse numlst)) 
+                   (nth 1 (reverse numlst)))
+        )
+        (setq c (nth 0 (reverse numlst)))
+        (setq numlst (list a b c))
+        (setq opr oprr)
+       )
+       ((or (and (= oper "/") (= opr "/"))
+            (and (= oper "*") (= opr "/"))
+        )
+        (setq a (nth 3 (reverse numlst)))
+        (setq b (/ (nth 2 (reverse numlst)) 
+                   (nth 1 (reverse numlst)))
+        )
+        (setq c (nth 0 (reverse numlst)))
+        (setq numlst (list a b c))
+        (setq opr oprr)
+       )
+       ((or (and (= oper "expt") (= opr "expt"))
+            (and (= oper "invexpt") (= opr "expt"))
+        )
+        (setq a (nth 3 (reverse numlst)))
+        (setq b (expt (nth 2 (reverse numlst)) 
+                      (nth 1 (reverse numlst))) 
+        )
+        (setq c (nth 0 (reverse numlst)))
+        (setq numlst (list a b c))
+        (setq opr oprr)
+       )
+       ((or (and (= oper "invexpt") (= opr "invexpt"))
+            (and (= oper "expt") (= opr "invexpt"))
+        )
+        (setq a (nth 3 (reverse numlst)))
+        (setq b (expt (nth 2 (reverse numlst)) 
+                      (/ 1.0 (nth 1 (reverse numlst))))
+        )
+        (setq c (nth 0 (reverse numlst)))
+        (setq numlst (list a b c))
+        (setq opr oprr)
+       )
+    )
+    (setq val-a (nth 2 (reverse numlst)))
+    (setq val-b (nth 1 (reverse numlst)))
+    (setq val-d (nth 0 (reverse numlst)))
+)
+
+;; Operation interpreter.
+(defun com_oper () 
+    (defun equal_1 ()
+       (if (and saver (not input)) (setq input saver saver nil))
+       (if input (setq numlst (append numlst (list (distof input)))))
+       (if input (setq m-lst nil))
+       (if (not m-lst) (setq m-lst (list num)))
+       (if (and (= num oper) (not input))
+           (setq m-lst (append m-lst (list num)))
+           (setq m-lst (list num))
+       )
+       (if (zerop (rem (length m-lst) 2))
+           (progn
+             (setq m-val rval m-oper (nth 0 m-lst))
+             (set_tile "error" 
+             (adjust "<Constant Calc. Mode activated>"))
+           )
+           (progn
+             (clear_var (list 'm-val 'm-oper))
+             (set_tile "error" "")
+           )
+       )
+       (com_equal) 
+       (if opr (setq oprr opr))
+       (if input (if oper (setq opr oper)))
+       (if num (setq oper num))
+       (clear_var 'input)
+    )
+    (defun equal_2 ()
+       (if (and saver (not input)) (setq input saver saver nil))
+       (if (not input) 
+           (if (and m-val m-oper) 
+               (setq input (rtos (float ansr) 2 100))
+           )
+       )                                                   
+       (if input (setq numlst (append numlst (list (distof input)))))
+       (com_equal)
+       (clear_var (list 'oper 'opr 'oprr 'numlst))
+       (if ansr (setq numlst (append numlst (list ansr ))))
+       (clear_var 'input)
+    )
+    (cond
+      ((member num '( "+" "-" "/" "*" "expt" "invexpt")) 
+       (if input (ptor_test))  
+       (if input (rtop_test)) 
+       (equal_1)
+       (if (and (not ptr) (not rtp)) (setq exch ansr))
+       (clear_var (list 'ptr 'rtp))
+      )
+      ((= num "=") 
+       (ptor_test) (rtop_test) 
+       (equal_2)
+       (if (and (not ptr) (not rtp)) (setq exch ansr))
+       (clear_var (list 'ptr 'rtp))
+      )
+    )
+      
+    (setq polar_pick nil);;;check whether polar key was hit 
+                         ;;;more than once consecutively
+)
+
+;; Calculates the result on the specified operation.
+(defun com_equal () 
+    (cond
+      ((and (= oper "+") (not m-oper)) 
+       (if input (com_add))
+      )
+      ((and (= oper "-") (not m-oper)) 
+       (if input (com_minus))
+      )
+      ((and (= oper "/") (not m-oper)) 
+       (if input (com_divide))
+      )
+      ((and (= oper "*") (not m-oper)) 
+       (if input (com_multiply))
+      )
+      ((and (= oper "expt") (not m-oper)) 
+       (if input (com_expt))
+      )
+      ((and (= oper "invexpt") (not m-oper)) 
+       (if input (com_invexpt))
+      )
+      (t (com_else))
+    )
+    (cond
+      ((= ansr "error") (print_error))
+      ((and (not (zerop ansr)) (> (abs ansr) 9.999999999999999e+99))
+       (setq code "Infinity") (print_error)
+      )
+      (t (if (< (abs ansr) 1.0e-99) (setq ansr 0.0))
+         (if (or (= num "=") (if input (eq num oper))) 
+             (com_result ansr))
+      )
+    )
+)
+
+;; Takes care of the return value in case no 
+;; previously entered arithmetic operation.
+(defun com_else () 
+   (if input
+       (setq ansr (distof input))
+       (setq ansr rval)
+   )
+   (if (and m-val m-oper (= num "="))
+      (cond
+        ((=  m-oper "expt") 
+         (if (and (zerop ansr) (zerop m-val))
+             (setq ansr "error" code "Divide by zero")
+             (setq ansr (expt ansr m-val))
+         )
+        )
+        ((=  m-oper "invexpt") 
+         (if (or (and (zerop ansr) (zerop m-val)) (zerop m-val))
+             (setq ansr "error" code "Divide by zero")
+             (setq ansr (expt ansr (/ 1.0 m-val)))
+         )
+        )
+        ((=  m-oper "/") 
+         (if (zerop m-val)
+             (setq ansr "error" code "Divide by zero")
+             (setq ansr (/ ansr m-val))
+         )
+        )
+        ((=  m-oper "*") (setq ansr (* ansr m-val)))
+        ((=  m-oper "+") (setq ansr (+ ansr m-val)))
+        ((=  m-oper "-") (setq ansr (- ansr m-val)))
+      )
+   )
+)
+
+;; Addition function.
+;; calculates the sum of two or more numbers
+(defun com_add () 
+    (modify_list)
+    (setq ansr (+ (float ansr) val-d))
+)
+
+;; Subtraction function.
+;; calculates the difference of two or more numbers
+(defun com_minus () 
+    (modify_list)
+    (setq ansr (- (float ansr) val-d))
+)
+
+;; Division function.
+;; calculates the quotient of two or more numbers
+(defun com_divide () 
+   (modify_list)
+   (if (zerop val-d)
+       (setq ansr "error" code "Divide by zero")
+       (cond
+         ((or (= opr "*") (= opr "/") (= opr "expt") 
+              (= opr "invexpt") (= opr nil)
+          )
+          (setq ansr (/ ansr val-d))
+         )
+         ((= opr "+") (setq ansr (+ (- ansr val-b) (/ val-b val-d))))
+         ((= opr "-") (setq ansr (- (+ ansr val-b) (/ val-b val-d))))
+       )
+   )
+)
+
+;; Multiplication function.
+;; calculates the product of two or more numbers
+(defun com_multiply () 
+   (modify_list)
+   (cond
+     ((or (= opr "*") (= opr "/") (= opr "expt") 
+          (= opr "invexpt") (= opr nil)
+      )
+      (setq ansr (* ansr val-d))
+     )
+     ((= opr "+") (setq ansr (+ (- ansr val-b) (* val-b val-d))))
+     ((= opr "-") (setq ansr (- (+ ansr val-b) (* val-b val-d))))
+   )
+ )
+
+;; Exponential function.
+(defun com_expt () 
+   (modify_list)
+   (if (and (zerop val-d) (zerop ansr))
+       (setq ansr "error" code "Divide by zero")
+       (progn
+       (if (= opr "*")
+          (cond
+            ((= oprr "+") (setq val-c (- ansr (* val-a val-b)))
+             (setq ansr (+ val-c (* (expt val-b val-d) val-a)))
+            )
+            ((= oprr "-") (setq val-c (+ ansr (* val-a val-b)))
+             (setq ansr (- val-c (* (expt val-b val-d) val-a)))
+            )
+            ((or (= oprr "*") (= oprr "/") (not oprr))
+             (setq ansr (* ansr (expt val-b (- val-d 1.0))))
+            )
+            ((= oprr "expt")
+             (setq val-c (exp (/ (log (/ ansr val-b)) val-a)))
+             (setq ansr (* (expt val-c val-a) (expt val-b val-d)))
+            )
+            ((= oprr "invexpt")
+             (setq val-c (exp (/ (log (/ ansr val-b)) (/ 1.0 val-a))))
+             (setq ansr (* (expt val-c (/ 1.0 val-a)) (expt val-b val-d)))
+            )
+          )
+       )
+       (if (= opr "/")
+          (cond
+            ((= oprr "+") (setq val-c (- ansr (/ val-a val-b)))
+             (setq ansr (+ val-c (/ val-a (expt val-b val-d))))
+            )
+            ((= oprr "-") (setq val-c (+ ansr (/ val-a val-b)))
+             (setq ansr (- val-c (/ val-a (expt val-b val-d))))
+            )
+            ((or (= oprr "*") (= oprr "/") (not oprr))
+             (setq ansr (* ansr (expt val-b (- 1.0 val-d))))
+            )
+            ((= oprr "expt")
+             (setq val-c (exp (/ (log (* ansr val-b)) val-a)))
+             (setq ansr (/ (expt val-c val-a) (expt val-b val-d)))
+            )
+            ((= oprr "invexpt")
+             (setq val-c (exp (/ (log (* ansr val-b)) (/ 1.0 val-a))))
+             (setq ansr (/ (expt val-c (/ 1.0 val-a)) (expt val-b val-d)))
+            )
+          )
+       )
+       (if (= opr "+") (setq ansr (+ (- ansr val-b) (expt val-b val-d))))
+       (if (= opr "-") (setq ansr (- (+ ansr val-b) (expt val-b val-d))))
+       (if (or (not opr) (= opr "expt") (= opr "invexpt"))
+           (setq ansr (expt ansr val-d))
+       )
+       )
+   )
+)
+
+;; Inverse Exponential function.
+(defun com_invexpt () 
+   (modify_list)
+   (if (zerop val-d)
+       (setq ansr "error" code "Divide by zero")
+       (progn
+       (if (= opr "*")
+          (cond
+            ((= oprr "+") (setq val-c (- ansr (* val-a val-b)))
+             (setq ansr (+ val-c (* (expt val-b (/ 1.0 val-d)) val-a)))
+            )
+            ((= oprr "-") (setq val-c (+ ansr (* val-a val-b)))
+             (setq ansr (- val-c (* (expt val-b (/ 1.0 val-d)) val-a)))
+            )
+            ((or (= oprr "*") (= oprr "/") (not oprr))
+             (setq ansr (* ansr (expt val-b (- (/ 1.0 val-d) 1.0))))
+            )
+            ((= oprr "expt")
+             (setq val-c (exp (/ (log (/ ansr val-b)) val-a)))
+             (setq ansr (* (expt val-c val-a) (expt val-b (/ 1.0 val-d))))
+            )
+            ((= oprr "invexpt")
+             (setq val-c (exp (/ (log (/ ansr val-b)) (/ 1.0 val-a))))
+             (setq ansr (* (expt val-c (/ 1.0 val-a)) (expt val-b (/ 1.0 val-d))))
+            )
+          )
+       )
+       (if (= opr "/")
+          (cond
+            ((= oprr "+") (setq val-c (- ansr (/ val-a val-b)))
+             (setq ansr (+ val-c (/ val-a (expt val-b (/ 1.0 val-d)))))
+            )
+            ((= oprr "-") (setq val-c (+ ansr (/ val-a val-b)))
+             (setq ansr (- val-c (/ val-a (expt val-b (/ 1.0 val-d)))))
+            )
+            ((or (= oprr "*") (= oprr "/") (not oprr))
+             (setq ansr (* ansr (expt val-b (- 1.0 (/ 1.0 val-d)))))
+            )
+            ((= oprr "expt")
+             (setq val-c (exp (/ (log (* ansr val-b)) val-a)))
+             (setq ansr (/ (expt val-c val-a) (expt val-b (/ 1.0 val-d))))
+            )
+            ((= oprr "invexpt")
+             (setq val-c (exp (/ (log (* ansr val-b)) (/ 1.0 val-a))))
+             (setq ansr (/ (expt val-c (/ 1.0 val-a)) (expt val-b (/ 1.0 val-d))))
+            )
+          )
+       )
+       (if (= opr "+") (setq ansr (+ (- ansr val-b) (expt val-b (/ 1.0 val-d)))))
+       (if (= opr "-") (setq ansr (- (+ ansr val-b) (expt val-b (/ 1.0 val-d)))))
+       (if (or (not opr) (= opr "expt") (= opr "invexpt"))
+           (setq ansr (expt ansr (/ 1.0 val-d)))
+       )
+       )
+  )
+)
+
+;; Sign numbers indicator.
+(defun com_sign () 
+   (cond
+     (input 
+       (if (minusp (distof input))
+          (setq input (substr input 2))
+          (if (not (zerop (distof input)))
+             (setq input (strcat "-" input))
+          )
+       )
+       (if (= (type (read input)) 'INT)
+          (print_value (strcat input ".") nil)
+          (print_value input nil)
+       )
+       (clear_var 'num)
+     )
+     (t (num_eval (* -1.0 rval))
+        (clear_var 'input)
+     )
+   )
+   (if input (setq temp input))
+)
+
+;; Natural logarithm function.
+(defun com_ln () 
+   (if (or (zerop rval) (minusp rval))
+       (setq num "error" code "Value out of range")
+       (num_eval (log rval))
+   )
+   (clear_var 'input)
+)
+
+;; Logarithm function.
+(defun com_log () 
+    (if (or (zerop rval) (minusp rval))
+        (setq num "error" code "Value out of range")
+        (num_eval (/ (log rval) (log 10)))
+    )
+    (clear_var 'input)
+)
+
+;; Anti-logarithm function.
+(defun com_antilog ()
+   (num_eval (expt 10.0 rval))
+   (clear_var 'input)
+)
+
+;; Anti-natural logarithm function.
+(defun com_antiln () 
+   (num_eval (exp rval))
+   (clear_var 'input)
+)
+
+;; Square root function.
+;; extracts the square root of a number.
+(defun com_sqrt () 
+   (if (minusp rval)
+       (setq num "error" code "Imaginary root")
+       (num_eval (sqrt rval))
+   )
+   (clear_var 'input)
+)
+
+;; Square function.
+(defun com_square ()
+   (num_eval (expt rval 2.0))
+   (clear_var 'input)
+)
+
+;; Unit convertion function
+(defun com_convert ()
+   (num_eval (cvunit rval from to))
+   (clear_var 'input)
+)
+
+;; Cube root function.
+(defun com_cubrt ()
+   (if (minusp rval)
+       (num_eval (* -1.0 (expt (abs rval) (float (/ 1.0 3.0)))))
+       (num_eval (expt rval (float (/ 1.0 3.0))))
+   )
+   (clear_var 'input)
+)
+
+;; Reciprocal function.
+(defun com_reciprocal ()
+   (cond
+     ((zerop rval) (setq num "error" code "Divide by zero"))
+     (t (num_eval (/ 1.0 rval)))
+   )
+   (clear_var 'input)
+)
+
+;; Sine function.
+(defun com_sin ()
+   (if (or (equal rval (inverse 180.0) 0.0001)
+           (equal rval (inverse 360.0) 0.0001)
+       )
+       (num_eval 0.0)
+       (num_eval (sin (/ (convert rval) (/ 180 pi))))
+   )
+   (clear_var 'input)
+)
+
+;; Cosine function.
+;; calculates the cosine of a number
+(defun com_cos () 
+    (if (or (equal rval (inverse 90.0) 0.0001)
+            (equal rval (inverse 270.0) 0.0001)
+        )
+        (num_eval 0.0)
+        (num_eval (cos (/ (convert rval) (/ 180 pi))))
+    )
+    (clear_var 'input)
+)
+
+;; Tangent function.
+;; calculates the tangent of a number
+(defun com_tan () 
+   (if (or (equal rval (inverse 90.0) 0.0001)
+           (equal rval (inverse 270.0) 0.0001)
+           (zerop (cos (/ (convert rval) (/ 180 pi))))
+       )
+       (setq num "error" code "Value out of range")
+       (if (or (equal rval (inverse 180.0) 0.0001)
+               (equal rval (inverse 360.0) 0.0001)
+           )
+           (num_eval 0.0)
+           (num_eval (/ (sin (/ (convert rval) (/ 180 pi))) 
+                        (cos (/ (convert rval) (/ 180 pi)))
+                     )
+           )
+       )
+   )
+   (clear_var 'input)
+)
+
+;;; Arc-Tangent function.
+(defun com_arctangent ()
+    (num_eval (inverse (* (atan rval) (/ 180 pi))))
+    (clear_var 'input)
+)
+
+;;; Arc-Cosine function.
+(defun com_arccosine ()
+  (if (and (< rval 1.0) (> rval -1.0))
+    (num_eval (inverse (* (/ 180 pi) 
+        (atan (sqrt (- 1.0 (expt rval 2))) rval)))
+    )
+    (cond
+      ((= rval 1.0) (num_eval 0.0))
+      ((= rval -1.0) (num_eval (inverse 180.0)))
+      (t (setq num "error" code "Value out of range"))
+    )
+  )
+  (clear_var 'input)
+)
+
+;;; Arc-Sine function.
+(defun com_arcsine ()
+  (if (and (< rval 1.0) (> rval -1.0))
+    (num_eval (inverse (- 90.0 
+                       (* (/ 180 pi) 
+                          (atan (sqrt (- 1 (expt rval 2))) rval)))
+              )
+    )
+    (cond
+      ((= rval 1.0) (num_eval (inverse 90.0)))
+      ((= rval -1.0) (num_eval (inverse -90.0)))
+      (t (setq num "error" code "Value out of range"))
+    )
+  )
+  (clear_var 'input)
+)
+
+;; Hyperbolic sine function.
+(defun com_sinh () 
+   (num_eval (/ (- (exp rval) (exp (* -1.0 rval))) 2.0))
+   (clear_var 'input)
+)
+
+;; Hyperbolic cosine function.
+;; calculates the hyperbolic cosine of a number
+(defun com_cosh () 
+   (num_eval (/ (+ (exp rval) (exp (* -1.0 rval))) 2.0))
+   (clear_var 'input)
+)
+
+;; Hyperbolic tangent function.
+;; calculates the hyperbolic tangent of a number
+(defun com_tanh () 
+   (num_eval (/ (- (exp rval) (exp (* -1.0 rval)))
+                (+ (exp rval) (exp (* -1.0 rval)))
+             )
+   )
+   (clear_var 'input)
+)
+
+;; Inverse Hyperbolic sine function.
+(defun com_arcsinh () 
+   (num_eval (log (+ rval (sqrt (+ (expt rval 2.0) 1.0)))))
+   (clear_var 'input)
+)
+
+;; Inverse Hyperbolic cosine function.
+(defun com_arccosh () 
+   (if (< rval 1.0)
+       (setq num "error" code "Value out of range")
+       (num_eval (log (+ rval (sqrt (- (expt rval 2.0) 1.0)))))
+   )
+   (clear_var 'input)
+)
+
+;; Inverse Hyperbolic tangent function.
+(defun com_arctanh () 
+   (if (>= (abs rval) 1.0)
+       (setq num "error" code "Value out of range")
+       (num_eval (/ (log (/ (+ 1.0 rval) (- 1.0 rval))) 2.0))
+   )
+   (clear_var 'input)
+)
+
+;; Sexagesimal display function.
+;; Changes the display into angular units
+(defun com_ang () 
+   (setq dg rval)
+   (setq dgg (- dg (fix dg)))
+   (setq mn (* dgg 60))
+   (setq mnn (- mn (fix mn)))
+   (setq sc (rtos (abs (* mnn 60)) 2 3))
+   (if (= (substr sc 1 1) (chr 46))
+       (setq sc (strcat (chr 48) sc))
+   )
+   (setq angval (strcat (rtos (fix dg) 2 0) (chr 248)
+                        (rtos (abs (fix mn)) 2 0) 
+                        (chr 39) sc (chr 34))
+   )
+   (if (<= (strlen angval) max_digit) (print_value angval rval))
+)
+
+;; Angular unit converter.
+(defun convert (mode-val) 
+  (if (numberp mode-val)
+     (cond 
+       (rad (/ (* 180.0 (float mode-val)) pi))
+       (gra (/ (* 180.0 (float mode-val)) 200.0))
+       (deg (float mode-val))
+       (t (float mode-val))
+     )
+     (cond 
+       (rad (/ (* 180.0 (atof mode-val)) pi))
+       (gra (/ (* 180.0 (atof mode-val)) 200.0))
+       (deg (atof mode-val))
+       (t (atof mode-val))
+     )
+  )
+) 
+
+;; Inverse Angular unit converter.
+(defun inverse (inv-val) 
+  (if (numberp inv-val)
+     (cond 
+       (rad (/ (* pi (float inv-val)) 180.0))
+       (gra (/ (* 200.0 (float inv-val)) 180.0))
+       (deg (float inv-val))
+       (t (float inv-val))
+     )
+     (cond 
+       (rad (/ (* pi (atof inv-val)) 180.0))
+       (gra (/ (* 200.0 (atof inv-val)) 180.0))
+       (deg (atof inv-val))
+       (t (atof inv-val))
+     )
+  )
+) 
+
+;; Factorial function.
+;; calculates the factorial of an integer
+(defun com_fact () 
+   (defun fact (y) 
+      (setq n y m y)
+      (while (not (zerop (setq n (- n 1))))
+         (setq m (* m n))
+      ) 
+      (float m)
+   ) 
+   (if (zerop (- rval (fix rval)))
+       (if (zerop rval)
+           (num_eval 1.0)
+           (if (minusp rval)
+               (setq num "error")
+               (if (> rval 170)
+                  (setq num "error" code "Infinity")
+                  (num_eval (fact rval))
+               )
+           )
+       )
+       (setq num "error" code "Invalid input")
+   )
+   (clear_var 'input)
+)
+
+;; Random number function
+(defun com_random ()
+   (setq tmr (rtos (getvar "tdusrtimer") 2 8))
+   (num_eval (/ (atof (substr tmr 8)) 1000.0))
+   (clear_var 'input)
+)
+
+;; Memory-in function.
+(defun com_in () 
+   (fract_test)
+   (setq memz rval)
+   (cond
+     (input (setq saver input))
+     (t (setq saver (rtos rval 2 100)))
+   )
+   (clear_var 'input)
+)
+
+;; Memory-recall function.
+(defun com_recall ()
+   (cond
+     (memz (num_eval (float memz)))
+     (t (num_eval 0.0))
+   )
+   (clear_var 'input)
+)
+
+;; Memory-in-plus function.
+(defun com_mplus (adrs)
+   (fract_test)
+   (if (not (eval (read (strcat "mem" adrs)))) 
+       (set (read (strcat "mem" adrs)) 0.0)
+   )
+   (set (read (strcat "mem" adrs))            
+        (+ (float rval) (eval (read (strcat "mem" adrs))))
+   )
+   (cond
+     (input (setq saver input))
+     (t (setq saver (rtos rval 2 100)))
+   )
+   (clear_var 'input)
+)
+
+;; Memory-in-minus function.
+(defun com_mminus (adrs)
+   (fract_test)
+   (if (not (eval (read (strcat "mem" adrs)))) 
+       (set (read (strcat "mem" adrs)) 0.0)
+   )
+   (set (read (strcat "mem" adrs))            
+        (- (float rval) (eval (read (strcat "mem" adrs))))
+   )
+   (cond
+     (input (setq saver input))
+     (t (setq saver (rtos rval 2 100)))
+   )
+   (clear_var 'input)
+)
+
+;;Display mode evaluator
+(defun evaluate ()
+   (if fract
+     (print_fraction fval)
+     (cond
+       (fxn (print_value (rtos rval 2 fxn) rval))
+       (scn (print_value (rtos rval 1 scn) rval))
+       (t (digi_deter rval) (print_value (rtos rval 2 prec) rval))
+     )
+   )
+   (clear_var 'num)
+)
+
+;; Calculator clock.
+(defun com_time ()
+   (setq dte (rtos (getvar "cdate") 2 8))
+   (setq hr (substr dte 10 2))
+   (setq min  (substr dte 12 2))
+   (setq sec  (substr dte 14 2))
+   (if (>= (atoi hr) 12) (setq ap "p.m.") (setq ap "a.m."))
+   (if (> (atoi hr) 12) (setq hr (itoa (- (atoi hr) 12))))
+   (if (zerop (atoi hr)) (setq hr (itoa 12)))
+   (if (= (strlen hr) 1) (setq hr (strcat "0" hr)))
+   (set_tile "tmx" (strcat "  " hr ":" min ":" sec " " ap))
+)
+
+;; Deviation data input function.
+(defun data ()
+   (fract_test)
+   (setq datalist (append datalist (list rval)))
+   (cond
+     (input (setq saver input))
+     (t (setq saver (rtos rval 2 100)))
+   )
+   (clear_var 'input)
+)
+
+;; Standard deviation function
+(defun deviation (output)
+   (setq expo nil expnt nil)
+   (if (not datalist)
+       (setq num "error" code "Empty data entry")
+       (cond
+         ((= output "dtn")
+          (num_eval (length datalist))
+         )
+         ((= output "dts")
+          (num_eval (apply '+ datalist))
+         )
+         ((= output "ave")
+          (num_eval (/ (apply '+ datalist) (length datalist)))
+         )
+         ((= output "sqr1")
+          (num_eval (expt (apply '+ datalist) 2))
+         )
+         ((= output "sqr2")
+          (num_eval (apply '+ (mapcar '* datalist datalist)))
+         )
+         ((= output "strd0")
+          (if (zerop (apply '+ datalist))
+              (setq num "error")
+              (num_eval (sqrt (/ (- (apply '+ (mapcar '* datalist datalist)) 
+                        (/ (expt (apply '+ datalist) 2) (length datalist))) 
+                        (length datalist)))
+              )
+          )
+         )
+         ((= output "strd1")
+          (if (or (zerop (apply '+ datalist)) (zerop (- (length datalist) 1)))
+              (setq num "error")
+              (num_eval (sqrt (/ (- (apply '+ (mapcar '* datalist datalist)) 
+                        (/ (expt (apply '+ datalist) 2) (length datalist))) 
+                        (- (length datalist) 1)))
+              )
+          )
+         )
+       )
+   )
+   (clear_var 'input)
+)
+
+;; Multiple memory  activator
+(defun memo_in (reg)
+   (fract_test)
+   (set (read (strcat "mem" reg)) (float rval))
+   (cond
+     (input (setq saver input))
+     (t (setq saver (rtos rval 2 100)))
+   )
+   (clear_var 'input)
+)
+
+;; Multiple memory-recall function.
+(defun memo_out (reg)
+   (if (eval (read (strcat "mem" reg)))
+       (num_eval (float (eval (read (strcat "mem" reg)))))
+       (num_eval (float 0.0))
+   )
+   (clear_var 'input)
+)
+
+;; Multiple memory exchange function.
+(defun memo_exch (reg)
+   (if (eval (read (strcat "mem" reg)))
+       (setq nval (float (eval (read (strcat "mem" reg)))))
+       (setq nval (float 0.0))
+   )
+   (fract_test)
+   (set (read (strcat "mem" reg)) (float rval))
+   (num_eval nval) (clear_var 'input)
+)
+
+;; Clears multiple memory
+(defun mem_kclear ()
+  (setq m 97)
+  (while (<= m 121)
+    (set (read (strcat "mem" (chr m))) nil)
+    (setq m (+ m 1))
+  )
+  (clear_var 'm)
+)
+
+;; Calculator cancel function
+;; Cancels the previously entered number.
+(defun com_cancel ()  
+   (num_eval 0.0) 
+   (clear_var (list 'input 'expnt))
+)
+
+;; Significant digits determiner.
+(defun digi_deter (digit)
+   (setq val1 (chr 48) jn 15)
+   (setq dm (strlen (rtos (abs (float digit)) 2 0)))
+   (while (= val1 (chr 48))
+      (setq val1 (substr (rtos (abs 
+                 (float digit)) 2 (- 14 dm)) jn 1)
+      )
+      (setq jn (- jn 1))
+   )
+   (setq prec (- jn dm))
+   (setq prec1 prec)
+   (cond
+      (random (setq prec 3)) 
+      (t (if fxn (setq prec fxn)))
+   )
+)
+
+;; Results evaluator function.
+(defun com_result (val)  
+    (if (and (<= (abs val) 1e-10) (not (zerop val)))
+        (cond
+          (fxn (print_value (rtos (float val) 1 fxn) val))
+          (scn (print_value (rtos (float val) 1 scn) val))
+          (t (print_value (rtos (float val) 1 15) val))
+        )
+        (if (>= (abs val) 1e+11) 
+            (cond
+              (fxn (print_value (rtos (float val) 1 fxn) val))
+              (scn (print_value (rtos (float val) 1 scn) val))
+              (t (print_value (rtos (float val) 1 15) val))
+            )
+            (progn
+              (cond
+                ((and (not random) scn) 
+                 (print_value (rtos (float val) 1 scn) val)
+                )
+                (t (digi_deter val)
+                   (setq new (rtos (float val) 2 prec))
+                   (if (> (strlen new) max_digit)
+                       (setq new (rtos (float val) 2 prec1))
+                   )
+                   (if (= (substr new 1 1) ".")
+                       (setq new (strcat "0" new))
+                   )
+                   (if (= (substr new 1 2) "-.")
+                       (setq new (strcat "-0" (substr new 2)))
+                   )
+                   (print_value new val)
+                )
+              )
+            )
+        )
+    )
+)
+
+;; Function evaluator.
+(defun num_eval (num-val) 
+    (setq rmv (float num-val))
+    (setq dmv (rtos (float num-val) 2 100))
+    (if (and (<= (abs num-val) 1e-10) (not (zerop num-val)))
+        (setq num (rtos (float num-val) 1 15))
+        (if (>= (abs num-val) 1e+11) 
+            (cond
+              (fxn (setq num (rtos (float num-val) 1 fxn)))
+              (scn (setq num (rtos (float num-val) 1 scn)))
+              (t (setq num (rtos (float num-val) 1 15)))
+            )
+            (progn
+              (cond
+                ((and (not random) scn) 
+                 (setq num (rtos (float num-val) 1 scn))
+                )
+                (t (digi_deter num-val)
+                   (setq num (rtos (float num-val) 2 prec))
+                   (if (> (strlen num) max_digit)
+                       (setq num (rtos (float num-val) 2 prec1))
+                   )
+                )
+              )
+           )
+        )
+    )
+    (if (= (substr num 1 1) ".")
+        (setq num (strcat "0" num))
+    )
+    (if (= (substr num 1 2) "-.")
+        (setq num (strcat "-0" (substr num 2)))
+    )
+    (setq funct t random nil)
+    (cond
+      ((and (not (zerop rmv)) (> (abs rmv) 9.999999999999999e+99))
+       (setq num "error" code "Infinity")
+      )
+      (t (if (< (abs rmv) 1.0e-99) (setq num "0"))
+         (eval num)
+      )
+    )
+)
+
+;; Variables nil setter function
+(defun clear_var (lst) 
+   (if (listp lst)
+       (mapcar '(lambda (x) (set x nil)) lst)
+       (set lst nil)
+   )
+)
+
+;; Memory clear function.
+;; clears display and calculator memory
+(defun com_clear () 
+   (clear_var (list 'num 'oper 'opr 'numlst 'oprr 'lock 'input 'nval 
+            'tstn 'power 'sval 'ansr 'code 'expo 'expnt 'temp 
+            'funct 'dmv 'str1 'str2 'neg 'fval 'm1 'strval 'lenval 
+            'hyp 'fval 'm2 'sex-val 'ctr 'fract 'prr 'm-oper 'pr 
+            'ptr 'rx 'ry 'rxy 'm-val 'rp 'rtp 'exch 'exd 'm-lst 'polar_pick
+          )
+   )
+   (set_tile "error" "") 
+   (num_eval 0.0) 
+   (clear_var 'input)
+)
+
+;; Digit eraser function
+(defun com_erase ()
+   (defun real_input ()
+      (clear_var (list 'expo 'power))
+      (setq ssnv (strlen input))
+      (if (or (= ssnv 1) (and (= ssnv 2) (minusp (atof input))))
+          (progn
+             (print_value "0." nil)
+             (setq input nil saver "0.0")
+          )
+          (progn
+            (if (= (substr input (- ssnv 1) 1) (chr 46))
+                (setq ssnv (strlen
+                   (setq input (substr input 1 (- ssnv 2)))
+                ))
+                (setq input (substr input 1 (- ssnv 1)))
+            )
+            (if (= (type (read input)) 'INT)
+                (print_value (strcat input (chr 46)) nil)
+                (print_value input nil)
+            )
+          )
+      )
+      (setq temp input)
+   )
+   (defun expt_input ()
+      (cond
+         ((zerop (atoi expnt)) 
+          (print_value (setq input temp) nil)
+          (clear_var (list 'expnt 'expo 'power))
+         )
+         (t (if (= (substr expnt (- (strlen expnt) 1) 1) "0") (setq neg nil))
+            (setq lenx (strlen expnt))
+            (if (> lenx 2) (setq expnt (substr expnt (- lenx 1))))
+            (setq lenx (strlen expnt))
+            (setq expnt (strcat "0" (substr expnt (- lenx 1) 1)))
+            (if neg (setq expnt (strcat "-" expnt))
+                    (setq expnt (strcat "+" expnt))
+            )
+            (setq input (strcat temp "e" expnt))
+            (print_expo (strcat temp "e" expnt) nil)
+         )
+      )
+      (clear_var 'num)
+   )
+
+   (defun fract_input ()
+      (setq ssnv (strlen fval) power nil expo nil)
+      (if (or (= ssnv 1) 
+              (and (= ssnv 2) (= (substr fval 1 1) (chr 45))))
+         (progn
+           (print_fraction (chr 48))
+           (setq saver "0.0")
+           (clear_var (list 'fval 'fract 'input))
+         )
+         (print_fraction (setq fval (substr fval 1 (- ssnv 1))))
+      )
+      (if (= (type (read fval)) 'INT)
+          (setq input fval fval nil fract nil)
+      )
+   )
+   (setq chlst nil n 1) 
+   (if input
+     (while (/= (setq ch (substr input n 1)) "")
+         (setq chlst (append chlst (list (strcase ch))))
+         (setq n (+ n 1))
+     )
+   )
+   (cond
+     (fract (fract_input) (clear_var 'num))
+     (t (if input (if (member "E" chlst) (expt_input) (real_input)))
+        (clear_var 'num)
+     )
+   )
+)
+
+;; Calculator exponential display function.
+;; prints value in exponential form on the screen.
+(defun print_expo (value value2) 
+   (if (not value2)
+       (setq rval (atof value))
+       (setq rval (float value2))
+   )
+   (setq sval value dm1 (chr 32))
+   (if (> (setq lenval (strlen value)) 4)
+       (progn
+         (setq strval (substr value (- lenval 3) 1))
+         (setq str1 (substr value 1 (- lenval 4)))
+         (setq str2 (substr value (- lenval 2) 1))
+         (if (= str2 "+") (setq str2 (chr 32)))
+         (setq str3 (substr value (- lenval 1)))
+       )
+   )
+   (cond
+     ((or (= strval "e") (= strval "E"))
+        (if (= (type (read str1)) 'INT)
+            (setq str1 (strcat str1 "."))
+        )
+        (setq len3 (strlen (strcat str1 (chr 32) str2 str3)))
+        (repeat (- (+ max_digit 5) len3) (setq dm1 (strcat dm1 (chr 32))))
+        (set_tile "disp" (adjust (strcat dm1 str1 (chr 32) str2 str3)))
+        (clear_var 'strval)
+     )
+  )
+)
+
+
+;; Calculator engineering function.
+(defun eng_r () 
+   (fract_test)
+   (setq xtt nil xt1 nil xt2 nil tval sval)
+   (if (setq ntv (minusp (atof tval)))
+       (setq tval (substr tval 2))
+   )
+   (if (> (setq xlen (strlen tval)) 4)
+       (setq xtt (= (substr (strcase tval) (- xlen 3) 1) "E"))
+   )
+   (cond
+     ((and xtt (not (zerop rval)))
+      (setq xt1 (substr tval 1 (- xlen 4)))
+      (if (= (type (read xt1)) 'INT) (setq xt1 (strcat xt1 ".")))
+      (setq xt2 (substr tval (- xlen 3)) pos1 1)
+      (while (/= (substr xt1 pos1 1) ".") (setq pos1 (+ pos1 1)))
+      (setq pos2 (+ pos1 3) mlen (- (strlen xt1) pos1))
+      (cond
+         ((= mlen 0) (setq xt1 (strcat xt1 "000")))
+         ((= mlen 1) (setq xt1 (strcat xt1 "00")))
+         ((= mlen 2) (setq xt1 (strcat xt1 "0")))
+      )
+      (setq m 1 lsta nil lstb nil)
+      (while (<= m pos2)
+         (if (/= (setq kar (substr xt1 m 1)) ".")
+             (setq lsta (append lsta (list kar)))
+         )
+         (setq m (+ m 1))
+      )
+      (while (<= m (strlen xt1))
+         (setq kar (substr xt1 m 1))
+         (setq lstb (append lstb (list kar)))
+         (setq m (+ m 1))
+      )
+      (setq xt1 (strcat (apply 'strcat lsta) "." (apply 'strcat lstb)))
+      (while (= (substr xt1 1 1) "0") (setq xt1 (substr xt1 2)))
+      (if (= (substr xt1 1 1) ".") (setq xt1 (strcat "0" xt1)))
+      (if ntv (setq xt1 (strcat "-" xt1)))
+      (setq xt2n (- (atoi (substr xt2 2)) 3))
+      (if (< (abs xt2n) 10)
+         (if (minusp xt2n)
+             (setq xt2 (strcat "e-0" (itoa (abs xt2n))))
+             (setq xt2 (strcat "e+0" (itoa xt2n)))
+         )
+         (if (minusp xt2n)
+             (setq xt2 (strcat "e-" (itoa (abs xt2n))))
+             (setq xt2 (strcat "e+" (itoa xt2n)))
+         )
+      )
+     )
+     (t (if (not (zerop rval))
+          (progn 
+            (setq xt2 "e+00")
+            (if ntv (setq xt1 (strcat "-" tval)) (setq xt1 tval))
+          )
+        )
+     )
+   )
+   (if (not xt2n) (setq xt2n 0))
+   (if (and xt1 xt2 (<= (strlen xt1) (+ max_digit 1)) (<= (abs xt2n) 99)) 
+       (if (not lock) (print_expo (strcat xt1 xt2) rval))
+   )
+)
+
+;; Calculator engineering function.
+(defun eng_l () 
+   (fract_test)
+   (setq xtt nil xt1 nil xt2 nil tval sval)
+   (if (setq ntv (minusp (atof tval)))
+       (setq tval (substr tval 2))
+   )
+   (if (> (setq xlen (strlen tval)) 4)
+       (setq xtt (= (substr (strcase tval) (- xlen 3) 1) "E"))
+   )
+   (cond
+     ((and xtt (not (zerop rval)))
+      (setq xt1 (substr tval 1 (- xlen 4)))
+      (if (= (type (read xt1)) 'INT) (setq xt1 (strcat xt1 ".")))
+      (setq xt2 (substr tval (- xlen 3)) pos1 1)
+      (while (/= (substr xt1 pos1 1) ".") (setq pos1 (+ pos1 1)))
+      (setq pos2 (- pos1 4) mlen (- pos1 1))
+      (cond
+         ((= mlen 0) (setq xt1 (strcat "000" xt1)))
+         ((= mlen 1) (setq xt1 (strcat "00" xt1)))
+         ((= mlen 2) (setq xt1 (strcat "0" xt1)))
+      )
+      (setq m 1 lsta nil lstb nil)
+      (while (<= m pos2)
+         (if (/= (setq kar (substr xt1 m 1)) ".")
+             (setq lsta (append lsta (list kar)))
+         )
+         (setq m (+ m 1))
+      )
+      (if (not lsta) (setq lsta (list "0")))
+      (while (<= m (strlen xt1))
+         (if (/= (setq kar (substr xt1 m 1)) ".")
+             (setq lstb (append lstb (list kar)))
+         )
+         (setq m (+ m 1))
+      )
+      (setq xt1 (strcat (apply 'strcat lsta) "." (apply 'strcat lstb)))
+      (while (= (substr xt1 1 1) "0") (setq xt1 (substr xt1 2)))
+      (while (= (substr xt1 (strlen xt1)) "0") 
+             (setq xt1 (substr xt1 1 (- (strlen xt1) 1)))
+      )
+      (if (= (substr xt1 1 1) ".") (setq xt1 (strcat "0" xt1)))
+      (if ntv (setq xt1 (strcat "-" xt1)))
+      (setq xt2n (+ (atoi (substr xt2 2)) 3))
+      (if (< (abs xt2n) 10)
+         (if (minusp xt2n)
+             (setq xt2 (strcat "e-0" (itoa (abs xt2n))))
+             (setq xt2 (strcat "e+0" (itoa xt2n)))
+         )
+         (if (minusp xt2n)
+             (setq xt2 (strcat "e-" (itoa (abs xt2n))))
+             (setq xt2 (strcat "e+" (itoa xt2n)))
+         )
+      )
+     )
+     (t (if (not (zerop rval))
+          (progn 
+            (setq xt2 "e+00")
+            (if ntv (setq xt1 (strcat "-" tval)) (setq xt1 tval))
+          )
+        )
+     )
+   )
+   (if (not xt2n) (setq xt2n 0))
+   (if (and xt1 xt2 (<= (strlen xt1) (+ max_digit 1)) (<= xt2n 99)) 
+       (if (not lock) (print_expo (strcat xt1 xt2) rval))
+   )
+)
+
+
+;; Calculator display function.
+;; prints value on the screen.
+(defun print_value (value value2) 
+   (if (not value2)
+       (setq rval (atof value))
+       (setq rval (float value2))
+   )
+   (setq sval value dm1 (chr 32))
+   (if (= (type (read value)) 'INT)
+       (setq value (strcat value (chr 46)))
+   )
+   (setq lenval (strlen value))
+   (if (> lenval 4)
+       (progn
+         (setq strval (substr value (- lenval 3) 1))
+         (setq str1 (substr value 1 (- lenval 4)))
+         (setq str2 (substr value (- lenval 2) 1))
+         (if (= str2 "+") (setq str2 (chr 32)))
+         (setq str3 (substr value (- lenval 1)))
+       )
+   )
+   (cond
+     ((or (= strval "e") (= strval "E"))
+        (if (and (not fxn) (not scn))
+            (progn
+              (digi_deter (atof str1))
+              (setq str1 (rtos (atof str1) 2 prec))
+            )
+        )
+        (if (= (type (read str1)) 'INT)
+            (setq str1 (strcat str1 "."))
+        )
+        (setq len3 (strlen (strcat str1 (chr 32) str2 str3)))
+        (repeat (- (+ max_digit 5) len3) (setq dm1 (strcat dm1 (chr 32))))
+        (set_tile "disp" (adjust (strcat dm1 str1 (chr 32) str2 str3)))
+        (setq strval nil)
+     )
+     (t (repeat (- (+ max_digit 1) lenval) (setq dm1 (strcat dm1 (chr 32))))
+        (set_tile "disp" (adjust (strcat dm1 value "    ")))
+     )
+  )
+)
+
+(defun adjust (str)
+   (setq n 1)
+   (setq ch_lst nil)
+   (while (<= n (strlen str))
+      (setq kara (substr str n 1))
+      (if (= kara " ")
+          (setq ch_lst (append ch_lst (list kara "  ")))
+          (setq ch_lst (append ch_lst (list kara (chr 32))))
+      )
+      (setq n (+ n 1))
+   )
+   (apply 'strcat ch_lst)
+)
+
+(defun print_fraction (mix)
+   (setq len3 (strlen (strcat mix ".")))
+   (setq dm1 (chr 32))
+   (repeat (- (+ max_digit 1) len3) (setq dm1 (strcat dm1 (chr 32))))
+   (set_tile "disp" (adjust (strcat dm1 mix ".     ")))
+)
+
+(defun print_error ()
+   (if code 
+       (setq erc (strcat "Error: " code))
+       (setq erc "Error")
+   )
+   (setq lock t code nil dm1 (chr 32))
+   (repeat (- (+ max_digit 1) (strlen erc)) (setq dm1 (strcat dm1 (chr 32))))
+   (set_tile "disp" (adjust (strcat dm1 erc "      ")))
+)
+
+(defun constant_list ()
+   (list 
+    '(1 0.01745329251) '(2 2.90888208666e-04) '(3 4.8481368111e-06)
+    '(4 149597870000.0) '(5 9.806650) '(6 0.01570796326) '(7 (/ 1852.0 3600.0))
+    '(8 9.46053e15) '(9 1852.0) '(10 3.08567757e16) '(11 31556926.0)
+    '(12 4046.8564224) '(13 0.15898729492) '(14 0.11562712358)
+    '(15 0.03636879435) '(16 0.03523907016) '(17 (/ 79200.0 3937.0))
+    '(18 2.365882365e-04) '(19 5.50610471358e-04) '(20 (/ 7200.0 3937.0))
+    '(21 2.359737216e-03) '(22 2.8413120593e-05) '(23 2.95735295625e-05)
+    '(24 0.3048) '(25 (/ 1200.0 3937.0)) '(26 4.54609929488e-03)
+    '(27 3.785411784e-03) '(28 0.0254) '(29 2.54e-05) '(30 1609.344)
+    '(31 (/ 6336000.0 3937.0)) '(32 0.44704) '(33 8.80976754172e-03)
+    '(34 5.6826241168e-04) '(35 4.73176473e-04) '(36 1.47867647813e-05)
+    '(37 4.92892159375e-06) '(38 0.9144) '(39 (/ 3600.0 3937.0))
+    '(40 98066.5) '(41 101325.0) '(42 2e-04) '(43 (/ 50.0 450000000.0))
+    '(44 6.672e-11) '(45 9.80665) '(46 9806.65) '(47 (/ 101325.0 760.0))
+    '(48 735.49875) '(49 (/ 101325.0 760.)) '(50 50.80234544)
+    '(51 45.359237) '(52 1.35581794833) '(53 2989.06692) '(54 6.479891e-05)
+    '(55 745.699871582) '(56 249.08891) '(57 3386.38815789) '(58 0.45359237)
+    '(59 4.44822161526) '(60 0.3732417216) '(61 0.02834952312) '(62 0.0311034768) 
+    '(63 0.13825495437) '(64 6894.75729317) '(65 14.5939029372) 
+    '(66 1016.0469088) '(67 907.18474) '(68 273.15) '(69 4.1855) '(70 4.1868)
+    '(71 4.184) '(72 (/ 5.0 9.0)) '(73 (/ -160.0 9.0)) '(74 1055.05585262)
+    '(75 4186.8) '(76 0.29307107017) '(77 2326.0) '(78 105505585.262)
+    '(79 8.85418781762e-12) '(80 1.25663706144e-06) '(81 1.11265005605e-12)
+    '(82 2.65441872944e-07) '(83 29979.2458) '(84 3.33564095198e-10)
+    '(85 79.5774715459) '(86 3.33564095198e-06)  '(87 3.33564095198e-10)
+    '(88 299.792458) '(89 5.67032e-08) '(90 299792458.0) '(91 3.741832e-16)
+    '(92 0.0141832e-16) '(93 3183.09886184) '(94 3.42625909964)
+    '(95 0.11512925465) '(96 8.68588963807) '(97 1.6021892e-19)
+    '(98 96848.56) '(99 1.380662e-23) '(100 6.022045e23) '(101 8.31441)
+    '(102 0.02241383) '(103 1.11265005605e-16) '(104 3.33564095198e-12)
+    '(105 7.2973506e-03) '(106 267519870.0) '(107 2657513010.0) 
+    '(108 1.3195909e-15) '(109 1.3214099e-15) '(110 9.274078e-24)
+    '(111 9.2847701e-24) '(112 5.050824e-27) '(113 1.41060761e-26)
+    '(114 5.2917706e-11) '(115 4.35981e-18) '(116 1.6021892e-19)
+    '(117 6.626176e-34) '(118 1.0545887e-34) '(119 1.6735594e-27)
+    '(120 9.109534e-31) '(121 1.6749543e-27) '(122 1.6726485e-27)
+    '(123 10973731.77) '(124 2.817938e-15) '(125 1.6605665e-27)
+    '(126 37e09) '(127 2.58e-04) '(128 2.0678506e-15)
+   )
+)
+
+(defun info_dia ()
+   (setq fd nil fn (findfile "com.ahp"))
+   (if (not (new_dialog "info" dcl_id)) (exit))
+   (cond
+     (fn 
+      (setq fd (open fn "r")) 
+      (set_tile "title" "Calculator Information")       
+      (set_tile "text1" "                                                 ")
+      (set_tile "text2" " Name of Program:  AutoCAD Scientific Calculator ")
+      (set_tile "text3" " Programmer:          Redeem Sol. Legaspi Jr.    ")
+      (set_tile "text4" "                             (for AutoDESK)      ")
+      (start_image "logo")
+      (slide_image 
+         1 0 
+         (setq x2 (dimx_tile "logo"))
+         (setq y2 (dimy_tile "logo"))
+         "acad(ailogo)"
+      )
+      ;;(setq x2 (- x2 1) y2 (- y2 1))
+      ;;(vector_image 1 0 x2 1 0)
+      ;;(vector_image x2 0 x2 y2 0)
+      ;;(vector_image x2 y2 1 y2 0)
+      ;;(vector_image 1 y2 1 1 0)
+      (end_image)
+      (start_list "list_box")     
+      (setq dum nil)
+      (while (setq line (read-line fd))
+         (cond
+           ((= line "\\KABOUT THE CALCULATOR") (setq dum t))
+           (t (if (= (substr line 1 1) "\\") (setq dum nil)))
+         )
+         (if (and (= dum t) (/= (substr line 1 1) "\\"))
+             ;(progn
+             ;   (if (> (strlen line) 1) (setq srch t))
+             ;   (while srch
+             ;      (if (or (= (substr line (strlen line)) "\\")
+             ;              (= (substr line (strlen line)) " ")
+             ;          )
+             ;          (setq line (substr line 1 (- (strlen line) 1)))
+             ;          (setq srch nil)
+             ;      )
+             ;   )
+                (add_list line)
+             ;)
+         )
+      )
+      (action_tile "accept" "(done_dialog)")
+      (end_list)
+      (setq fd (close fd))        
+      (start_dialog)              
+     )
+     (t (alert (strcat "Can't find " (strcase "com.ahp") " in AutoCAD"
+           "\n   search path directories!"))
+        (done_dialog)
+     )
+   )
+)
+
+(defun constant_dia (/ jn k1 k2 k3 k4 sub1 sub2 sub3 sub4 new_line modi)
+   (setq fd nil fn (findfile "com.tab"))
+   (if (not (new_dialog "table" dcl_id)) (exit))
+   (cond
+     (fn 
+      (setq fd (open fn "r")) 
+      (setq dum nil n 0)
+      (if (and (not plst) (not cnts))
+          (while (setq line (read-line fd))
+              (cond
+                  ( (= (substr line 1 1) ";"))
+                  ( (= (substr line 1 2) ">>") 
+                    (setq modi (counter line "+" "k")) 
+                    (cond
+                        ((zerop modi) (setq new_line line))
+                        (t (setq sub1 (substr line 1 (- k1 1)))
+                           (setq sub2 (substr line (+ k1 1) (- k2 k1 1)))
+                           (setq sub3 (substr line (+ k2 1) (- k3 k2 1)))
+                           (setq sub4 (substr line (+ k3 1) (- k4 k3 1)))
+                           (setq sub5 (substr line (+ k4 1) (- k5 k4 1)))
+                           (setq sub6 (substr line (+ k5 1)))
+                           (setq new_line (strcat "\t" sub2 "\t" sub3 "\t" sub4 "\t" sub5 "\t" sub6))
+                        )
+                    )
+                    (setq cnts (append cnts (list new_line)))
+                    (setq plst (append plst (list (read sub2))))
+                 )
+              )
+          )
+      )
+      (setq fd (close fd) pick nil)
+      (start_list "list_box")     
+      (mapcar 'add_list cnts)
+      (end_list)
+      (action_tile "list_box" "(setq pick $value)")
+      (action_tile "accept" "(done_dialog)")
+      (start_dialog)              
+     )
+     (t (alert (strcat "Can't find " (strcase "com.tab") " in AutoCAD" "\n   search path directories!"))
+        (done_dialog)
+     )
+   )
+)
+
+(defun mode_ctrl ()
+   (defun ang_unt (arg)
+     (cond
+       ((= arg 1)
+        (setq deg t rad nil gra nil)
+        (set_tile "ang_mode" "Degree Mode")
+       )
+       ((= arg 2)
+        (setq deg nil rad t gra nil)
+        (set_tile "ang_mode" "Radian Mode")
+       )
+       ((= arg 3)
+        (setq deg nil rad nil gra t)
+        (set_tile "ang_mode" "Gradian Mode")
+       )
+     )
+   )
+   (defun dis_unt (arg)
+     (cond
+       ((= arg 1) (set_tile "dis_mode" "Fix Mode"))
+       ((= arg 2) (set_tile "dis_mode" "Scientific Mode"))
+       ((= arg 3)
+        (setq s nil d nil d t scn nil fxn nil)
+        (set_tile "dis_mode" "Standard Mode")
+       )
+     )
+   )
+   (defun check_prec (mode)
+      (if (distof (get_tile mode))
+          (cond
+            ((zerop (- (setq dm (atoi (get_tile mode))) 
+                 (atof (get_tile mode))
+             )) 
+             (if (or (> dm 15) (< dm 0))
+               (cond 
+                 ((< dm 0) (setq valid nil)
+                  (set_tile "error" "Value must be positive.")
+                 )
+                 (t (setq valid nil) 
+                    (set_tile mode "")
+                    (mode_tile mode 2)
+                    (set_tile "error" "Warning: value must be <= 15.")
+                 )
+               )
+               (progn
+                 (cond
+                   ((= mode "scn")
+                    (if (get_tile "scn") 
+                        (setq scn (atoi (get_tile "scn")))
+                    )
+                    (setq fxn nil)
+                   )
+                   ((= mode "fxn")
+                    (if (get_tile "fxn") 
+                        (setq fxn (atoi (get_tile "fxn")))
+                    )
+                    (setq scn nil)
+                   )
+                 )
+                 (setq valid t)
+                 (done_dialog)
+               )
+             )
+            )
+            ((not (zerop (- (setq dm (atoi (get_tile mode))) 
+                 (atof (get_tile mode))
+             ))) (setq valid nil)
+             (set_tile mode "")
+             (mode_tile mode 2)
+             (set_tile "error" "Value must be an integer.")
+            )
+          )
+          (progn
+            (setq valid nil)
+            (set_tile mode "")
+            (mode_tile mode 2)
+            (set_tile "error" "Invalid input.")
+          )
+      )
+   )
+   (defun mode_sci ()
+      (if (not (new_dialog "scip" dcl_id)) (exit))
+      (if scn (set_tile "scn" (itoa scn))
+              (set_tile "scn" "")
+      )
+      (mode_tile "scn" 2)
+      (action_tile "accept" "(check_prec \"scn\") 
+              (if valid (setq s t f nil d nil))")
+      (action_tile "cancel" "(done_dialog)")
+      (start_dialog)
+      (ini_dmode)
+   )
+   (defun mode_fix ()
+      (if (not (new_dialog "fixp" dcl_id)) (exit))
+      (if fxn (set_tile "fxn" (itoa fxn))
+              (set_tile "fxn" "")
+      )
+      (mode_tile "fxn" 2)
+      (action_tile "accept" "(check_prec \"fxn\") 
+              (if valid (setq f t s nil d nil))")
+      (action_tile "cancel" "(done_dialog)")
+      (start_dialog)
+      (ini_dmode)
+   )
+   (defun mode_def ()
+      (setq f nil s nil d t)
+   )
+   (defun restore ()
+      (setq fxn var1 scn var2 f var3 s var4 d var5
+            deg var6 rad var7 gra var8
+      )
+   )
+   (defun ini_dmode ()
+      (cond
+        (s (set_tile "dis_mode" "Scientific Mode")
+           (set_tile "scientific" "1")
+        )
+        (f (set_tile "dis_mode" "Fix Mode")
+           (set_tile "fix" "1")
+        )
+        (d (set_tile "dis_mode" "Standard Mode")
+           (set_tile "default" "1")
+        )
+        (t (set_tile "dis_mode" "Standard Mode") 
+           (set_tile "default" "1") (setq d t)
+        )
+      )
+   )
+   (defun ini_amode ()
+      (cond
+        (deg (set_tile "ang_mode" "Degree Mode")
+             (set_tile "degree" "1")
+        )
+        (rad (set_tile "ang_mode" "Radian Mode")
+             (set_tile "radian" "1")
+        )
+        (gra (set_tile "ang_mode" "Gradian Mode")
+             (set_tile "gradian" "1")
+        )
+        (t (set_tile "ang_mode" "Degree Mode") 
+           (set_tile "degree" "1") (setq deg t)
+        )
+      )
+   )
+   (setq var1 fxn var2 scn var3 f var4 s var5 d
+         var6 deg var7 rad var8 gra
+   )
+   (if (not scn) (setq s nil))
+   (if (not fxn) (setq f nil))
+   (if (not (new_dialog "mode" dcl_id)) (exit))
+   (ini_dmode) (ini_amode)
+   (action_tile "degree" "(ang_unt 1)")
+   (action_tile "radian" "(ang_unt 2)")
+   (action_tile "gradian" "(ang_unt 3)")
+   (action_tile "fix" "(dis_unt 1) (mode_fix)")
+   (action_tile "scientific" "(dis_unt 2) (mode_sci)")
+   (action_tile "default" "(dis_unt 3) (mode_def)")
+   (action_tile "accept" "(done_dialog) (if (not lock) (evaluate))")
+   (action_tile "cancel" "(restore) (done_dialog)")
+   (action_tile "help" "(help \"com.ahp\" \"mode_key\")")
+   (start_dialog)
+)
+
+(defun memory (mode)
+   (defun choose (opt)
+      (cond
+        ((= mode "in") (memo_in opt))
+        ((= mode "out") (memo_out opt))
+        ((= mode "plus") (com_mplus opt))
+        ((= mode "minus") (com_mminus opt))
+        ((= mode "exch") (memo_exch opt))
+      )
+   )
+   (defun mem_msg ()
+      (cond
+        ((= mode "exch") "memory register conversion")
+        (t "memory calculations")
+      )
+   )
+   (if (not (new_dialog "mem" dcl_id)) (exit))
+   (cond 
+     ((= mode "in") (set_tile "header" "Memory-in Addresses"))
+     ((= mode "out") (set_tile "header" "Memory-out Addresses"))
+     ((= mode "plus") (set_tile "header" "Memory-plus Addresses"))
+     ((= mode "minus") (set_tile "header" "Memory-minus Addresses"))
+     ((= mode "exch") (set_tile "header" "Memory Exchange Addresses"))
+   )
+   (setq m 97 ok t)
+   (while (<= m 121)
+     (eval (read (strcat "(action_tile \"" (chr m)
+        "\" \"(choose \\\"" (chr m) "\\\") (done_dialog)\")"))
+     )
+     (setq m (+ m 1))
+   )
+   (setq m nil)
+   (action_tile "cancel"  "(clear_var 'num) (setq ok nil) (done_dialog)")
+   (action_tile "display"  "(mem_display) (clear_var 'num)")
+   (action_tile "help" "(help \"com.ahp\" (mem_msg))")
+   (start_dialog)
+)
+
+(defun mem_display ()
+  (if (not (new_dialog "memlist" dcl_id)) (exit))
+  (setq m 97 memlst nil)
+  (while (<= m 121)
+    (if (setq dv (eval (read (strcat "mem" (chr m)))))
+        (setq memlst (append memlst (list dv)))
+        (setq memlst (append memlst (list 0.0)))
+    )
+    (setq m (+ m 1))
+  )
+  (setq m nil n 96)
+  (start_list "mem_list")
+  (mapcar 'add_list 
+      (mapcar '(lambda (x) 
+                  (setq n (+ n 1)) (digi_deter x)
+                  (strcat " Register_" (chr n) "\t->\t"
+                     (cond
+                        ((= (substr (rtos x 2 prec) 1 1) ".")
+                         (strcat "0" (rtos x 2 prec))
+                        )
+                        (t (rtos x 2 prec))
+                     )
+                  )
+               ) memlst
+      )
+  ) 
+  (setq n nil)
+  (action_tile "accept" "(done_dialog)")
+  (end_list)
+  (start_dialog)
+)
+
+(defun check_num (mode)
+   (if (distof (get_tile mode))
+       (cond
+         ((zerop (- (setq dm (atoi (get_tile mode))) 
+              (atof (get_tile mode))
+          )) 
+          (if (or (> dm 128) (<= dm 0))
+            (cond 
+              ((< dm 0)
+               (set_tile mode "")
+               (mode_tile mode 2)
+               (set_tile "error" "Value must be positive.")
+              )
+              ((= dm 0)
+               (set_tile mode "")
+               (mode_tile mode 2)
+               (set_tile "error" "Value out of range.")
+              )
+              (t (set_tile mode "")
+                 (mode_tile mode 2)
+                 (set_tile "error" "Value out of range. ")
+              )
+            )
+            (progn
+              (if (get_tile "const_num") 
+                  (setq const_num (atoi (get_tile "const_num")))
+              )
+              (done_dialog)
+            )
+          )
+         )
+         ((not (zerop (- (setq dm (atoi (get_tile mode))) 
+              (atof (get_tile mode))
+          )))
+          (set_tile mode "")
+          (mode_tile mode 2)
+          (set_tile "error" "Value must be an integer.")
+         )
+       )
+       (progn
+         (set_tile mode "")
+         (mode_tile mode 2)
+         (set_tile "error" "Invalid input.")
+       )
+   )
+)
+(defun pick_val (/ indx)
+   (if pick
+       (if (nth (setq indx (atoi pick)) plst)
+           (set_tile "const_num" (itoa (nth indx plst)))
+           (set_tile "const_num" "")
+       )
+       (set_tile "const_num" "")
+   )
+   (mode_tile "const_num" 2)
+)
+(defun const_func ()
+   (if (not (new_dialog "constant" dcl_id)) (exit))
+   (if const_num (set_tile "const_num" (itoa const_num))
+                (set_tile "const_num" "")
+   )
+   (mode_tile "const_num" 2)
+   (action_tile "const_tab" "(constant_dia) (pick_val)")
+   (action_tile "accept"  "(check_num \"const_num\") (setq ok t)")
+   (action_tile "cancel"  "(done_dialog) (setq num nil ok nil)")
+   (action_tile "help" "(help \"com.ahp\" \"scientific_constants\")")
+   (start_dialog)
+)
+(defun disp_unit ()
+   (setq fd nil fn (findfile "com.unt"))
+   (if (not (new_dialog "units" dcl_id)) (exit))
+   (cond
+     (fn 
+      (setq fd (open fn "r") n 0) 
+      (start_list "unit_list")     
+      (if (and (not unt_lst) (not units))
+          (while (setq line (read-line fd))
+             (if (/= (substr line 1 1) ";") 
+               (progn
+                 (setq units (append units (list line)))
+                 (setq unt_lst (append unt_lst (list (list n line))))
+                 (setq n (+ n 1))
+               )
+             )
+          )
+      )
+      (mapcar 'add_list units)
+      (action_tile "accept" "(setq pick_unt (get_tile \"unit_list\")) 
+                             (done_dialog)")
+      (action_tile "cancel" "(setq pick_unt \"\") (done_dialog)")
+      (action_tile "help" "(help \"com.ahp\" \"unit_conversion_function\")")
+      (end_list)
+      (setq fd (close fd))        
+      (start_dialog)              
+     )
+     (t (alert (strcat "Can't find " (strcase "com.unt") " in AutoCAD"
+           "\n   search path directories!"))
+        (done_dialog)
+     )
+   )
+)
+(defun unt_pos (key)
+   (if (assoc (read pick_unt) unt_lst)
+     (progn
+        (setq char (cadr (assoc (atoi pick_unt) unt_lst)))
+        (cond
+          ((= (substr char 1 1) (chr 254))
+           (set_tile key "")
+          )
+          (t (set_tile key char))
+        )
+     )
+   )
+   (mode_tile key 2)
+)
+(defun match_unit ()
+   (if (cvunit 1 
+          (setq from (get_tile "sunt1")) 
+          (setq to (get_tile "sunt2"))
+       )
+       (done_dialog)
+       (set_tile "error" "    Dimensionally Incompatible Units !")
+   )
+)
+
+(defun cvrt_func ()
+   (if (not (new_dialog "convert" dcl_id)) (exit))
+   (action_tile "unt1"  "(disp_unit) (unt_pos \"sunt1\")")
+   (action_tile "unt2"  "(disp_unit) (unt_pos \"sunt2\")")
+   (action_tile "accept"  "(match_unit) (setq ok t)")
+   (action_tile "cancel"  "(done_dialog) (setq ok nil)")
+   (action_tile "help" "(help \"com.ahp\" \"unit_conversion_function\")")
+   (start_dialog)
+)
+
+(defun com_warning ()
+   (setq ok nil)
+   (if (not lock)
+       (progn
+          (if (not (new_dialog "com_warn" dcl_id)) (exit))
+          (set_tile "msg1" "   Do You Want To Clear")
+          (set_tile "msg2" "     Memory Registers? ")
+          (action_tile "cancel" "(done_dialog) (setq ok nil)")
+          (action_tile "accept" "(done_dialog) (setq ok t)")
+          (start_dialog)
+        )
+   )
+)
+
+(defun hyp_func ()
+   (if (not (new_dialog "hyper" dcl_id)) (exit))
+   (action_tile "tanh" "(done_dialog) (com_key \"tanh\")")
+   (action_tile "sinh" "(done_dialog) (com_key \"sinh\")")
+   (action_tile "cosh" "(done_dialog) (com_key \"cosh\")")
+   (action_tile "itanh" "(done_dialog) (com_key \"itanh\")")
+   (action_tile "isinh" "(done_dialog) (com_key \"isinh\")")
+   (action_tile "icosh" "(done_dialog) (com_key \"icosh\")")
+   (action_tile "cancel"  "(done_dialog) (clear_var 'num)")
+   (action_tile "help" "(help \"com.ahp\" \"hyperbolic_functions\")")
+   (start_dialog)
+)
+
+(defun sd_func ()
+   (defun data_del ()
+      (setq n 0 dum nil)
+      (while (< n (length datalist))
+         (if (not (member n pick_list))
+             (setq dum (append dum (list (nth n datalist))))
+         )
+         (setq n (+ n 1))
+      )
+      (setq datalist dum dum nil)
+   )
+   (defun data_display ()
+      (if (not (new_dialog "datalist" dcl_id)) (exit))
+      (if (not datalist) (mode_tile "clear" 1))
+      (setq n 0 clear nil ok t)
+      (start_list "data_list")
+      (mapcar 'add_list 
+          (mapcar '(lambda (x) 
+                      (setq n (+ n 1)) (digi_deter x)
+                      (strcat " Data" (itoa n) " ->   " (rtos x 2 prec))
+                   ) datalist
+          )
+      )
+      (action_tile "accept" 
+            "(if (not clear) (setq pick (get_tile \"data_list\")))
+             (done_dialog)")
+      (action_tile "cancel" "(setq pick nil ok nil) (done_dialog)")
+      (action_tile "clear" "(pick_all) (set_tile \"error\" 
+             \"Really want to clear the data?\")")
+      (end_list)
+      (start_dialog)
+   )
+   (defun pick_all ()
+      (setq n 0 ltr nil)
+      (set_tile "data_list"
+        (while (<= n (length datalist))
+           (if (not ltr) 
+               (setq ltr (strcat (itoa n) " "))
+               (setq ltr (strcat ltr (itoa n) " "))
+           ) (setq n (+ n 1))
+           ltr
+        )
+      )
+      (setq ltr nil n nil)
+   )
+   (defun check_clear ()
+      (setq pick_list nil)
+      (if pick (setq pick_list (eval (read (strcat "(list " pick ")")))))
+      (setq pick nil)
+      (if pick_list (data_del))
+   )
+   (defun read_data ()
+      (if (setq fsd (getfiled "Read Data" "" "sdf" 2))
+          (cond
+            ((setq f (open fsd "r"))
+             (setq datalist nil)
+             (while (setq line (read-line f))
+                (if (numberp (read line))
+                    (setq datalist (append datalist (list (atof line))))
+                )
+             )
+             (setq f (close f))
+            )
+            (t (alert (strcat 
+               "Cannot open Data - directory must" 
+               "\n  have written permission."))
+            )
+          )
+      )
+   )
+   (defun write_data (arg)
+      (if (setq fsd (getfiled 
+              (cond ((= arg "sav") "Save Data") 
+                    ((= arg "apd") "Append Data")) "" "sdf" 1))
+          (cond
+            (datalist 
+              (cond
+                ((setq f (open fsd (cond ((= arg "sav") "w") 
+                                         ((= arg "apd") "a"))))
+                 (foreach n datalist (digi_deter n)
+                                     (write-line (rtos n 2 prec) f))
+                 (setq f (close f))
+                )
+                (t (alert (strcat 
+                   "Cannot save Data to current Directory \n"
+                   "-directory must have written permission."))
+                )
+              )
+            )
+            (t (alert "Cannot write null data"))
+          )
+      )
+   )
+   (defun rw_file ()
+      (if (not (new_dialog "sdfile" dcl_id)) (exit))
+      (action_tile "rf" "(read_data) (done_dialog)")
+      (action_tile "sf" "(write_data \"sav\") (done_dialog)")
+      (action_tile "af" "(write_data \"apd\") (done_dialog)")
+      (action_tile "cancel" "(done_dialog)")
+      (start_dialog)
+   )
+   (if (not (new_dialog "sd" dcl_id)) (exit))
+   (action_tile "data" "(done_dialog) (com_key \"data\")")
+   (action_tile "del" "(data_display) (check_clear) (if ok (done_dialog))")
+   (action_tile "sqr2" "(done_dialog) (com_key \"sqr2\")")
+   (action_tile "dts" "(done_dialog) (com_key \"dts\")")
+   (action_tile "dtn" "(done_dialog) (com_key \"dtn\")")
+   (action_tile "ave" "(done_dialog) (com_key \"ave\")")
+   (action_tile "strd0" "(done_dialog) (com_key \"strd0\")")
+   (action_tile "strd1" "(done_dialog) (com_key \"strd1\")")
+   (action_tile "file" "(rw_file)")
+   (action_tile "cancel" "(done_dialog) (clear_var 'num)")
+   (action_tile "help" "(help \"com.ahp\" 
+                      \"standard_deviation_functions\")")
+   (start_dialog)
+)
+
+;;Memory initializer
+(defun memory_ini ()
+   (if (not init)
+       (if (setq fn (findfile "com.mem"))
+           (progn
+             (setq f (open fn "r"))
+             (while (setq fs (read-line f))
+                (cond
+                   ((= (substr fs 1 1) ";"))
+                   (t (eval (read fs)))
+                )
+             )
+             (setq f (close f))
+           )
+       )
+   )
+   (setq init t)
+   (setq orig_mem (evaluate_mem))
+)
+
+;;Memory entry evaluator
+(defun evaluate_mem ()
+   (setq m 97 ini_lst nil)
+   (while (<= m 122)
+      (if (eval (read (strcat "mem" (chr m))))
+          (if (not (zerop (eval (read (strcat "mem" (chr m))))))
+              (setq ini_lst (append ini_lst 
+                    (list (read (strcat "mem" (chr m))))))
+          )
+      ) 
+      (setq m (+ m 1))
+   )
+   ini_lst
+)
+
+;;Memory save function
+(defun memory_sav ()
+  (if (or (not (eq orig_mem (evaluate_mem))) ;; evaluate whether memory
+          (not (eq (mapcar 'eval orig_mem)   ;; entry was changed.
+               (mapcar 'eval (evaluate_mem))))  ;; If so, rewrite file.
+      )
+     (progn
+       (setq fn (findfile "com.lsp") m 97)
+       (setq f (open (strcat (substr fn 1 (- (strlen fn) 3)) "mem") "w"))
+       (write-line ";;;Calculator Memory ini file" f)
+       (write-line ";;;Please do not alter or erase" f)
+       (while (<= m 122)
+         (if (eval (read (strcat "mem" (chr m))))
+             (if (not (zerop (eval (read (strcat "mem" (chr m))))))
+                 (progn
+                     (setq vv (eval (read (strcat "mem" (chr m)))))
+			   (if (minusp vv) 
+                         (write-line (strcat "(setq mem" (chr m) "   " (rtos vv 2 15) ")") f)
+                         (write-line (strcat "(setq mem" (chr m) "  0" (rtos vv 2 15) ")") f)
+                     )
+		     )
+             )
+         ) (setq m (+ m 1))
+       ) (setq f (close f))
+     )
+  )
+)
+
+;;Display Initializer
+(defun display_ini ()
+   (if (if m-lst (zerop (rem (length m-lst) 2)))
+     (set_tile "error" 
+     (adjust "<Constant Calc. Mode activated>")))
+   (if (and (if sval (numberp (read sval))) 
+            (if rval (numberp rval)) (not lock))
+       (print_value sval rval) (com_key "AC"))
+)
+
+;;Calculator main function
+(defun com_main (/ rewind)
+   (setq max_digit 19) ;;;;; temporary variable
+   (clear_var (list 'plst 'unt_lst 'units 'cnts))
+   (memory_ini)
+   (setq rewind t)
+   (if (not dialog) (setq dialog "main"))
+   (while rewind
+      (cond
+        (dia_pos1 (if (not (new_dialog dialog dcl_id "" dia_pos1))(exit)))
+        (t (if (not (new_dialog dialog dcl_id)) (exit)))
+      )
+      (cond
+        ((= next 2) (com_key "kbrd"))
+        (t (display_ini))
+      )
+      (if com_secret_link (mode_tile "kbrd" 1) (mode_tile "kbrd" 0)) 
+      (action_tile "1" "(com_key \"1\")")
+      (action_tile "2" "(com_key \"2\")")
+      (action_tile "3" "(com_key \"3\")")
+      (action_tile "4" "(com_key \"4\")")
+      (action_tile "5" "(com_key \"5\")")
+      (action_tile "6" "(com_key \"6\")")
+      (action_tile "7" "(com_key \"7\")")
+      (action_tile "8" "(com_key \"8\")")
+      (action_tile "9" "(com_key \"9\")")
+      (action_tile "0" "(com_key \"0\")")
+      (action_tile "." "(com_key \"dot\")")
+      (action_tile "+" "(com_key \"+\")")
+      (action_tile "-" "(com_key \"-\")")
+      (action_tile "x" "(com_key \"x\")")
+      (action_tile "/" "(com_key \"/\")")
+      (action_tile "xpy" "(com_key \"xy\")")
+      (action_tile "=" "(com_key \"=\")")
+      (action_tile "AC" "(com_key \"AC\")")
+      (action_tile "C" "(com_key \"C\")")
+      (action_tile "ers" "(com_key \"ers\")")
+      (action_tile "sqr" "(com_key \"sqr\")")
+      (action_tile "sqrt" "(com_key \"sqrt\")")
+      (action_tile "root" "(com_key \"root\")")
+      (action_tile "pm" "(com_key \"pm\")")
+      (action_tile "sin" "(com_key \"sin\")")
+      (action_tile "cos" "(com_key \"cos\")")
+      (action_tile "tan" "(com_key \"tan\")")
+      (action_tile "exp" "(com_key \"exp\")")
+      (action_tile "ln" "(com_key \"ln\")")
+      (action_tile "log" "(com_key \"log\")")
+      (action_tile "sexa" "(com_key \"sexa\")")
+      (action_tile "frc" "(com_key \"frc\")")
+      (action_tile "mi" "(com_in)")
+      (action_tile "mo" "(com_key \"mo\")")
+      (action_tile "ki" "(if (not lock) (memory \"in\"))")
+      (action_tile "ko" "(if (not lock) (com_key \"ko\"))")
+      (action_tile "mod" "(if (not lock) (mode_ctrl))")
+      ;;;---------------------------------------------------
+      (action_tile "shf"  "(setq dia_pos1 (done_dialog 3))")
+      (action_tile "1stf" "(setq dia_pos1 (done_dialog 4))")
+      ;;;---------------------------------------------------
+      (action_tile "kac" "(com_warning)(if ok (com_key \"kac\"))")
+      (action_tile "cnst" "(const_func) (if ok (com_key \"cnst\"))")
+      (action_tile "cvrt" "(cvrt_func)  (if ok (com_key \"cvrt\"))")
+      (action_tile "fact" "(com_key \"fact\")")
+      (action_tile "rand" "(com_key \"rand\")")
+      (action_tile "cubt" "(com_key \"cubt\")")
+      (action_tile "rcp" "(com_key \"rcp\")")
+      (action_tile "alog" "(com_key \"alog\")")
+      (action_tile "aln" "(com_key \"aln\")")
+      (action_tile "kbrd" "(done_dialog 2)")
+      (action_tile "M-" "(memory \"minus\") (if ok (done_dialog))")
+      (action_tile "M+" "(memory \"plus\") (if ok (done_dialog))")
+      (action_tile "atan" "(com_key \"atan\")")
+      (action_tile "asin" "(com_key \"asin\")")
+      (action_tile "acos" "(com_key \"acos\")")
+      (action_tile "asex" "(com_key \"asex\")")
+      (action_tile "ptr" "(ptor)")
+      (action_tile "rtp" "(rtop)")
+      (action_tile "xy" "(com_key \"x-y\")")
+      (action_tile "xk" "(memory \"exch\") (if ok (if nval (com_key \"xk\")))")
+      (action_tile "d/c" "(norm_fract)")
+      (action_tile "engr" "(eng_r)")
+      (action_tile "engl" "(eng_l)")
+      ;;;---------------------------
+      (action_tile "hyp" "(if (not lock) (hyp_func))")
+      (action_tile "sd" "(if (not lock) (sd_func))")
+      (action_tile "exit" "(setq dia_pos1 (done_dialog 10))")
+      (action_tile "about" "(info_dia)")
+      (action_tile "assist" "(help \"com.ahp\" \"overview\")")
+      (setq next (start_dialog))
+      (if (= next 2) 
+          (progn
+            (initget 1) (setq distans 
+            (getdist "\nEnter value or locate two points: "))
+          )
+      )
+      (if (= next 3) (setq dialog "second"))
+      (if (= next 4) (setq dialog "main"))
+      (if (= next 10) (setq rewind nil))
+   )
+   (memory_sav)
+   (clear_var (list 'plst 'unt_lst 'units 'cnts))
+)
+
+(defun dem_com_link () (com_main) (if fract (distof (eval_fract)) rval))
+
+(defun C:COM ()
+  ;; Set up error function.
+   (setq old_cmd (getvar "cmdecho")    ; save current setting of cmdecho
+         old_error  *error*            ; save current error function
+         *error* ai_error              ; new error function
+   )
+   (setvar "cmdecho" 0)
+   (cond
+      (  (not (ai_trans)))                        ; transparent OK
+      (  (not (ai_acadapp)))                      ; ACADAPP.EXP xloaded?
+      (  (not (setq dcl_id (ai_dcl "com"))))  ; is .DCL file loaded?
+      (T 
+         (if (/= 1 (logand (getvar "cmdactive"))) (ai_undo_push))
+         (com_main)                           ; proceed!
+         (if (/= 1 (logand (getvar "cmdactive"))) (ai_undo_pop))
+      )
+   )
+   (setq *error* old_error) 
+   (setvar "cmdecho" old_cmd)
+   (if (zerop (logand (getvar "cmdactive") (+ 1 8))) 
+       (princ) (if fract (distof (eval_fract)) rval))
+)
+;;;
+(if (not com_secret_link ) (princ "   com loaded."))
+(princ)
+(setfunhelp "c:com"  "com.ahp" "")

@@ -1,0 +1,33 @@
+{
+  "titulo": "rotatoria teste.dwg — superfície PRIMITIVA, de A = início a B = fim do ALINHAMENTO - 2",
+  "terreno": {
+    "tipo": "landxml",
+    "arquivo": "C:/Users/User/OneDrive/Desktop/primitiva",
+    "superficie": "PRIMITIVA",
+    "dx": 5
+  },
+  "inicio": [
+    703927.442,
+    7669010.278
+  ],
+  "fim": [
+    703669.973,
+    7669391.78
+  ],
+  "parametros": {
+    "rampa_max": 0.08,
+    "raio_min": 40,
+    "raio_desejado": 80,
+    "tangente_min": 15,
+    "plataforma": 8,
+    "n_alternativas": 3,
+    "sigma_suavizacao": 15,
+    "dist_penalizacao": 30
+  },
+  "custos": {},
+  "restricoes": [],
+  "saida": "saida_rotatoria",
+  "referencia": {
+    "alinhamento": "ALINHAMENTO - 2"
+  }
+}

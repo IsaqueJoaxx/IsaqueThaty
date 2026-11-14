@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage SchemaVersion="1.0" Name="PROJETA" AppVersion="1.0.0"
+    Description="PROJETA • Assistente Civil — redes de drenagem/esgoto/água, dispositivos longitudinais, SWMM/EPANET e modelador de dispositivos"
+    Author="Isaque" ProductCode="{3B7E2A64-9C4F-4E1B-8D21-7A5C0F6E9B12}" UpgradeCode="{C0A9E3F1-5B2D-4C7A-9E84-1D6B3F2A7C55}">
+  <CompanyDetails Name="PROJETA" />
+  <Components Description="PROJETA para Civil 3D 2026 (.NET 8)">
+    <RuntimeRequirements OS="Win64" Platform="Civil3D" SeriesMin="R25.1" SeriesMax="R25.1" />
+    <ComponentEntry AppName="PROJETA" ModuleName="./Contents/2026/Projeta.Redes.dll" AppDescription="PROJETA para Civil 3D 2026"
+        LoadOnAutoCADStartup="True" AppType=".NET" />
+  </Components>
+  <Components Description="PROJETA para Civil 3D 2027 (.NET 10)">
+    <RuntimeRequirements OS="Win64" Platform="Civil3D" SeriesMin="R26.0" SeriesMax="R26.0" />
+    <ComponentEntry AppName="PROJETA" ModuleName="./Contents/2027/Projeta.Redes.dll" AppDescription="PROJETA para Civil 3D 2027"
+        LoadOnAutoCADStartup="True" AppType=".NET" />
+  </Components>
+</ApplicationPackage>

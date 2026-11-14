@@ -1,0 +1,5 @@
+(defun c:fb()
+(setq pt1(getpoint "\nClique no buraco"))
+(command "_AeccAddSurfacePoint" pt1 "750" "")
+(command "_AeccDeleteSurfacePoint" pt1 "@" "" "")
+)

@@ -1,0 +1,424 @@
+{
+  "Uuid": "a2780901-46fc-4a83-979f-88936dffdbd1",
+  "IsCustomNode": false,
+  "Description": "Divide corte e aterro entre 100% (primeiro metro) e 95% (excedente), por secao.",
+  "Name": "Compactacao_95_100_GO220",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "9cc34b62f15c413da82a49c886077b55",
+      "Name": "1. Executar calculo",
+      "Type": "boolean",
+      "Type2": "boolean",
+      "Value": "true",
+      "Description": "1. Executar calculo"
+    },
+    {
+      "Id": "640b938805eb485c8da03690b63b6567",
+      "Name": "2. Aplicar preenchimentos e tabelas",
+      "Type": "boolean",
+      "Type2": "boolean",
+      "Value": "false",
+      "Description": "2. Aplicar preenchimentos e tabelas"
+    },
+    {
+      "Id": "d9690678673e4b72b90ddbf6064c1d27",
+      "Name": "3. Grupo de secoes",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "SEÇÕES - GO-220 Executivo R01 (ETAPA 1)",
+      "Description": "3. Grupo de secoes"
+    },
+    {
+      "Id": "b7d5566e7d494839a683a2b8e098fcd3",
+      "Name": "4. Terreno natural",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "GO-220_Prim_Natural Caiapo",
+      "Description": "4. Terreno natural"
+    },
+    {
+      "Id": "3a9bf0d2685f43608445939f80a49154",
+      "Name": "5. Projeto",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "GO-220 Executivo R01 - TOP",
+      "Description": "5. Projeto"
+    },
+    {
+      "Id": "b4fc3373d09547119d1d20bd68f78778",
+      "Name": "6. Limite em metros",
+      "Type": "number",
+      "Type2": "number",
+      "Value": "1.0",
+      "Description": "6. Limite em metros"
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "9cc34b62f15c413da82a49c886077b55",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "7dfd36c28cac439f8b1a1243f2ce07ea",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Permite a seleção entre True e False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "640b938805eb485c8da03690b63b6567",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a52543def63b49ab8f040064961ed65f",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Permite a seleção entre True e False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "SerializedWidth": 0.0,
+      "SerializedHeight": 0.0,
+      "Id": "d9690678673e4b72b90ddbf6064c1d27",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "704d1ad1cdb04ef7bce25aad763edc07",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma sequência de caracteres.",
+      "InputValue": "SEÇÕES - GO-220 Executivo R01 (ETAPA 1)"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "SerializedWidth": 0.0,
+      "SerializedHeight": 0.0,
+      "Id": "b7d5566e7d494839a683a2b8e098fcd3",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "700a7cb7386a4d38883a25ed37b323bb",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma sequência de caracteres.",
+      "InputValue": "GO-220_Prim_Natural Caiapo"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "SerializedWidth": 0.0,
+      "SerializedHeight": 0.0,
+      "Id": "3a9bf0d2685f43608445939f80a49154",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "11cbc7f9ea3940c8b2820610c5576754",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma sequência de caracteres.",
+      "InputValue": "GO-220 Executivo R01 - TOP"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NumberType": "Double",
+      "Id": "b4fc3373d09547119d1d20bd68f78778",
+      "NodeType": "NumberInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f78d1e84a2414ae9828fe2359bc7566a",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria um número.",
+      "InputValue": 1.0
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "\"\"\"Geometria em metros. Categorias de compactacao, sem fator volumetrico.\nEntrada: segmentos [(offset0, cota0, offset1, cota1), ...].\n100%: primeiro metro abaixo da envoltoria superior entre as superficies.\n95%: excedente. Corte: natural acima do projeto; aterro: projeto acima.\n\"\"\"\nimport math\n\nCATEGORIAS = ('Corte 95%', 'Corte 100%', 'Aterro 95%', 'Aterro 100%')\n\ndef segmentos(pontos):\n    result = []\n    for i, p in enumerate(pontos):\n        j = int(p['to'])\n        if j < 0:\n            continue\n        if j >= len(pontos) or j == i:\n            raise ValueError('Segmento de secao invalido')\n        q = pontos[j]\n        a, b = (float(p['x']), float(p['y'])), (float(q['x']), float(q['y']))\n        if not all(math.isfinite(v) for v in a + b):\n            raise ValueError('Coordenada nao finita')\n        if b[0] < a[0]:\n            a, b = b, a\n        if b[0] - a[0] > 1e-9:\n            result.append(a + b)\n    result.sort()\n    for a, b in zip(result, result[1:]):\n        if a[2] > b[0] + 1e-7:\n            raise ValueError('Secao com segmentos sobrepostos')\n    return result\n\ndef cota(seg, x):\n    return seg[1] + (seg[3]-seg[1])*(x-seg[0])/(seg[2]-seg[0])\n\ndef separar(natural, projeto, limite=1.0):\n    if not math.isfinite(limite) or limite <= 0:\n        raise ValueError('Limite deve ser positivo')\n    areas = [0.0]*4\n    poligonos = []\n    largura = 0.0\n    for n in natural:\n        for p in projeto:\n            a, b = max(n[0], p[0]), min(n[2], p[2])\n            if b-a <= 1e-9:\n                continue\n            largura += b-a\n            da, db = cota(p,a)-cota(n,a), cota(p,b)-cota(n,b)\n            xs = [a,b]\n            if abs(db-da)>1e-12:\n                for h in (-limite,0.0,limite):\n                    t=(h-da)/(db-da)\n                    if 1e-10<t<1-1e-10:\n                        xs.append(a+(b-a)*t)\n            xs.sort()\n            for x,y in zip(xs,xs[1:]):\n                nn=[cota(n,x),cota(n,y)]\n                pp=[cota(p,x),cota(p,y)]\n                fill=sum(pp)>sum(nn)\n                low=nn if fill else pp\n                high=pp if fill else nn\n                split=[max(low[k],high[k]-limite) for k in (0,1)]\n                for pct,bottom,top in ((95,low,split),(100,split,high)):\n                    area=(y-x)*sum(top[k]-bottom[k] for k in (0,1))/2\n                    if area<=1e-10:\n                        continue\n                    idx=(2 if fill else 0)+(1 if pct==100 else 0)\n                    areas[idx]+=area\n                    poligonos.append({'categoria':idx,'pontos':[[x,bottom[0]],[y,bottom[1]],[y,top[1]],[x,top[0]]]})\n    if largura<=1e-8:\n        raise ValueError('Superficies sem sobreposicao na secao')\n    return areas,poligonos\n\ndef volumes(registros):\n    \"\"\"Media das areas nas extremidades; nunca liga grupos diferentes ou falhas.\"\"\"\n    totals=[0.0]*4\n    for prev,cur in zip(registros,registros[1:]):\n        ds=cur['station']-prev['station']\n        if ds<=0:\n            raise ValueError('Progressivas devem ser estritamente crescentes')\n        v=[(a+b)*ds/2 for a,b in zip(prev['areas'],cur['areas'])]\n        cur['volumes_intervalo']=v\n        totals=[a+b for a,b in zip(totals,v)]\n    return totals\n\n# Este trecho e anexado ao motor geometrico compactacao.py no no Python.\n# IN[0] executar; IN[1] aplicar preenchimentos/tabelas; IN[2] grupo;\n# IN[3] terreno; IN[4] projeto; IN[5] limite (m).\n# Desenho em metros. Nao salva o DWG automaticamente.\ndef executar_dynamo(entradas):\n    if not entradas[0]:\n        return 'Ative Executar. Use modo Manual no Dynamo.'\n    import clr\n    for lib in ('AcMgd','AcDbMgd','AeccDbMgd'):\n        clr.AddReference(lib)\n    from Autodesk.AutoCAD.ApplicationServices import Application\n    from Autodesk.AutoCAD.DatabaseServices import OpenMode,BlockTableRecord,LayerTableRecord,Solid,Table,CellAlignment,CellRange\n    from Autodesk.AutoCAD.Geometry import Point3d\n    from Autodesk.AutoCAD.Colors import Color,ColorMethod\n    from System import Int16\n    doc=Application.DocumentManager.MdiActiveDocument\n    if doc is None:\n        raise ValueError('Abra o DWG no Civil 3D.')\n    aplicar=bool(entradas[1])\n    grupo,nome_n,nome_p=map(str,entradas[2:5])\n    limite=float(entradas[5])\n    db=doc.Database\n    lock=doc.LockDocument()\n    tr=db.TransactionManager.StartTransaction()\n    try:\n        bt=tr.GetObject(db.BlockTableId,OpenMode.ForRead)\n        ms=tr.GetObject(bt[BlockTableRecord.ModelSpace],OpenMode.ForRead)\n        entities=[tr.GetObject(oid,OpenMode.ForRead) for oid in ms]\n        def localizar(tipo,nome):\n            matches=[e for e in entities if e.GetType().Name==tipo and e.Name==nome]\n            if len(matches)!=1:\n                raise ValueError('Esperado um '+tipo+' com nome: '+nome)\n            return matches[0]\n        n=localizar('TinSurface',nome_n)\n        p=localizar('TinSurface',nome_p)\n        g=localizar('SampleLineGroup',grupo)\n        records=[]\n        view_records=[]\n        for sid in g.GetSampleLineIds():\n            sl=tr.GetObject(sid,OpenMode.ForRead)\n            def ler(surface):\n                secid=sl.GetSectionId(surface.ObjectId)\n                if secid.IsNull:\n                    raise ValueError('Superficie nao amostrada em '+sl.Name)\n                sec=tr.GetObject(secid,OpenMode.ForRead)\n                pts=[{'x':float(pt.Location.X),'y':float(pt.Location.Y),'to':int(pt.SegmentTo)} for pt in sec.SectionPoints]\n                return segmentos(pts)\n            a,poly=separar(ler(n),ler(p),limite)\n            r={'name':sl.Name,'station':float(sl.Station),'areas':a,'poligonos':poly}\n            records.append(r)\n            for vid in sl.GetSectionViewIds():\n                view_records.append((tr.GetObject(vid,OpenMode.ForRead),r))\n        records.sort(key=lambda r:r['station'])\n        total=volumes(records)\n        criados=0\n        if aplicar:\n            # Camadas exclusivas desta rotina. Reexecucao substitui a saida anterior.\n            owned=('COMP_95','COMP_100','COMP_TABELA')\n            lt=tr.GetObject(db.LayerTableId,OpenMode.ForWrite)\n            for name,index in zip(owned,(30,5,7)):\n                if not lt.Has(name):\n                    layer=LayerTableRecord();layer.Name=name\n                    layer.Color=Color.FromColorIndex(ColorMethod.ByAci,Int16(index))\n                    lt.Add(layer);tr.AddNewlyCreatedDBObject(layer,True)\n            for e in entities:\n                if e.Layer in owned:\n                    e.UpgradeOpen();e.Erase()\n            ms.UpgradeOpen()\n            def add(e):\n                ms.AppendEntity(e);tr.AddNewlyCreatedDBObject(e,True)\n            def xy(view,x,z):\n                result=view.FindXYAtOffsetAndElevation(float(x),float(z),0.0,0.0)\n                if not isinstance(result,tuple) or len(result)!=3 or not result[0]:\n                    raise ValueError('Nao foi possivel localizar ponto na vista '+view.Name)\n                return Point3d(float(result[1]),float(result[2]),0.0)\n            for view,r in view_records:\n                for poly in r['poligonos']:\n                    pts=[]\n                    for x,z in poly['pontos']:\n                        if x<view.OffsetLeft-1e-6 or x>view.OffsetRight+1e-6 or z<view.ElevationMin-1e-6 or z>view.ElevationMax+1e-6:\n                            raise ValueError('Vista recorta a secao: '+view.Name)\n                        pts.append(xy(view,max(view.OffsetLeft,min(x,view.OffsetRight)),max(view.ElevationMin,min(z,view.ElevationMax))))\n                    e=Solid(pts[0],pts[1],pts[3],pts[2]);e.Layer=owned[0] if poly['categoria']%2==0 else owned[1]\n                    add(e);criados+=1\n                top=xy(view,view.OffsetRight,view.ElevationMax)\n                bottom=xy(view,view.OffsetLeft,view.ElevationMin)\n                width=abs(top.X-bottom.X);row=max(.18,width/55);tw=max(3,width*.23)\n                t=Table();t.SetDatabaseDefaults(db);t.TableStyle=db.Tablestyle\n                t.SetSize(6,2);t.UnmergeCells(CellRange.Create(t,0,0,0,1));t.SetRowHeight(row);t.SetColumnWidth(tw/2)\n                t.Position=Point3d(top.X+width*.035,top.Y,0);t.Layer=owned[2]\n                for i in range(6):\n                    for j in range(2):\n                        t.Cells[i,j].TextHeight=row*.65\n                        t.Cells[i,j].Alignment=CellAlignment.MiddleCenter\n                        t.Cells[i,j].ContentColor=Color.FromColorIndex(ColorMethod.ByAci,Int16(7))\n                t.Cells[0,0].TextString='Estaca';t.Cells[0,1].TextString=('{:.3f}'.format(r['station']/20).rstrip('0').rstrip('.')).replace('.',',')\n                t.MergeCells(CellRange.Create(t,1,0,1,1));t.Cells[1,0].TextString='Área (m²)'\n                for i,name in enumerate(CATEGORIAS):\n                    t.Cells[i+2,0].TextString=name;t.Cells[i+2,1].TextString=('{:.2f}'.format(r['areas'][i])).replace('.',',')\n                t.GenerateLayout();add(t)\n            # As tabelas nativas continuam com seus materiais originais.\n            # No DWG entregue elas estao ocultas. Nao altera listas QTO.\n        tr.Commit()\n        return {'Secoes':len(records),'Categorias':list(CATEGORIAS),'Totais m3':total,\n                'Areas por secao':[[r['name'],r['station']]+r['areas'] for r in records],\n                'Volumes entre secoes':[[r['name']]+r.get('volumes_intervalo',[0.0]*4) for r in records],\n                'Solidos criados':criados,'Aviso':'Saida grafica estatica. Reexecute apos alterar superficies. O DWG nao foi salvo automaticamente.'}\n    finally:\n        tr.Dispose();lock.Dispose()\n\nif 'IN' in globals():\n    OUT=executar_dynamo(IN)\n",
+      "Engine": "PythonNet3",
+      "VariableInputPorts": true,
+      "Id": "225cbc840617428eb79fd417fd28aea4",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "d629256aa79644e69427c5039b11d756",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ce03bd8869a54172b4dc9e7c335de518",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "daf621371234459d9bcbc19c31a6eb61",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "fe51bce024e34402b49fd5c4a7a138c8",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "789ee111e6bb44da8207eea160bed9f2",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4fd7af538ad24e91a81906598c4728d2",
+          "Name": "IN[5]",
+          "Description": "Input #5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f769ebf2245748528949f170d45b8cae",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Executa um script Python incorporado."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "7dfd36c28cac439f8b1a1243f2ce07ea",
+      "End": "d629256aa79644e69427c5039b11d756",
+      "Id": "8039d90cf7534ffdb2300ae1990f55d7",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "a52543def63b49ab8f040064961ed65f",
+      "End": "ce03bd8869a54172b4dc9e7c335de518",
+      "Id": "70b052da306c47d9b0672360025ee0fe",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "704d1ad1cdb04ef7bce25aad763edc07",
+      "End": "daf621371234459d9bcbc19c31a6eb61",
+      "Id": "44f25b2e955341d2ae3631f0c698f98e",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "700a7cb7386a4d38883a25ed37b323bb",
+      "End": "fe51bce024e34402b49fd5c4a7a138c8",
+      "Id": "c8f9b99e88854504932ef83745d287c6",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "11cbc7f9ea3940c8b2820610c5576754",
+      "End": "789ee111e6bb44da8207eea160bed9f2",
+      "Id": "1c5e4b8abd7745ea9a9812e4b78748f1",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "f78d1e84a2414ae9828fe2359bc7566a",
+      "End": "4fd7af538ad24e91a81906598c4728d2",
+      "Id": "22807225b4774b4eaade0743a4564d2d",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": false,
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Propriedades",
+      "Version": "4.0",
+      "Data": {}
+    }
+  ],
+  "Author": "None provided",
+  "Linting": {
+    "activeLinter": "Nenhum",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "4.0.2.3852",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Visualização do plano de fundo",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "9cc34b62f15c413da82a49c886077b55",
+        "Name": "1. Executar calculo",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "Id": "640b938805eb485c8da03690b63b6567",
+        "Name": "2. Aplicar preenchimentos e tabelas",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": false,
+        "X": 0.0,
+        "Y": 130.0
+      },
+      {
+        "Id": "d9690678673e4b72b90ddbf6064c1d27",
+        "Name": "3. Grupo de secoes",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": false,
+        "X": 0.0,
+        "Y": 260.0
+      },
+      {
+        "Id": "b7d5566e7d494839a683a2b8e098fcd3",
+        "Name": "4. Terreno natural",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": false,
+        "X": 0.0,
+        "Y": 390.0
+      },
+      {
+        "Id": "3a9bf0d2685f43608445939f80a49154",
+        "Name": "5. Projeto",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": false,
+        "X": 0.0,
+        "Y": 520.0
+      },
+      {
+        "Id": "b4fc3373d09547119d1d20bd68f78778",
+        "Name": "6. Limite em metros",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": false,
+        "X": 0.0,
+        "Y": 650.0
+      },
+      {
+        "Id": "225cbc840617428eb79fd417fd28aea4",
+        "Name": "Calcular e aplicar compactacao",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": true,
+        "Excluded": false,
+        "ShowGeometry": false,
+        "X": 650.0,
+        "Y": 200.0
+      }
+    ],
+    "Annotations": [],
+    "X": 0,
+    "Y": 0,
+    "Zoom": 0.65
+  }
+}

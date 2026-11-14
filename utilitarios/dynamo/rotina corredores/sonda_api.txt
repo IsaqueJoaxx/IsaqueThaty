@@ -1,0 +1,364 @@
+##### 1. Tipos do namespace com 'Intersection' #####
+Intersection
+IntersectionCorridorType
+IntersectionLocationLabel
+IntersectionRegion
+IntersectionRegionCollection
+IntersectionRoad
+IntersectionRoadCollection
+
+##### 2. Autodesk.Civil: enums com 'Intersection' ou 'CurbReturn' #####
+CivilWrapper<AeccDbIntersection>
+CurbReturnCurveGroupType
+CurbReturnType
+ImpliedPointOfIntersectionDisplayType
+
+##### 3. CivilDocument: membros com 'intersect' #####
+GetIntersectionIds
+
+##### 4. Intersection: TODOS os metodos (assinaturas) #####
+  Boolean Equals(Object obj)
+  Boolean GetGripPoints(GripDataCollection grips, Double curViewUnitSize, Int32 gripSize, Vector3d curViewDir, GetGripPointsFlags bitFlags)
+  Boolean GetGripPointsAtSubentityPath(FullSubentityPath subPath, GripDataCollection grips, Double curViewUnitSize, Int32 gripSize, Vector3d curViewDir, GetGripPointsFlags bitFlags)
+  Boolean HasContext(ObjectContext context)
+  Boolean HasPersistentReactor(ObjectId objId)
+  Boolean IsContentSnappable()
+  Boolean SetFromStyle()
+  Boolean SupportsCollection(String collectionName)
+  Boolean UpgradeFromNotify()
+  Boolean WorldDraw(WorldDraw wd)
+  Byte[] GetBinaryDataForKey(String key)
+  Curve GetOrthoProjectedCurve(Plane planeToProjectOn)
+  Curve GetProjectedCurve(Plane planeToProjectOn, Vector3d projectionDirection)
+  Curve3d GetGeCurve()
+  Curve3d GetGeCurve(Tolerance tolerance)
+  DBObject DeepClone(DBObject ownerPointer, IdMapping idMap, Boolean isPrimary)
+  DBObject WblockClone(RXObject ownerPointer, IdMapping idMap, Boolean isPrimary)
+  DBObjectCollection GetOffsetCurves(Double offsetDist)
+  DBObjectCollection GetOffsetCurvesGivenPlaneNormal(Vector3d normal, Double offsetDist)
+  DBObjectCollection GetSplitCurves(DoubleCollection value)
+  DBObjectCollection GetSplitCurves(Point3dCollection points)
+  DBObjectEventExtender GetEventExtender(Boolean create)
+  DataShortcutKey GetReferenceInfo()
+  DecomposeForSaveReplacementRecord DecomposeForSave(DwgVersion version)
+  Double GetDistAtPoint(Point3d point)
+  Double GetDistanceAtParameter(Double value)
+  Double GetParameterAtDistance(Double dist)
+  Double GetParameterAtPoint(Point3d point)
+  Entity GetSubentity(FullSubentityPath id)
+  Entity GetTransformedCopy(Matrix3d transform)
+  Extents3d GetSubentityGeometricExtents(FullSubentityPath subPath)
+  FullDwgVersion GetObjectSaveVersion(DwgFiler filer)
+  FullDwgVersion GetObjectSaveVersion(DxfFiler filer)
+  FullSubentityPath[] GetSubentityPathsAtGraphicsMarker(SubentityType type, Int64 gsMark, Point3d pickPoint, Matrix3d viewTransform, Int32 numInserts, ObjectId[] entityAndInsertStack)
+  FullSubentityPath[] GetSubentityPathsAtGraphicsMarker(SubentityType type, IntPtr gsMark, Point3d pickPoint, Matrix3d viewTransform, ObjectId[] entityAndInsertStack)
+  HighlightStyle HighlightState(FullSubentityPath subId)
+  IParameter GetParameterInterface(String name, Boolean runtimeInterface)
+  Int32 CompareTo(Object obj)
+  Int32 GetHashCode()
+  Int32 SetAttributes(DrawableTraits traits)
+  Int32 ViewportDrawLogicalFlags(ViewportDraw vd)
+  IntPtr QueryX(RXClass protocolClass)
+  IntPtr X(RXClass protocolClass)
+  IntPtrCollection GetGraphicsMarkersAtSubentityPathIntPtr(FullSubentityPath subPath)
+  IntegerCollection JoinEntities(Entity[] otherEntities)
+  List`1 GetReactors()
+  List`1 GetTransientReactors()
+  Object Clone()
+  Object GetLifetimeService()
+  Object InitializeLifetimeService()
+  ObjectId GetField()
+  ObjectId GetField(String propertyName)
+  ObjectId RemoveField()
+  ObjectId RemoveField(String propertyName)
+  ObjectId SetField(Field field)
+  ObjectId SetField(String propertyName, Field field)
+  ObjectIdCollection GetIntersectionLocaitonLabelIds()
+  ObjectIdCollection GetPersistentReactorIds()
+  Plane GetPlane()
+  Point3d GetClosestPointTo(Point3d givenPoint, Boolean extend)
+  Point3d GetClosestPointTo(Point3d givenPoint, Vector3d direction, Boolean extend)
+  Point3d GetPointAtDist(Double value)
+  Point3d GetPointAtParameter(Double value)
+  Profile GetBaseProfile(Matrix3d& toWcs)
+  Profile GetProfile(Plane cutPlane)
+  Profile GetUsageArea(Plane cutPlane)
+  RXClass GetRXClass()
+  ResultBuffer GetXDataForApplication(String applicationName)
+  String ToString()
+  Type GetType()
+  UInt64 ComputeFingerPrint()
+  Vector3d GetFirstDerivative(Double value)
+  Vector3d GetFirstDerivative(Point3d point)
+  Vector3d GetSecondDerivative(Double value)
+  Vector3d GetSecondDerivative(Point3d point)
+  Void AddContext(ObjectContext context)
+  Void AddSubentityPaths(FullSubentityPath[] subPaths)
+  Void ApplyPaperOrientationTransform(Viewport viewport)
+  Void ApplyPartialUndo(DwgFiler undoFiler, RXClass classObj)
+  Void Audit(AuditInfo auditInfo)
+  Void BoundingBoxIntersectWith(Entity entityPointer, Intersect intersectType, Plane projectionPlane, Point3dCollection points, Int64 thisGraphicSystemMarker, Int64 otherGraphicSystemMarker)
+  Void BoundingBoxIntersectWith(Entity entityPointer, Intersect intersectType, Plane projectionPlane, Point3dCollection points, IntPtr thisGraphicSystemMarker, IntPtr otherGraphicSystemMarker)
+  Void BoundingBoxIntersectWith(Entity entityPointer, Intersect intersectType, Point3dCollection points, Int64 thisGraphicSystemMarker, Int64 otherGraphicSystemMarker)
+  Void BoundingBoxIntersectWith(Entity entityPointer, Intersect intersectType, Point3dCollection points, IntPtr thisGraphicSystemMarker, IntPtr otherGraphicSystemMarker)
+  Void Cancel()
+  Void Close()
+  Void CloseAndPage(Boolean onlyWhenClean)
+  Void CopyFrom(RXObject source)
+  Void CreateExtensionDictionary()
+  Void DeleteSubentityPaths(FullSubentityPath[] subPaths)
+  Void DisableUndoRecording(Boolean disable)
+  Void Dispose()
+  Void DowngradeOpen()
+  Void DowngradeToNotify(Boolean wasWritable)
+  Void Draw()
+  Void DwgIn(DwgFiler filer)
+  Void DwgOut(DwgFiler filer)
+  Void DxfIn(DxfFiler filer)
+  Void DxfOut(DxfFiler filer)
+  Void Erase()
+  Void Erase(Boolean erasing)
+  Void Explode(DBObjectCollection entitySet)
+  Void Extend(Boolean extendStart, Point3d toPoint)
+  Void Extend(Double newParameter)
+  Void GetAutomaticallyBoundSpaces(ObjectIdCollection blockRefPath, AutomaticSpaceBoundary& boundSpaces)
+  Void GetGripPoints(Point3dCollection gripPoints, IntegerCollection snapModes, IntegerCollection geometryIds)
+  Void GetLocalExtents(BoundBlock3d& extents)
+  Void GetLocalModelCachedExtents(BoundBlock3d& ext)
+  Void GetMaterialComponents(IntegerCollection& componentIds, StringCollection& componentNames, ObjectIdCollection& materialIds)
+  Void GetMaterialLocations(IntegerCollection& locationIds, ObjectIdCollection& styleIdArray)
+  Void GetObjectSnapPoints(ObjectSnapModes snapMode, Int32 gsSelectionMark, Point3d pickPoint, Point3d lastPoint, Matrix3d viewTransform, Point3dCollection snapPoints, IntegerCollection geometryIds)
+  Void GetObjectSnapPoints(ObjectSnapModes snapMode, Int32 gsSelectionMark, Point3d pickPoint, Point3d lastPoint, Matrix3d viewTransform, Point3dCollection snapPoints, IntegerCollection geometryIds, Matrix3d insertionMat)
+  Void GetStretchPoints(Point3dCollection stretchPoints)
+  Void GetWorldExtents(BoundBlock3d& extents)
+  Void HandOverTo(DBObject newPointer, Boolean keepXData, Boolean keepExtensionDictionary)
+  Void Highlight()
+  Void Highlight(FullSubentityPath subId, Boolean highlightAll)
+  Void IntersectWith(Entity entityPointer, Intersect intersectType, Plane projectionPlane, Point3dCollection points, Int64 thisGraphicSystemMarker, Int64 otherGraphicSystemMarker)
+  Void IntersectWith(Entity entityPointer, Intersect intersectType, Plane projectionPlane, Point3dCollection points, IntPtr thisGraphicSystemMarker, IntPtr otherGraphicSystemMarker)
+  Void IntersectWith(Entity entityPointer, Intersect intersectType, Point3dCollection points, Int64 thisGraphicSystemMarker, Int64 otherGraphicSystemMarker)
+  Void IntersectWith(Entity entityPointer, Intersect intersectType, Point3dCollection points, IntPtr thisGraphicSystemMarker, IntPtr otherGraphicSystemMarker)
+  Void JoinEntity(Entity secondaryEntity)
+  Void List()
+  Void MoveGripPointsAt(GripDataCollection grips, Vector3d offset, MoveGripPointsFlags bitFlags)
+  Void MoveGripPointsAt(IntegerCollection indices, Vector3d offset)
+  Void MoveGripPointsAtSubentityPaths(FullSubentityPath[] subPaths, IntPtr[] appData, Vector3d offset, MoveGripPointsFlags bitFlags)
+  Void MoveStretchPointsAt(IntegerCollection indices, Vector3d offset)
+  Void PopHighlight(FullSubentityPath subId)
+  Void PushHighlight(FullSubentityPath subId, HighlightStyle highlightStyle)
+  Void RecordGraphicsModified(Boolean setModified)
+  Void ReleaseExtensionDictionary()
+  Void RemoveContext(ObjectContext context)
+  Void RemoveField(ObjectId id)
+  Void ResetScaleDependentProperties()
+  Void ReverseCurve()
+  Void SaveAs(WorldDraw mode, SaveType st)
+  Void SetAutomaticallyBoundSpaces(ObjectIdCollection blockRefPath, AutomaticSpaceBoundary boundSpaces)
+  Void SetBaseProfile(Profile profile, Matrix3d matrix)
+  Void SetBinaryDataForKey(String key, Byte[] chunk)
+  Void SetDatabaseDefaults()
+  Void SetDatabaseDefaults(Database sourceDatabase)
+  Void SetDefaultLayer()
+  Void SetDragStatus(DragStatus status)
+  Void SetFromGeCurve(Curve3d geCurve)
+  Void SetFromGeCurve(Curve3d geCurve, Tolerance tolerance)
+  Void SetFromGeCurve(Curve3d geCurve, Vector3d __unnamed001)
+  Void SetFromGeCurve(Curve3d geCurve, Vector3d __unnamed001, Tolerance tolerance)
+  Void SetGripStatus(GripStatus status)
+  Void SetLayerId(ObjectId newValue, Boolean allowHidden)
+  Void SetLocalExtents(BoundBlock3d extents, Int32 flags)
+  Void SetLocalModelExtentsDirty()
+  Void SetMaterialComponents(IntegerCollection componentIds, ObjectIdCollection materialIds)
+  Void SetObjectIdsInFlux()
+  Void SetPaperOrientation(Boolean bPaperOrientation)
+  Void SetPropertiesFrom(Entity entityPointer)
+  Void SetSubentityGripStatus(GripStatus status, FullSubentityPath subentity)
+  Void SetToStandard(Database db)
+  Void SetWorldExtents(BoundBlock3d extents)
+  Void SwapIdWith(ObjectId otherId, Boolean swapExtendedData, Boolean swapExtensionDictionary)
+  Void SwapReferences(IdMapping idMap)
+  Void TransformBy(Matrix3d transform)
+  Void TransformSubentityPathsBy(FullSubentityPath[] subPaths, Matrix3d transform)
+  Void Unhighlight()
+  Void Unhighlight(FullSubentityPath subId, Boolean highlightAll)
+  Void UpgradeOpen()
+  Void ViewportDraw(ViewportDraw vd)
+  Void XDataTransformBy(Matrix3d transform)
+  Void add_Cancelled(EventHandler A_0)
+  Void add_Copied(ObjectEventHandler A_0)
+  Void add_Erased(ObjectErasedEventHandler A_0)
+  Void add_Goodbye(EventHandler A_0)
+  Void add_Modified(EventHandler A_0)
+  Void add_ModifiedXData(EventHandler A_0)
+  Void add_ModifyUndone(EventHandler A_0)
+  Void add_ObjectClosed(ObjectClosedEventHandler A_0)
+  Void add_OpenedForModify(EventHandler A_0)
+  Void add_Reappended(EventHandler A_0)
+  Void add_SubObjectModified(ObjectEventHandler A_0)
+  Void add_Unappended(EventHandler A_0)
+  Void remove_Cancelled(EventHandler A_0)
+  Void remove_Copied(ObjectEventHandler A_0)
+  Void remove_Erased(ObjectErasedEventHandler A_0)
+  Void remove_Goodbye(EventHandler A_0)
+  Void remove_Modified(EventHandler A_0)
+  Void remove_ModifiedXData(EventHandler A_0)
+  Void remove_ModifyUndone(EventHandler A_0)
+  Void remove_ObjectClosed(ObjectClosedEventHandler A_0)
+  Void remove_OpenedForModify(EventHandler A_0)
+  Void remove_Reappended(EventHandler A_0)
+  Void remove_SubObjectModified(ObjectEventHandler A_0)
+  Void remove_Unappended(EventHandler A_0)
+  -- propriedades --
+  AnnotativeStates Annotative
+  AutomaticSpaceBoundary AutomaticallyBoundSpaces
+  Boolean AutoDelete
+  Boolean CastShadows
+  Boolean CloneMeForDragging
+  Boolean Closed
+  Boolean ForceAnnoAllVisible
+  Boolean HasFields
+  Boolean HasSaveVersionOverride
+  Boolean IsAProxy
+  Boolean IsCWSReferenceObject
+  Boolean IsCWSSourceObject
+  Boolean IsCancelling
+  Boolean IsDisposed
+  Boolean IsEraseStatusToggled
+  Boolean IsErased
+  Boolean IsHighlighting
+  Boolean IsModified
+  Boolean IsModifiedGraphics
+  Boolean IsModifiedXData
+  Boolean IsNewObject
+  Boolean IsNotifyEnabled
+  Boolean IsNotifying
+  Boolean IsObjectIdsInFlux
+  Boolean IsPartialReferenceObject
+  Boolean IsPeriodic
+  Boolean IsPersistent
+  Boolean IsPlanar
+  Boolean IsReadEnabled
+  Boolean IsReadOnlyReferenceObject
+  Boolean IsReallyClosing
+  Boolean IsReferenceObject
+  Boolean IsReferenceStale
+  Boolean IsReferenceSubObject
+  Boolean IsReferenceValid
+  Boolean IsReferencedSourceExisting
+  Boolean IsTransactionResident
+  Boolean IsUndoing
+  Boolean IsUsed
+  Boolean IsWriteEnabled
+  Boolean NeedsPromoting
+  Boolean ReceiveShadows
+  Boolean ShowToolTip
+  Boolean SupportsBaseCurveCommands
+  Boolean SupportsProfileCommands
+  Boolean SwappingReferences
+  Boolean Visible
+  ClassificationCollection Classifications
+  CollisionType CollisionType
+  Color Color
+  Curve BaseCurve
+  Database Database
+  Double Area
+  Double EndParam
+  Double LinetypeScale
+  Double StartParam
+  DrawStream DrawStream
+  Drawable Drawable
+  DrawableType DrawableType
+  DrivingDirectionType RoadwayDrivingDirection
+  DuplicateRecordCloning MergeStyle
+  DwgFiler UndoFiler
+  EntityColor EntityColor
+  Extents3d GeometricExtents
+  FullDwgVersion ObjectBirthVersion
+  Guid ClassID
+  Handle Handle
+  HyperLinkCollection Hyperlinks
+  Icon TypeIcon
+  Int32 ColorIndex
+  IntPtr UnmanagedObject
+  IntersectionCorridorType GradeRuleType
+  IntersectionRegionCollection IntersectionRegions
+  IntersectionRoadCollection IntersectionRoads
+  LineWeight LineWeight
+  Mapper MaterialMapper
+  Matrix3d CompoundObjectTransform
+  Matrix3d Ecs
+  Nullable`1 Bounds
+  Object AcadObject
+  Object Application
+  Object Document
+  ObjectId BlockId
+  ObjectId CorridorId
+  ObjectId EdgeStyleId
+  ObjectId ExtensionDictionary
+  ObjectId FaceStyleId
+  ObjectId FolderId
+  ObjectId Id
+  ObjectId LayerId
+  ObjectId LinetypeId
+  ObjectId MaterialId
+  ObjectId ObjectId
+  ObjectId OwnerId
+  ObjectId StyleId
+  ObjectId VisualStyleId
+  OverrideCollection Overrides
+  PaperOrientationStates PaperOrientation
+  PlotStyleDescriptor PlotStyleNameId
+  Point3d EndPoint
+  Point3d Location
+  Point3d StartPoint
+  ProjectState ProjectState
+  ResultBuffer XData
+  Spline Spline
+  String BlockName
+  String Description
+  String DisplayName
+  String Layer
+  String LayerKey
+  String Linetype
+  String Material
+  String Name
+  String PlotStyleName
+  String StyleName
+  Transparency Transparency
+  UInt64 FingerPrint
+
+##### 5. Alignment: metodos com 'Create' #####
+  ObjectId CreateOffsetAlignment(Double offsetDistance)
+  Void CreateExtensionDictionary()
+  static ObjectId Create(CivilDocument document, PolylineOptions plineOptions, String alignmentName, ObjectId siteId, ObjectId layerId, ObjectId styleId, ObjectId labelSetId)
+  static ObjectId Create(CivilDocument document, PolylineOptions plineOptions, String alignmentName, String siteName, String layerName, String styleName, String labelSetName)
+  static ObjectId Create(CivilDocument document, String alignmentName, ObjectId siteId, ObjectId layerId, ObjectId styleId, ObjectId labelSetId)
+  static ObjectId Create(CivilDocument document, String alignmentName, ObjectId siteId, ObjectId layerId, ObjectId styleId, ObjectId labelSetId, AlignmentType type)
+  static ObjectId Create(CivilDocument document, String alignmentName, String siteName, String layerName, String styleName, String labelSetName)
+  static ObjectId Create(CorridorFeatureLine corridorFeatureLine, String alignmentName, ObjectId siteId, ObjectId layerId, ObjectId styleId, ObjectId labelSetId, AlignmentType alignmentType)
+  static ObjectId CreateConnectedAlignment(String alignmentName, ObjectId siteId, ObjectId layerId, ObjectId styleId, ObjectId labelSetId, ConnectedAlignmentParams connectedAlignmentParams)
+  static ObjectId CreateOffsetAlignment(Database database, String alignmentName, String parentAlignmentName, Double offset, String styleName)
+  static ObjectId CreateOffsetAlignment(Database database, String alignmentName, String parentAlignmentName, Double offset, String styleName, Double startStation, Double endStation)
+  static ObjectId CreateOffsetAlignment(String alignmentName, ObjectId parentAlignmentId, Double offset, ObjectId styleId)
+  static ObjectId CreateOffsetAlignment(String alignmentName, ObjectId parentAlignmentId, Double offset, ObjectId styleId, Double startStation, Double endStation)
+
+##### 6. Alignment: metodos com 'Offset' #####
+  DBObjectCollection GetOffsetCurves(Double offsetDist)
+  DBObjectCollection GetOffsetCurvesGivenPlaneNormal(Vector3d normal, Double offsetDist)
+  ObjectId CreateOffsetAlignment(Double offsetDistance)
+  ObjectIdCollection GetChildOffsetAlignmentIds()
+  ObjectIdCollection GetChildOffsetAlignmentIds(Boolean onlyDynamicUpdate)
+  Void StationOffset(Double easting, Double northing, Double tolerance, Double& station, Double& offset)
+  Void StationOffset(Double easting, Double northing, Double& station, Double& offset)
+  Void StationOffsetAcceptOutOfRange(Double easting, Double northing, Double tolerance, Double& station, Double& offset, Boolean& outofrange)
+  Void StationOffsetAcceptOutOfRange(Double easting, Double northing, Double& station, Double& offset, Boolean& outofrange)
+  static ObjectId CreateOffsetAlignment(Database database, String alignmentName, String parentAlignmentName, Double offset, String styleName)
+  static ObjectId CreateOffsetAlignment(Database database, String alignmentName, String parentAlignmentName, Double offset, String styleName, Double startStation, Double endStation)
+  static ObjectId CreateOffsetAlignment(String alignmentName, ObjectId parentAlignmentId, Double offset, ObjectId styleId)
+  static ObjectId CreateOffsetAlignment(String alignmentName, ObjectId parentAlignmentId, Double offset, ObjectId styleId, Double startStation, Double endStation)
+
+##### 7. Alignment: metodos com 'Curb' #####
+  (nenhum)
+
+##### 8. Intersecoes existentes no desenho #####
+  GetIntersectionIds() -> 0

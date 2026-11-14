@@ -1,0 +1,462 @@
+model = "gpt-6.1-sol"
+model_reasoning_effort = "low"
+notify = [ "C:\\Users\\User\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\78fb63cda1a9e2b2\\bin\\node_modules\\@oai\\sky\\bin\\windows\\codex-computer-use.exe", "turn-ended" ]
+[desktop]
+followUpQueueMode = "steer"
+conversationDetailMode = "STEPS_PROSE"
+ambient-suggestions-enabled = true
+external-agent-import-sync-item-types = "all"
+external-agent-import-sync-enabled = true
+
+[marketplaces.openai-bundled]
+source_type = "local"
+source = '\\?\C:\Users\User\.codex\.tmp\bundled-marketplaces\openai-bundled'
+
+[marketplaces.openai-primary-runtime]
+source_type = "local"
+source = '\\?\C:\Users\User\.cache\codex-runtimes\codex-primary-runtime\plugins\openai-primary-runtime'
+
+[marketplaces.claude-cowork]
+source_type = "local"
+source = '\\?\C:\Users\User\.codex\plugins\cache\claude-cowork'
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."adspirer-ads-agent@claude-cowork"]
+enabled = true
+
+[plugins."ai-firstify@claude-cowork"]
+enabled = true
+
+[plugins."airtable@claude-cowork"]
+enabled = true
+
+[plugins."airwallex-agentos@claude-cowork"]
+enabled = true
+
+[plugins."apollo@claude-cowork"]
+enabled = true
+
+[plugins."auth0@claude-cowork"]
+enabled = true
+
+[plugins."base44@claude-cowork"]
+enabled = true
+
+[plugins."base44-sandbox@claude-cowork"]
+enabled = true
+
+[plugins."bigdata-com@claude-cowork"]
+enabled = true
+
+[plugins."box@claude-cowork"]
+enabled = true
+
+[plugins."brand-voice@claude-cowork"]
+enabled = true
+
+[plugins."brightdata-plugin@claude-cowork"]
+enabled = true
+
+[plugins."buildkite@claude-cowork"]
+enabled = true
+
+[plugins."canva@claude-cowork"]
+enabled = true
+
+[plugins."carbone-skill@claude-cowork"]
+enabled = true
+
+[plugins."carta-cap-table@claude-cowork"]
+enabled = true
+
+[plugins."carta-crm@claude-cowork"]
+enabled = true
+
+[plugins."carta-investors@claude-cowork"]
+enabled = true
+
+[plugins."clickhouse@claude-cowork"]
+enabled = true
+
+[plugins."cloudinary@claude-cowork"]
+enabled = true
+
+[plugins."cockroachdb@claude-cowork"]
+enabled = true
+
+[plugins."common-room@claude-cowork"]
+enabled = true
+
+[plugins."cowork-plugin-management@claude-cowork"]
+enabled = true
+
+[plugins."customer-support@claude-cowork"]
+enabled = true
+
+[plugins."daloopa@claude-cowork"]
+enabled = true
+
+[plugins."datadog@claude-cowork"]
+enabled = true
+
+[plugins."datarobot-agent-skills@claude-cowork"]
+enabled = true
+
+[plugins."design@claude-cowork"]
+enabled = true
+
+[plugins."desktop-commander@claude-cowork"]
+enabled = true
+
+[plugins."dropbox@claude-cowork"]
+enabled = true
+
+[plugins."engineering@claude-cowork"]
+enabled = true
+
+[plugins."enterprise-search@claude-cowork"]
+enabled = true
+
+[plugins."exa@claude-cowork"]
+enabled = true
+
+[plugins."fastly-agent-toolkit@claude-cowork"]
+enabled = true
+
+[plugins."grafana-assistant@claude-cowork"]
+enabled = true
+
+[plugins."grafana-cloud-mcp@claude-cowork"]
+enabled = true
+
+[plugins."grasp@claude-cowork"]
+enabled = true
+
+[plugins."growthbook@claude-cowork"]
+enabled = true
+
+[plugins."hawkscan@claude-cowork"]
+enabled = true
+
+[plugins."honeycomb@claude-cowork"]
+enabled = true
+
+[plugins."human-resources@claude-cowork"]
+enabled = true
+
+[plugins."intercom@claude-cowork"]
+enabled = true
+
+[plugins."langfuse@claude-cowork"]
+enabled = true
+
+[plugins."learn-with-coursera@claude-cowork"]
+enabled = true
+
+[plugins."legal@claude-cowork"]
+enabled = true
+
+[plugins."lseg@claude-cowork"]
+enabled = true
+
+[plugins."lusha@claude-cowork"]
+enabled = true
+
+[plugins."miro@claude-cowork"]
+enabled = true
+
+[plugins."modern-web-guidance@claude-cowork"]
+enabled = true
+
+[plugins."monday-com@claude-cowork"]
+enabled = true
+
+[plugins."monday-crm@claude-cowork"]
+enabled = true
+
+[plugins."nimble@claude-cowork"]
+enabled = true
+
+[plugins."operations@claude-cowork"]
+enabled = true
+
+[plugins."pdf-viewer@claude-cowork"]
+enabled = true
+
+[plugins."pixeltable@claude-cowork"]
+enabled = true
+
+[plugins."planetscale@claude-cowork"]
+enabled = true
+
+[plugins."postiz@claude-cowork"]
+enabled = true
+
+[plugins."product-tracking-skills@claude-cowork"]
+enabled = true
+
+[plugins."qdrant@claude-cowork"]
+enabled = true
+
+[plugins."qt-development-skills@claude-cowork"]
+enabled = true
+
+[plugins."sales@claude-cowork"]
+enabled = true
+
+[plugins."sanity@claude-cowork"]
+enabled = true
+
+[plugins."searchfit-seo@claude-cowork"]
+enabled = true
+
+[plugins."servicenow-sdk@claude-cowork"]
+enabled = true
+
+[plugins."signoz@claude-cowork"]
+enabled = true
+
+[plugins."slack-by-salesforce@claude-cowork"]
+enabled = true
+
+[plugins."small-business@claude-cowork"]
+enabled = true
+
+[plugins."spglobal-plugin@claude-cowork"]
+enabled = true
+
+[plugins."stackhawk-api@claude-cowork"]
+enabled = true
+
+[plugins."tavily@claude-cowork"]
+enabled = true
+
+[plugins."tinyfish@claude-cowork"]
+enabled = true
+
+[plugins."twilio-developer-kit@claude-cowork"]
+enabled = true
+
+[plugins."vals@claude-cowork"]
+enabled = true
+
+[plugins."vanta@claude-cowork"]
+enabled = true
+
+[plugins."vpai@claude-cowork"]
+enabled = true
+
+[plugins."wix@claude-cowork"]
+enabled = true
+
+[plugins."zoom-plugin@claude-cowork"]
+enabled = true
+
+[plugins."zoominfo@claude-cowork"]
+enabled = true
+
+[plugins."code-review@openai-bundled"]
+enabled = true
+
+[mcp_servers.node_repl]
+args = []
+command = 'C:\Users\User\AppData\Local\OpenAI\Codex\runtimes\cua_node\78fb63cda1a9e2b2\bin\node_repl.exe'
+env_vars = ["CODEX_WINDOWS_REGISTERED_CORE"]
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = 'C:\Users\User\AppData\Local\OpenAI\Codex\runtimes\cua_node\78fb63cda1a9e2b2\bin\node_modules'
+NODE_REPL_NODE_PATH = 'C:\Users\User\AppData\Local\OpenAI\Codex\runtimes\cua_node\78fb63cda1a9e2b2\bin\node.exe'
+NODE_REPL_TRUSTED_CODE_PATHS = 'C:\Users\User\.codex;C:\Users\User\AppData\Local\OpenAI\Codex\runtimes\cua_node\78fb63cda1a9e2b2\bin\node_modules'
+CODEX_HOME = 'C:\Users\User\.codex'
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab,mcpapps"
+BROWSER_USE_TINYSKY_ENABLED = "1"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.1013.40934"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"C:/Users/User/.codex/plugins/cache/openai-bundled/browser/26.1013.40934/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+SKY_CUA_NATIVE_PIPE = "1"
+SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-c1fa7d85-7c04-4089-95a3-d3a8db5ffde4'
+CODEX_CLI_PATH = 'C:\Users\User\AppData\Local\OpenAI\Codex\bin\896a0166b774037a\codex.exe'
+NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "CODEX_WINDOWS_REGISTERED_CORE"
+
+[windows]
+sandbox = "elevated"
+
+[projects."c:\\users\\user\\documents\\codex\\2026-09-09\\crie-uma-imagem-de"]
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-09\gmail-plugin-gmail-openai-curated-remote']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-09\ac']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-10\me']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-13\tenho-uma']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-14\por-favor-gostaria-de-solicitar-um']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-14\d']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-15\me-x20']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-15\com']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-16\ten']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-16\sou']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-16\realtime-voice-chat']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-18\analisa-pra-me-se-perante-as']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-19\re']
+trust_level = "trusted"
+
+[projects.'c:\users\user\documents\codex\2026-09-20\gmail-plugin-gmail-openai-curated-remote']
+trust_level = "trusted"
+
+[projects.'d:\projeta engenharia']
+trust_level = "trusted"
+
+[hooks.state."carta-cap-table@claude-cowork:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:324c04b399ada8b1d00a375f5cc3f40f2b0f318e3e53fdc69b270e0e21c01a9d"
+
+[hooks.state."carta-cap-table@claude-cowork:hooks/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:1c01cf1376922ea8eb6c833e6cd80d8ed15fc8359a5224db6cc10e1f44200367"
+
+[hooks.state."carta-cap-table@claude-cowork:hooks/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:624b7e75107f8fdde0694def9ecd32a3e649d5fdc66969bd711323a63e6a810b"
+
+[hooks.state."carta-cap-table@claude-cowork:hooks/hooks.json:post_tool_use:0:1"]
+trusted_hash = "sha256:229fe64f3f69e809ccfa429ea37766621cae123e44c42f7cd4da530e38326b01"
+
+[hooks.state."carta-cap-table@claude-cowork:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:72ac61a9fd8f8143801d875fedc692475f592573e6dd9093dd4e8cbb146d79bb"
+
+[hooks.state."carta-cap-table@claude-cowork:hooks/hooks.json:session_start:0:1"]
+trusted_hash = "sha256:d95e83e3dd2943bb998798a26637069171db9ef2a6df8b7f4400dbcb9a52bf57"
+
+[hooks.state."carta-cap-table@claude-cowork:hooks/hooks.json:session_start:0:2"]
+trusted_hash = "sha256:1fdeae7810a2488f2e9c7ee2f784344b4406849df3b429922a83b7c198ff7d17"
+
+[hooks.state."carta-cap-table@claude-cowork:hooks/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:c725f0c79bee997b4802619039c6ac6176360215ba114d4e571a0b687ae94c81"
+
+[hooks.state."carta-crm@claude-cowork:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:324c04b399ada8b1d00a375f5cc3f40f2b0f318e3e53fdc69b270e0e21c01a9d"
+
+[hooks.state."carta-crm@claude-cowork:hooks/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:1c01cf1376922ea8eb6c833e6cd80d8ed15fc8359a5224db6cc10e1f44200367"
+
+[hooks.state."carta-crm@claude-cowork:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:72ac61a9fd8f8143801d875fedc692475f592573e6dd9093dd4e8cbb146d79bb"
+
+[hooks.state."carta-crm@claude-cowork:hooks/hooks.json:session_start:0:1"]
+trusted_hash = "sha256:d95e83e3dd2943bb998798a26637069171db9ef2a6df8b7f4400dbcb9a52bf57"
+
+[hooks.state."carta-crm@claude-cowork:hooks/hooks.json:session_start:0:2"]
+trusted_hash = "sha256:1fdeae7810a2488f2e9c7ee2f784344b4406849df3b429922a83b7c198ff7d17"
+
+[hooks.state."carta-crm@claude-cowork:hooks/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:c725f0c79bee997b4802619039c6ac6176360215ba114d4e571a0b687ae94c81"
+
+[hooks.state."carta-investors@claude-cowork:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:324c04b399ada8b1d00a375f5cc3f40f2b0f318e3e53fdc69b270e0e21c01a9d"
+
+[hooks.state."carta-investors@claude-cowork:hooks/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:1c01cf1376922ea8eb6c833e6cd80d8ed15fc8359a5224db6cc10e1f44200367"
+
+[hooks.state."carta-investors@claude-cowork:hooks/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:ee6a129f6e06aff2c7ba322edd8f2981e9e297e61d0f20208d1a42fac0d1ce71"
+
+[hooks.state."carta-investors@claude-cowork:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:72ac61a9fd8f8143801d875fedc692475f592573e6dd9093dd4e8cbb146d79bb"
+
+[hooks.state."carta-investors@claude-cowork:hooks/hooks.json:session_start:0:1"]
+trusted_hash = "sha256:d95e83e3dd2943bb998798a26637069171db9ef2a6df8b7f4400dbcb9a52bf57"
+
+[hooks.state."carta-investors@claude-cowork:hooks/hooks.json:session_start:0:2"]
+trusted_hash = "sha256:1fdeae7810a2488f2e9c7ee2f784344b4406849df3b429922a83b7c198ff7d17"
+
+[hooks.state."carta-investors@claude-cowork:hooks/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:c725f0c79bee997b4802619039c6ac6176360215ba114d4e571a0b687ae94c81"
+
+[hooks.state."cockroachdb@claude-cowork:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:820cc1418360cf33e611d981cedc4e843d982d14b836c49c28280882ee426fab"
+
+[hooks.state."cockroachdb@claude-cowork:hooks/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:4717bdc1b9a1172e1fae868a11e4f9e6867105a579b292823247e852eed661d2"
+
+[hooks.state."datadog@claude-cowork:hooks/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:035dbb7b8f8791cd956af4056c5f75e2d776d0710a609d2f81f6c3c4ee33d385"
+
+[hooks.state."datadog@claude-cowork:hooks/hooks.json:session_end:0:0"]
+trusted_hash = "sha256:27760efc9566bd0902d83fbc99b47fcf7b307b361593ef1181758ff3e39ec1d6"
+
+[hooks.state."hawkscan@claude-cowork:hooks/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:95a0849eed6a44688e8fdeb10cba7d7ec8ae9af7efa01ce56002e8ca05026634"
+
+[hooks.state."hawkscan@claude-cowork:hooks/hooks.json:post_tool_use:1:0"]
+trusted_hash = "sha256:2374aa921aac1dfa67559b6d7801ff66468a916806497c7978698acc265402be"
+
+[hooks.state."hawkscan@claude-cowork:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:cabe4dd1e1af00698470fe7b234bea21035684615648f4f2c887bcdd706ae05f"
+
+[hooks.state."hawkscan@claude-cowork:hooks/hooks.json:stop:0:0"]
+trusted_hash = "sha256:479fd08612acb33b1571f109fc31a7bb191d288164e7dcca1333e614abf48752"
+
+[hooks.state."honeycomb@claude-cowork:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:ccaa4e7fdb12366e02b0a4187043dedf72ca4ff8e36dbe1a6995d97b54ee5f81"
+
+[hooks.state."honeycomb@claude-cowork:hooks/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:594c0cb9120ea759336c2f4da5643cd6d83daaf0b8d554ebc6898272d81d4016"
+
+[hooks.state."pixeltable@claude-cowork:hooks/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:6779c1fdb84c95716acaff7d680982c0350d554ec97058ed8993ce133cfa5069"
+
+[hooks.state."pixeltable@claude-cowork:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:a94f82312712ece551210d22f064b5604e591d1319bf6993f20a3fdf3eea8e51"

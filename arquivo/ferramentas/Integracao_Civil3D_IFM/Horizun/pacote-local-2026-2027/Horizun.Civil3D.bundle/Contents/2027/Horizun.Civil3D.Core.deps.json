@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Horizun.Civil3D.Core/0.9.2": {
+        "runtime": {
+          "Horizun.Civil3D.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Horizun.Civil3D.Core/0.9.2": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,440 @@
+{
+  "Uuid": "f4e4701b-eafb-415d-a4ee-55a145eb0265",
+  "IsCustomNode": false,
+  "Description": "Cria um alinhamento do Civil 3D para cada eixo (layer RUA_EIXO) gerado pelo kml_para_ruas_dwg.py.",
+  "Name": "CriarAlinhamentos_RUA_EIXO_C3D2026",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "599c3e39ba25499498a47fdd27ed7ab1",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "b9ff7339ed4e4a1a9f29837cc3528f7d",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selecao entre verdadeiro e falso.",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "Id": "bf822f45b1224f8398ed6fd9a551c8b7",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1a8c3c46276c4b0bbf36118df3db98e5",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma string.",
+      "InputValue": "RUA_EIXO"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "Id": "67dfc6cf02ca4d3ab3eddeedd7a79feb",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e5c2f96d83e3491b83a40feac0df73d6",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma string.",
+      "InputValue": "RUA_ALINHAMENTO"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "Id": "1e1d78a6ef09477da5f3ced9bff5c6b9",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "17bd2bc6c58848b1b04e3e9b341b9e91",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma string.",
+      "InputValue": ""
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "Id": "73f6c9f2e6bb4146a487d70c7f085501",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ff60576c9a8b4ee086d9337d54043de3",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma string.",
+      "InputValue": ""
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "Id": "657beb0f17ea48b9b6de72c683b11aab",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "62ab643c53bb404ca3c2af289fff71dc",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma string.",
+      "InputValue": "alinhamento"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "ccc8859ec0ec4e4e98778da7085f3b8a",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f75d9ae9acf5414f99025defa8b830bd",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selecao entre verdadeiro e falso.",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Id": "658c79a31e6e4ef49dda2dac2544d540",
+      "NodeType": "PythonScriptNode",
+      "Code": "# -*- coding: utf-8 -*-\n# =============================================================================\n#  CRIAR ALINHAMENTOS A PARTIR DOS EIXOS DO KML   -   Dynamo for Civil 3D\n#  (companheiro do kml_para_ruas_dwg.py)\n# =============================================================================\n#\n#  ENTRADAS (portas do n\u00f3 Python Script, nessa ordem):\n#\n#   IN[0] RODAR               (bool) False = s\u00f3 diagnostica, n\u00e3o mexe no desenho\n#                                    True  = cria os alinhamentos\n#   IN[1] LAYER_EIXO          (str)  layer das polilinhas de eixo   (padr\u00e3o RUA_EIXO)\n#   IN[2] LAYER_ALINHAMENTO   (str)  layer dos alinhamentos, criado se n\u00e3o existir\n#                                    (padr\u00e3o RUA_ALINHAMENTO)\n#   IN[3] ESTILO_ALINHAMENTO  (str)  parte do nome do estilo; vazio = primeiro da lista\n#   IN[4] ESTILO_ROTULOS      (str)  parte do nome do conjunto de r\u00f3tulos; vazio = primeiro\n#   IN[5] SUFIXO              (str)  fim do nome do alinhamento (padr\u00e3o \"alinhamento\")\n#   IN[6] CURVAS              (bool) True = insere curvas entre tangentes com o raio\n#                                    padr\u00e3o do Civil 3D (padr\u00e3o False)\n#\n#  NOME DO ALINHAMENTO:   \"<c\u00f3digo> <nome da rua> <sufixo>\"\n#        ex.: \"01 Rua das Ac\u00e1cias alinhamento\"\n#  -> mesmo padr\u00e3o do modo \"codigo\" da rotina CriarCorredoresEmLote.\n#\n#  O c\u00f3digo e o nome v\u00eam do XDATA \"KML_RUA\" que o kml_para_ruas_dwg.py grava em\n#  cada eixo. Polilinha no layer sem esse XDATA vira \"<pr\u00f3ximo c\u00f3digo> Eixo <sufixo>\".\n#  Alinhamento com o mesmo nome j\u00e1 existente \u00e9 pulado: d\u00e1 para rodar de novo sem\n#  duplicar. As polilinhas de eixo s\u00e3o mantidas no desenho.\n# =============================================================================\n\nimport clr\nimport re\nimport traceback\nimport unicodedata\n\nfor _ref in (\"AcMgd\", \"AcCoreMgd\", \"AcDbMgd\", \"AecBaseMgd\", \"AecPropDataMgd\", \"AeccDbMgd\"):\n    clr.AddReference(_ref)\n\nfrom Autodesk.AutoCAD.ApplicationServices import Application\nfrom Autodesk.AutoCAD.DatabaseServices import (OpenMode, SymbolUtilityServices, ObjectId,\n                                               LayerTableRecord)\nfrom Autodesk.AutoCAD.Colors import Color, ColorMethod\nfrom Autodesk.Civil.ApplicationServices import CivilApplication\nfrom Autodesk.Civil.DatabaseServices import Alignment, PolylineOptions\n\nAPPID = \"KML_RUA\"\nINVALIDOS = re.compile(r'[<>/\\\\\":;?*|,=`]')\n\n\n# ----------------------------------------------------------------- utilidades\ndef entrada(i, padrao, vazio_vira_padrao=True):\n    try:\n        v = IN[i]\n    except Exception:\n        return padrao\n    if v is None:\n        return padrao\n    if isinstance(padrao, bool):\n        return bool(v)\n    v = str(v).strip()\n    if not v and vazio_vira_padrao:\n        return padrao\n    return v\n\n\ndef norm(s):\n    s = unicodedata.normalize(\"NFKD\", str(s or \"\"))\n    return \"\".join(c for c in s if not unicodedata.combining(c)).lower().strip()\n\n\ndef limpar_nome(s):\n    return re.sub(r\"\\s+\", \" \", INVALIDOS.sub(\"-\", s)).strip()\n\n\ndef br(v, casas=2):\n    return (\"%.*f\" % (casas, v)).replace(\".\", \",\")\n\n\ndef codigo_do_nome(nome):\n    m = re.match(r\"\\s*(\\d+)\", nome or \"\")\n    return int(m.group(1)) if m else None\n\n\ndef listar_estilos(t, colecao):\n    itens = []\n    for sid in colecao:\n        try:\n            itens.append((sid, t.GetObject(sid, OpenMode.ForRead).Name))\n        except Exception:\n            pass\n    return itens\n\n\ndef escolher_estilo(itens, filtro):\n    \"\"\"Exato > parcial > primeiro. Devolve (id, nome, aviso).\"\"\"\n    if not itens:\n        return None, None, \"nenhum estilo no desenho\"\n    if filtro:\n        f = norm(filtro)\n        achados = [x for x in itens if norm(x[1]) == f] or [x for x in itens if f in norm(x[1])]\n        if achados:\n            return achados[0][0], achados[0][1], \"\"\n        return itens[0][0], itens[0][1], \"'%s' n\u00e3o encontrado; dispon\u00edveis: %s\" % (\n            filtro, \" | \".join(x[1] for x in itens))\n    return itens[0][0], itens[0][1], \"\"\n\n\n# ----------------------------------------------------------------- principal\ndef executar():\n    rodar = entrada(0, False)\n    layer_eixo = entrada(1, \"RUA_EIXO\")\n    layer_ali = entrada(2, \"RUA_ALINHAMENTO\")\n    filtro_estilo = entrada(3, \"\", vazio_vira_padrao=False)\n    filtro_rotulo = entrada(4, \"\", vazio_vira_padrao=False)\n    sufixo = entrada(5, \"alinhamento\", vazio_vira_padrao=False)\n    curvas = entrada(6, False)\n\n    rel = [\"=== CRIAR ALINHAMENTOS  |  %s ===\" % (\n        \"CRIANDO (RODAR = True)\" if rodar else \"DIAGN\u00d3STICO (RODAR = False) - nada foi alterado\")]\n\n    adoc = Application.DocumentManager.MdiActiveDocument\n    db = adoc.Database\n    civdoc = CivilApplication.ActiveDocument\n\n    with adoc.LockDocument():\n        with db.TransactionManager.StartTransaction() as t:\n\n            # --- alinhamentos que j\u00e1 existem (nomes e c\u00f3digos)\n            ids_ali = []\n            for getter in (\"GetAlignmentIds\", \"GetSitelessAlignmentIds\"):\n                try:\n                    ids_ali.extend(list(getattr(civdoc, getter)()))\n                except Exception:\n                    pass\n            existentes = {}\n            for aid in ids_ali:\n                try:\n                    n = t.GetObject(aid, OpenMode.ForRead).Name\n                    existentes[norm(n)] = n\n                except Exception:\n                    pass\n            codigos_existentes = {}\n            for n in existentes.values():\n                c = codigo_do_nome(n)\n                if c is not None:\n                    codigos_existentes.setdefault(c, n)\n\n            # --- eixos no model space\n            ms = t.GetObject(SymbolUtilityServices.GetBlockModelSpaceId(db), OpenMode.ForRead)\n            eixos, layers_com_pline = [], set()\n            for oid in ms:\n                try:\n                    if oid.ObjectClass.DxfName != \"LWPOLYLINE\":\n                        continue\n                    pl = t.GetObject(oid, OpenMode.ForRead)\n                    layers_com_pline.add(pl.Layer)\n                    if norm(pl.Layer) != norm(layer_eixo):\n                        continue\n                    nome, cod, larg = None, None, None\n                    rb = pl.GetXDataForApplication(APPID)\n                    if rb is not None:\n                        for tv in rb.AsArray():\n                            tc = int(tv.TypeCode)\n                            if tc == 1000 and nome is None:\n                                nome = str(tv.Value)\n                            elif tc == 1070 and cod is None:\n                                cod = int(tv.Value)\n                            elif tc == 1040 and larg is None:\n                                larg = float(tv.Value)\n                    eixos.append({\"id\": oid, \"nome\": nome, \"cod\": cod, \"larg\": larg,\n                                  \"comp\": float(pl.Length), \"nv\": int(pl.NumberOfVertices),\n                                  \"handle\": str(pl.Handle)})\n                except Exception as ex:\n                    rel.append(\"ERRO lendo um objeto do model space: %s\" % ex)\n\n            rel.append(\"Layer dos eixos: %s  ->  %d polilinha(s)\" % (layer_eixo, len(eixos)))\n            if not eixos:\n                rel.append(\"Nenhuma polilinha no layer '%s'. Layers com polilinhas no desenho: %s\"\n                           % (layer_eixo, \" | \".join(sorted(layers_com_pline)) or \"(nenhum)\"))\n                return rel\n\n            # --- eixos sem XDATA recebem os pr\u00f3ximos c\u00f3digos livres\n            usados = [e[\"cod\"] for e in eixos if e[\"cod\"] is not None] + list(codigos_existentes)\n            prox = max(usados + [0]) + 1\n            for e in sorted([e for e in eixos if e[\"cod\"] is None], key=lambda e: e[\"handle\"]):\n                e[\"cod\"], e[\"nome\"] = prox, e[\"nome\"] or \"Eixo\"\n                prox += 1\n            sem_xdata = sum(1 for e in eixos if e[\"larg\"] is None)\n            if sem_xdata:\n                rel.append(\"  %d eixo(s) sem dados do KML: nomeados como 'Eixo' com c\u00f3digos novos.\"\n                           % sem_xdata)\n            eixos.sort(key=lambda e: (e[\"cod\"], e[\"nome\"]))\n\n            # --- layer dos alinhamentos\n            lt = t.GetObject(db.LayerTableId, OpenMode.ForRead)\n            layer_id = None\n            for lid in lt:\n                try:\n                    if norm(t.GetObject(lid, OpenMode.ForRead).Name) == norm(layer_ali):\n                        layer_id = lid\n                        break\n                except Exception:\n                    pass\n            if layer_id is not None:\n                rel.append(\"Layer dos alinhamentos: %s (j\u00e1 existe)\" % layer_ali)\n            elif rodar:\n                lt.UpgradeOpen()\n                ltr = LayerTableRecord()\n                ltr.Name = layer_ali\n                try:\n                    ltr.Color = Color.FromColorIndex(ColorMethod.ByAci, 1)\n                except Exception:\n                    pass\n                layer_id = lt.Add(ltr)\n                t.AddNewlyCreatedDBObject(ltr, True)\n                rel.append(\"Layer dos alinhamentos: %s (criado)\" % layer_ali)\n            else:\n                rel.append(\"Layer dos alinhamentos: %s (ser\u00e1 criado)\" % layer_ali)\n\n            # --- estilos\n            est_id, est_nome, est_aviso = escolher_estilo(\n                listar_estilos(t, civdoc.Styles.AlignmentStyles), filtro_estilo)\n            rot_id, rot_nome, rot_aviso = escolher_estilo(\n                listar_estilos(t, civdoc.Styles.LabelSetStyles.AlignmentLabelSetStyles), filtro_rotulo)\n            rel.append(\"Estilo: %s   |   R\u00f3tulos: %s   |   Curvas entre tangentes: %s\"\n                       % (est_nome, rot_nome, \"sim\" if curvas else \"n\u00e3o\"))\n            for aviso in (est_aviso, rot_aviso):\n                if aviso:\n                    rel.append(\"  AVISO: \" + aviso)\n            if est_id is None or rot_id is None:\n                rel.append(\"Sem estilo de alinhamento/r\u00f3tulo no desenho. Rode num desenho criado \"\n                           \"a partir do seu template do Civil 3D.\")\n                return rel\n            rel.append(\"-\" * 60)\n\n            # --- cria\u00e7\u00e3o\n            criados = pulados = erros = 0\n            conflito = False\n            for e in eixos:\n                nome_ali = limpar_nome(\"%02d %s %s\" % (e[\"cod\"], e[\"nome\"], sufixo))\n                info = \"L=%s m, %d v\u00e9rt.\" % (br(e[\"comp\"]), e[\"nv\"])\n                if norm(nome_ali) in existentes:\n                    rel.append(\"PULOU  %s   (j\u00e1 existe)\" % nome_ali)\n                    pulados += 1\n                    continue\n                dono = codigos_existentes.get(e[\"cod\"])\n                if dono and norm(dono) != norm(nome_ali):\n                    rel.append(\"  AVISO: c\u00f3digo %02d j\u00e1 \u00e9 usado por '%s'\" % (e[\"cod\"], dono))\n                    conflito = True\n                if not rodar:\n                    rel.append(\"CRIAR  %s   (%s)\" % (nome_ali, info))\n                    existentes[norm(nome_ali)] = nome_ali\n                    criados += 1\n                    continue\n                try:\n                    opts = PolylineOptions()\n                    opts.PlineId = e[\"id\"]\n                    opts.AddCurvesBetweenTangents = bool(curvas)\n                    opts.EraseExistingEntities = False\n                    aid = Alignment.Create(civdoc, opts, nome_ali, ObjectId.Null,\n                                           layer_id, est_id, rot_id)\n                    try:\n                        al = t.GetObject(aid, OpenMode.ForRead)\n                        info = \"L=%s m, %d elemento(s)\" % (br(al.Length), al.Entities.Count)\n                    except Exception:\n                        pass\n                    rel.append(\"OK     %s   (%s)\" % (nome_ali, info))\n                    existentes[norm(nome_ali)] = nome_ali\n                    codigos_existentes.setdefault(e[\"cod\"], nome_ali)\n                    criados += 1\n                except Exception as ex:\n                    rel.append(\"ERRO   %s   -> %s\" % (nome_ali, str(ex).strip().splitlines()[0]))\n                    erros += 1\n\n            t.Commit()\n\n    rel.append(\"-\" * 60)\n    rel.append(\"%d %s, %d pulado(s), %d erro(s)\" % (\n        criados, \"criado(s)\" if rodar else \"a criar\", pulados, erros))\n    if conflito:\n        rel.append(\"C\u00f3digos repetidos confundem o modo 'codigo' da rotina de corredores: gere o KML \"\n                   \"de novo com --codigo-inicial acima do maior c\u00f3digo j\u00e1 usado no desenho.\")\n    if not rodar and criados:\n        rel.append(\"Confira a lista e rode de novo com RODAR = True.\")\n    return rel\n\n\ntry:\n    OUT = executar()\nexcept Exception:\n    OUT = [\"ERRO GERAL:\"] + traceback.format_exc().splitlines()\n",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Inputs": [
+        {
+          "Id": "3efb151c1b214d93987c7e942241eaa5",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f519c8b0d52f44639b5323c38bdd0cd6",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "401228b3e7fe4adfae9ca5e1c69d5e2b",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3747807266894febb27b13f3e2973607",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1acfb5a9fc3848cfa62bd1bb9798edd1",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0ebc99c5ce084bf19d1331df396d1107",
+          "Name": "IN[5]",
+          "Description": "Input #5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "975a311d901346cfb3f8f71fe683c63a",
+          "Name": "IN[6]",
+          "Description": "Input #6",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8ae8908f329049f0a54279951d25b965",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria alinhamentos do Civil 3D a partir dos eixos do KML."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "Id": "715791d730cb4d95af191bbe147260cb",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "5daad84f216841a6abd8af2dfb8295f5",
+          "Name": "",
+          "Description": "No a avaliar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0d729c16b1974463829c3bc41ba004d3",
+          "Name": "",
+          "Description": "Conteudo",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualiza a saida de um no."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "b9ff7339ed4e4a1a9f29837cc3528f7d",
+      "End": "3efb151c1b214d93987c7e942241eaa5",
+      "Id": "56214b25b94e4273b960571c04d3721d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "1a8c3c46276c4b0bbf36118df3db98e5",
+      "End": "f519c8b0d52f44639b5323c38bdd0cd6",
+      "Id": "c1c7cb6385ff4e2fbea266d2d6735e60",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "e5c2f96d83e3491b83a40feac0df73d6",
+      "End": "401228b3e7fe4adfae9ca5e1c69d5e2b",
+      "Id": "1fdb950158f642c2b2a83f5c7a01e28d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "17bd2bc6c58848b1b04e3e9b341b9e91",
+      "End": "3747807266894febb27b13f3e2973607",
+      "Id": "2dfce9571e3f47fabed26124d71823ef",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "ff60576c9a8b4ee086d9337d54043de3",
+      "End": "1acfb5a9fc3848cfa62bd1bb9798edd1",
+      "Id": "2f22723899fe4101893439c2ccbaa1c5",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "62ab643c53bb404ca3c2af289fff71dc",
+      "End": "0ebc99c5ce084bf19d1331df396d1107",
+      "Id": "9a38d4b8545f4aa0a9c730a0f5abf43c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "f75d9ae9acf5414f99025defa8b830bd",
+      "End": "975a311d901346cfb3f8f71fe683c63a",
+      "Id": "87c047ebbfbd42a3bc9831004d5d013b",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "8ae8908f329049f0a54279951d25b965",
+      "End": "5daad84f216841a6abd8af2dfb8295f5",
+      "Id": "e334245bf22e48c4930a6dacbaff4f41",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "3.0.0.0",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "Id": "599c3e39ba25499498a47fdd27ed7ab1",
+        "Name": "RODAR (False = so diagnostico)",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "Id": "bf822f45b1224f8398ed6fd9a551c8b7",
+        "Name": "LAYER_EIXO",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 110.0
+      },
+      {
+        "Id": "67dfc6cf02ca4d3ab3eddeedd7a79feb",
+        "Name": "LAYER_ALINHAMENTO",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 220.0
+      },
+      {
+        "Id": "1e1d78a6ef09477da5f3ced9bff5c6b9",
+        "Name": "ESTILO_ALINHAMENTO (parte do nome, vazio = 1o)",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 330.0
+      },
+      {
+        "Id": "73f6c9f2e6bb4146a487d70c7f085501",
+        "Name": "ESTILO_ROTULOS (parte do nome, vazio = 1o)",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 440.0
+      },
+      {
+        "Id": "657beb0f17ea48b9b6de72c683b11aab",
+        "Name": "SUFIXO do nome",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 550.0
+      },
+      {
+        "Id": "ccc8859ec0ec4e4e98778da7085f3b8a",
+        "Name": "CURVAS entre tangentes",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 660.0
+      },
+      {
+        "Id": "658c79a31e6e4ef49dda2dac2544d540",
+        "Name": "Criar Alinhamentos (RUA_EIXO)",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 520.0,
+        "Y": 300.0
+      },
+      {
+        "Id": "715791d730cb4d95af191bbe147260cb",
+        "Name": "Relatorio",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 900.0,
+        "Y": 300.0
+      }
+    ],
+    "Annotations": [],
+    "X": 60.0,
+    "Y": 40.0,
+    "Zoom": 0.85
+  }
+}

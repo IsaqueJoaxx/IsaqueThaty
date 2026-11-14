@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="TopoCalc" />
+  <meta name="theme-color" content="#1a1a2e" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <title>TopoCalc</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    :root {
+      --bg: #0f0f1a;
+      --card: #1a1a2e;
+      --card2: #16213e;
+      --accent: #e94560;
+      --accent2: #0f3460;
+      --green: #00b894;
+      --yellow: #fdcb6e;
+      --text: #eaeaea;
+      --muted: #8892a4;
+      --radius: 16px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      padding-top: var(--safe-top);
+      padding-bottom: var(--safe-bottom);
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--card) 0%, var(--accent2) 100%);
+      padding: 18px 20px 14px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    header span { color: var(--accent); }
+
+    .tabs {
+      display: flex;
+      background: var(--card2);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 57px;
+      z-index: 99;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: 3px solid transparent;
+      user-select: none;
+    }
+
+    .tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: rgba(233,69,96,0.06);
+    }
+
+    .tab-icon { font-size: 18px; display: block; margin-bottom: 2px; }
+
+    .page { display: none; padding: 20px 16px; max-width: 480px; margin: 0 auto; }
+    .page.active { display: block; }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 500;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    input[type="number"]:focus {
+      border-color: var(--accent);
+      background: rgba(233,69,96,0.05);
+    }
+
+    input[type="number"]::placeholder { color: rgba(255,255,255,0.2); }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.3px;
+      font-family: inherit;
+    }
+
+    .btn:active { transform: scale(0.97); opacity: 0.9; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, #c0392b 100%);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 16px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .result-box.show { display: block; }
+
+    .result-type {
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-align: center;
+    }
+
+    .result-type.corte { background: linear-gradient(135deg, #e17055, #d63031); color: white; }
+    .result-type.aterro { background: linear-gradient(135deg, #0984e3, #6c5ce7); color: white; }
+    .result-type.neutro { background: linear-gradient(135deg, var(--green), #00cec9); color: white; }
+    .result-type.slope { background: linear-gradient(135deg, var(--accent2), #533483); color: white; }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .result-item {
+      background: var(--card2);
+      padding: 14px 16px;
+    }
+
+    .result-item.full { grid-column: 1 / -1; }
+
+    .result-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .result-value {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .result-value.highlight { color: var(--yellow); }
+    .result-value.positive { color: var(--green); }
+    .result-value.negative { color: var(--accent); }
+    .result-value.neutral { color: var(--text); }
+
+    .result-unit {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: 3px;
+    }
+
+    .slope-sign-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .sign-btn {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 22px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .sign-btn.active-pos { border-color: var(--green); background: rgba(0,184,148,0.12); color: var(--green); }
+    .sign-btn.active-neg { border-color: var(--accent); background: rgba(233,69,96,0.12); color: var(--accent); }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      margin-bottom: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .info-row .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot-corte { background: #e17055; }
+    .dot-aterro { background: #0984e3; }
+    .dot-pos { background: var(--green); }
+    .dot-neg { background: var(--accent); }
+
+    .history-section { margin-top: 4px; }
+
+    .history-item {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .history-info { font-size: 12px; color: var(--muted); }
+    .history-result { font-size: 15px; font-weight: 700; }
+
+    .history-type {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+    }
+
+    .badge-corte { background: rgba(225,112,85,0.15); color: #e17055; }
+    .badge-aterro { background: rgba(9,132,227,0.15); color: #0984e3; }
+    .badge-slope { background: rgba(108,92,231,0.15); color: #a29bfe; }
+
+    .clear-btn {
+      font-size: 12px;
+      color: var(--accent);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 0;
+      font-family: inherit;
+      font-weight: 600;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .empty-history {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 20px;
+      opacity: 0.5;
+    }
+
+    .banner {
+      background: linear-gradient(135deg, rgba(15,52,96,0.8), rgba(83,52,131,0.5));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .banner-icon { font-size: 20px; flex-shrink: 0; }
+
+    .formula-box {
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .formula-box code {
+      color: var(--yellow);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f0f2f8;
+        --card: #ffffff;
+        --card2: #f5f7fc;
+        --text: #1a1a2e;
+        --muted: #666e82;
+      }
+      input[type="number"] {
+        background: rgba(0,0,0,0.04);
+        border-color: rgba(0,0,0,0.1);
+        color: var(--text);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Topo<span>Calc</span></h1>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('offset')">
+    <span class="tab-icon">📏</span>Offset
+  </div>
+  <div class="tab" onclick="switchTab('slope')">
+    <span class="tab-icon">📐</span>Inclinação
+  </div>
+  <div class="tab" onclick="switchTab('history')">
+    <span class="tab-icon">🕘</span>Histórico
+  </div>
+</div>
+
+<!-- ===== OFFSET PAGE ===== -->
+<div id="page-offset" class="page active">
+
+  <div class="banner">
+    <span class="banner-icon">ℹ️</span>
+    <div>Calcula a distância horizontal até o offset com base na diferença de cotas.</div>
+  </div>
+
+  <div class="formula-box">
+    <div class="info-row" style="margin:0 0 6px;padding:0;background:none;">
+      <span class="dot dot-corte"></span>
+      <span><b>Corte</b> — CT &gt; CP → offset = Δ × 1</span>
+    </div>
+    <div class="info-row" style="margin:0;padding:0;background:none;">
+      <span class="dot dot-aterro"></span>
+      <span><b>Aterro</b> — CP &gt; CT → offset = Δ × 1,5</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Cotas</div>
+
+    <label>Cota de Projeto (CP)</label>
+    <input type="number" id="cp" placeholder="Ex: 120.50" step="0.001" inputmode="decimal" />
+
+    <label>Cota de Terreno (CT)</label>
+    <input type="number" id="ct" placeholder="Ex: 121.80" step="0.001" inputmode="decimal" />
+
+    <button class="btn btn-primary" onclick="calcOffset()">Calcular Offset</button>
+    <button class="btn btn-secondary" onclick="clearOffset()">Limpar</button>
+  </div>
+
+  <div id="result-offset" class="result-box">
+    <div id="result-offset-type" class="result-type"></div>
+    <div class="result-grid">
+      <div class="result-item">
+        <div class="result-label">Diferença (Δ)</div>
+        <div class="result-value neutral" id="r-delta">—</div>
+      </div>
+      <div class="result-item">
+        <div class="result-label">Multiplicador</div>
+        <div class="result-value neutral" id="r-mult">—</div>
+      </div>
+      <div class="result-item full">
+        <div class="result-label">Distância até o Offset</div>
+        <div class="result-value highlight" id="r-offset">—<span class="result-unit">m</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLOPE PAGE ===== -->
+<div id="page-slope" class="page">
+
+  <div class="banner">
+    <span class="banner-icon">ℹ️</span>
+    <div>Calcula a nova cota a partir de uma distância e inclinação. Positivo sobe, negativo desce.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Parâmetros</div>
+
+    <label>Cota de Projeto (CP base)</label>
+    <input type="number" id="s-cp" placeholder="Ex: 120.50" step="0.001" inputmode="decimal" />
+
+    <label>Distância (m)</label>
+    <input type="number" id="s-dist" placeholder="Ex: 25.00" step="0.001" inputmode="decimal" min="0" />
+
+    <label>Inclinação (%)</label>
+    <div class="slope-sign-row">
+      <button class="sign-btn active-pos" id="btn-pos" onclick="setSign(1)">＋</button>
+      <button class="sign-btn" id="btn-neg" onclick="setSign(-1)">－</button>
+    </div>
+    <input type="number" id="s-inc" placeholder="Ex: 3.50" step="0.01" inputmode="decimal" min="0" />
+
+    <button class="btn btn-primary" onclick="calcSlope()">Calcular Nova Cota</button>
+    <button class="btn btn-secondary" onclick="clearSlope()">Limpar</button>
+  </div>
+
+  <div id="result-slope" class="result-box">
+    <div class="result-type slope" id="result-slope-type"></div>
+    <div class="result-grid">
+      <div class="result-item">
+        <div class="result-label">Δ Cota</div>
+        <div class="result-value" id="s-r-delta">—</div>
+      </div>
+      <div class="result-item">
+        <div class="result-label">Inclinação real</div>
+        <div class="result-value" id="s-r-inc">—</div>
+      </div>
+      <div class="result-item full">
+        <div class="result-label">Nova Cota de Projeto</div>
+        <div class="result-value highlight" id="s-r-cota">—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HISTORY PAGE ===== -->
+<div id="page-history" class="page">
+  <div class="section-header">
+    <span style="font-size:14px;font-weight:700;">Últimos cálculos</span>
+    <button class="clear-btn" onclick="clearHistory()">Limpar tudo</button>
+  </div>
+  <div id="history-list"></div>
+</div>
+
+<script>
+  // ── State ──────────────────────────────────────────────────────────
+  let slopeSign = 1;
+  let history = JSON.parse(localStorage.getItem('topo_history') || '[]');
+
+  // ── Tabs ───────────────────────────────────────────────────────────
+  function switchTab(name) {
+    document.querySelectorAll('.tab').forEach((t,i) => {
+      const names = ['offset','slope','history'];
+      t.classList.toggle('active', names[i] === name);
+    });
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    if (name === 'history') renderHistory();
+  }
+
+  // ── Sign toggle ────────────────────────────────────────────────────
+  function setSign(s) {
+    slopeSign = s;
+    document.getElementById('btn-pos').className = 'sign-btn' + (s === 1 ? ' active-pos' : '');
+    document.getElementById('btn-neg').className = 'sign-btn' + (s === -1 ? ' active-neg' : '');
+  }
+
+  // ── Offset ─────────────────────────────────────────────────────────
+  function calcOffset() {
+    const cp = parseFloat(document.getElementById('cp').value);
+    const ct = parseFloat(document.getElementById('ct').value);
+    if (isNaN(cp) || isNaN(ct)) { shake('cp'); return; }
+
+    const delta = Math.abs(ct - cp);
+    const isCorte = ct > cp;
+    const mult = isCorte ? 1 : 1.5;
+    const offset = delta * mult;
+
+    const box = document.getElementById('result-offset');
+    const typeEl = document.getElementById('result-offset-type');
+
+    if (delta < 0.001) {
+      typeEl.textContent = 'NÍVEL — SEM MOVIMENTO';
+      typeEl.className = 'result-type neutro';
+    } else if (isCorte) {
+      typeEl.textContent = '🔴 CORTE';
+      typeEl.className = 'result-type corte';
+    } else {
+      typeEl.textContent = '🔵 ATERRO';
+      typeEl.className = 'result-type aterro';
+    }
+
+    document.getElementById('r-delta').textContent = delta.toFixed(3) + ' m';
+    document.getElementById('r-mult').textContent = '× ' + mult.toFixed(1);
+    document.getElementById('r-offset').innerHTML = offset.toFixed(3) + '<span class="result-unit">m</span>';
+
+    box.classList.add('show');
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    addHistory({
+      type: delta < 0.001 ? 'Nível' : isCorte ? 'Corte' : 'Aterro',
+      badge: delta < 0.001 ? 'badge-slope' : isCorte ? 'badge-corte' : 'badge-aterro',
+      desc: `CP ${cp.toFixed(3)} / CT ${ct.toFixed(3)}`,
+      result: offset.toFixed(3) + ' m',
+      resultColor: delta < 0.001 ? 'neutral' : isCorte ? 'negative' : 'positive'
+    });
+  }
+
+  function clearOffset() {
+    ['cp','ct'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('result-offset').classList.remove('show');
+  }
+
+  // ── Slope ──────────────────────────────────────────────────────────
+  function calcSlope() {
+    const cp   = parseFloat(document.getElementById('s-cp').value);
+    const dist = parseFloat(document.getElementById('s-dist').value);
+    const inc  = parseFloat(document.getElementById('s-inc').value);
+    if (isNaN(cp) || isNaN(dist) || isNaN(inc)) { shake('s-cp'); return; }
+
+    const incSigned = inc * slopeSign;
+    const deltaCota = dist * (incSigned / 100);
+    const newCota = cp + deltaCota;
+
+    const box = document.getElementById('result-slope');
+    const typeEl = document.getElementById('result-slope-type');
+
+    typeEl.textContent = slopeSign >= 0
+      ? '⬆️ INCLINAÇÃO POSITIVA'
+      : '⬇️ INCLINAÇÃO NEGATIVA';
+
+    document.getElementById('s-r-delta').innerHTML =
+      '<span class="' + (deltaCota >= 0 ? 'positive' : 'negative') + '">' +
+      (deltaCota >= 0 ? '+' : '') + deltaCota.toFixed(3) + ' m</span>';
+
+    document.getElementById('s-r-inc').textContent =
+      (incSigned >= 0 ? '+' : '') + incSigned.toFixed(2) + '%';
+
+    document.getElementById('s-r-cota').innerHTML =
+      newCota.toFixed(3) + ' m';
+
+    box.classList.add('show');
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    addHistory({
+      type: slopeSign >= 0 ? 'Incl. +' : 'Incl. −',
+      badge: 'badge-slope',
+      desc: `CP ${cp.toFixed(3)} | D ${dist.toFixed(2)}m | ${incSigned.toFixed(2)}%`,
+      result: newCota.toFixed(3) + ' m',
+      resultColor: 'highlight'
+    });
+  }
+
+  function clearSlope() {
+    ['s-cp','s-dist','s-inc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('result-slope').classList.remove('show');
+    setSign(1);
+  }
+
+  // ── History ────────────────────────────────────────────────────────
+  function addHistory(item) {
+    item.time = new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+    history.unshift(item);
+    if (history.length > 50) history.pop();
+    localStorage.setItem('topo_history', JSON.stringify(history));
+  }
+
+  function renderHistory() {
+    const list = document.getElementById('history-list');
+    if (!history.length) {
+      list.innerHTML = '<div class="empty-history">Nenhum cálculo ainda</div>';
+      return;
+    }
+    list.innerHTML = history.map(h => `
+      <div class="history-item">
+        <div>
+          <span class="history-type ${h.badge}">${h.type}</span>
+          <div class="history-info">${h.desc}</div>
+          <div class="history-info">${h.time}</div>
+        </div>
+        <div class="history-result ${h.resultColor}">${h.result}</div>
+      </div>
+    `).join('');
+  }
+
+  function clearHistory() {
+    history = [];
+    localStorage.removeItem('topo_history');
+    renderHistory();
+  }
+
+  // ── Shake animation ────────────────────────────────────────────────
+  function shake(id) {
+    const el = document.getElementById(id);
+    el.style.borderColor = 'var(--accent)';
+    el.focus();
+    setTimeout(() => el.style.borderColor = '', 1200);
+  }
+
+  // ── Allow comma as decimal separator ──────────────────────────────
+  document.querySelectorAll('input[type=number]').forEach(inp => {
+    inp.addEventListener('keypress', e => {
+      if (e.key === ',') {
+        e.preventDefault();
+        const pos = inp.selectionStart;
+        const val = inp.value;
+        inp.value = val.slice(0, pos) + '.' + val.slice(inp.selectionEnd);
+        inp.selectionStart = inp.selectionEnd = pos + 1;
+      }
+    });
+  });
+
+  // Allow Enter to submit
+  document.getElementById('ct').addEventListener('keydown', e => { if(e.key==='Enter') calcOffset(); });
+  document.getElementById('s-inc').addEventListener('keydown', e => { if(e.key==='Enter') calcSlope(); });
+
+  // Service worker (offline support)
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
+</script>
+</body>
+</html>

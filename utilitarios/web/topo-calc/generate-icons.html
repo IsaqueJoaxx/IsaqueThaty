@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head><title>Gerar ícones</title></head>
+<body style="background:#111;display:flex;flex-direction:column;align-items:center;gap:20px;padding:30px;font-family:sans-serif;color:white">
+  <p>Clique nos botões para baixar os ícones e salvar na pasta <b>topo-calc</b></p>
+
+  <canvas id="c192" width="192" height="192" style="border-radius:38px"></canvas>
+  <canvas id="c512" width="512" height="512" style="border-radius:100px;width:128px;height:128px"></canvas>
+
+  <button onclick="download(192)" style="padding:10px 24px;background:#e94560;color:white;border:none;border-radius:8px;font-size:16px;cursor:pointer">Baixar icon-192.png</button>
+  <button onclick="download(512)" style="padding:10px 24px;background:#0f3460;color:white;border:none;border-radius:8px;font-size:16px;cursor:pointer">Baixar icon-512.png</button>
+
+  <script>
+    function drawIcon(size) {
+      const c = document.getElementById('c' + size);
+      c.width = size; c.height = size;
+      const ctx = c.getContext('2d');
+      const r = size * 0.18;
+
+      // Background gradient
+      const g = ctx.createLinearGradient(0, 0, size, size);
+      g.addColorStop(0, '#1a1a2e');
+      g.addColorStop(1, '#0f3460');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.roundRect(0, 0, size, size, r);
+      ctx.fill();
+
+      // Grid lines
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = size * 0.012;
+      for (let i = 1; i < 4; i++) {
+        ctx.beginPath(); ctx.moveTo(size*i/4, size*0.12); ctx.lineTo(size*i/4, size*0.88); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(size*0.12, size*i/4); ctx.lineTo(size*0.88, size*i/4); ctx.stroke();
+      }
+
+      // Terrain line (jagged)
+      ctx.beginPath();
+      ctx.moveTo(size*0.12, size*0.72);
+      ctx.lineTo(size*0.30, size*0.65);
+      ctx.lineTo(size*0.42, size*0.55);
+      ctx.lineTo(size*0.55, size*0.60);
+      ctx.lineTo(size*0.68, size*0.45);
+      ctx.lineTo(size*0.88, size*0.50);
+      ctx.strokeStyle = '#fdcb6e';
+      ctx.lineWidth = size * 0.028;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      // Project line (straight)
+      ctx.beginPath();
+      ctx.moveTo(size*0.12, size*0.62);
+      ctx.lineTo(size*0.88, size*0.62);
+      ctx.strokeStyle = '#e94560';
+      ctx.lineWidth = size * 0.022;
+      ctx.setLineDash([size*0.05, size*0.03]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // TC text
+      ctx.fillStyle = 'white';
+      ctx.font = `bold ${size*0.18}px -apple-system, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('TC', size/2, size*0.84);
+    }
+
+    drawIcon(192);
+    drawIcon(512);
+
+    function download(size) {
+      const c = document.getElementById('c' + size);
+      const a = document.createElement('a');
+      a.download = 'icon-' + size + '.png';
+      a.href = c.toDataURL('image/png');
+      a.click();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+COD;SUP;X;Y;ROT;SIT;DIM;VALOR
+R-1;Coluna Simples;2805,720;2917,765;90;Implantar;;
+R-19;Coluna Simples;2173,343;2875,189;0;Implantar;0,50;40
+A-14;Coluna Simples;2108,607;2850,582;180;Manter;;
+R-6a;Coluna Simples;2099,336;2846,703;270;Remover;;

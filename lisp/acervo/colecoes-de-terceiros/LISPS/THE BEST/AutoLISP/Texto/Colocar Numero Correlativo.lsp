@@ -1,0 +1,30 @@
+(defun c:cnc ()
+  (while
+    (= (setq entidad (car (entsel "\nSelecciona Número de Inicio: "))) nil)
+  )
+  (if (= (cdr (assoc 0 (entget entidad))) "TEXT")
+    (progn
+      (initget (+ 1 2))
+      (setq delta (getreal "\nIngresa Delta : "))
+      (setq referencia (atoi (cdr (assoc 1 (entget entidad)))))
+      (while
+        (setq entidad (car (entsel "\nSelecciona Siguiente Numero : "))
+             listasoc (entget entidad)
+        )
+        (if (= (cdr (assoc 0 listasoc)) "TEXT")
+          (progn
+            (setq listasoc (subst (cons 1 (rtos (+ referencia delta) 2 0)) (assoc 1 listasoc) listasoc)
+	        referencia (+ referencia delta)
+            )
+	    (entmod listasoc)
+          )
+	)
+      )
+    )
+    (progn
+      (alert "Entidad Seleccionada No es Numero")
+      (quit)
+    )
+  )
+  (princ)
+)

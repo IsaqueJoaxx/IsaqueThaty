@@ -1,0 +1,28 @@
+(defun c:hatchlst ()
+ (SETQ oldecho (GETVAR "cmdecho"))
+ (SETVAR "cmdecho" 0)
+ (SETQ tarlay (GETSTRING "Name of layer for hatching: " )
+       hpat (GETSTRING "Name of hatch pattern to use <ANSI31>: " ))
+ (IF (= hpat "") (SETQ hpat "ANSI31"))
+ (SETQ hscl (GETSTRING "Enter scale of hatch pattern <25>: " ))
+ (IF (= hscl  "") (SETQ hscl "25"))   
+ (SETQ hang (GETSTRING "Enter angle of hatch pattern <0>: " ))
+ (IF (= hang "") (SETQ hang "0"))     
+ (SETQ f (OPEN (GETSTRING "Enter name of county list file: ") "r"))
+ (IF f 
+  (PROGN 
+   (COMMAND "LAYER" "make" tarlay "")
+   (COMMAND "LAYER" "freeze" "*" "thaw" "ms*,in*" "")
+   (SETQ ccity "0")
+   (while (setq ccity (read-line F))
+    (PRINC (STRCAT "\nScanning for " ccity))
+    (SETQ hcity (SSGET "X" (LIST (CONS '8 ccity))))
+    (IF hcity
+     (command "hatch" hpat hscl hang hcity "")
+     (PRINC (STRCAT ccity " Not found.\n")))
+    (close f) 
+    (command "layer" "freeze" "*" "thaw" "ms*,in*" "thaw" tarlay ""))
+   (PRINC "\nInput list file not found.\n"))
+   (SETVAR "cmdecho" oldecho) 
+   (PRINC "\nEnd of procedure.\n")
+   (PRINC))

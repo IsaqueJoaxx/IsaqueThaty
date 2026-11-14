@@ -1,0 +1,40 @@
+# IRI RODOVIÁRIO v2.2 — parâmetros do cálculo
+# Mude o valor depois do "=" e rode o programa de novo. Vírgula ou ponto servem de decimal.
+# Para voltar ao padrão, apague este arquivo: ele é recriado na próxima vez.
+
+
+# --- Geometria da seção
+meia_pista              = 3,5       # m, do eixo ao bordo da pista
+acostamento             = 2         # m, além do bordo (3,50 + 2,00 = 5,50 por lado)
+caimento                = 0,02      # caimento normal da superfície final (0,02 = 2%)
+espessura               = 0,23      # m, espessura mínima da camada final no eixo, a 3,50 e a 5,50
+intervalo               = 5         # m, espaçamento das estacas nas notas
+
+# --- Conformação
+desvio_caimento_menos   = 0,01      # quanto a conformação pode ficar mais deitada que o final (0,010 = 1%)
+desvio_caimento_mais    = 0,01      # quanto a conformação pode ficar mais inclinada que o final
+var_caimento_max        = 0,0025    # variação máxima do caimento da conformação a cada estaca
+fresagem_max            =           # m, profundidade máxima de fresagem (vazio = sem limite)
+
+# --- Custos relativos por m³ (1 = só volume; pode colocar o custo unitário real)
+custo_enchimento        = 1         # material da conformação
+custo_fresagem          = 1         # fresagem
+custo_concreto          = 1         # camada final
+
+# --- Suavidade
+iri_alvo                = 0,5       # m/km, IRI teórico máximo do greide em cada 100 m
+k_min                   = 20        # m/%, K mínimo das curvas verticais
+
+# --- Superelevação (DNIT)
+superelevar             = sim       # sim / não
+velocidade              = 80        # km/h
+e_max                   = 0,06      # superelevação máxima (0,06 = 6%)
+f_max                   = 0,14      # atrito transversal máximo
+r_dispensa              = 3200      # m, raio acima do qual não superelevar
+rampa_relativa          = 0,005     # rampa de superelevação (0,005 = 1:200)
+transicao_min           = 45        # m, comprimento mínimo de transição
+
+# --- Leitura do levantamento
+passo_y                 = 0,5       # m, discretização transversal da pista existente
+extrap_borda_max        = 0,6       # m, quanto a seção pode ser estendida além do último ponto medido
+afastamento_max_ponto   = 6         # m, pontos mais longe do eixo são ignorados

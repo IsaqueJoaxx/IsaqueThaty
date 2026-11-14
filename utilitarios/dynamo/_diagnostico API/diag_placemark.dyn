@@ -1,0 +1,124 @@
+{
+  "Uuid": "75c364e1-422c-4956-98e2-e567c4f1c65c",
+  "IsCustomNode": false,
+  "Description": "Diagnostico Placemark",
+  "Name": "Diagnostico Placemark",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Id": "417dba871f634b7d9d43441357d2b0c6",
+      "NodeType": "PythonScriptNode",
+      "Code": "# -*- coding: utf-8 -*-\n# Diagnostico SOMENTE LEITURA: o que veio no layer do KML importado.\nimport clr, traceback, io, os\nfor _r in (\"AcMgd\", \"AcCoreMgd\", \"AcDbMgd\", \"AecBaseMgd\", \"AeccDbMgd\"):\n    clr.AddReference(_r)\nfrom Autodesk.AutoCAD.ApplicationServices import Application\nfrom Autodesk.AutoCAD.DatabaseServices import OpenMode, SymbolUtilityServices\nfrom Autodesk.Civil.ApplicationServices import CivilApplication\n\nARQ = os.path.join(os.path.expanduser(\"~\"), \"Downloads\", \"diag_placemark.txt\")\nio.open(ARQ, \"w\", encoding=\"utf-8\").close()\nclass _Log(list):\n    def append(self, s):\n        list.append(self, s)\n        with io.open(ARQ, \"a\", encoding=\"utf-8\") as f:\n            f.write(str(s) + \"\\n\")\n    def extend(self, it):\n        for s in it:\n            self.append(s)\nL = _Log()\n\ndef od_reader():\n    try:\n        clr.AddReference(\"ManagedMapApi\")\n        from Autodesk.Gis.Map import HostMapApplicationServices\n        from Autodesk.Gis.Map.Constants import OpenMode as MOM\n        tabs = HostMapApplicationServices.Application.ActiveProject.ODTables\n        nomes = list(tabs.GetTableNames())\n        L.append(\"Tabelas Object Data: %s\" % (nomes or \"(nenhuma)\"))\n        for n in nomes:\n            try:\n                t = tabs[n]\n                defs = t.FieldDefinitions\n                L.append(\"  %s: campos = %s\" % (n, [defs[i].Name for i in range(defs.Count)]))\n            except Exception as ex:\n                L.append(\"  %s: erro lendo campos %s\" % (n, ex))\n        def ler(oid):\n            out = []\n            try:\n                recs = tabs.GetObjectRecords(0, oid, MOM.OpenForRead, False)\n                L.append(\"    (recs ok, count=%s)\" % recs.Count)\n                for rec in recs:\n                    t = tabs[rec.TableName]\n                    defs = t.FieldDefinitions\n                    for i in range(rec.Count):\n                        v = rec[i]\n                        try:\n                            s = v.StrValue if str(v.Type).endswith(\"Character\") else str(v)\n                        except Exception:\n                            s = str(v)\n                        out.append(\"%s.%s=%s\" % (rec.TableName, defs[i].Name, s))\n            except Exception as ex:\n                out.append(\"erro OD: %s\" % ex)\n            return out\n        return ler\n    except Exception as ex:\n        L.append(\"Map API indisponivel: %s\" % ex)\n        return lambda oid: []\n\ndef main():\n    adoc = Application.DocumentManager.MdiActiveDocument\n    db = adoc.Database\n    civ = CivilApplication.ActiveDocument\n    L.append(\"Desenho: %s\" % adoc.Name)\n    L.append(\"INSUNITS=%s  LUNITS=%s\" % (db.Insunits, db.Lunits))\n    try:\n        L.append(\"Sistema de coordenadas: %s\" % civ.Settings.DrawingSettings.UnitZoneSettings.CoordinateSystemCode)\n    except Exception as ex:\n        L.append(\"SC: erro %s\" % ex)\n    ler_od = lambda oid: []\n    with adoc.LockDocument():\n        with db.TransactionManager.StartTransaction() as t:\n            ms = t.GetObject(SymbolUtilityServices.GetBlockModelSpaceId(db), OpenMode.ForRead)\n            por_layer = {}\n            amostras = []\n            for oid in ms:\n                try:\n                    e = t.GetObject(oid, OpenMode.ForRead)\n                    k = (e.Layer, oid.ObjectClass.DxfName)\n                    por_layer[k] = por_layer.get(k, 0) + 1\n                    if \"placemark\" in e.Layer.lower() and len(amostras) < 40:\n                        info = \"%s handle=%s\" % (oid.ObjectClass.DxfName, e.Handle)\n                        for prop in (\"Length\", \"NumberOfVertices\", \"Elevation\", \"Closed\"):\n                            try:\n                                info += \" %s=%s\" % (prop, round(getattr(e, prop), 3) if prop in (\"Length\", \"Elevation\") else getattr(e, prop))\n                            except Exception:\n                                pass\n                        try:\n                            ext = e.GeometricExtents\n                            info += \" min=(%.2f, %.2f, %.2f) max=(%.2f, %.2f, %.2f)\" % (\n                                ext.MinPoint.X, ext.MinPoint.Y, ext.MinPoint.Z,\n                                ext.MaxPoint.X, ext.MaxPoint.Y, ext.MaxPoint.Z)\n                        except Exception:\n                            pass\n                        try:\n                            xd = e.XData\n                            if xd is not None:\n                                info += \" XDATA=\" + \" | \".join(str(v.Value) for v in xd.AsArray())[:200]\n                        except Exception:\n                            pass\n                        info += \" ExtDict=%s\" % (not e.ExtensionDictionary.IsNull)\n                        od = ler_od(oid)\n                        if od:\n                            info += \" OD: \" + \" ; \".join(od)[:400]\n                        amostras.append(info)\n                except Exception as ex:\n                    L.append(\"erro entidade: %s\" % ex)\n            L.append(\"--- Entidades no model space por layer/tipo ---\")\n            for (lay, tp), n in sorted(por_layer.items()):\n                L.append(\"  %-30s %-16s %d\" % (lay, tp, n))\n            L.append(\"--- Amostras do layer Placemark ---\")\n            L.extend(\"  \" + a for a in amostras)\n            al = []\n            for g in (\"GetAlignmentIds\", \"GetSitelessAlignmentIds\"):\n                try:\n                    al += [t.GetObject(i, OpenMode.ForRead).Name for i in getattr(civ, g)()]\n                except Exception:\n                    pass\n            L.append(\"Alinhamentos existentes: %s\" % (al or \"(nenhum)\"))\n            for nome, col in ((\"Estilos de alinhamento\", civ.Styles.AlignmentStyles),\n                              (\"Conjuntos de rotulos\", civ.Styles.LabelSetStyles.AlignmentLabelSetStyles)):\n                try:\n                    L.append(\"%s: %s\" % (nome, [t.GetObject(i, OpenMode.ForRead).Name for i in col]))\n                except Exception as ex:\n                    L.append(\"%s: erro %s\" % (nome, ex))\n            t.Commit()\n    L.append(\"=== agora Object Data (Map) ===\")\n    ler = od_reader()\n    with adoc.LockDocument():\n        with db.TransactionManager.StartTransaction() as t:\n            ms = t.GetObject(SymbolUtilityServices.GetBlockModelSpaceId(db), OpenMode.ForRead)\n            n = 0\n            for oid in ms:\n                e = t.GetObject(oid, OpenMode.ForRead)\n                if \"placemark\" in e.Layer.lower() and n < 15:\n                    L.append(\"  OD %s: %s\" % (e.Handle, ler(oid)))\n                    n += 1\n            t.Commit()\n\ntry:\n    main()\nexcept Exception:\n    L.extend(traceback.format_exc().splitlines())\nOUT = list(L)\n",
+      "Engine": "PythonNet3",
+      "EngineName": "PythonNet3",
+      "VariableInputPorts": true,
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1d17d5f11675492182834fd95ab53459",
+          "Name": "OUT",
+          "Description": "Result",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Diagnostico Placemark"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "Id": "afae47a62bdb4ad2a8517aee1b879acf",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "ed075c9eb30248b788e1ae6a67ad07e2",
+          "Name": "",
+          "Description": "No a avaliar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "25008c81b13c4b1bb293b830a5252b24",
+          "Name": "",
+          "Description": "Conteudo",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Watch"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "1d17d5f11675492182834fd95ab53459",
+      "End": "ed075c9eb30248b788e1ae6a67ad07e2",
+      "Id": "cee154418b5946899282137cb3557e27",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "3.0.0.0",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "Id": "417dba871f634b7d9d43441357d2b0c6",
+        "Name": "Diagnostico Placemark",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "Id": "afae47a62bdb4ad2a8517aee1b879acf",
+        "Name": "Relatorio",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 350.0,
+        "Y": 0.0
+      }
+    ],
+    "Annotations": [],
+    "X": 100.0,
+    "Y": 150.0,
+    "Zoom": 1.0
+  }
+}

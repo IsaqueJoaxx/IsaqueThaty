@@ -1,0 +1,146 @@
+[
+  {
+    "id": "VP",
+    "nome": "Veículos leves (VP)",
+    "fonte": "DNIT, Manual de Projeto de Interseções (IPR-718, 2ª ed., 2005) — Tabela 6 e Figura 11",
+    "observacoes": "Dimensões e raios da Tabela 6/Figura 11. Bitola 1,80 m (figura). Tempo batente a batente e vãos livres são premissas (não constam do manual).",
+    "raioMinimoRodaExterna": 7.30,
+    "tempoBatente": 4.0,
+    "refRaioRodaInterna": 4.70,
+    "refRaioBalanco": 7.90,
+    "refComprimento": 5.80,
+    "unidades": [
+      {
+        "nome": "Automóvel", "tipo": "Motriz", "largura": 2.10,
+        "balancoDianteiro": 0.90, "entreEixos": 3.40, "balancoTraseiro": 1.50, "engate": 0,
+        "vaoLivreEntreEixos": 0.15, "vaoLivreDianteiro": 0.15, "vaoLivreTraseiro": 0.20,
+        "eixos": [
+          { "x": 0.0, "bitola": 1.80, "duplo": false, "larguraPneu": 0.20, "diametroRoda": 0.62 },
+          { "x": -3.40, "bitola": 1.80, "duplo": false, "larguraPneu": 0.20, "diametroRoda": 0.62 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "CO",
+    "nome": "Caminhões e ônibus convencionais (CO)",
+    "fonte": "DNIT, Manual de Projeto de Interseções (IPR-718, 2ª ed., 2005) — Tabela 6 e Figura 12",
+    "observacoes": "Dimensões e raios da Tabela 6/Figura 12. Rodas faceando a carroceria (bitola = largura). Tempo batente a batente e vãos livres são premissas.",
+    "raioMinimoRodaExterna": 12.80,
+    "tempoBatente": 6.0,
+    "refRaioRodaInterna": 8.70,
+    "refRaioBalanco": 13.40,
+    "refComprimento": 9.10,
+    "unidades": [
+      {
+        "nome": "Caminhão", "tipo": "Motriz", "largura": 2.60,
+        "balancoDianteiro": 1.20, "entreEixos": 6.10, "balancoTraseiro": 1.80, "engate": 0,
+        "vaoLivreEntreEixos": 0.25, "vaoLivreDianteiro": 0.35, "vaoLivreTraseiro": 0.45,
+        "eixos": [
+          { "x": 0.0, "bitola": 2.60, "duplo": false, "larguraPneu": 0.30, "diametroRoda": 1.00 },
+          { "x": -6.10, "bitola": 2.60, "duplo": true, "larguraPneu": 0.30, "diametroRoda": 1.00 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "O",
+    "nome": "Caminhões e ônibus longos (O)",
+    "fonte": "DNIT, Manual de Projeto de Interseções (IPR-718, 2ª ed., 2005) — Tabela 6 e Figura 13",
+    "observacoes": "Dimensões e raios da Tabela 6/Figura 13. Com a geometria da figura, o modelo cinemático dá raio interno maior que o da tabela (7,10 m) — confira com o gabarito oficial quando o lado interno for crítico. Tempo batente a batente e vãos livres são premissas.",
+    "raioMinimoRodaExterna": 12.80,
+    "tempoBatente": 6.0,
+    "refRaioRodaInterna": 7.10,
+    "refRaioBalanco": 14.40,
+    "refComprimento": 12.20,
+    "unidades": [
+      {
+        "nome": "Ônibus", "tipo": "Motriz", "largura": 2.60,
+        "balancoDianteiro": 2.10, "entreEixos": 7.60, "balancoTraseiro": 2.50, "engate": 0,
+        "vaoLivreEntreEixos": 0.25, "vaoLivreDianteiro": 0.30, "vaoLivreTraseiro": 0.35,
+        "eixos": [
+          { "x": 0.0, "bitola": 2.60, "duplo": false, "larguraPneu": 0.30, "diametroRoda": 1.00 },
+          { "x": -7.60, "bitola": 2.60, "duplo": true, "larguraPneu": 0.30, "diametroRoda": 1.00 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "SR",
+    "nome": "Semirreboque (SR)",
+    "fonte": "DNIT, Manual de Projeto de Interseções (IPR-718, 2ª ed., 2005) — Tabela 6 e Figura 14",
+    "observacoes": "Cotas da Figura 14 (0,90 / 4,90 / 1,20 / 7,90 / 1,20 / 0,60 — somam 16,70 m; a Tabela 6 indica 16,80 m). Pino-rei sobre o último eixo do cavalo e balanço dianteiro do semirreboque (2,60 m) estimados a partir da figura; com eles o modelo reproduz os raios da Tabela 6. Tempo batente a batente e vãos livres são premissas.",
+    "raioMinimoRodaExterna": 13.70,
+    "tempoBatente": 6.0,
+    "refRaioRodaInterna": 6.00,
+    "refRaioBalanco": 14.10,
+    "refComprimento": 16.80,
+    "unidades": [
+      {
+        "nome": "Cavalo mecânico", "tipo": "Motriz", "largura": 2.60,
+        "balancoDianteiro": 0.90, "entreEixos": 5.50, "balancoTraseiro": 1.50, "engate": 0.60,
+        "vaoLivreEntreEixos": 0.30, "vaoLivreDianteiro": 0.35, "vaoLivreTraseiro": 0.50,
+        "eixos": [
+          { "x": 0.0, "bitola": 2.60, "duplo": false, "larguraPneu": 0.30, "diametroRoda": 1.00 },
+          { "x": -4.90, "bitola": 2.60, "duplo": true, "larguraPneu": 0.30, "diametroRoda": 1.00 },
+          { "x": -6.10, "bitola": 2.60, "duplo": true, "larguraPneu": 0.30, "diametroRoda": 1.00 }
+        ]
+      },
+      {
+        "nome": "Semirreboque", "tipo": "Semirreboque", "largura": 2.60,
+        "balancoDianteiro": 2.60, "entreEixos": 8.50, "balancoTraseiro": 1.20, "engate": 0,
+        "vaoLivreEntreEixos": 0.45, "vaoLivreDianteiro": 1.00, "vaoLivreTraseiro": 0.80,
+        "eixos": [
+          { "x": -7.90, "bitola": 2.60, "duplo": true, "larguraPneu": 0.30, "diametroRoda": 1.00 },
+          { "x": -9.10, "bitola": 2.60, "duplo": true, "larguraPneu": 0.30, "diametroRoda": 1.00 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "RE",
+    "nome": "Reboque (RE)",
+    "fonte": "DNIT, Manual de Projeto de Interseções (IPR-718, 2ª ed., 2005) — Tabela 6 e Figura 15",
+    "observacoes": "Cotas da Figura 15 (0,90 / 3,35 / 6,05 / 2,85 / 6,05 / 0,60 = 19,80 m): cavalo + semirreboque + dolly + reboque. Balanços dos corpos e comprimento da barra (1,95 m) estimados da figura; com eles o modelo reproduz os raios da Tabela 6. Tempo batente a batente e vãos livres são premissas.",
+    "raioMinimoRodaExterna": 13.70,
+    "tempoBatente": 6.0,
+    "refRaioRodaInterna": 6.90,
+    "refRaioBalanco": 13.88,
+    "refComprimento": 19.80,
+    "unidades": [
+      {
+        "nome": "Cavalo mecânico", "tipo": "Motriz", "largura": 2.60,
+        "balancoDianteiro": 0.90, "entreEixos": 3.35, "balancoTraseiro": 0.90, "engate": 0,
+        "vaoLivreEntreEixos": 0.30, "vaoLivreDianteiro": 0.35, "vaoLivreTraseiro": 0.50,
+        "eixos": [
+          { "x": 0.0, "bitola": 2.60, "duplo": false, "larguraPneu": 0.30, "diametroRoda": 1.00 },
+          { "x": -3.35, "bitola": 2.60, "duplo": true, "larguraPneu": 0.30, "diametroRoda": 1.00 }
+        ]
+      },
+      {
+        "nome": "Semirreboque", "tipo": "Semirreboque", "largura": 2.60,
+        "balancoDianteiro": 1.35, "entreEixos": 6.05, "balancoTraseiro": 0.90, "engate": 0.90,
+        "vaoLivreEntreEixos": 0.45, "vaoLivreDianteiro": 1.00, "vaoLivreTraseiro": 0.60,
+        "eixos": [
+          { "x": -6.05, "bitola": 2.60, "duplo": true, "larguraPneu": 0.30, "diametroRoda": 1.00 }
+        ]
+      },
+      {
+        "nome": "Dolly", "tipo": "Dolly", "largura": 2.60, "barra": true,
+        "balancoDianteiro": 0.0, "entreEixos": 1.95, "balancoTraseiro": 0.30, "engate": 0,
+        "vaoLivreEntreEixos": 0.30, "vaoLivreDianteiro": 0.30, "vaoLivreTraseiro": 0.30,
+        "eixos": [
+          { "x": -1.95, "bitola": 2.60, "duplo": true, "larguraPneu": 0.30, "diametroRoda": 1.00 }
+        ]
+      },
+      {
+        "nome": "Reboque", "tipo": "Reboque", "largura": 2.60,
+        "balancoDianteiro": 0.65, "entreEixos": 6.05, "balancoTraseiro": 0.60, "engate": 0,
+        "vaoLivreEntreEixos": 0.45, "vaoLivreDianteiro": 0.60, "vaoLivreTraseiro": 0.60,
+        "eixos": [
+          { "x": -6.05, "bitola": 2.60, "duplo": true, "larguraPneu": 0.30, "diametroRoda": 1.00 }
+        ]
+      }
+    ]
+  }
+]

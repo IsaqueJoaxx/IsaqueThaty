@@ -1,0 +1,31 @@
+IRI RODOVIARIO v2.2 - conformacao + camada final de 23 cm
+================================================================
+
+NAO PRECISA INSTALAR NADA. Copie esta pasta para qualquer computador com Windows 10/11.
+
+PARA RODAR
+  - Duplo clique em IRI_RODOVIARIO.exe: ele pede o eixo (.xml) e depois o levantamento (.csv).
+  - Ou selecione os dois arquivos e arraste em cima do IRI_RODOVIARIO.exe.
+  - A primeira abertura demora uns segundos (o programa se descompacta).
+  - O resultado sai na pasta RESULTADO_<nome do levantamento>, ao lado do .csv:
+      IRI_NOTAS_...xlsx            Resumo, Nota Conformacao, Nota Final +23, IRI por 100 m
+      PONTOS_CONFORMACAO_...csv    pontos PNEZD (Civil 3D)
+      PONTOS_FINAL_...csv          pontos PNEZD (Civil 3D)
+      PERFIS_...xml                eixo + perfis CONFORMACAO e FINAL (LandXML)
+      PERFIL_...png                grafico do perfil
+
+FORMATO DO LEVANTAMENTO
+  numero;N;E;cota;codigo   (uma linha por ponto, secoes com eixo e os dois bordos)
+
+PARAMETROS
+  Ficam no IRI_PARAMETROS.txt, ao lado do .exe (espessura, larguras, caimento, custos,
+  IRI alvo, limite de fresagem, superelevacao). Abra no Bloco de Notas, mude o valor depois
+  do "=" e rode de novo. Se apagar o arquivo, ele volta com os valores padrao.
+
+SE O WINDOWS AVISAR "O Windows protegeu o computador"
+  Clique em "Mais informacoes" e depois em "Executar assim mesmo". O aviso aparece porque o
+  programa nao tem assinatura digital, nao porque tenha algum problema.
+
+SE DER ERRO
+  A janela mostra a mensagem e grava ERRO_IRI_RODOVIARIO.txt ao lado do .csv.
+  Se a planilha anterior estiver aberta no Excel, a nova sai com outro nome.

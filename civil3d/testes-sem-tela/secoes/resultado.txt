@@ -1,0 +1,41 @@
+TinVolumeSurface base: Surface
+grupos: 1
+grupo: Eixo traçado 2 T5 - SEÇÕES - Eixo traçado 2 T5 (125 seções)
+   fonte: Primitivo
+   fonte: Eixo traçado 2 T5 Eixo traçado 2 T5 (superfície do corredor)
+   lista: LISTA MATERIAL- 4 - CORTE (corte), ATERRO (aterro)
+== A) lista de materiais: 125 seções, 1+0,00 a 125+0,00; lista de materiais 'LISTA MATERIAL- 4' do Civil 3D: CORTE (corte), ATERRO (aterro)
+   fatores corte 1 aterro 1.25; corte 36399.90 (×f 36399.90); aterro 33102.71 (×f 41378.39); comp. lateral 346.48; saldo -4978.49 Falta (empréstimo)
+   1+0,00 Ac 0.000 Aa 3.230 Vc 0.00 Va 0.00 Vcf 0.00 Vaf 0.00 B 0.00 
+   2+0,00 Ac 0.000 Aa 8.863 Vc 0.00 Va 120.92 Vcf 0.00 Vaf 151.15 B -151.15 
+   3+0,00 Ac 0.000 Aa 8.134 Vc 0.00 Va 169.96 Vcf 0.00 Vaf 212.45 B -363.60 
+   4+0,00 Ac 0.000 Aa 3.682 Vc 0.00 Va 118.15 Vcf 0.00 Vaf 147.69 B -511.30 
+   AVISO Áreas e volumes como estão na lista de materiais do Civil; se o projeto mudou depois do último cálculo de materiais, recalcule no Civil.
+   ids: terreno 7976A projeto 8E8C3
+   material CORTE: item Primitivo tipo Surface condição Below
+   material CORTE: item Eixo traçado 2 T5 Eixo traçado 2 T5 tipo Surface condição Above
+   material ATERRO: item Primitivo tipo Surface condição Above
+   material ATERRO: item Eixo traçado 2 T5 Eixo traçado 2 T5 tipo Surface condição Below
+== B) superfícies: 125 seções, 1+0,00 a 125+0,00; superfícies amostradas: terreno 'Primitivo' × projeto 'Eixo traçado 2 T5 Eixo traçado 2 T5'
+   fatores corte 1 aterro 1.25; corte 36421.18 (×f 36421.18); aterro 32900.96 (×f 41126.19); comp. lateral 345.70; saldo -4705.01 Falta (empréstimo)
+   1+0,00 Ac 0.000 Aa 3.230 Vc 0.00 Va 0.00 Vcf 0.00 Vaf 0.00 B 0.00 
+   2+0,00 Ac 0.000 Aa 8.863 Vc 0.00 Va 120.92 Vcf 0.00 Vaf 151.15 B -151.15 
+   3+0,00 Ac 0.000 Aa 8.134 Vc 0.00 Va 169.96 Vcf 0.00 Vaf 212.45 B -363.60 
+   4+0,00 Ac 0.000 Aa 3.682 Vc 0.00 Va 118.15 Vcf 0.00 Vaf 147.69 B -511.30 
+   AVISO 9 estaca(s) sem seção de projeto (área zero) — fora das regiões do corredor ou da superfície.
+   conferência com LISTA MATERIAL- 4: 125 estacas, maior diferença de área 0.00000 m² na 60+0,00
+      60+0,00: dif corte 0.00000 aterro 0.00000
+      48+0,00: dif corte 0.00000 aterro 0.00000
+      90+0,00: dif corte 0.00000 aterro 0.00000
+      69+0,00: dif corte 0.00000 aterro 0.00000
+      26+0,00: dif corte 0.00000 aterro -0.00000
+   volumes: B corte 36421.18 x A 36399.90 (0.058 %); B aterro 32900.96 x A 33102.71 (-0.609 %)
+== C) trecho 200-600: 21 seções, 10+0,00 a 30+0,00; lista de materiais 'LISTA MATERIAL- 4' do Civil 3D: CORTE (corte), ATERRO (aterro)
+   fatores corte 1 aterro 1.25; corte 1923.86 (×f 1923.86); aterro 12314.45 (×f 15393.06); comp. lateral 95.80; saldo -13469.20 Falta (empréstimo)
+   10+0,00 Ac 3.056 Aa 0.000 Vc 0.00 Va 0.00 Vcf 0.00 Vaf 0.00 B 0.00 
+   11+0,00 Ac 1.785 Aa 0.000 Vc 48.35 Va 0.00 Vcf 48.35 Vaf 0.00 B 48.35 
+   12+0,00 Ac 1.795 Aa 0.000 Vc 35.72 Va 0.00 Vcf 35.72 Vaf 0.00 B 84.08 
+   13+0,00 Ac 3.967 Aa 0.000 Vc 57.56 Va 0.00 Vcf 57.56 Vaf 0.00 B 141.64 
+   AVISO O volume do trecho antes da estaca inicial (10+0,00) ficou de fora.
+   AVISO Áreas e volumes como estão na lista de materiais do Civil; se o projeto mudou depois do último cálculo de materiais, recalcule no Civil.
+   aterro×f do trecho 15393.06 x soma das linhas de A entre 200 e 600 15393.06

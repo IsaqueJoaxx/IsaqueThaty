@@ -1,0 +1,7 @@
+(princ "\nDigite cr: ")
+(defun c:cr ()
+  (setq sel (SSGET))
+  (setq cor (getstring "\nInforme o numero ou o nome da cor: "))
+  (command "CHANGE" sel "" "p" "c" cor "")
+  (princ)
+)

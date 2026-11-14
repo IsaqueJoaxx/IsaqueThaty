@@ -1,0 +1,32 @@
+(defun c:helix (/ revs divs cen rad rinc sta ht hinc revcnt r
+x y a z)
+;
+; fuction to creat a 3d spiral
+; in the form of a 3dpoly (a zero-width wire spring)
+;
+(graphscr)
+(setq revs(getreal"\nnumber of revolutions? ")
+divs(getint"\nnumber of divisions per revolution? ")
+cen(getpoint"\ncenter of bottom loop? ")
+rad(getdist"\nbeginning radius? ")
+rinc(getdist"\nradius increment? ")
+sta(getangle"\nstarting angle? ")
+ht(getdist"\nbeginning height between loops? ")
+hinc(getdist"\nheight increment? ")
+sta (/(* sta pi)180.0) a sta z (caddr cen) r 0 revcnt 0)
+(command "3dpoly")
+(while(< r revs)
+(setq x(+(car cen)(* rad(cos a)))
+y(+(cadr cen)(* rad(sin a))))
+(command (list x y z))
+(setq a(+ a(/(* 2.0 pi)divs))
+z(+ Z(/ ht divs))
+r(+ r(/ 1.0 divs))
+revcnt(1+ revcnt)
+rad(+ rad(/ rinc divs)))
+(if(equal revcnt divs)
+(setq ht(+ ht hinc) revcnt 0))
+)
+(command "")
+)
+ 

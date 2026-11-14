@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DER/MG – Distribuição de Massa</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  :root {
+    --der-blue: #003366;
+    --der-orange: #E67E00;
+    --der-light: #E8EFF7;
+    --der-border: #B0C4DE;
+    --danger: #C0392B;
+    --success: #27AE60;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; font-size: 13px; background: #f0f4f8; color: #222; }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--der-blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 18px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  }
+  .logo-svg { flex-shrink: 0; }
+  .header-text h1 { font-size: 17px; font-weight: 700; letter-spacing: 0.5px; }
+  .header-text p  { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+  .header-right { margin-left: auto; display: flex; gap: 8px; }
+
+  /* ── NAV TABS ── */
+  nav { background: #002255; display: flex; gap: 0; overflow-x: auto; }
+  nav button {
+    background: none; border: none; color: #99b8d8; padding: 9px 18px;
+    cursor: pointer; font-size: 12px; font-weight: 600; white-space: nowrap;
+    border-bottom: 3px solid transparent; transition: all .2s;
+  }
+  nav button:hover { color: #fff; background: rgba(255,255,255,0.07); }
+  nav button.active { color: #fff; border-bottom-color: var(--der-orange); background: rgba(255,255,255,0.1); }
+  .tab-add-btn {
+    background: none; border: none; color: var(--der-orange); padding: 9px 14px;
+    cursor: pointer; font-size: 16px; font-weight: 700;
+  }
+  .tab-add-btn:hover { color: #ffaa33; }
+
+  /* ── MAIN LAYOUT ── */
+  main { padding: 16px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── CARDS ── */
+  .card {
+    background: #fff; border-radius: 6px; border: 1px solid var(--der-border);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 16px;
+  }
+  .card-header {
+    background: var(--der-blue); color: #fff; padding: 8px 14px;
+    font-weight: 700; font-size: 12px; border-radius: 5px 5px 0 0;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card-header span { opacity: 0.75; font-weight: 400; font-size: 11px; }
+  .card-header .ml { margin-left: auto; display: flex; gap: 6px; }
+  .card-body { padding: 14px; }
+
+  /* ── FORM ROW ── */
+  .form-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; align-items: flex-end; }
+  .form-group { display: flex; flex-direction: column; gap: 3px; }
+  .form-group label { font-size: 11px; font-weight: 600; color: #555; }
+  .form-group input, .form-group select, .form-group textarea {
+    border: 1px solid #ccc; border-radius: 4px; padding: 5px 8px;
+    font-size: 12px; font-family: Arial, sans-serif;
+  }
+  .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--der-blue); }
+  .w60  { width: 60px; }
+  .w80  { width: 80px; }
+  .w100 { width: 100px; }
+  .w120 { width: 120px; }
+  .w200 { width: 200px; }
+  .w300 { width: 300px; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    padding: 6px 14px; border: none; border-radius: 4px;
+    cursor: pointer; font-size: 12px; font-weight: 600; white-space: nowrap;
+  }
+  .btn-primary   { background: var(--der-blue); color: #fff; }
+  .btn-primary:hover { background: #004999; }
+  .btn-success   { background: var(--success); color: #fff; }
+  .btn-success:hover { background: #229954; }
+  .btn-danger    { background: var(--danger); color: #fff; }
+  .btn-danger:hover  { background: #a93226; }
+  .btn-orange    { background: var(--der-orange); color: #fff; }
+  .btn-orange:hover  { background: #cc6e00; }
+  .btn-sm { padding: 3px 8px; font-size: 11px; }
+  .btn-icon { background: none; border: none; cursor: pointer; font-size: 14px; padding: 2px 5px; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 12px; }
+  table th {
+    background: var(--der-blue); color: #fff; padding: 6px 8px;
+    text-align: center; white-space: nowrap; font-size: 11px;
+  }
+  table th.sub { background: #1a4d8a; }
+  table td { padding: 5px 8px; border: 1px solid #ddd; text-align: center; }
+  table tr:nth-child(even) td { background: var(--der-light); }
+  table tr:hover td { background: #d0dff0; }
+  table td.left { text-align: left; }
+  table td.total { background: #FFF3CD !important; font-weight: 700; }
+  table td.input-cell { padding: 2px; }
+  table td.input-cell input {
+    width: 100%; border: 1px solid #aac; border-radius: 3px;
+    padding: 3px 5px; text-align: center; font-size: 12px;
+  }
+  .vol-col { background: #E8F5E9 !important; font-weight: 600; color: #1a5c2a; }
+  .dmt-col { background: #FFF3CD !important; font-weight: 600; color: #7d5500; }
+
+  /* ── CHIPS / BADGES ── */
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.3px;
+  }
+  .badge-el { background: #D6EAF8; color: #1a5276; }
+  .badge-at { background: #D5F5E3; color: #1a5c2a; }
+  .badge-cat1 { background: #FAD7A0; color: #784212; }
+
+  /* ── SUMMARY BOXES ── */
+  .summary-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+  .summary-box {
+    background: #fff; border: 1px solid var(--der-border); border-radius: 6px;
+    padding: 12px 18px; min-width: 160px; text-align: center;
+  }
+  .summary-box .val { font-size: 22px; font-weight: 700; color: var(--der-blue); }
+  .summary-box .lbl { font-size: 10px; color: #666; margin-top: 3px; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    z-index: 1000; align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #fff; border-radius: 8px; width: 700px; max-width: 95vw;
+    max-height: 90vh; display: flex; flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  }
+  .modal-header {
+    background: var(--der-blue); color: #fff; padding: 12px 18px;
+    border-radius: 8px 8px 0 0; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center;
+  }
+  .modal-close { margin-left: auto; cursor: pointer; font-size: 20px; opacity: 0.7; background:none;border:none;color:#fff; }
+  .modal-close:hover { opacity: 1; }
+  .modal-body { padding: 18px; overflow-y: auto; flex: 1; }
+  .modal-footer { padding: 12px 18px; border-top: 1px solid #eee; display: flex; gap: 8px; justify-content: flex-end; }
+
+  /* ── MINI LINHAS TABLE inside modal ── */
+  .linhas-tbl th { font-size: 11px; }
+  .linhas-tbl td { padding: 3px 5px; }
+  .linhas-tbl input { width: 70px; }
+
+  /* ── DIVIDER ── */
+  .section-title {
+    font-size: 12px; font-weight: 700; color: var(--der-blue);
+    border-bottom: 2px solid var(--der-blue); padding-bottom: 4px; margin: 14px 0 10px;
+  }
+
+  /* drag handle */
+  tr.drag-over td { background: #cce0ff !important; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .form-row { flex-direction: column; }
+    .summary-grid { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header>
+  <!-- Logo DER/MG SVG -->
+  <svg class="logo-svg" width="80" height="56" viewBox="0 0 80 56" xmlns="http://www.w3.org/2000/svg">
+    <!-- Fundo azul -->
+    <rect width="80" height="56" rx="4" fill="#003366"/>
+    <!-- Símbolo estrada -->
+    <path d="M40 8 L52 32 L28 32 Z" fill="#E67E00" opacity="0.9"/>
+    <rect x="38" y="32" width="4" height="10" fill="#fff" rx="1"/>
+    <rect x="32" y="44" width="6" height="3" fill="#E67E00" rx="1"/>
+    <rect x="42" y="44" width="6" height="3" fill="#E67E00" rx="1"/>
+    <!-- Texto DER/MG -->
+    <text x="40" y="54" text-anchor="middle" font-family="Arial" font-weight="700" font-size="8" fill="#E67E00" letter-spacing="1">DER/MG</text>
+  </svg>
+  <div class="header-text">
+    <h1>QUADRO DE DISTRIBUIÇÃO DE MATERIAIS</h1>
+    <p>DER/MG – Departamento de Edificações e Estradas de Rodagem de Minas Gerais</p>
+  </div>
+  <div class="header-right">
+    <button class="btn btn-orange" onclick="exportarExcel()">⬇ Exportar Excel</button>
+    <button class="btn btn-primary" onclick="importarExcel()">⬆ Importar Excel</button>
+    <input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none" onchange="handleImport(event)">
+  </div>
+</header>
+
+<!-- ══════════════════ NAV ══════════════════ -->
+<nav id="navTabs">
+  <button class="active" onclick="showTab('tab-quadro', this)">📋 Quadro Principal</button>
+  <button id="nav-sheets-label" style="display:none" onclick="showTab('tab-sheets', this)">📄 Memórias de Cálculo</button>
+  <button class="tab-add-btn" onclick="openNovaFolhaModal()" title="Nova folha de memória">＋ Nova Folha</button>
+</nav>
+
+<!-- ══════════════════ MAIN ══════════════════ -->
+<main>
+
+<!-- ─────── TAB: QUADRO PRINCIPAL ─────── -->
+<div id="tab-quadro" class="tab-panel active">
+
+  <!-- Info do projeto -->
+  <div class="card">
+    <div class="card-header">🏗 Dados do Projeto</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Rodovia</label>
+          <input type="text" id="proj-rodovia" class="w200" placeholder="Ex: MG-050">
+        </div>
+        <div class="form-group">
+          <label>Trecho</label>
+          <input type="text" id="proj-trecho" class="w300" placeholder="Ex: Lote 2 – Estaca 554+0 a 1659+7,74">
+        </div>
+        <div class="form-group">
+          <label>Medição Nº</label>
+          <input type="text" id="proj-medicao" class="w80" placeholder="02">
+        </div>
+        <div class="form-group">
+          <label>Categoria</label>
+          <select id="proj-categoria" class="w120">
+            <option value="1ª Categoria">1ª Categoria</option>
+            <option value="2ª Categoria">2ª Categoria</option>
+            <option value="3ª Categoria">3ª Categoria</option>
+            <option value="Misto">Misto</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumo -->
+  <div class="summary-grid" id="summaryGrid">
+    <div class="summary-box"><div class="val" id="sum-el-vol">0,00</div><div class="lbl">Volume Escavado Total (m³)</div></div>
+    <div class="summary-box"><div class="val" id="sum-at-vol">0,00</div><div class="lbl">Volume Aterrado Total (m³)</div></div>
+    <div class="summary-box"><div class="val" id="sum-links">0</div><div class="lbl">Associações Ativas</div></div>
+    <div class="summary-box"><div class="val" id="sum-dmt-med">–</div><div class="lbl">DMT Média Ponderada (m)</div></div>
+  </div>
+
+  <!-- Quadro de distribuição -->
+  <div class="card">
+    <div class="card-header">
+      📊 02 MP – QUADRO DE DISTRIBUIÇÃO DE MATERIAIS
+      <div class="ml">
+        <button class="btn btn-success btn-sm" onclick="openDistribuicaoModal()">＋ Nova Associação</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table id="tblDistribuicao">
+          <colgroup>
+            <col span="7"><col span="8"><col span="3">
+          </colgroup>
+          <thead>
+            <tr>
+              <th colspan="7" style="background:#1a4080">ORIGEM DO MATERIAL ESCAVADO</th>
+              <th colspan="8" style="background:#1a5c2a">DESTINO DO MATERIAL ESCAVADO</th>
+              <th colspan="3" style="background:#7d5500">DMT ATUAL</th>
+              <th rowspan="3" style="background:#333">Ações</th>
+            </tr>
+            <tr>
+              <th colspan="4">ESTACAS</th>
+              <th rowspan="2">ESPECIF.</th>
+              <th rowspan="2">EXECUTADO (m³)</th>
+              <th rowspan="2">PARCIAIS<br>1ª CAT (m³)</th>
+              <th colspan="4">ESTACAS</th>
+              <th colspan="3">UTILIZAÇÃO</th>
+              <th rowspan="2">POSIÇÃO<br>ORIGEM (m)</th>
+              <th rowspan="2">POSIÇÃO<br>DESTINO (m)</th>
+              <th rowspan="2">DMT (m)</th>
+            </tr>
+            <tr>
+              <th class="sub">INIC</th><th class="sub">+</th>
+              <th class="sub">FIN</th><th class="sub">+</th>
+              <th class="sub">INIC</th><th class="sub">+</th>
+              <th class="sub">FIN</th><th class="sub">+</th>
+              <th class="sub">ATERRO</th><th class="sub">VOL (m³)</th><th class="sub">COND.</th>
+            </tr>
+          </thead>
+          <tbody id="bodyDistribuicao">
+            <tr><td colspan="20" style="color:#999;padding:20px;text-align:center">Nenhuma associação cadastrada. Clique em "+ Nova Associação".</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div><!-- /tab-quadro -->
+
+<!-- ─────── TAB: MEMÓRIAS DE CÁLCULO ─────── -->
+<div id="tab-sheets" class="tab-panel">
+  <div id="sheetsContainer"></div>
+</div>
+
+</main><!-- /main -->
+
+<!-- ══════════════════ MODAL: NOVA FOLHA ══════════════════ -->
+<div class="modal-overlay" id="modalFolha">
+  <div class="modal">
+    <div class="modal-header">
+      📄 Nova Folha de Memória de Cálculo
+      <button class="modal-close" onclick="closeModal('modalFolha')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tipo</label>
+          <select id="f-tipo" class="w120" onchange="updateFolhaTipoUI()">
+            <option value="EL">Escavação (EL)</option>
+            <option value="AT">Aterro (AT)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Identificação (ex: EL-625)</label>
+          <input type="text" id="f-id" class="w120" placeholder="EL-625">
+        </div>
+        <div class="form-group">
+          <label>Item DER</label>
+          <input type="text" id="f-item" class="w80" placeholder="5.12">
+        </div>
+        <div class="form-group">
+          <label>Código</label>
+          <input type="text" id="f-codigo" class="w100" placeholder="5501882">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group" style="flex:1">
+          <label>Descrição do Item</label>
+          <input type="text" id="f-descricao" style="width:100%" placeholder="Escavação, carga e transporte de material de 1ª categoria – DMT...">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Estaca Inicial</label>
+          <input type="number" id="f-ei" class="w80" placeholder="625">
+        </div>
+        <div class="form-group">
+          <label>Fração Inic.</label>
+          <input type="number" id="f-fi" class="w60" value="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label>Estaca Final</label>
+          <input type="number" id="f-ef" class="w80" placeholder="700">
+        </div>
+        <div class="form-group">
+          <label>Fração Fin.</label>
+          <input type="number" id="f-ff" class="w60" value="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label>Lado</label>
+          <select id="f-lado" class="w80">
+            <option>AC</option><option>FC</option><option>LD</option><option>LE</option><option>–</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Medição</label>
+          <input type="text" id="f-medicao" class="w60" placeholder="02">
+        </div>
+        <div class="form-group">
+          <label>Espaç. (m)</label>
+          <input type="number" id="f-espacamento" class="w80" value="20" step="0.01" title="Distância entre estacas em metros">
+        </div>
+      </div>
+
+      <div class="section-title">Linhas de Cálculo</div>
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <button class="btn btn-primary btn-sm" onclick="addLinhaFolha()">＋ Linha</button>
+        <button class="btn btn-sm" style="background:#ddd" onclick="autoGerarLinhas()">⚡ Gerar estacas automaticamente</button>
+      </div>
+      <div class="tbl-wrap" style="max-height:300px;overflow-y:auto">
+        <table class="linhas-tbl">
+          <thead>
+            <tr>
+              <th>Est. Int.</th><th>Fração</th><th>Lado</th>
+              <th>Área (m²)</th><th>Soma</th><th>Semi-dist (m)</th>
+              <th>Volume (m³)</th><th>Obs</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="bodyLinhas"></tbody>
+        </table>
+      </div>
+      <div style="margin-top:8px;display:flex;align-items:center;gap:16px">
+        <div style="font-weight:700;color:var(--der-blue)">Total acumulado:
+          <span id="f-total" style="color:var(--success)">0,00 m³</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" style="background:#ddd" onclick="closeModal('modalFolha')">Cancelar</button>
+      <button class="btn btn-success" onclick="salvarFolha()">💾 Salvar Folha</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ MODAL: DISTRIBUIÇÃO ══════════════════ -->
+<div class="modal-overlay" id="modalDist">
+  <div class="modal" style="width:780px">
+    <div class="modal-header">
+      ➕ Nova Associação Corte → Aterro
+      <button class="modal-close" onclick="closeModal('modalDist')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="section-title">Origem – Escavação</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Folha EL</label>
+          <select id="d-el" class="w120" onchange="onElChange()">
+            <option value="">-- Selecione --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Est. Inic</label>
+          <input type="number" id="d-el-ei" class="w80">
+        </div>
+        <div class="form-group">
+          <label>Fração</label>
+          <input type="number" id="d-el-fi" class="w60" value="0">
+        </div>
+        <div class="form-group">
+          <label>Est. Final</label>
+          <input type="number" id="d-el-ef" class="w80">
+        </div>
+        <div class="form-group">
+          <label>Fração</label>
+          <input type="number" id="d-el-ff" class="w60" value="0">
+        </div>
+        <div class="form-group">
+          <label>Especificação</label>
+          <input type="text" id="d-especif" class="w120">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Volume Executado (m³)</label>
+          <input type="number" id="d-vol-exec" class="w120" step="0.01">
+        </div>
+        <div class="form-group">
+          <label>Volume Parcial 1ª Cat (m³)</label>
+          <input type="number" id="d-vol-parc" class="w120" step="0.01">
+        </div>
+      </div>
+
+      <div class="section-title">Destino – Aterro</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Folha AT</label>
+          <select id="d-at" class="w120" onchange="onAtChange()">
+            <option value="">-- Selecione --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Est. Inic</label>
+          <input type="number" id="d-at-ei" class="w80">
+        </div>
+        <div class="form-group">
+          <label>Fração</label>
+          <input type="number" id="d-at-fi" class="w60" value="0">
+        </div>
+        <div class="form-group">
+          <label>Est. Final</label>
+          <input type="number" id="d-at-ef" class="w80">
+        </div>
+        <div class="form-group">
+          <label>Fração</label>
+          <input type="number" id="d-at-ff" class="w60" value="0">
+        </div>
+        <div class="form-group">
+          <label>Condição Aterro</label>
+          <input type="text" id="d-cond" class="w120" placeholder="AT-554">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Volume no Aterro (m³)</label>
+          <input type="number" id="d-at-vol" class="w120" step="0.01">
+        </div>
+        <div class="form-group">
+          <label>Espaçamento estaca (m)</label>
+          <input type="number" id="d-espac" class="w100" value="20">
+        </div>
+      </div>
+
+      <div class="section-title">DMT Calculada</div>
+      <div class="form-row" style="align-items:center">
+        <div class="summary-box" style="min-width:140px">
+          <div class="val" id="d-pos-orig" style="font-size:16px">–</div>
+          <div class="lbl">Posição Origem (m)</div>
+        </div>
+        <div style="font-size:24px;color:#ccc;padding:0 8px">→</div>
+        <div class="summary-box" style="min-width:140px">
+          <div class="val" id="d-pos-dest" style="font-size:16px">–</div>
+          <div class="lbl">Posição Destino (m)</div>
+        </div>
+        <div style="font-size:24px;color:#ccc;padding:0 8px">=</div>
+        <div class="summary-box" style="min-width:140px;border-color:var(--der-orange)">
+          <div class="val" id="d-dmt-calc" style="color:var(--der-orange);font-size:16px">–</div>
+          <div class="lbl">DMT (m)</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="calcularDMT()" style="margin-left:10px">⟳ Calcular DMT</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" style="background:#ddd" onclick="closeModal('modalDist')">Cancelar</button>
+      <button class="btn btn-success" onclick="salvarDistribuicao()">💾 Salvar Associação</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ SCRIPT ══════════════════ -->
+<script>
+// ── STATE ──────────────────────────────────────────────────
+const state = {
+  folhas: [],       // array de { id, tipo, item, codigo, descricao, ei, fi, ef, ff, lado, medicao, espacamento, linhas, observacao }
+  distribuicoes: [] // array de { elId, elEi, elFi, elEf, elEf, especif, volExec, volParc, atId, atEi, atFi, atEf, atFf, cond, atVol, posOrig, posDest, dmt }
+};
+
+let editingFolhaIdx = -1;
+let editingDistIdx  = -1;
+
+// ── HELPERS ───────────────────────────────────────────────
+const fmt = (v, d=2) => (v == null || isNaN(v)) ? '–' : Number(v).toLocaleString('pt-BR', {minimumFractionDigits:d, maximumFractionDigits:d});
+const fmtInt = v => (v == null || isNaN(v)) ? '–' : Number(v).toLocaleString('pt-BR');
+const pos = (estaca, fracao, espac=20) => estaca * espac + (fracao || 0);
+
+function calcVolumes(linhas, espac) {
+  let prev = null;
+  return linhas.map(l => {
+    const area = parseFloat(l.area) || 0;
+    const soma = (prev != null) ? area + prev : area;
+    const semidist = parseFloat(l.semidist) || espac / 2;
+    const vol = soma * semidist;
+    prev = area;
+    return { ...l, somaCalc: soma, volCalc: vol };
+  });
+}
+
+function totalFolha(folha) {
+  if (!folha.linhas.length) return 0;
+  let total = 0, prev = null;
+  folha.linhas.forEach(l => {
+    const area = parseFloat(l.area) || 0;
+    const soma = (prev != null) ? area + prev : area;
+    const semidist = parseFloat(l.semidist) || (folha.espacamento / 2);
+    total += soma * semidist;
+    prev = area;
+  });
+  return total;
+}
+
+function calcCentroid(folha) {
+  // centroide = média ponderada de posição × volume
+  let sumPV = 0, sumV = 0, prev = null;
+  const espac = folha.espacamento || 20;
+  folha.linhas.forEach(l => {
+    const area = parseFloat(l.area) || 0;
+    const soma = (prev != null) ? area + prev : area;
+    const semidist = parseFloat(l.semidist) || espac / 2;
+    const vol = soma * semidist;
+    const p = pos(l.estaca, l.fracao, espac);
+    sumPV += p * vol;
+    sumV  += vol;
+    prev = area;
+  });
+  return sumV ? sumPV / sumV : null;
+}
+
+// ── TABS ──────────────────────────────────────────────────
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav button:not(.tab-add-btn)').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ── MODAL HELPERS ─────────────────────────────────────────
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ── NOVA FOLHA MODAL ──────────────────────────────────────
+function openNovaFolhaModal(idx = -1) {
+  editingFolhaIdx = idx;
+  const f = idx >= 0 ? state.folhas[idx] : null;
+  document.getElementById('f-tipo').value = f ? f.tipo : 'EL';
+  document.getElementById('f-id').value = f ? f.id : '';
+  document.getElementById('f-item').value = f ? f.item : '';
+  document.getElementById('f-codigo').value = f ? f.codigo : '';
+  document.getElementById('f-descricao').value = f ? f.descricao : '';
+  document.getElementById('f-ei').value = f ? f.ei : '';
+  document.getElementById('f-fi').value = f ? f.fi : 0;
+  document.getElementById('f-ef').value = f ? f.ef : '';
+  document.getElementById('f-ff').value = f ? f.ff : 0;
+  document.getElementById('f-lado').value = f ? f.lado : 'AC';
+  document.getElementById('f-medicao').value = f ? f.medicao : '';
+  document.getElementById('f-espacamento').value = f ? f.espacamento : 20;
+  renderLinhasModal(f ? f.linhas : []);
+  calcTotalModal();
+  openModal('modalFolha');
+}
+
+function renderLinhasModal(linhas) {
+  const tbody = document.getElementById('bodyLinhas');
+  tbody.innerHTML = '';
+  linhas.forEach((l, i) => addLinhaRow(i, l));
+}
+
+function addLinhaRow(i, l = {}) {
+  const tbody = document.getElementById('bodyLinhas');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="input-cell"><input type="number" value="${l.estaca||''}" onchange="calcTotalModal()" class="est-i" placeholder="est"></td>
+    <td class="input-cell"><input type="number" value="${l.fracao||0}" step="0.01" class="frac-i" style="width:50px"></td>
+    <td class="input-cell">
+      <select style="width:55px" class="lado-i">
+        ${['AC','FC','LD','LE','–'].map(v=>`<option${v===(l.lado||'AC')?' selected':''}>${v}</option>`).join('')}
+      </select>
+    </td>
+    <td class="input-cell"><input type="number" value="${l.area||''}" step="0.01" onchange="calcTotalModal()" class="area-i" placeholder="0.00"></td>
+    <td class="soma-disp" style="color:#555;font-size:11px;min-width:55px">–</td>
+    <td class="input-cell"><input type="number" value="${l.semidist||''}" step="0.01" onchange="calcTotalModal()" class="sd-i" style="width:55px" placeholder="auto"></td>
+    <td class="vol-disp vol-col" style="min-width:65px">–</td>
+    <td class="input-cell"><input type="text" value="${l.obs||''}" style="width:90px" class="obs-i"></td>
+    <td><button class="btn-icon" onclick="removeLinha(this)" title="Remover">🗑</button></td>
+  `;
+  tbody.appendChild(tr);
+  calcTotalModal();
+}
+
+function addLinhaFolha() {
+  const tbody = document.getElementById('bodyLinhas');
+  addLinhaRow(tbody.rows.length);
+}
+
+function removeLinha(btn) {
+  btn.closest('tr').remove();
+  calcTotalModal();
+}
+
+function autoGerarLinhas() {
+  const ei = parseInt(document.getElementById('f-ei').value);
+  const ef = parseInt(document.getElementById('f-ef').value);
+  const espac = parseFloat(document.getElementById('f-espacamento').value) || 20;
+  if (isNaN(ei) || isNaN(ef) || ei > ef) { alert('Informe estaca inicial e final válidas.'); return; }
+  const tbody = document.getElementById('bodyLinhas');
+  tbody.innerHTML = '';
+  for (let e = ei; e <= ef; e++) {
+    addLinhaRow(e - ei, { estaca: e, fracao: 0, lado: 'AC', area: '', semidist: espac/2 });
+  }
+  calcTotalModal();
+}
+
+function getLinhasFromModal() {
+  const rows = document.querySelectorAll('#bodyLinhas tr');
+  return Array.from(rows).map(tr => ({
+    estaca: parseFloat(tr.querySelector('.est-i').value) || 0,
+    fracao: parseFloat(tr.querySelector('.frac-i').value) || 0,
+    lado: tr.querySelector('.lado-i').value,
+    area: parseFloat(tr.querySelector('.area-i').value) || 0,
+    semidist: parseFloat(tr.querySelector('.sd-i').value) || null,
+    obs: tr.querySelector('.obs-i').value
+  }));
+}
+
+function calcTotalModal() {
+  const espac = parseFloat(document.getElementById('f-espacamento').value) || 20;
+  const rows  = document.querySelectorAll('#bodyLinhas tr');
+  let total = 0, prev = null;
+  rows.forEach(tr => {
+    const area     = parseFloat(tr.querySelector('.area-i').value) || 0;
+    const semidist = parseFloat(tr.querySelector('.sd-i').value) || (espac / 2);
+    const soma     = prev != null ? area + prev : area;
+    const vol      = soma * semidist;
+    tr.querySelector('.soma-disp').textContent = fmt(soma);
+    tr.querySelector('.vol-disp').textContent  = fmt(vol);
+    total += vol;
+    prev = area;
+  });
+  document.getElementById('f-total').textContent = fmt(total) + ' m³';
+}
+
+function updateFolhaTipoUI() {
+  const tipo = document.getElementById('f-tipo').value;
+  const idField = document.getElementById('f-id');
+  if (!idField.value) idField.value = tipo + '-';
+}
+
+function salvarFolha() {
+  const id = document.getElementById('f-id').value.trim();
+  if (!id) { alert('Informe a identificação da folha (ex: EL-625).'); return; }
+  // check unique (except when editing same)
+  if (state.folhas.some((f, i) => f.id === id && i !== editingFolhaIdx)) {
+    alert(`Já existe uma folha com ID "${id}".`); return;
+  }
+  const folha = {
+    id,
+    tipo:        document.getElementById('f-tipo').value,
+    item:        document.getElementById('f-item').value.trim(),
+    codigo:      document.getElementById('f-codigo').value.trim(),
+    descricao:   document.getElementById('f-descricao').value.trim(),
+    ei:          parseFloat(document.getElementById('f-ei').value) || 0,
+    fi:          parseFloat(document.getElementById('f-fi').value) || 0,
+    ef:          parseFloat(document.getElementById('f-ef').value) || 0,
+    ff:          parseFloat(document.getElementById('f-ff').value) || 0,
+    lado:        document.getElementById('f-lado').value,
+    medicao:     document.getElementById('f-medicao').value.trim(),
+    espacamento: parseFloat(document.getElementById('f-espacamento').value) || 20,
+    linhas:      getLinhasFromModal()
+  };
+  if (editingFolhaIdx >= 0) state.folhas[editingFolhaIdx] = folha;
+  else state.folhas.push(folha);
+  closeModal('modalFolha');
+  renderSheetsTab();
+  renderDistribuicao();
+  updateSummary();
+  document.getElementById('nav-sheets-label').style.display = '';
+}
+
+// ── SHEETS TAB ────────────────────────────────────────────
+function renderSheetsTab() {
+  const container = document.getElementById('sheetsContainer');
+  container.innerHTML = '';
+  if (!state.folhas.length) {
+    container.innerHTML = '<p style="color:#999;padding:20px">Nenhuma folha cadastrada. Clique em "+ Nova Folha".</p>';
+    return;
+  }
+  state.folhas.forEach((folha, idx) => {
+    const espac = folha.espacamento || 20;
+    let prev = null;
+    let total = 0;
+    const linhasCalc = folha.linhas.map(l => {
+      const area = l.area || 0;
+      const soma = prev != null ? area + prev : area;
+      const sd   = l.semidist != null ? l.semidist : espac / 2;
+      const vol  = soma * sd;
+      total += vol;
+      prev = area;
+      return { ...l, somaCalc: soma, volCalc: vol, sdUsed: sd };
+    });
+    const badge = folha.tipo === 'EL' ? 'badge-el' : 'badge-at';
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="badge ${badge}">${folha.tipo}</span> ${folha.id} – ${folha.descricao || ''}
+        <span>${folha.item ? 'Item ' + folha.item : ''}</span>
+        <div class="ml">
+          <button class="btn btn-primary btn-sm" onclick="openNovaFolhaModal(${idx})">✏ Editar</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteFolha(${idx})">🗑 Excluir</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-row" style="font-size:11px;color:#555;margin-bottom:12px">
+          <span><b>Rodovia:</b> ${document.getElementById('proj-rodovia').value || '–'}</span>
+          <span><b>Trecho:</b> ${document.getElementById('proj-trecho').value || '–'}</span>
+          <span><b>Medição:</b> ${folha.medicao || '–'}</span>
+          <span><b>Código:</b> ${folha.codigo || '–'}</span>
+          <span><b>Estacas:</b> ${folha.ei}+${folha.fi} a ${folha.ef}+${folha.ff}</span>
+          <span><b>Lado:</b> ${folha.lado}</span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th rowspan="2">Est. Inteira</th>
+                <th rowspan="2">Fração</th>
+                <th rowspan="2">Lado</th>
+                <th rowspan="2">Área (m²)</th>
+                <th rowspan="2">Soma</th>
+                <th rowspan="2">Semi-dist (m)</th>
+                <th rowspan="2">Volume (m³)</th>
+                <th rowspan="2">Medição</th>
+                <th rowspan="2">Observação</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${linhasCalc.map(l => `
+                <tr>
+                  <td>${l.estaca}</td>
+                  <td>${l.fracao}</td>
+                  <td>${l.lado || '–'}</td>
+                  <td>${fmt(l.area)}</td>
+                  <td>${fmt(l.somaCalc)}</td>
+                  <td>${fmt(l.sdUsed)}</td>
+                  <td class="vol-col">${fmt(l.volCalc)}</td>
+                  <td>${folha.medicao || '–'}</td>
+                  <td class="left">${l.obs || ''}</td>
+                </tr>`).join('')}
+              <tr>
+                <td colspan="6" class="total left">Total acumulado:</td>
+                <td class="total">${fmt(total)} m³</td>
+                <td colspan="2"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function deleteFolha(idx) {
+  if (!confirm(`Excluir folha "${state.folhas[idx].id}"?`)) return;
+  state.folhas.splice(idx, 1);
+  renderSheetsTab();
+  renderDistribuicao();
+  updateSummary();
+  if (!state.folhas.length) document.getElementById('nav-sheets-label').style.display = 'none';
+}
+
+// ── DISTRIBUIÇÃO MODAL ────────────────────────────────────
+function openDistribuicaoModal(idx = -1) {
+  editingDistIdx = idx;
+  const d = idx >= 0 ? state.distribuicoes[idx] : null;
+
+  // Populate EL/AT selects
+  const selEl = document.getElementById('d-el');
+  const selAt = document.getElementById('d-at');
+  selEl.innerHTML = '<option value="">-- Selecione --</option>';
+  selAt.innerHTML = '<option value="">-- Selecione --</option>';
+  state.folhas.filter(f => f.tipo === 'EL').forEach(f => {
+    selEl.innerHTML += `<option value="${f.id}">${f.id}</option>`;
+  });
+  state.folhas.filter(f => f.tipo === 'AT').forEach(f => {
+    selAt.innerHTML += `<option value="${f.id}">${f.id}</option>`;
+  });
+
+  if (d) {
+    selEl.value = d.elId || '';
+    document.getElementById('d-el-ei').value  = d.elEi  || '';
+    document.getElementById('d-el-fi').value  = d.elFi  || 0;
+    document.getElementById('d-el-ef').value  = d.elEf  || '';
+    document.getElementById('d-el-ff').value  = d.elFf  || 0;
+    document.getElementById('d-especif').value = d.especif || '';
+    document.getElementById('d-vol-exec').value = d.volExec || '';
+    document.getElementById('d-vol-parc').value = d.volParc || '';
+    selAt.value = d.atId || '';
+    document.getElementById('d-at-ei').value  = d.atEi  || '';
+    document.getElementById('d-at-fi').value  = d.atFi  || 0;
+    document.getElementById('d-at-ef').value  = d.atEf  || '';
+    document.getElementById('d-at-ff').value  = d.atFf  || 0;
+    document.getElementById('d-cond').value   = d.cond  || '';
+    document.getElementById('d-at-vol').value = d.atVol || '';
+    document.getElementById('d-espac').value  = d.espac || 20;
+    document.getElementById('d-pos-orig').textContent = d.posOrig != null ? fmt(d.posOrig, 0) + ' m' : '–';
+    document.getElementById('d-pos-dest').textContent = d.posDest != null ? fmt(d.posDest, 0) + ' m' : '–';
+    document.getElementById('d-dmt-calc').textContent = d.dmt     != null ? fmt(d.dmt, 0) + ' m' : '–';
+  } else {
+    ['d-el-ei','d-el-fi','d-el-ef','d-el-ff','d-especif','d-vol-exec','d-vol-parc',
+     'd-at-ei','d-at-fi','d-at-ef','d-at-ff','d-cond','d-at-vol'].forEach(id => {
+      document.getElementById(id).value = id.includes('fi') || id.includes('ff') ? 0 : '';
+    });
+    document.getElementById('d-espac').value = 20;
+    document.getElementById('d-pos-orig').textContent = '–';
+    document.getElementById('d-pos-dest').textContent = '–';
+    document.getElementById('d-dmt-calc').textContent = '–';
+  }
+  openModal('modalDist');
+}
+
+function onElChange() {
+  const fid = document.getElementById('d-el').value;
+  const f   = state.folhas.find(x => x.id === fid);
+  if (!f) return;
+  document.getElementById('d-el-ei').value   = f.ei;
+  document.getElementById('d-el-fi').value   = f.fi;
+  document.getElementById('d-el-ef').value   = f.ef;
+  document.getElementById('d-el-ff').value   = f.ff;
+  document.getElementById('d-especif').value = f.id;
+  document.getElementById('d-vol-exec').value = fmt(totalFolha(f)).replace(/\./g,'').replace(',','.');
+  document.getElementById('d-vol-parc').value = fmt(totalFolha(f)).replace(/\./g,'').replace(',','.');
+  document.getElementById('d-espac').value   = f.espacamento || 20;
+  calcularDMT();
+}
+
+function onAtChange() {
+  const fid = document.getElementById('d-at').value;
+  const f   = state.folhas.find(x => x.id === fid);
+  if (!f) return;
+  document.getElementById('d-at-ei').value  = f.ei;
+  document.getElementById('d-at-fi').value  = f.fi;
+  document.getElementById('d-at-ef').value  = f.ef;
+  document.getElementById('d-at-ff').value  = f.ff;
+  document.getElementById('d-cond').value   = f.id;
+  document.getElementById('d-at-vol').value = fmt(totalFolha(f)).replace(/\./g,'').replace(',','.');
+  calcularDMT();
+}
+
+function calcularDMT() {
+  const espac   = parseFloat(document.getElementById('d-espac').value) || 20;
+  const elEi    = parseFloat(document.getElementById('d-el-ei').value);
+  const elFi    = parseFloat(document.getElementById('d-el-fi').value) || 0;
+  const elEf    = parseFloat(document.getElementById('d-el-ef').value);
+  const elFf    = parseFloat(document.getElementById('d-el-ff').value) || 0;
+  const atEi    = parseFloat(document.getElementById('d-at-ei').value);
+  const atFi    = parseFloat(document.getElementById('d-at-fi').value) || 0;
+  const atEf    = parseFloat(document.getElementById('d-at-ef').value);
+  const atFf    = parseFloat(document.getElementById('d-at-ff').value) || 0;
+
+  if (isNaN(elEi) || isNaN(elEf) || isNaN(atEi) || isNaN(atEf)) return;
+
+  // Try centroid from folha data first
+  const elFolha = state.folhas.find(f => f.id === document.getElementById('d-el').value);
+  const atFolha = state.folhas.find(f => f.id === document.getElementById('d-at').value);
+
+  let posOrig = elFolha && elFolha.linhas.length > 1
+    ? calcCentroid(elFolha)
+    : (pos(elEi, elFi, espac) + pos(elEf, elFf, espac)) / 2;
+
+  let posDest = atFolha && atFolha.linhas.length > 1
+    ? calcCentroid(atFolha)
+    : (pos(atEi, atFi, espac) + pos(atEf, atFf, espac)) / 2;
+
+  const dmt = Math.abs(posOrig - posDest);
+  document.getElementById('d-pos-orig').textContent = fmt(posOrig, 0) + ' m';
+  document.getElementById('d-pos-dest').textContent = fmt(posDest, 0) + ' m';
+  document.getElementById('d-dmt-calc').textContent = fmt(dmt, 0) + ' m';
+  return { posOrig, posDest, dmt };
+}
+
+function salvarDistribuicao() {
+  const elId = document.getElementById('d-el').value;
+  const atId = document.getElementById('d-at').value;
+  const dmtRes = calcularDMT();
+  const d = {
+    elId,
+    elEi:    parseFloat(document.getElementById('d-el-ei').value) || 0,
+    elFi:    parseFloat(document.getElementById('d-el-fi').value) || 0,
+    elEf:    parseFloat(document.getElementById('d-el-ef').value) || 0,
+    elFf:    parseFloat(document.getElementById('d-el-ff').value) || 0,
+    especif: document.getElementById('d-especif').value,
+    volExec: parseFloat(document.getElementById('d-vol-exec').value) || 0,
+    volParc: parseFloat(document.getElementById('d-vol-parc').value) || 0,
+    atId,
+    atEi:    parseFloat(document.getElementById('d-at-ei').value) || 0,
+    atFi:    parseFloat(document.getElementById('d-at-fi').value) || 0,
+    atEf:    parseFloat(document.getElementById('d-at-ef').value) || 0,
+    atFf:    parseFloat(document.getElementById('d-at-ff').value) || 0,
+    cond:    document.getElementById('d-cond').value,
+    atVol:   parseFloat(document.getElementById('d-at-vol').value) || 0,
+    espac:   parseFloat(document.getElementById('d-espac').value) || 20,
+    posOrig: dmtRes ? dmtRes.posOrig : null,
+    posDest: dmtRes ? dmtRes.posDest : null,
+    dmt:     dmtRes ? dmtRes.dmt : null
+  };
+  if (editingDistIdx >= 0) state.distribuicoes[editingDistIdx] = d;
+  else state.distribuicoes.push(d);
+  closeModal('modalDist');
+  renderDistribuicao();
+  updateSummary();
+}
+
+// ── RENDER DISTRIBUIÇÃO TABLE ─────────────────────────────
+function renderDistribuicao() {
+  const tbody = document.getElementById('bodyDistribuicao');
+  tbody.innerHTML = '';
+  if (!state.distribuicoes.length) {
+    tbody.innerHTML = '<tr><td colspan="20" style="color:#999;padding:20px;text-align:center">Nenhuma associação cadastrada.</td></tr>';
+    return;
+  }
+  state.distribuicoes.forEach((d, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${d.elEi}</td><td>${d.elFi}</td><td>${d.elEf}</td><td>${d.elFf}</td>
+      <td><span class="badge badge-el">${d.especif || d.elId || '–'}</span></td>
+      <td>${fmt(d.volExec)}</td>
+      <td>${fmt(d.volParc)}</td>
+      <td>${d.atEi}</td><td>${d.atFi}</td><td>${d.atEf}</td><td>${d.atFf}</td>
+      <td><span class="badge badge-at">${d.cond || d.atId || '–'}</span></td>
+      <td>${fmt(d.atVol)}</td>
+      <td>–</td>
+      <td class="dmt-col">${d.posOrig != null ? fmtInt(d.posOrig) : '–'}</td>
+      <td class="dmt-col">${d.posDest != null ? fmtInt(d.posDest) : '–'}</td>
+      <td class="dmt-col">${d.dmt != null ? fmtInt(d.dmt) : '–'}</td>
+      <td>
+        <button class="btn-icon" onclick="openDistribuicaoModal(${idx})" title="Editar">✏</button>
+        <button class="btn-icon" onclick="deleteDist(${idx})" title="Excluir" style="color:var(--danger)">🗑</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function deleteDist(idx) {
+  if (!confirm('Excluir esta associação?')) return;
+  state.distribuicoes.splice(idx, 1);
+  renderDistribuicao();
+  updateSummary();
+}
+
+// ── SUMMARY ───────────────────────────────────────────────
+function updateSummary() {
+  const totalEL = state.folhas.filter(f=>f.tipo==='EL').reduce((s,f)=>s+totalFolha(f), 0);
+  const totalAT = state.folhas.filter(f=>f.tipo==='AT').reduce((s,f)=>s+totalFolha(f), 0);
+  document.getElementById('sum-el-vol').textContent = fmt(totalEL);
+  document.getElementById('sum-at-vol').textContent = fmt(totalAT);
+  document.getElementById('sum-links').textContent  = state.distribuicoes.length;
+  // DMT média ponderada
+  let sumDMTV = 0, sumV = 0;
+  state.distribuicoes.forEach(d => {
+    if (d.dmt != null && d.volExec) { sumDMTV += d.dmt * d.volExec; sumV += d.volExec; }
+  });
+  document.getElementById('sum-dmt-med').textContent = sumV ? fmt(sumDMTV/sumV, 0) + ' m' : '–';
+}
+
+// ── EXPORT EXCEL ──────────────────────────────────────────
+function exportarExcel() {
+  const wb = XLSX.utils.book_new();
+  const proj = {
+    rodovia:  document.getElementById('proj-rodovia').value,
+    trecho:   document.getElementById('proj-trecho').value,
+    medicao:  document.getElementById('proj-medicao').value,
+    categoria: document.getElementById('proj-categoria').value
+  };
+
+  // ── Sheet: DISTRIBUIÇÃO DE MATERIAIS ──
+  const distData = [];
+  distData.push(['02 MP - QUADRO DE DISTRIBUIÇÃO DE MATERIAIS']);
+  distData.push(['Rodovia:', proj.rodovia, '', 'Trecho:', proj.trecho, '', '', '', '', 'Medição: ' + proj.medicao]);
+  distData.push([]);
+  distData.push([
+    'ORIGEM - EST.INI','FRAÇÃO','ORIGEM - EST.FIN','FRAÇÃO','ESPECIF.','EXECUTADO (m³)','PARCIAIS 1ª CAT (m³)',
+    'DESTINO - EST.INI','FRAÇÃO','DESTINO - EST.FIN','FRAÇÃO','ATERRO','VOLUME (m³)','COND.',
+    'POS.ORIGEM (m)','POS.DESTINO (m)','DMT (m)'
+  ]);
+  state.distribuicoes.forEach(d => {
+    distData.push([
+      d.elEi, d.elFi, d.elEf, d.elFf, d.especif, d.volExec, d.volParc,
+      d.atEi, d.atFi, d.atEf, d.atFf, d.cond, d.atVol, '',
+      d.posOrig, d.posDest, d.dmt
+    ]);
+  });
+  const wsD = XLSX.utils.aoa_to_sheet(distData);
+  XLSX.utils.book_append_sheet(wb, wsD, 'DISTRIBUIÇÃO DE MATERIAIS');
+
+  // ── Sheets: Memórias EL/AT ──
+  state.folhas.forEach(folha => {
+    const data = [];
+    data.push([]);
+    data.push(['', '', '', 'DER/MG - DEPARTAMENTO DE EDIFICAÇÕES E ESTRADAS DE RODAGEM']);
+    data.push([]);
+    data.push([]);
+    data.push([]);
+    data.push([]);
+    data.push(['', 'Memória de Cálculo']);
+    data.push([]);
+    data.push(['', 'Rodovia Estadual', '', 'Trecho: ']);
+    data.push(['', 'Item:', '', proj.trecho, '', '', '', '', '', '', '', 'Medição: ' + (folha.medicao || proj.medicao)]);
+    data.push(['', folha.item, '', folha.descricao, '', '', '', '', '', '', 'CÓDIGO:', 'UNIDADE:']);
+    data.push(['', '', '', '', '', '', '', '', '', '', folha.codigo, 'm3']);
+    data.push(['', 'ESTACA INICIAL', '', 'ESTACA FINAL', '', 'LADO', 'ÁREA', 'SOMA', 'SEMI DISTÂNCIA', 'VOLUME', 'Nº DE MEDIÇÃO', 'OBSERVAÇÃO']);
+    data.push(['', 'INTEIRA', '', 'INTEIRA']);
+
+    const espac = folha.espacamento || 20;
+    let prev = null, total = 0;
+    folha.linhas.forEach((l, i) => {
+      const area = l.area || 0;
+      const soma = prev != null ? area + prev : area;
+      const sd   = l.semidist != null ? l.semidist : espac / 2;
+      const vol  = soma * sd;
+      total += vol;
+      prev = area;
+      const isFirst = i === 0;
+      data.push(['', l.estaca, l.fracao, '', '', i===0?l.lado||folha.lado:'', area,
+        i===0?null:soma, sd, i===0?null:vol,
+        isFirst ? (folha.medicao || proj.medicao) : null,
+        isFirst ? folha.id : (l.obs || null)
+      ]);
+    });
+    data.push([]);
+    data.push(['', 'Total acumulado:', '', '', '', '', '', '', '', total, 'm3']);
+    data.push(['', 'Medições anteriores:', '', '', '', '', '', '', '', 0, 'm3']);
+    data.push(['', 'Saldo desta medição:', '', '', '', '', '', '', '', total, 'm3']);
+
+    const wsF = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, wsF, folha.id.substring(0, 31));
+  });
+
+  XLSX.writeFile(wb, 'Distribuicao_de_Massa_DER.xlsx');
+}
+
+// ── IMPORT EXCEL ──────────────────────────────────────────
+function importarExcel() {
+  document.getElementById('fileInput').click();
+}
+
+function handleImport(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const wb = XLSX.read(e.target.result, { type: 'array' });
+      importFromWorkbook(wb);
+    } catch(err) {
+      alert('Erro ao importar: ' + err.message);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+  event.target.value = '';
+}
+
+function importFromWorkbook(wb) {
+  state.folhas = [];
+  state.distribuicoes = [];
+
+  wb.SheetNames.forEach(name => {
+    const ws = wb.Sheets[name];
+    const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
+    const sn = name.toUpperCase();
+
+    if (sn.startsWith('EL') || sn.startsWith('AT')) {
+      // Parse memory sheet
+      const tipo = sn.startsWith('EL') ? 'EL' : 'AT';
+      let item='', descricao='', codigo='', medicao='', ei=0, fi=0, ef=0, ff=0, lado='AC', espac=20;
+      const linhas = [];
+
+      rows.forEach((row, ri) => {
+        if (!row) return;
+        // Item line
+        if (row[1] && String(row[1]).match(/^\d+\.\d+/) && row[3]) {
+          item = String(row[1]); descricao = String(row[3]);
+        }
+        // Codigo line
+        if (row[10] && String(row[10]).match(/^\d{7}/)) {
+          codigo = String(row[10]);
+        }
+        // Medição
+        const medMatch = rows.find(r => r && r[11] && String(r[11]).startsWith('Medi'));
+        if (medMatch) medicao = String(medMatch[11]).replace('Medição: ','').replace('Medi��o: ','');
+
+        // Data rows: col1=estaca int, col2=fração, col5=lado, col6=area, col8=semidist, col9=vol
+        if (row[1] && typeof row[1] === 'number' && ri > 13) {
+          const est = row[1], fr = row[2] || 0;
+          const ld  = row[5] || '';
+          const ar  = row[6] != null ? parseFloat(row[6]) : 0;
+          const sd  = row[8] != null ? parseFloat(row[8]) : null;
+          const obs = row[11] || '';
+          if (linhas.length === 0) { ei = est; fi = fr; lado = ld || 'AC'; }
+          ef = est; ff = fr;
+          linhas.push({ estaca: est, fracao: fr, lado: ld, area: ar, semidist: sd, obs: String(obs) });
+        }
+      });
+      if (linhas.length > 1) {
+        // estimate espac from first two
+        const p1 = pos(linhas[0].estaca, linhas[0].fracao, 1);
+        const p2 = pos(linhas[1].estaca, linhas[1].fracao, 1);
+        // Can't determine scale without knowing estaca distance, default 20
+      }
+      state.folhas.push({ id: name, tipo, item, descricao, codigo, medicao, ei, fi, ef, ff, lado, espacamento: espac, linhas });
+
+    } else if (sn.includes('DISTRIBUI')) {
+      // Parse distribution sheet
+      rows.forEach((row, ri) => {
+        if (ri < 4 || !row) return;
+        if (row[0] == null && row[7] == null) return;
+        const elEi = row[0], elFi = row[1], elEf = row[2], elFf = row[3];
+        if (elEi == null || typeof elEi !== 'number') return;
+        state.distribuicoes.push({
+          elId: row[4] || '', elEi, elFi: elFi||0, elEf: elEf||0, elFf: elFf||0,
+          especif: row[4] || '', volExec: row[5]||0, volParc: row[6]||0,
+          atId: row[11]||'', atEi: row[7]||0, atFi: row[8]||0, atEf: row[9]||0, atFf: row[10]||0,
+          cond: row[11]||'', atVol: row[12]||0,
+          posOrig: row[14]||null, posDest: row[15]||null, dmt: row[16]||null,
+          espac: 20
+        });
+      });
+    }
+  });
+
+  renderSheetsTab();
+  renderDistribuicao();
+  updateSummary();
+  if (state.folhas.length) document.getElementById('nav-sheets-label').style.display = '';
+  alert(`Importado: ${state.folhas.length} folha(s) de memória, ${state.distribuicoes.length} associação(ões).`);
+}
+
+// ── INIT ──────────────────────────────────────────────────
+renderDistribuicao();
+updateSummary();
+</script>
+</body>
+</html>

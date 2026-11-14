@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Ponte MCP do PROJETA (sem dependência do AutoCAD/Civil 3D):
+      - registro e esquema das ferramentas expostas ao Claude;
+      - canal local (TCP em 127.0.0.1 + token) entre o plugin e o servidor MCP;
+      - servidor MCP (JSON-RPC via stdio) usado pelo executável Projeta.Mcp.Servidor.
+    Testável em qualquer máquina com .NET 8 (tests/Projeta.Mcp.Testes).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Projeta.Mcp</RootNamespace>
+    <AssemblyName>Projeta.Mcp</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>Isaque</Authors>
+    <Product>PROJETA • Assistente Civil</Product>
+  </PropertyGroup>
+
+</Project>

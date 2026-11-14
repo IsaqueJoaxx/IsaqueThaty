@@ -1,0 +1,44 @@
+{
+  "id": "PV_CONICO",
+  "nome": "PV com redução cônica (exemplo de revolução)",
+  "categoria": "PV",
+  "descricao": "Exemplo de dispositivo do usuário: o perfil da parede (raio x altura) é girado 360° em torno do eixo Z. Copie e adapte no PRJMODELADOR.",
+  "autor": "PROJETA (exemplo)",
+  "alinharComTubo": false,
+  "raioFuros": "Di/2",
+  "parametros": [
+    { "nome": "Profundidade", "padrao": 2.0, "origem": "rede" },
+    { "nome": "DiametroMaximo", "padrao": 0.6, "origem": "rede" },
+    { "nome": "Di", "padrao": "max(1.0, DiametroMaximo + 0.5)", "descricao": "Diâmetro interno do corpo" },
+    { "nome": "e", "padrao": 0.10, "descricao": "Espessura da parede" },
+    { "nome": "Dc", "padrao": 0.60, "descricao": "Diâmetro da chaminé" },
+    { "nome": "HCone", "padrao": 0.60, "descricao": "Altura do cone de redução" },
+    { "nome": "HCham", "padrao": "clamp(Profundidade - HCone - max(1.2, DiametroMaximo + 0.4), 0.10, 1.0)", "descricao": "Altura da chaminé" },
+    { "nome": "eF", "padrao": 0.15, "descricao": "Espessura da laje de fundo" }
+  ],
+  "variaveis": [
+    { "nome": "HCorpo", "expr": "max(0.3, Profundidade - HCone - HCham)" },
+    { "nome": "Ri", "expr": "Di/2" },
+    { "nome": "Re", "expr": "Di/2 + e" },
+    { "nome": "Rc", "expr": "Dc/2" }
+  ],
+  "solidos": [
+    {
+      "id": "pv", "op": "revolucao", "angulo": 360,
+      "perfil": [
+        { "x": 0, "y": "-eF" }, { "x": "Re + 0.10", "y": "-eF" }, { "x": "Re + 0.10", "y": 0 }, { "x": "Re", "y": 0 },
+        { "x": "Re", "y": "HCorpo" }, { "x": "Rc + e", "y": "HCorpo + HCone" }, { "x": "Rc + e", "y": "Profundidade" },
+        { "x": "Rc", "y": "Profundidade" }, { "x": "Rc", "y": "HCorpo + HCone" }, { "x": "Ri", "y": "HCorpo" },
+        { "x": "Ri", "y": 0 }, { "x": 0, "y": 0 }
+      ]
+    }
+  ],
+  "saida": [ "pv" ],
+  "planta": [
+    { "tipo": "circulo", "raio": "Re", "camada": "contorno" },
+    { "tipo": "circulo", "raio": "Rc", "camada": "tampa" }
+  ],
+  "quantitativos": [
+    { "nome": "Concreto (estimado)", "unidade": "m³", "expr": "volume('pv')" }
+  ]
+}

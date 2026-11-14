@@ -1,0 +1,57 @@
+KML PARA RUAS  ->  ALINHAMENTOS NO CIVIL 3D
+===========================================
+
+1) kml_para_ruas_dwg.py
+   Lê um KML/KMZ (cada linha = eixo de rua), projeta em SIRGAS 2000 / UTM e gera
+   um DWG (ou DXF) por rua com eixo, bordos a ±3,50 m, contorno da pista e estacas.
+   Cada eixo leva código, nome e largura em XDATA (app "KML_RUA").
+
+   python kml_para_ruas_dwg.py ruas.kmz --geral
+   python kml_para_ruas_dwg.py ruas.kmz --largura 8 --estaca 20 --codigo-inicial 20
+   (sem argumento abre janela para escolher o arquivo)
+
+   Requisitos: pip install ezdxf shapely pyproj
+   DWG: precisa do ODA File Converter (gratuito). Sem ele sai DXF.
+
+2) CriarAlinhamentos_RUA_EIXO.dyn          (Civil 3D 2027 - PythonNet3)
+   CriarAlinhamentos_RUA_EIXO_C3D2026.dyn  (Civil 3D 2026 - CPython3)
+   Cria um alinhamento por polilinha do layer RUA_EIXO, nome "01 Rua X alinhamento"
+   (padrão do modo "codigo" da rotina CriarCorredoresEmLote).
+   Rode primeiro com RODAR = False (diagnóstico), depois True.
+   Rodar de novo não duplica: nome existente é pulado.
+
+Fluxo: gerar com --geral -> abrir _TODAS_AS_RUAS -> copiar -> colar com PASTEORIG
+no desenho do projeto -> rodar o .dyn -> greides -> CriarCorredoresEmLote.
+
+teste\loteamento_teste.kmz : KMZ de exemplo (BH, 8 ruas, reta/curva/rotatória).
+
+3) kml_para_pavimento.py   (formato das pranchas, ex.: DRE-PROF. RUA BRASIL)
+   KML/KMZ com os eixos -> UM desenho com a rede inteira:
+   hachura sólida cinza 3,50 m p/ lado, esquinas com raio de 3 m, meio-fio laranja,
+   comprimento de cada trecho de meio-fio escrito ao lado (o arco da esquina entra
+   no trecho da travessa, como na prancha), cota da largura (7,00 m) de cada rua
+   e quadro PAVIMENTO / MEIO-FIO / SARJETA.
+   Pontas de eixo a menos de 8 m de outro eixo são esticadas/aparadas até ele.
+
+   python kml_para_pavimento.py ruas.kmz
+   python kml_para_pavimento.py ruas.kmz --largura 8 --raio 5 --altura-texto 1.5
+   opções: --sem-cota-largura  --tol-ponta 8  --epsg 31983  --so-dxf  --oda <caminho>
+
+   teste\rua_brasil_esmeraldas.kmz : eixos da Rua Brasil reconstruídos da prancha
+   (meio-fio total 1.096,38 m x 1.096,71 m do quadro da prancha).
+
+4) folha_pavimentacao.py   (folha de impressão pronta)
+   Pega o DXF/DWG das ruas e cria o layout "FOLHA 01":
+   formato ABNT e escala automáticos (menor folha que caiba até 1:1000), viewport
+   travada, malha de coordenadas UTM com rótulos E=/N=, norte NQ + datum, escala
+   gráfica, legenda, QUADRO DE QUANTIDADES (meio-fio m, sarjeta m, pavimento m²),
+   localização (início/fim e lat/long), notas, revisões e carimbo.
+   Também ajusta o modelo para a escala: textos dos trechos 2,0 mm no papel por fora
+   do meio-fio, nome da rua em branco na pista, cotas regeneradas, bocas abertas.
+
+   python folha_pavimentacao.py ruas.dxf
+   python folha_pavimentacao.py ruas.dxf --rua "Rua X" --local "Bairro - Cidade"
+       --empresa "..." --responsavel "..." --crea "..." --desenho "..."
+       --folha A1 --escala 750 --fuso 23 --manter-modelo
+   Saída: <nome>_folha.dxf (DWG se tiver ODA) + <nome>_folha.pdf de conferência.
+   Página já configurada: DWG To PDF.pc3, ISO full bleed, acad.ctb, 1:1.

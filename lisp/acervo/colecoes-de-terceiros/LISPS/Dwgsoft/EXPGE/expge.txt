@@ -1,0 +1,260 @@
+ExpGE, Exportar/Importar autocad<->google earth
+
+Desenvolvedor:
+Neyton Luiz Dalle Molle
+Engenheiro Civil
+
+Contato:
+neyton@yahoo.com
+neyton@hotmail.com
+http://tbn2.blogspot.com
+
+
++-------------------------------------------------------------------------------------------------------+
+REGISTRO DA LICENÇA
+1) apague todos os arquivos do expge que estejam no seu hd
+
+2) descompacte o expge.zip numa pasta dentro do pendrive, 
+     por exemplo "F:/expge/" (supondo que o pendrive seja o drive F)
+
+3) Abra o cad
+
+4) Digite APPLOAD na linha de comando
+
+5) Ache o arquivo "f:/expge/expge.vlx"
+
+6) Se tudo der certo, ele já carrega o menu, senão, ele pergunta em que pasta esta o "expge.vlx"
+
+	6.1) Se ele perguntar onde esta o "expge.vlx" indique o caminho na caixa que se abre
+
+7) Acione o comando EXPGE na linha de comando
+
+8) Clique o botao "Registrar", em seguida clique o botão "Get Access Code"
+
+9) Preencha o cadastro na página que se abriu (http://tbn2net.appspot.com/registrar)
+
+10) Se preencher corretmente, você receberá um email com a ativação da sua licença.
+
+11) No email, clique o link fornecido para ativar a sua licença e obter o "Access Code"
+
+12) Copie o "Access Code" para o campo correspondente na tela de registro do programa expge
+
+13) Você ganha um dia de licença sem limitação para testar o programa!!!!
+
+14) Se gostar e quiser adquirir uma licença FULL que não expira, entre em contato comigo
+
++-------------------------------------------------------------------------------------------------------+
+Para Usar, na linha de comando digite:
+
+EXPGE
+para EXPORTAR linhas e pontos para o GOOGLE EARTH
+
+READKML
+para IMPORTAR pontos e linhas de arquivos KML
+
+GEPROPS
+para editar o NOME e a DESCRIÇÃO das entidades ANTES de EXPORTAR
+
+DLEXPGE
+inicia o download da ultima versão do EXPGE, disponível em
+
+        http://dl.dropbox.com/u/26155911/APPSPOT/expge.zip
+
+EXPGEAPAGALIC
+quando a licença dá algum problema, pode-se apagar e registrar novamente
+
++-------------------------------------------------------------------------------------------------------+
+após selecionar as entidades que serão exportadas, aparecerá um quadro de diálogo
+perguntando como devem ser processadas as COTAS das coordenadas, se são relativas
+ao solo, se são cotas absolutas, ou se devem ser ignoradas (as linhas são desenhadas
+sobre o solo)
+
+
+Deve ser informado qual o referencial usado no autocad (WGS84, SAD69...) os quais 
+estão predefinidos no arquivo "expge.ini" com os parâmetros:
+
+"a"              -> semi-eixo maior do elipsóide,
+"achatamento"    -> ... (1/f, onde f é o valor que aparece na lista deste arquivo)
+"dx", "dy", "dz" -> translações da coordenada no sistema carteziano para converter
+                    um ponto de um referencial para outro
+
+
+será perguntado em qual hemisfério está localizada as entidades (Norte/Sul)
+
+também será necessário informar em qual fuso se está trabalhando (no meu caso,
+Curitiba está no fuso 22, com meridiano central 51W)
+
+Obs: Pode-se escolher qual parâmetro informar, se o fuso ou o meridiano central
+     caso seja informado o meridiano central, usar com sinal NEGATIVO para OESTE
+     e positivo para LESTE
+
+Caso você não saiba qual o fuso ou meridiano central deve usar, clique o botão com
+uma interrogação, ele irá mostrar um mapa mundial, onde você deve clicar na região
+aproximada onde deve ser desenhado no google earth. Ao clicar no desenho, ele
+calcula o hemisfério e o fuso corretos.
+
+Após todos estes parâmetros estiverem corretamente definidos, será criado um arquivo
+"*.KML" que é o formato usado no Google Earth
+
+Cada entidade processada no AutoCad, possui uma Layer e este será visualizado no Google
+Earth como uma "folder", onde esta(s) entidade(s) estarão localizadas
+
+Entidades Exportáveis:
+POINT, LINE, LWPOLYLINE, POLYLINE, SPLINE, CIRCLE, ARC, ELLIPSE
+NOVO!!! : HATCH, INSERT, TEXT
+
+As linhas que não são LINE, serão exportadas como POLYGON, isto é, qualquer segmento
+não RETO será convertido em segmentos de reta, criando-se vértices de modo a imitar
+tal segmento
+
+Licença de Uso:
+SHAREWARE limitado, para uso não comercial
+
+Garantias: NENHUMA! Use por sua própria conta e risco!
+
++-------------------------------------------------------------------------------------------------------+
+Erros de licença:
+
+Sua licença será Demonstrativa SE:
+ - Você não tem conexão com a internet
+ - Sua licença expirou
+ - Sua licença não foi confirmada
+ - O código de registro não corresponde a licença que está cadastrado no sistema
+
+Entre em contato nestes casos
+
++-------------------------------------------------------------------------------------------------------+
+Atualizações:
+
+VERSÃO 0.0
+10/12/2006 - Primeiros testes
+11/12/2006 - Rotinas para transformação de coordenadas UTM em Geográficas
+08/01/2007 - Conversão de referenciais (SAD69->WGS84 etc)
+14/01/2007 - a rotina passa a aceitar cotas absolutas, relativas e "no solo"
+14/01/2007 - Correção para layers OFF, correção para o semi-eixo INTEIRO, é preciso
+	convertê-lo para FLOAT
+	correção de lixos no codigo (obrigado alexlibrelon!!!)
+16/01/2007 - Abertura automática do google earth
+17/01/2007 - Correção de cotas de pontos 2d (assumir z=0)
+	Correção de falha ao imitar arcos em LWPOLYLINE
+18/01/2007 - Implementação de mapa para determinação do Fuso e do hemisfério
+	Implementação da possibilidade de alterar a lingua padrão das telas do programa
+19/01/2007 - Correção de bug: o hemisferio Norte não era calculado corretamente
+20/01/2007 - Correção de bug: Conflito entre dx/dy da conversão com w/h do slide (mapa)
+	Implementação: ao carregar o programa, ele adiciona a "support file search path"
+		posibilidade de alterar algumas propriedades das entidades
+		(GEProps)
+		Menu e barra de ferramentas próprios
+24/01/2007 - Correção de bug: toda vez que o programa era acionado, uma nova entrada era
+	criada na lista de referencial
+	Correção de bug: DZ definido pelo usuário era confundido com DX na hora
+	de mostrar na tela (apesar de calcular corretamente)
+26/01/2007 - Alteração da forma de salvamento dos parâmetros, agora cada DWG pode ter seus
+	próprios parâmetros
+	   - Primeira versão do progra READKML, que importa pontos, polígonos e linhas de
+	arquivos KML
+03/02/2007 - Aperfeiçoado o READKML, agora, as FOLDER do KML, são interpretados como
+		sendo LAYERs, com opção para layer padrão quando a FOLDER não existir
+	READKML agora lê o nome e a descrição das entidades
+04/02/2007 - Correção de Erro fatal ao definir um layer que não existe no readkml
+	   - Redefinição da relação de aspecto do lide, em alguns temas do windows XP, ele ficava
+		fora de posição
+06/02/2007 - Teste de novo Parser para o XML do KML... erros de string muito longa foram
+	observados e contornados com algumas "explosões" de string
+18/02/2007 - Inclusão de uma barra de status para acompanhar o processamento
+03/05/2007 - Correção de Bugs ao calcular coordenadas
+29/01/2008 - Correção de bug ao alterar a linguagem dos dcls
+19/02/2008 - Correção de bug ao procurar kml pelo readkml 
+	(findfile podia receber nil, causando erro)
+25/02/2008 - Possibilidade de alterar o link que aparece no kml (endereço do blog)
+29/03/2008 - Melhorado sistema de controle de versão
+
+
+VERSÃO 1.0
+07/05/2008 - Exportar textos e  blocos com atributos como markedpoint
+           - Variáveis *INI* para controlar alguns campos
+21/05/2008 - Corrigido bug com cotas absolutas
+10/06/2008 - Possibilidade de ler/gravar coordenadas geográficas, alguns mapas são extensos
+	demais (mapa do estado de São Paulo por exemplo) e passam de um fuso de largura
+	Fica mais interessante mudar a projeção, faça um teste usando o mapa do Brasil em anexo
+
+VERSÃO 1.15
+14/07/2008 - ReadKml pode ler MarkedPoints como blocos com atributos
+	Com isso, a ID e a DESCRIPTION serão os atributos do bloco, caso o bloco padrão
+	não exista ele cria. É possível editar o bloco
+	   - Correção dos textos em UTF8 lidos pelo readkml que iam para o autocad em caracteres
+	     trocados
+16/07/2008 - Correção dos caracteres UTF8 e caracteres especiais do html que o expge exporta
+17/07/2008 - ExpGE exporta entidades com a cor diferente da cor do seu layer
+	(cores byblock são ignorados, isto é, considera-se como bylayer)
+11/08/2008 - Correção de bug na leitura de kml gerado pelo track maker
+
+VERSÃO 1.20
+29/01/2009 - Escrita de arquivo KML "endentado", isto é, mais "bonito"
+	   - Correção de bug ao exportar polilinha com arco no ultimo segmento, e gerenciamento de
+	número de vertices adicionados por arco
+	   - Primeira versão do exportador de hachuras, ainda é limitado para hachuras muito
+	complexas, que tem muitos "vazados", mas já dá pra brincar bastante!!!
+
+VERSÃO 1.21
+03/02/2009 - linhas fechadas podem ser interpretadas como POLYGONs
+
+VERSÃO 1.22
+12/02/2009 - Correção de alguns bugs com relação a hachuras
+	- DLEXPGE direciona para o link de download direto
+
+VERSÃO 1.28
+14/10/2009 - Correção de bug com o registro
+
+VERSÃO 1.29
+13/12/2009 - Help de como instalar (VEJA NO INICIO DESTE TEXTO)
+
+VERSÃO 1.30
+21/01/2010 - Correção de bug ao importar cotas com o readkml. a cota era zerada sempre.
+
+VERSÃO 1.31
+27/01/2010 - Informação para aqueles que compraram a licença e aaparece o erro
+	"error: bad argument type: VLA-OBJECT nil"
+	significa que o mecanismo de script do windows está desligado
+	para ligar, abra o console de comando (cmd.exe, ou menu iniciar, executar)
+	e digite:
+
+	regsvr32 c:/windows/system32/scrrun.dll
+
+	prestar atenção onde está a pasta system32
+
+VERSAO 1.4
+13/03/2010 - ReadKml agora suporta objetos MultiGeometry (google, que mer@#$% é essa??)
+
+VERSAO 1.5
+08/07/2010 - Correção de bug com o visualizador do mapa de fusos que distorcia a imagem e não
+	mostrava o fuso corretamente.
+18/08/2010 - Algumas hachuras (talvez algumas outras entidades) dão erro ao exportar. O que causava
+	encerramento inesperado do programa. Resolvido, e o expge diz na linha de comando a 
+	entidade com problema
+23/08/2010 - Correção de bug com xdata de objetos importados com o READKML
+	- Correção de bug com textos que contem caractéres "<" e ">"
+
+Versão 1.6
+18/08/2011 - Correção de bug com números mal formados pelo GPS TRACKMAKER
+
+Versão 1.62
+09/11/2011 - Inclusão da lista de erros de licença
+
+Versão 2.0
+23/02/2012 - Licença online implementada. Agora não tem mais problema em "perder" a licença!!!
+
+Versão 2.07
+07/03/2012 - Incompatibilidade do expge com o autocad 2007 resolvida
+
+Versão 2.13
+21/06/2012 - Tentativa de resolver o problema de carregar a licença
+	inclusao do comando EXPGEAPAGALIC.
+
+Versão 2.16
+26/07/2012 - Testes com terminal service
+	Verificação de versão desatualizada. Se estiver, você pode ser direcionado a página de download
+
+Versão 2.18
+12/11/2012 - Correção com bug no readkml que causava erro ao importar KML que tinha descrição
+	no placemark

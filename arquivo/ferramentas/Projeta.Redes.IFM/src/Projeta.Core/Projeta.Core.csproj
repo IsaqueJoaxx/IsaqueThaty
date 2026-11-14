@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Núcleo de cálculo do PROJETA (sem dependência do AutoCAD/Civil 3D).
+    Pode ser compilado e testado em qualquer máquina com .NET 8.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Projeta.Core</RootNamespace>
+    <AssemblyName>Projeta.Core</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>Isaque</Authors>
+    <Product>PROJETA • Assistente Civil</Product>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Recursos\**\*.json" />
+  </ItemGroup>
+
+</Project>

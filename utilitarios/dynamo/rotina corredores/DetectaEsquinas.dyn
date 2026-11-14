@@ -1,0 +1,362 @@
+{
+  "Uuid": "dde57d94-50e0-4de1-8766-3e7731bfef17",
+  "IsCustomNode": false,
+  "Description": "Cria corredores em lote associando alinhamento, greide e secao tipo.",
+  "Name": "DetectaEsquinas",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "7536c3b089b24226b9c9a9f120421b64",
+      "Name": "RODAR",
+      "Type": "boolean",
+      "Type2": "boolean",
+      "Value": "false",
+      "Description": "Permite a seleção entre True e False"
+    },
+    {
+      "Id": "7c616eef7c1740c79d6800a2c0da4afc",
+      "Name": "MODO  (auto | codigo)",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "",
+      "Description": "Cria uma sequência de caracteres."
+    },
+    {
+      "Id": "016f2896150e4d6db80431716b811877",
+      "Name": "CORREDOR UNICO",
+      "Type": "boolean",
+      "Type2": "boolean",
+      "Value": "true",
+      "Description": "Permite a seleção entre True e False"
+    },
+    {
+      "Id": "972bd44e1a0b432c9200c52ba0dc8d30",
+      "Name": "NOME BASE",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "CORREDOR LOTEAMENTO",
+      "Description": "Cria uma sequência de caracteres."
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "7536c3b089b24226b9c9a9f120421b64",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a6acfe2a5e59458bb12c45353e86e49f",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Permite a seleção entre True e False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "SerializedWidth": 0.0,
+      "SerializedHeight": 0.0,
+      "Id": "7c616eef7c1740c79d6800a2c0da4afc",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3eb2f6d7e85949a786aebc9a80fbd82d",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma sequência de caracteres.",
+      "InputValue": ""
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "016f2896150e4d6db80431716b811877",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "fe7b3c7d69484ae3bd4efe129eb9d5b7",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Permite a seleção entre True e False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "SerializedWidth": 0.0,
+      "SerializedHeight": 0.0,
+      "Id": "972bd44e1a0b432c9200c52ba0dc8d30",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "da09af73f89340a894743b612f0632c9",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma sequência de caracteres.",
+      "InputValue": "CORREDOR LOTEAMENTO"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "# -*- coding: utf-8 -*-\n# =============================================================================\n#  DETECCAO DE ESQUINAS  -  SOMENTE LEITURA, nao altera o desenho\n#  Acha os cruzamentos entre alinhamentos, calcula estacoes e lista as\n#  concordancias (curb returns) que seriam criadas. Grava relatorio em arquivo.\n# =============================================================================\n\n# ---------------------------------------------------- parametros de projeto\nRAIO          = 2.0        # raio da concordancia, em metros\nOFFSET_BORDA  = 4.2407     # do eixo ate a face do meio-fio (3.6007 + 0.64)\nCROSS_SLOPE   = -0.02      # declividade transversal da pista\nTOL_PONTA     = 1.0        # folga p/ considerar que o eixo \"termina\" no cruzamento\nDESTINO       = r\"D:\\Claude ai\\Dynamo rotinas\\rotina corredores\\esquinas.txt\"\n\nimport clr\nimport io\nimport math\n\nclr.AddReference('AcMgd')\nclr.AddReference('AcDbMgd')\nclr.AddReference('AcCoreMgd')\nclr.AddReference('AeccDbMgd')\n\nfrom System import IntPtr\nfrom Autodesk.AutoCAD.ApplicationServices import Application\nfrom Autodesk.AutoCAD.DatabaseServices import OpenMode, Intersect\nfrom Autodesk.AutoCAD.Geometry import Point3dCollection\nfrom Autodesk.Civil.ApplicationServices import CivilApplication\nimport Autodesk.Civil.DatabaseServices as CDS\n\ntry:\n    from Autodesk.Civil import ProfileType\nexcept ImportError:\n    from Autodesk.Civil.DatabaseServices import ProfileType\ntry:\n    from Autodesk.Civil import AlignmentType\nexcept ImportError:\n    AlignmentType = None\n\nlog = []\n\n\ndef st_off(a, p):\n    \"\"\"Estacao e offset de um ponto sobre o alinhamento. Cobre out e ref.\"\"\"\n    for args in ((p.X, p.Y), (p.X, p.Y, 0.0, 0.0)):\n        try:\n            r = a.StationOffset(*args)\n            if r is not None:\n                return float(r[0]), float(r[1])\n        except Exception:\n            pass\n    return None, None\n\n\ndef greide_fg(t, a):\n    \"\"\"Perfil de projeto (FG) do alinhamento.\"\"\"\n    for pid in a.GetProfileIds():\n        p = t.GetObject(pid, OpenMode.ForRead)\n        if p.ProfileType == ProfileType.FG:\n            return p\n    return None\n\n\ndef elev(p, est):\n    try:\n        return float(p.ElevationAt(est))\n    except Exception:\n        return None\n\n\ndef eh_offset(a):\n    if AlignmentType is None:\n        return False\n    try:\n        return a.AlignmentType in (AlignmentType.Offset, AlignmentType.CurbReturn)\n    except Exception:\n        return False\n\n\ndef detalha_tipo(tipo, titulo):\n    \"\"\"Assinaturas de um tipo .NET, para eu saber como criar perfis depois.\"\"\"\n    log.append(u\"##### %s #####\" % titulo)\n    try:\n        t = clr.GetClrType(tipo)\n    except Exception as e:\n        log.append(u\"  <sem tipo CLR: %s>\" % e)\n        log.append(u\"\")\n        return\n    ms = set()\n    for mi in t.GetMethods():\n        if mi.Name.startswith('get_') or mi.Name.startswith('set_'):\n            continue\n        if not (mi.IsStatic or 'add' in mi.Name.lower() or 'pvi' in mi.Name.lower()):\n            continue\n        ps = u\", \".join(u\"%s %s\" % (x.ParameterType.Name, x.Name)\n                        for x in mi.GetParameters())\n        ms.add(u\"  %s%s %s(%s)\" % (u\"static \" if mi.IsStatic else u\"\",\n                                   mi.ReturnType.Name, mi.Name, ps))\n    log.extend(sorted(ms) or [u\"  (nenhum)\"])\n    log.append(u\"\")\n\n\nadoc = Application.DocumentManager.MdiActiveDocument\ncivdoc = CivilApplication.ActiveDocument\n\nwith adoc.LockDocument():\n    db = adoc.Database\n    with db.TransactionManager.StartTransaction() as t:\n\n        # ------------------------------------------------ coleta eixos\n        eixos = []\n        for aid in civdoc.GetAlignmentIds():\n            a = t.GetObject(aid, OpenMode.ForRead)\n            if eh_offset(a):\n                continue\n            eixos.append({'id': aid, 'nome': a.Name, 'obj': a,\n                          'gre': greide_fg(t, a)})\n\n        log.append(u\"=== %d eixos considerados ===\" % len(eixos))\n        for e in eixos:\n            log.append(u\"   %-28s  est %.2f a %.2f   greide: %s\"\n                       % (e['nome'], e['obj'].StartingStation,\n                          e['obj'].EndingStation,\n                          e['gre'].Name if e['gre'] else u\"(SEM FG)\"))\n        log.append(u\"\")\n\n        # ------------------------------------------------ cruzamentos\n        esquinas = []\n        for i in range(len(eixos)):\n            for j in range(i + 1, len(eixos)):\n                A, B = eixos[i], eixos[j]\n                pts = Point3dCollection()\n                achou = False\n                for modo in (Intersect.OnBothOperands, Intersect.ExtendBoth):\n                    try:\n                        pts.Clear()\n                        A['obj'].IntersectWith(B['obj'], modo, pts,\n                                               IntPtr.Zero, IntPtr.Zero)\n                        if pts.Count > 0:\n                            achou = True\n                            break\n                    except Exception as ex:\n                        log.append(u\"AVISO IntersectWith %s x %s: %s\"\n                                   % (A['nome'], B['nome'], ex))\n                if not achou:\n                    continue\n\n                for p in pts:\n                    stA, offA = st_off(A['obj'], p)\n                    stB, offB = st_off(B['obj'], p)\n                    if stA is None or stB is None:\n                        log.append(u\"AVISO  %s x %s: StationOffset falhou.\"\n                                   % (A['nome'], B['nome']))\n                        continue\n\n                    # so vale se o ponto cai dentro (ou na ponta) dos dois eixos\n                    def dentro(e, s):\n                        return (e['obj'].StartingStation - TOL_PONTA <= s\n                                <= e['obj'].EndingStation + TOL_PONTA)\n\n                    if not (dentro(A, stA) and dentro(B, stB)):\n                        continue\n\n                    esquinas.append({'A': A, 'stA': stA, 'B': B, 'stB': stB,\n                                     'pt': p})\n\n        log.append(u\"=== %d esquina(s) detectada(s) ===\" % len(esquinas))\n        log.append(u\"\")\n\n        total_conc = 0\n        for n, e in enumerate(esquinas, 1):\n            A, B = e['A'], e['B']\n            log.append(u\"--- ESQUINA %d ---\" % n)\n            log.append(u\"   %s  @ est %.3f\" % (A['nome'], e['stA']))\n            log.append(u\"   %s  @ est %.3f\" % (B['nome'], e['stB']))\n            log.append(u\"   ponto: %.3f , %.3f\" % (e['pt'].X, e['pt'].Y))\n\n            # ramos existentes de cada eixo em torno da esquina\n            def ramos(eixo, st):\n                r = []\n                if st > eixo['obj'].StartingStation + TOL_PONTA:\n                    r.append('antes')\n                if st < eixo['obj'].EndingStation - TOL_PONTA:\n                    r.append('depois')\n                return r\n\n            rA, rB = ramos(A, e['stA']), ramos(B, e['stB'])\n            log.append(u\"   ramos de %s: %s\" % (A['nome'], u\", \".join(rA) or u\"nenhum\"))\n            log.append(u\"   ramos de %s: %s\" % (B['nome'], u\", \".join(rB) or u\"nenhum\"))\n\n            # cotas de borda nas duas aproximacoes\n            for eixo, st in ((A, e['stA']), (B, e['stB'])):\n                if eixo['gre']:\n                    ce = elev(eixo['gre'], st)\n                    if ce is not None:\n                        borda = ce + CROSS_SLOPE * OFFSET_BORDA\n                        log.append(u\"   cota eixo %s = %.3f  ->  borda = %.3f\"\n                                   % (eixo['nome'], ce, borda))\n                    else:\n                        log.append(u\"   AVISO cota indisponivel em %s est %.2f\"\n                                   % (eixo['nome'], st))\n\n            # quadrantes = combinacao dos ramos existentes\n            quads = [(x, y) for x in rA for y in rB]\n            log.append(u\"   -> %d concordancia(s) R=%.2f, offset %.4f:\"\n                       % (len(quads), RAIO, OFFSET_BORDA))\n            for x, y in quads:\n                sinal_a = -1 if x == 'antes' else +1\n                sinal_b = -1 if y == 'antes' else +1\n                log.append(u\"        %s(%s) x %s(%s)   offIn=%+.4f offOut=%+.4f\"\n                           % (A['nome'], x, B['nome'], y,\n                              sinal_a * OFFSET_BORDA, sinal_b * OFFSET_BORDA))\n            total_conc += len(quads)\n            log.append(u\"\")\n\n        log.append(u\"=== TOTAL: %d concordancias seriam criadas ===\" % total_conc)\n        log.append(u\"\")\n\n        # ------------------------------------------------ API de perfis\n        detalha_tipo(CDS.Profile, u\"API: Profile (metodos static / add)\")\n        detalha_tipo(CDS.ProfilePVICollection, u\"API: ProfilePVICollection\")\n\n        t.Commit()\n\ntexto = u\"\\n\".join(log)\ntry:\n    f = io.open(DESTINO, 'w', encoding='utf-8')\n    f.write(texto)\n    f.close()\n    OUT = [u\"gravado: %s (%d linhas)\" % (DESTINO, len(log))]\nexcept Exception as e:\n    OUT = [u\"FALHA ao gravar: %s\" % e] + log\n",
+      "Engine": "PythonNet3",
+      "VariableInputPorts": true,
+      "Id": "5cf48fab9bae459b94325586bfcdb3c2",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "bd9f9f73d8a8466ab4ab8eaa160f4cbc",
+          "Name": "IN[0]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "efffb0b10e8e4a32b59129c3710e18d2",
+          "Name": "IN[1]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0125a82089804690ab7ce15ec68672d3",
+          "Name": "IN[2]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3d69a6dc2c50437dbf5fbab75d4e4fad",
+          "Name": "IN[3]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8e8aaf9d490644ec93ece00952790c3a",
+          "Name": "OUT",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Executa um script Python incorporado."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "WatchWidth": 200.0,
+      "WatchHeight": 200.0,
+      "Id": "90ab4f648dc54d4cb9179637b83696f0",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "7d835fa627824bcca3142d9d1c0c84a1",
+          "Name": "",
+          "Description": "No a avaliar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a62b273fe1834f87904bdf649a28588e",
+          "Name": "",
+          "Description": "Conteudo",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualiza a saída de um nó"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "a6acfe2a5e59458bb12c45353e86e49f",
+      "End": "bd9f9f73d8a8466ab4ab8eaa160f4cbc",
+      "Id": "8bea11674d8f46faa5ddd1abba263b31",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "3eb2f6d7e85949a786aebc9a80fbd82d",
+      "End": "efffb0b10e8e4a32b59129c3710e18d2",
+      "Id": "9652a297d3224299a1e26d781c7575a9",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "fe7b3c7d69484ae3bd4efe129eb9d5b7",
+      "End": "0125a82089804690ab7ce15ec68672d3",
+      "Id": "353e011d40864140bce71fe00f2c3115",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "da09af73f89340a894743b612f0632c9",
+      "End": "3d69a6dc2c50437dbf5fbab75d4e4fad",
+      "Id": "f3204666c0524624a9d0feab4f281271",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "8e8aaf9d490644ec93ece00952790c3a",
+      "End": "7d835fa627824bcca3142d9d1c0c84a1",
+      "Id": "6aba24b1f16942848d8def7d01bc9eaa",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Propriedades",
+      "Version": "4.0",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "Nenhum",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "4.0.2.3852",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Visualização do plano de fundo",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "7536c3b089b24226b9c9a9f120421b64",
+        "Name": "RODAR",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "Id": "7c616eef7c1740c79d6800a2c0da4afc",
+        "Name": "MODO  (auto | codigo)",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 120.0
+      },
+      {
+        "Id": "016f2896150e4d6db80431716b811877",
+        "Name": "CORREDOR UNICO",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 240.0
+      },
+      {
+        "Id": "972bd44e1a0b432c9200c52ba0dc8d30",
+        "Name": "NOME BASE",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 360.0
+      },
+      {
+        "Id": "5cf48fab9bae459b94325586bfcdb3c2",
+        "Name": "Criar Corredores em Lote",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 400.0,
+        "Y": 130.0
+      },
+      {
+        "Id": "90ab4f648dc54d4cb9179637b83696f0",
+        "Name": "Relatorio",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 760.0,
+        "Y": 130.0
+      }
+    ],
+    "Annotations": [],
+    "X": 60.0,
+    "Y": 60.0,
+    "Zoom": 0.9
+  }
+}

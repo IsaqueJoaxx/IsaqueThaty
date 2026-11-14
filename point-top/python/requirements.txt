@@ -1,0 +1,7 @@
+numpy>=1.26,<3
+rasterio>=1.4,<2
+scipy
+matplotlib
+openpyxl
+xlsxwriter
+ezdxf

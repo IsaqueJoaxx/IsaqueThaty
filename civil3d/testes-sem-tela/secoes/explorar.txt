@@ -1,0 +1,254 @@
+## Autodesk.Civil.DatabaseServices.QTOSectionalResult : CivilWrapper<AeccQuantityTakeoffResult::SECTIONAL_RESULT>
+   P ObjectId SampleLineId
+   P String SampleLineName
+   P Double Station
+   P QTOVolumeResult VolumeResult
+   P QTOAreaResult AreaResult
+## Autodesk.Civil.DatabaseServices.QTOMaterial : Object
+   P QTOMaterialItem Item
+   P QTOMaterialItem Item
+   P Int32 Count
+   P QTOMaterialGapCollection MaterialGaps
+   P QTOSubcriteriaCollection Subcriteria
+   P Boolean IsSubcriteriaSupported
+   P ObjectId ShapeStyleId {set}
+   P MaterialQuantityType QuantityType {set}
+   P String Name {set}
+   P Guid Guid
+   P Guid MaterialListGuid
+   P ObjectId SampleLineGroupId
+   M Boolean IsFactorApplicable(MaterialFactorType type)
+   M Double GetFactor(MaterialFactorType type)
+   M Void SetFactor(MaterialFactorType type, Double newValue)
+   M QTOMaterialItem Add(ObjectId corridorId, String shapeCode)
+   M QTOMaterialItem Add(ObjectId surfaceId)
+   M Void RemoveAt(Int32 index)
+   M Boolean Remove(QTOMaterialItem materialItem)
+   M Boolean Remove(String name)
+   M IEnumerator`1 GetEnumerator()
+   M IEnumerator GetObjectEnumerator()
+   M Void Dispose()
+## Autodesk.Civil.DatabaseServices.QTOAreaResult : CivilWrapper<AeccQuantityTakeoffResult::SECTIONAL_RESULT>
+   P Double MomentOfFactoredUsableArea
+   P Double MomentOfFactoredFillArea
+   P Double MomentOfFactoredCutArea
+   P Double FactoredUsableArea
+   P Double FactoredFillArea
+   P Double FactoredCutArea
+   P Double MomentOfFillArea
+   P Double MomentOfCutArea
+   P Double FillArea
+   P Double CutArea
+## Autodesk.Civil.DatabaseServices.QTOVolumeResult : CivilWrapper<AeccQuantityTakeoffResult::SECTIONAL_RESULT>
+   P Double IncrementalUsableVolume
+   P Double IncrementalFillVolume
+   P Double IncrementalCutVolume
+   P Double CumulativeUsableVolume
+   P Double CumulativeFillVolume
+   P Double CumulativeCutVolume
+## Autodesk.Civil.DatabaseServices.QTOMaterialListCollection : Object
+   P MaterialVolumeCalculationMethodType VolumeCalculationMethodType {set}
+   P QTOMaterialList Item
+   P QTOMaterialList Item
+   P QTOMaterialList Item
+   P Int32 Count
+   M Boolean Validate(MaterialVolumeCalculationMethodType methodType)
+   M Void Fix(MaterialVolumeCalculationMethodType methodType)
+   M QTOMaterialList Add(String materialListName)
+   M QTOMaterialList ImportCriteria(QTOCriteriaNameMapping criteriaNameMapping)
+   M Void RemoveAt(Int32 index)
+   M Boolean Remove(QTOMaterialList materialList)
+   M Boolean Remove(String name)
+   M Boolean Remove(Guid guid)
+   M IEnumerator`1 GetEnumerator()
+   M IEnumerator GetObjectEnumerator()
+## Autodesk.Civil.DatabaseServices.MaterialSectionSource : Object
+   P Boolean IsSampled
+   P SectionUpdateType UpdateMode
+   P ObjectId StyleId {set}
+   P QTOMaterial Material
+   P SectionSourceType SourceType
+   M ObjectIdCollection GetMaterialSectionIds()
+## Autodesk.Civil.DatabaseServices.QTOMaterialItem : Object
+   P MaterialItemType Type
+   P MaterialConditionType Condition {set}
+   P String Name
+   P Guid MaterialGuid
+   P Guid MaterialListGuid
+   P ObjectId SampleLineGroupId
+   M Boolean IsConditionApplicable(MaterialConditionType conditionType)
+   M Void Dispose()
+grupo SEÇÕES - Eixo traçado 2 T5: 125 sample lines
+   lista LISTA MATERIAL- 4 guid c902446c-c57a-45f1-b0e0-55debbc9056d: 2 materiais; correção de curva True
+      material CORTE guid 7ba751bd-f491-461a-b385-22cdcd39c79e tipo Cut
+         Item = !TargetParameterCountException
+         Item = !TargetParameterCountException
+         Count = 2
+         MaterialGaps = Autodesk.Civil.DatabaseServices.QTOMaterialGapCollection
+         Subcriteria = !TargetInvocationException
+         IsSubcriteriaSupported = False
+         ShapeStyleId = (1952582268992)
+         QuantityType = Cut
+         Name = CORTE
+         Guid = 7ba751bd-f491-461a-b385-22cdcd39c79e
+         MaterialListGuid = c902446c-c57a-45f1-b0e0-55debbc9056d
+         SampleLineGroupId = (1952676645344)
+      material ATERRO guid 5b9bf3a1-1700-456d-8beb-2c5c7c9c550c tipo Fill
+         Item = !TargetParameterCountException
+         Item = !TargetParameterCountException
+         Count = 2
+         MaterialGaps = Autodesk.Civil.DatabaseServices.QTOMaterialGapCollection
+         Subcriteria = !TargetInvocationException
+         IsSubcriteriaSupported = False
+         ShapeStyleId = (1952674452320)
+         QuantityType = Fill
+         Name = ATERRO
+         Guid = 5b9bf3a1-1700-456d-8beb-2c5c7c9c550c
+         MaterialListGuid = c902446c-c57a-45f1-b0e0-55debbc9056d
+         SampleLineGroupId = (1952676645344)
+   resultado: 125 seções
+      [0] SampleLineId = (1952676645376)
+      [0] SampleLineName = ESTACA 1+0.00
+      [0] Station = 20
+      [0] VolumeResult = Autodesk.Civil.DatabaseServices.QTOVolumeResult
+           .IncrementalUsableVolume = 0
+           .IncrementalFillVolume = 0
+           .IncrementalCutVolume = 0
+           .CumulativeUsableVolume = 0
+           .CumulativeFillVolume = 0
+           .CumulativeCutVolume = 0
+      [0] AreaResult = Autodesk.Civil.DatabaseServices.QTOAreaResult
+           .MomentOfFactoredUsableArea = 0
+           .MomentOfFactoredFillArea = -1.4879086135082766
+           .MomentOfFactoredCutArea = 0
+           .FactoredUsableArea = 0
+           .FactoredFillArea = 4.036973698718214
+           .FactoredCutArea = 0
+           .MomentOfFillArea = -1.1903268908066214
+           .MomentOfCutArea = 0
+           .FillArea = 3.229578958974571
+           .CutArea = 0
+      [1] SampleLineId = (1952676645440)
+      [1] SampleLineName = ESTACA 2+0.00
+      [1] Station = 40
+      [1] VolumeResult = Autodesk.Civil.DatabaseServices.QTOVolumeResult
+           .IncrementalUsableVolume = 0
+           .IncrementalFillVolume = 151.1515400914618
+           .IncrementalCutVolume = 0
+           .CumulativeUsableVolume = 0
+           .CumulativeFillVolume = 151.1515400914618
+           .CumulativeCutVolume = 0
+      [1] AreaResult = Autodesk.Civil.DatabaseServices.QTOAreaResult
+           .MomentOfFactoredUsableArea = 0
+           .MomentOfFactoredFillArea = -7.38425190999005
+           .MomentOfFactoredCutArea = 0
+           .FactoredUsableArea = 0
+           .FactoredFillArea = 11.078180310427967
+           .FactoredCutArea = 0
+           .MomentOfFillArea = -5.90740152799204
+           .MomentOfCutArea = 0
+           .FillArea = 8.862544248342374
+           .CutArea = 0
+      [2] SampleLineId = (1952676645504)
+      [2] SampleLineName = ESTACA 3+0.00
+      [2] Station = 60
+      [2] VolumeResult = Autodesk.Civil.DatabaseServices.QTOVolumeResult
+           .IncrementalUsableVolume = 0
+           .IncrementalFillVolume = 212.45189932303958
+           .IncrementalCutVolume = 0
+           .CumulativeUsableVolume = 0
+           .CumulativeFillVolume = 363.6034394145014
+           .CumulativeCutVolume = 0
+      [2] AreaResult = Autodesk.Civil.DatabaseServices.QTOAreaResult
+           .MomentOfFactoredUsableArea = 0
+           .MomentOfFactoredFillArea = -2.2755011512147876
+           .MomentOfFactoredCutArea = 0
+           .FactoredUsableArea = 0
+           .FactoredFillArea = 10.16700962187599
+           .FactoredCutArea = 0
+           .MomentOfFillArea = -1.8204009209718301
+           .MomentOfCutArea = 0
+           .FillArea = 8.133607697500793
+           .CutArea = 0
+   SL ESTACA 1+0.00 estaca 20.00; vértices 3: Left:(592056.5028693107,7768510.859285695,0) Center:(592045.5836492353,7768538.801558919,0) Right:(592034.66442916,7768566.743832144,0)
+      seção Primitivo-1+0.00 fonte TinSurface 'Primitivo': 170 pts, offsets -30 / 30, cotas 784.0920914739229 a 786.2084146570201, superf. corredor !InvalidOperationException
+      seção Eixo traçado 2 T5-1+0.00 fonte Corridor 'Eixo traçado 2 T5': 0 pts, offsets -6.234740113632706 / 30, cotas 785.3515717758734 a 785.8085985183421, superf. corredor !InvalidOperationException
+      seção Eixo traçado 2 T5 Eixo traçado 2 T5-1+0.00 fonte CorridorSurface 'Eixo traçado 2 T5 Eixo traçado 2 T5': 58 pts, offsets -6.234740115149602 / 6.119260783751995, cotas 785.3515717758734 a 785.8085985183421, superf. corredor (1952676645296)
+         p0 -30.000 783.730 seg -1
+         p1 -14.841 784.314 seg -1
+         p2 -14.830 784.314 seg -1
+         p3 -14.819 784.315 seg -1
+         p4 -14.808 784.315 seg -1
+         p5 -11.465 784.570 seg -1
+         p6 -6.467 785.197 seg -1
+         p7 -6.427 785.223 seg -1
+         p8 -6.418 785.229 seg -1
+         p9 -6.409 785.236 seg -1
+         p10 -6.397 785.243 seg -1
+         p11 -6.373 785.260 seg -1
+         p12 -6.365 785.265 seg -1
+         p13 -6.307 785.303 seg -1
+         p14 -6.235 785.352 seg 15
+         p15 -5.662 785.734 seg 16
+         p16 -4.162 785.809 seg 17
+         p17 -4.042 785.809 seg 18
+         p18 -4.000 785.629 seg 19
+         p19 -3.500 785.704 seg 20
+         p20 -0.000 785.809 seg 21
+         p21 3.500 785.704 seg 22
+         p22 4.000 785.629 seg 23
+         p23 4.042 785.809 seg 24
+         p24 4.162 785.809 seg 25
+         p25 5.662 785.734 seg 26
+         p26 6.119 785.429 seg -1
+         p27 6.520 785.161 seg -1
+         p28 6.584 785.119 seg -1
+         p29 6.630 785.088 seg -1
+         p30 6.669 785.062 seg -1
+         p31 6.704 785.038 seg -1
+         p32 6.719 785.029 seg -1
+         p33 9.739 788.919 seg -1
+         p34 13.136 792.368 seg -1
+         p35 13.442 792.647 seg -1
+         p36 13.746 792.923 seg -1
+         p37 14.046 793.196 seg -1
+         p38 18.282 797.668 seg -1
+         p39 18.514 797.903 seg -1
+         p40 18.699 798.166 seg -1
+         p41 22.209 802.791 seg -1
+         p42 23.469 804.390 seg -1
+         p43 23.625 804.578 seg -1
+         p44 23.781 804.765 seg -1
+         p45 24.087 805.133 seg -1
+         p46 26.977 808.184 seg -1
+         p47 27.125 808.327 seg -1
+         p48 29.050 810.650 seg -1
+         p49 29.162 810.786 seg -1
+         p50 29.274 810.921 seg -1
+         p51 29.385 811.055 seg -1
+         p52 29.495 811.188 seg -1
+         p53 29.604 811.320 seg -1
+         p54 29.713 811.451 seg -1
+         p55 29.820 811.581 seg -1
+         p56 29.928 811.710 seg -1
+         p57 30.000 811.796 seg -1
+      seção LISTA MATERIAL- 4 - CORTE-1+0.00 fonte Material 'LISTA MATERIAL- 4 - CORTE': 0 pts, offsets !InvalidOperationException / !InvalidOperationException, cotas !InvalidOperationException a !InvalidOperationException, superf. corredor !InvalidOperationException
+      seção LISTA MATERIAL- 4 - ATERRO-1+0.00 fonte Material 'LISTA MATERIAL- 4 - ATERRO': 52 pts, offsets -6.234740115149602 / 6.119260783751995, cotas 785.3515717758734 a 785.8085985183421, superf. corredor !InvalidOperationException
+      seção de material CORTE: 0 pts; tipo MaterialSection; fonte Material
+         StyleName = !ArgumentException
+         StyleId = !ArgumentException
+      seção de material ATERRO: 52 pts; tipo MaterialSection; fonte Material
+         StyleName = !ArgumentException
+         StyleId = !ArgumentException
+         m0 -6.235 785.352 seg 1
+         m1 -5.662 785.734 seg 2
+         m2 -4.162 785.809 seg 3
+         m3 -4.042 785.809 seg 4
+         m4 -4.000 785.629 seg 5
+         m5 -3.500 785.704 seg 6
+         m6 -0.000 785.809 seg 7
+         m7 3.500 785.704 seg 8
+         m8 4.000 785.629 seg 9
+         m9 4.042 785.809 seg 10
+         m10 4.162 785.809 seg 11
+         m11 5.662 785.734 seg 12

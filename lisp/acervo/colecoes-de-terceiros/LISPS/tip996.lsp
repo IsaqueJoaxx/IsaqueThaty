@@ -1,0 +1,55 @@
+; TIP996.LSP: STARLINE.LSP   Row of Stars   (c)1994, Watson Kilbourne
+
+;;;  Draws a row of filled five point stars with user defined size
+;;;  and amount at any angle.
+
+(defun c:STARLINE (/ CE BM FM SP EP DX AN SZ NX NY NZ P1 P2 P3 P4)
+   (setq CE (getvar "CMDECHO"))
+   (setq BM (getvar "BLIPMODE"))
+   (setq FM (getvar "FILLMODE"))
+   (defun NE (NE)
+       (setvar "CMDECHO" CE)
+       (setvar "BLIPMODE" BM)
+       (setvar "FILLMODE" FM)
+       (princ "Function cancelled ")
+       (princ)
+   )
+   (setq OE *error* *error* NE)
+   (setvar "CMDECHO" 0)
+   (while (= SP nil) (setq SP (getpoint "\nCenter of first star: ")))
+   (while (= EP nil) (setq EP (getpoint "\nCenter of last star: ")))
+   (setq DX (distance SP EP))
+   (setq AN (angle SP EP))
+   (setvar "BLIPMODE" 0)
+   (setvar "FILLMODE" 1)
+   (setq SZ (getdist "\nEnter circumscribed diameter of stars <1.0>: "))
+       (if (= SZ nil) (setq SZ 1.0))
+   (setq NX (getint "\nEnter total number of stars <10>: "))
+       (if (= NX nil) (setq NX 10)
+       )
+       (if (= NX 1) (setq NY 1)
+                    (setq NY (- NX 1))
+       )
+   (setq NZ (/ DX NY)
+         P1 SP
+         P2 (polar P1 (* pi 0.3) (* SZ 0.191))
+         P3 (polar P1 (* pi 0.7) (* SZ 0.191))
+         P4 (polar P1 (* pi 0.5) (* SZ 0.5))
+   )
+   (repeat NX
+      (command ".SOLID" P1 P2 P3 P4 ""
+               ".ARRAY" "L" "" "P" P1 "5" "360" "Y"
+      )
+      (setq P1 (polar P1 AN NZ)
+            P2 (polar P2 AN NZ)
+            P3 (polar P3 AN NZ)
+            P4 (polar P4 AN NZ)
+      )
+   )
+   (setvar "FILLMODE" FM)
+   (setvar "BLIPMODE" BM)
+   (setvar "CMDECHO" CE)
+   (setq *error* OE OE nil)
+   (princ)
+)
+

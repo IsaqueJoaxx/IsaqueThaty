@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Núcleo do PROJETA • Giro de Veículos (sem dependência do AutoCAD/Civil 3D):
+    veículos de projeto, cinemática de varredura (tractriz), envoltórias, verificação de conflitos,
+    vão livre vertical, gerador de rotatórias e de vagas. Testável em qualquer máquina com .NET 8.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Projeta.Giro.Core</RootNamespace>
+    <AssemblyName>Projeta.Giro.Core</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>Isaque</Authors>
+    <Product>PROJETA • Giro de Veículos</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Recursos\*.json" />
+  </ItemGroup>
+
+  <!-- Clipper2 1.5.4 (Boost License): código-fonte em ThirdParty quando existir; senão, pacote NuGet da mesma versão. -->
+  <ItemGroup Condition="Exists('..\ThirdParty\Clipper2Lib\Clipper2Lib.csproj')">
+    <ProjectReference Include="..\ThirdParty\Clipper2Lib\Clipper2Lib.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="!Exists('..\ThirdParty\Clipper2Lib\Clipper2Lib.csproj')">
+    <PackageReference Include="Clipper2" Version="1.5.4" />
+  </ItemGroup>
+
+</Project>

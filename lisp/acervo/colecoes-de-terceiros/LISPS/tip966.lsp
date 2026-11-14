@@ -1,0 +1,36 @@
+; TIP966.LSP: SDIV.LSP   Divide a Distance   (c)1994, Steve Q. Stapleton
+
+(defun c:SDIV (/ PT1 PT2 SPAN QU MAXCTRS SPA1 SPA2 SPA3
+   FINSPA SEGMS ANG)
+   (setvar "cmdecho" 0)
+   (setq PT1 (getpoint "Pick first point: ")
+   PT2 (getpoint PT1 "Pick second point: "))
+   (setq SPAN (distance PT1 PT2))
+   (prompt (strcat "\nDistance is: " (rtos SPAN)))
+   (initget 1 "Y N")
+   (setq QU (getkword "\nMax. ctrs. (Y)es or (N)o?  "))
+   (if (= QU "Y")
+      (progn
+         (setq MAXCTRS (getdist "\nEnter max. ctrs.: ")
+            SPA1 (/ SPAN MAXCTRS)
+            SPA2  (fix SPA1)
+         SPA3 (* MAXCTRS SPA2))
+         (if (/= SPAN SPA3) (setq SEGMS (fix(+ 1 SPA2))
+         FINSPA (/ SPAN SEGMS)))
+   (prompt (strcat "\nSpacing is: "(rtos FINSPA)"\n"))))
+   (if (= QU "N")
+      (progn
+         (setq SEGMS (getint "\nNumber of segments: ")
+         FINSPA (/ SPAN  SEGMS))
+   (prompt (strcat "\nSpacing is: "(rtos FINSPA)"\n"))))
+   (setq ANG (angle PT1 PT2))
+   (setvar "blipmode" 0)
+   (setvar "snapang" ANG)
+   (if (= SEGMS 2)
+   (command "POINT" (polar PT1 ANG FINSPA)))
+   (if (/= SEGMS 2)
+      (command "POINT" (polar PT1 ANG FINSPA)
+   "ARRAY" (polar PT1 ANG FINSPA) "" "R" "" (- SEGMS 1) FINSPA))
+   (setvar "blipmode" 1)
+   (setvar "snapang" 0)
+); end sdiv.lsp 

@@ -1,0 +1,135 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; troca textos de km para estaca ;;;;;;;;;;;;;;
+;;;; André Augusto Orsi Dutra - 13/04/00 ;;;;;;;;;
+;;;; MANDE UM E-mail: meulisp@yahoo.com.br ;;;;;;;
+;;;; VISITE A PÁGINA WWW.GEOCITIES.COM/MEULISP ;;;
+;;;; LÁ VOCÊ ENCONTRA MUITOS OUTROS APLICATIVOS ;;
+;;;; OU ENTRE EM CONTATO PELO FONE 97037749 ;;;;;;
+
+(defun testa()
+ (If (Findfile "c:\\emk.f10")
+  (PROGN  
+   (setq ler (open "c:\\emk.f10" "r"))
+   (setq N (read-line ler))
+   (CLOSE ler)
+   (if (> (distof n) 10)
+     (progn
+       (princ)(princ)(princ)(princ)
+       (Alert "\n\nE ai ?  Está gostando ?  Você ultrapassou seu limite de uso do aplicativo e para continuar usando você deve registrá-lo através de depósito de R$10,00 em conta bancária no Itau - Agência 1685 conta nº 032631.
+\n Mande um E-mail para    meulisp@yahoo.com.br   e informe o aplicativo, a data e o valor do depósito que no mesmo dia você estará recebendo o aplicativo registrado em seu E-mail !!!")
+       (princ)(princ)(princ)(princ)
+       (EXIT)
+     );progn
+   );if
+   (setq incr (+ 0 (distof n)))
+   (setq ASC (open "c:\\emk.f10" "w"))
+   (write-line (itoa (fix incr)) ASC) 
+   (CLOSE ASC)
+   (princ)(princ)(princ)(princ)
+  );progn
+  (PROGN
+   (setq ASC (open "c:\\emk.f10" "w"))
+   (princ linha)
+   (write-line (itoa 1) ASC) 
+   (princ)(princ)(princ)(princ)
+   (Alert "\n\nVocê está usando o aplicativo pela primeira vez !!! Se achar que ele aumenta sua produtividade, por favor, registre-o !!!
+O custo do registro é mínimo R$10,00 (depósito em conta bancária); e você contribui para que profissionais com eu, continuem produzindo os aplicativos !!!
+Visite a página    www.geocities.com/meulisp    e baixe outros aplicativos ou envie um E-mail para  meulisp@yahoo.com.br.
+@ Todos os direitos para André Augusto Orsi Dutra.")
+   (CLOSE ASC)
+   (princ)(princ)(princ)(princ)
+  );progn
+ );if 
+);defun
+
+
+
+(Defun C:kme ()
+(print)(print)
+(testa)
+(command "CMDECHO" 0)
+(print)(print)
+(setq lop 0)
+(setq marca "+")
+(initget 1 "P T" )
+(setq opde ( getkword "\nTransforma [P]arcial - [T]otal : "))
+(if (= opde "T")
+	(setq elem (ssget "X" (List (Cons 0 "TEXT"))))
+	(setq elem (ssget (List (Cons 0 "TEXT"))))
+)
+(if elem
+	(Progn
+		(Setq ctr 0)
+		(Setq tam (Sslength elem))
+		(While (/= ctr tam)
+			(setq nome (ssname elem ctr))
+			(setq ed (entget nome))
+			(setq sty (cdr (assoc  7 ed)))
+			(command "STYLE" sty "" "0" "" "" "" "" "")
+			(Setq tex (cdr (assoc  1 ed)))
+			(setq cont1 1)
+			(setq cont2 0)
+			(setq tamtex (Strlen tex))
+			(While (/= cont1 tamtex)
+				(setq sinal (substr tex cont1 1))
+				(if (= sinal "+")
+					(setq cont2 cont1 cont1 tamtex)
+					(setq cont2 0 cont1 (+ cont1 1))
+				)
+			)
+			(setq cont3 1)
+			(setq cont4 0)
+			(While (/= cont3 tamtex)
+				(setq s_igual (substr tex cont3 1))
+				(if (= s_igual "=")
+					(setq cont4 cont3 cont3 tamtex)
+					(setq cont4 0 cont3 (+ cont3 1))
+				)
+			)
+			(if (/= cont2 0)
+				(progn
+					(setq ele_vert (substr tex 1 2))
+					(if (or (= ele_vert "PI") (= ele_vert "PT") (= ele_vert "PC"))
+						(setq ele_curv (strcat (substr tex 1 3) "="))
+						(setq ele_curv "")
+					)
+					(if (or (= ele_vert "PA") (= ele_vert "PB"))
+						(setq ele_curv (strcat (substr tex 1 2) "="))
+						(setq ele_curv ele_curv)
+					)
+					(if (or (= ele_vert "NR"))
+						(setq ele_curv (strcat (substr tex 1 2) "="))
+						(setq ele_curv ele_curv)
+					)
+;                                       (setq tam_est (strlen ele_curv))
+;                                       (setq tam_est (+ tam_est 1))
+;                                       (setq estaca (Substr tex 1 (- cont2 1)))
+					(setq estaca (Substr tex (+ cont4 1) (- cont2 (+ cont4 1))))
+					(setq fracao (Substr tex (+ cont2 1) (- tamtex  cont2)))
+					(setq val_km (atof estaca))
+					(setq val_km (* val_km 1000))
+					(setq val_fra (atof fracao))
+					(setq valor1 (+ val_km val_fra))
+					(setq valor2 (/ valor1 20))
+					(setq valor3 (fix valor2))
+					(setq valor4 (* (- valor2 valor3) 20))
+					(setq novtex (Strcat ele_curv (rtos valor3 2 0) "+" (rtos valor4 2 2)))
+					(Command "CHANGE" nome "" "" "" "" "" "" novtex)
+;                                       (Setq ctr (1+ ctr))
+					(Setq lop (1+ lop))
+				)
+			)
+			(Setq ctr (1+ ctr))
+		)
+	)
+)
+(Print)(Print)(Print)
+(Cond ( (= lop 0) (Alert "\n\nNENHUM TEXTO MODIFICADO !!\n\n"))
+	( (= lop 1) (Alert "\n\n1 TEXTO MODIFICADO !!\n\n"))
+	( (> lop 1) (Alert (Strcat "\n\n" (Itoa lop)" TEXTOS MODIFICADOS !!\n\n")))
+)
+(command "CMDECHO" 1)
+(Print "FIM")(Print)
+)
+
+

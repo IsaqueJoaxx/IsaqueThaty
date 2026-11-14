@@ -1,0 +1,22 @@
+superficie: Eixo traçado 2 T5 volume=False
+superficie: Primitivo volume=False
+superficie: VOLUME-1 volume=True
+   corte=36396.49 aterro=33015.58
+base=Primitivo comparacao=Eixo traçado 2 T5
+TUDO (2410 ms): Sobreposição das superfícies area=37749.0 corte=36396.49 aterro=33015.58
+   malha cel=1 2012x879 corte=36389.1 aterro=33016.5 dif=0.01%
+   Corte 0,00 a 0,50 m: area=5012 vol=1189
+   Corte 0,50 a 1,00 m: area=3502 vol=2623
+   Corte 1,00 a 2,00 m: area=5110 vol=7439
+   Corte 2,00 a 3,00 m: area=1624 vol=3887
+   Corte acima de 3,00 m: area=3862 vol=21251
+   Aterro 0,00 a 0,50 m: area=3994 vol=959
+   Aterro 0,50 a 1,00 m: area=4156 vol=3040
+   Aterro 1,00 a 2,00 m: area=4754 vol=6808
+   Aterro 2,00 a 3,00 m: area=1754 vol=4333
+   Aterro acima de 3,00 m: area=3762 vol=17875
+POLIGONO (2398 ms): Retângulo envolvente area=1768548.0 corte=36396.49 aterro=33015.58 | Quadrado 30 x 30 no corredor area=900.0 corte=0.00 aterro=434.01
+   malha cel=1 corte=36389.8 aterro=33015.3 dif=0.61%
+   AVISO Há polígonos sobrepostos ou fora das superfícies: o total soma áreas repetidas ou sem superfície.
+MAPA: 9127 solidos; entidades na camada: 9148
+superficies depois: Eixo traçado 2 T5, Primitivo | total ids=3

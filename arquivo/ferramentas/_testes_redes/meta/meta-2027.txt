@@ -1,0 +1,170 @@
+﻿== Autodesk.Civil.DatabaseServices.Structure : Part
+  P Double InletCurbOpeningHeight get set
+  P Double InletCurbOpeningLength get set
+  P Double InletGrateLength get set
+  P Double InletGrateWidth get set
+  P Double InletLocalDepression get set
+  P ObjectId BypassTarget get set
+  P InletLocationType InletLocation get set
+  P Double InletGutterManningsCoefficient get set
+  P Double InletGutterWidth get set
+  P Double InletGutterCrossSlope get set
+  P Double InletRoadCrossSlope get set
+  P Double InletLongitudinalSlope get set
+  P Double InletClogging get set
+  P InletThroatAngleType InletThroatAngle get set
+  P InletGrateType InletGrateType get set
+  P PipeNetworkStructureType StructureType get set
+  P Double KnownCapacity get set
+  P Double EnergyGradeLine get set
+  P Double HydraulicGradeLine get set
+  P Double CatchmentsRunoffCoefficient get set
+  P Double CatchmentsTimeOfConcentration get set
+  P Double CatchmentsArea get set
+  P ObjectId StyleId  set
+  P Point3d Location get set
+  P Double HeadwallBaseThickness get 
+  P Double HeadwallBaseWidth get 
+  P Double ConeHeight get 
+  P Double BarrelPipeClearance get 
+  P Double FrameDiameter get 
+  P Double FrameHeight get 
+  P String Cover get 
+  P String Grate get 
+  P String Frame get 
+  P Double FloorThickness get 
+  P Double RimToSumpHeight get set
+  P Double VerticalPipeClearance get 
+  P Double Easting get set
+  P Double Northing get set
+  P Double Station get 
+  P Double Offset get 
+  P Double SurfaceElevationAtInsertionPoint get 
+  P Double RimElevation get set
+  P Double SumpDepth get set
+  P Boolean AutomaticRimSurfaceAdjustment get set
+  P Double SurfaceAdjustmentValue get set
+  P Double SumpElevation get set
+  P Double Height get 
+  P Double InnerLength get 
+  P Double Length get 
+  P Double InnerDiameterOrWidth get 
+  P Double DiameterOrWidth get 
+  P Double PipeUpperTopDepth get 
+  P Double PipeLowestBottomDepth get 
+  P Double PipeOuterTopDepth get 
+  P Double PipeOuterBottomDepth get 
+  P Double PipeInvertDepth get 
+  P Double PipeCenterDepth get 
+  P Double PipeInnerDiameterOrWidth get 
+  P Double PipeWallThickness get 
+  P BoundingShapeType BoundingShape get 
+  P Double Rotation get set
+  P StructureControlSumpType ControlSumpBy get set
+  P Int32 ConnectedPipesCount get 
+  P ObjectId ConnectedPipe get 
+  M Boolean ResizeByPipeDepths()
+  M Boolean IsConnectedPipeFlowingIn(Int32)
+  M Boolean IsConnectedPipeFlowingOut(Int32)
+  M Void ConnectToPipe(ObjectId, ConnectorPositionType)
+  M Void Disconnect(ObjectId)
+  M Void ResizeJunctionStructure(String, Double, Double)
+  M String[] GetConnectedPipeNames()
+  M Boolean IsPointInsideStructureRegion(Point3d)
+  M ObjectIdCollection GetLabelIds()
+  M ObjectIdCollection GetAvailableStructureLabelIds()
+  M ObjectIdCollection GetConnectedCatchmentIds()
+  M ObjectIdCollection GetConnectedPressurePipeIds()
+  M Void .ctor(IntPtr, Boolean)
+  M Void ApplyResizing(AeccDataRecord*)
+  M AeccDbTreeOid* GetRuleSetStylesRoot(AeccDbTreeOid*)
+== Autodesk.Civil.DatabaseServices.Catchment : Entity
+  P Double DurationOfPeak get set
+  P Double RecessionMultiplier get set
+  P Double InitialDeficit get set
+  P Double Conductivity get set
+  P Double SuctionHead get set
+  P Double MaxInfiltrationVolume get set
+  P Double HortonDryingTime get set
+  P Double CurveNumberDryingTime get set
+  P Double DecayConstant get set
+  P Double MinInfiltrationRate get set
+  P Double MaxInfiltrationRate get set
+  P InfiltrationMethod InfiltrationMethod get set
+  P Double PerviousManningsN get set
+  P Double PerviousDepressionStorageDepth get set
+  P Double PerviousDeppressionStorageDepth get set
+  P Double ImperviousNoDepression get set
+  P Double ImperviousManningsN get set
+  P Double ImperviousDepressionStorageDepth get set
+  P Double ImperviousDeppressionStorageDepth get set
+  P Double RoutingPercentage get set
+  P InternalRouting InternalRouting get set
+  P Double EquivalentWidth get set
+  P Double AverageSlope get set
+  P Int32 CompositeCurveNumber get set
+  P Double InitialAbstractionFraction get set
+  P Double InitialAbstractionDepth get set
+  P InitialAbstractionType InitialAbstractionType get set
+  P Int32 ShapeFactor get set
+  P HydrographShapeType ShapeType get set
+  P RunoffMethod RunoffMethod get set
+  P Double ChannelFlowTravelTime get 
+  P Int32 ChannelFlowSegments get 
+  P Double ShallowFlowTravelTime get 
+  P Int32 ShallowFlowSegments get 
+  P Double SheetFlowTravelTime get 
+  P Int32 SheetFlowSegments get 
+  P String ReferencePipeNetworkName get 
+  P ObjectId ReferencePipeNetworkId get set
+  P ObjectId ReferenceDischargeObjectId get set
+  P String ReferenceDischargeObjectName get 
+  P ObjectId ReferencePipeNetworkStructureId get set
+  P String ReferencePipeNetworkStructureName get 
+  P String ReferenceSurfaceName get 
+  P ObjectId ReferenceSurfaceId get set
+  P Double RunoffCoefficient get set
+  P Double ManningsCoefficient get set
+  P TimeOfConcentrationCalculationMethod TimeOfConcentrationCalculationMethod get set
+  P Double TimeOfConcentration get set
+  P Boolean Exclusionary get 
+  P Double FlowPathLength get 
+  P Double HydrologicallyMostDistantLength get 
+  P Point3d HydrologicallyMostDistantPoint get 
+  P Double UnconnectedImperviousArea get set
+  P Double ImperviousArea get set
+  P Int32 AntecedentWetness get set
+  P HydrologicalSoilGroup HydrologicalSoilGroup get set
+  P Int32 CurveNumber get set
+  P Point3d DischargePoint get 
+  P ObjectId ContainingGroupId get 
+  P Point3dCollection BoundaryPolyline3d get set
+  P Point2dCollection BoundaryPolyline2d get 
+  P Double Perimeter2d get 
+  P Double Area2d get 
+  P ObjectId StyleId  set
+  P FlowPath FlowPath get 
+  M Void .ctor(IntPtr, Boolean)
+  M static ObjectId Create(String, ObjectId, ObjectId, ObjectId, Point3dCollection)
+  M static ObjectId CreateCopy(ObjectId, ObjectId)
+  M ObjectIdCollection GetAvailableCatchmentLabelIds()
+  M ObjectIdCollection GetAvailableFlowSegmentLabelIds()
+  M FlowPath GetFlowPath()
+  M Void SetFlowPath(Point3dCollection)
+  M Void SetFlowPath(FlowPath)
+  M static Void CheckValidBoundary(Point3dCollection)
+  M Void checkRunoffAttributeValid(UInt32)
+  M Void checkInitialAbstractionType(InitialAbstractionType)
+  M Void checkInfiltrationMethod(InfiltrationMethod)
+  M Void CheckReferenceDischargeObjectValid(AcDbObjectId*)
+  M AeccDbCatchmentArea* GetImpObj()
+== Autodesk.Civil.DatabaseServices.CatchmentGroup : DBObject
+  M Void .ctor(IntPtr, Boolean)
+  M static ObjectId Create(Database, String)
+  M ObjectId GetCatchmentId(String)
+  M ObjectIdCollection GetAllCatchmentIds()
+  M Void AddCatchmentId(ObjectId)
+  M static Void MoveCatchment(ObjectId, ObjectId)
+  M Void RemoveCatchmentId(ObjectId)
+  M Void RemoveAllCatchments()
+  M AeccDbCatchmentAreaGroup* GetImpObj()

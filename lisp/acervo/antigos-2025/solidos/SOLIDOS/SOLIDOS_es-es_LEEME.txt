@@ -1,0 +1,132 @@
+SOLIDOS - plugin para modelado de dispositivos y dimensionamiento
+
+_______________________________________________________________________________________
+Autor:
+
+Neyton Luiz Dalle Molle
+Ingeniero Civil
+
+_______________________________________________________________________________________
+Instalación:
+
+1) Cierra Civil 3D si está abierto
+
+2) Si usaste la versión con instalador:
+ *Primero desinstale la versión anterior desde el Panel de control*
+
+3) Si cargaste con NETLOAD desde cualquier carpeta:
+ *Primero cambie el nombre de la carpeta para que Civil 3D no pueda encontrarla.
+
+4) Descomprime todos los archivos en la misma carpeta (puede ser cualquiera)
+
+5) Ejecute el instalador SETUP_SOLIDOS.exe con permisos de usuario NORMALES,
+   NO ES NECESARIO SER ADMINISTRADOR
+
+  Si utiliza la carpeta de instalación predeterminada:
+     C:\ProgramData\Autodesk\ApplicationPlugins\SOLIDOS.bundle\
+  Civil 3D cargará el programa cuando se abra
+
+  Si elige una carpeta diferente, debe usar el comando NETLOAD para completar el
+  instalación. En este caso, elija la dll compatible con la versión de Civil 3D
+  que esté usando:
+
+
+      Civil 3D      Cargar DLL
+    -------------------------------------------------
+    Civil 3D 2020: ./dotnet_4/SOLIDOS_2020.dll
+
+    Civil 3D 2021: ./dotnet_4/SOLIDOS_2021.dll
+    Civil 3D 2022: ./dotnet_4/SOLIDOS_2021.dll
+    Civil 3D 2023: ./dotnet_4/SOLIDOS_2021.dll
+    Civil 3D 2024: ./dotnet_4/SOLIDOS_2021.dll
+
+    Civil 3D 2025: ./dotnet_8/SOLIDOS_2025.dll
+    Civil 3D 2026: ./dotnet_8/SOLIDOS_2025.dll
+
+    Civil 3D 2016 a 2019: ./dotnet_4/C3DRENESG4_2020.dll
+      Nota: ¡Estas versiones ya no reciben soporte oficial!
+     ¡Puede que funcione, puede que no!
+   
+6) Abra el archivo "./Support/catalogo.dwg" en la carpeta donde lo instaló para ver
+   un catálogo de dispositivos ya creados
+
+7) Para cargar el menú y las barras de herramientas, use el comando CMENU
+   Si no funciona, asegúrese de que la carpeta y todas las subcarpetas y archivos
+   donde está instalado el complemento es LEER y ESCRIBIR
+
+____________________________________________________________________________________
+Desinstalación:
+
+1) Elimine Civil 3D si ya está instalado.
+
+2) Vaya a Panel de Control, Agregar o Quitar Programas, localice SOLIDOS y
+    haga clic en la opción Desinstalar
+
+_______________________________________________________________________________________
+Solución de problemas de instalación:
+
+1) Asegúrese de que la carpeta y todas las subcarpetas y archivos donde se encuentra el
+   complemento instalado es LEER y ESCRIBIR
+
+2) Si el complemento no se carga:
+    Seleccione el comando SECURELOAD en la línea de comandos de Civil 3D e introduzca 0,
+    A continuación, reinicie Civil 3D.
+
+3) Tiene otros complementos TBN2NET (TBN2CAD, C3DRENESG4, C3DMEMO, TBN2C3D, DDM),
+    Deberá actualizarlos todos en https://tbn2net.com porque pueden producirse conflictos.
+    entre las versiones DLL que se cargan en AutoCAD.
+
+4) Si la DLL no se pudo cargar, se muestra un error en la línea de comando
+ 1) Ubique la carpeta de instalación del programa.
+ 2) Haga clic derecho en la DLL compatible con su versión CAD
+ 3) haga clic en Propiedades
+ 4) Haga clic en el botón Desbloquear, si lo hay.
+ 5) Reinicie CAD e intente nuevamente con el comando NETLOAD
+
+5) Si los archivos de ayuda (*.chm) no se abren:
+    1) Localizar una carpeta de instalación del programa.
+    2) Haga clic con el botón derecho del ratón sobre los archivos de ayuda del programa.
+    3) Haga clic en la cámara de propiedades
+    4) Haga clic en el botón Desbloquear, si existe.
+   
+    Si el procedimiento actual no funciona
+       1) Abre la línea de comandos como administrador (CMD.exe, sin menú de inicio).
+       2) escriba:
+           regsvr32 %systemroot%system32\hhctrl.ocx
+           regsvr32 %systemroot%system32\hhctrl.dll
+
+    O consulta la ayuda en línea:
+
+    https://tbn2net.com/help/SOLIDOS
+
+6) Los menús o la cinta no aparecen después de la instalación:
+   Utilice el comando SMENU
+
+_______________________________________________________________________________________
+Licencia de uso:
+
+  Prueba gratis durante 15 días si registras una licencia demo
+
+  Para registrarte, completa tu nombre y correo electrónico en la pantalla que se abre
+  al usar el programa y que se trata de una versión demo.
+
+  Después de este período, el programa vuelve al modo de demostración.
+
+  Si compras una licencia permanente, estarás sujeto al
+  ACUERDO DE LICENCIA DEL PROGRAMA, disponible en el paquete del programa.
+
+_______________________________________________________________________________________
+Garantías:
+
+ Ninguno. ¡¡¡Úselo bajo su propio riesgo!!!
+
+_______________________________________________________________________________________
+Soporte:
+
+     neyton@yahoo.com
+     https://tbn2.blogspot.com
+     https://tbn2net.com
+     WhatsApp: +55 41 99827 5531
+     skype: neyton@hotmail.com
+
+Dudo que alguien haya leído este documento... Si lo hiciste, ¡¡¡envía un mensaje!!!

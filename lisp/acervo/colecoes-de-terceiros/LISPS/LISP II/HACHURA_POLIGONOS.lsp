@@ -1,0 +1,43 @@
+;;;modificacoes nao sao autorizadas,falar com Wander
+;------------------------------------------------------------------------------
+(defun c:APOL ()
+   (prompt msgdoce) (terpri) 
+   (prompt "*Rotina p/achurar poligonos de geologia vindos do vulcan - Wander 25 de junho de 2000*")
+   (princ)
+   (initget 7)
+   (setq angulo 45)
+   (setq sel (ssget "x")
+           num (sslength sel)
+           ind 0)
+   (while (< ind num)
+      (progn
+         (setq nome (ssname sel ind)
+               tx (entget nome)
+               cor (cdr (assoc 62 tx)))
+	 (command "hatch" "ansi31" "0.05" angulo nome "")
+;         (setq angulo (+ angulo 30))
+	 (setq wander (entlast))
+         (command "change" wander "" "p" "c" cor "")
+         (terpri)
+         (setq indi (+ ind 1))
+         (prompt (rtos indi 2 0))
+         (prompt " Entidades Modificadas.")
+         (terpri)(princ)
+      )
+      (setq ind (1+ ind))
+   )
+   (prompt "FINAL DAS MODIFICACOES")
+   (princ)
+)
+;------------------------------------------------------------------------------
+(defun rop ()
+(setq rop (strcat (chr 32) (chr 45) (chr 32) (chr 112) (chr 111) (chr 114) (chr 32))
+      itnerual (strcat (chr 74) (chr 46) (chr 76) (chr 97) (chr 117) (chr 114) (chr 101) (chr 110) (chr 116) (chr 105))
+      msgdoce (strcat "\n\t  ** DOCEGEO-Distr.Sul" rop itnerual " **  "))
+)
+(rop)
+;------------------------------------------------------------------------------
+(prompt "Tecle <APOL> para iniciar o comando.")
+(princ)
+                        
+                 

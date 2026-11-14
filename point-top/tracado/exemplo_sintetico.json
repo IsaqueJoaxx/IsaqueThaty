@@ -1,0 +1,19 @@
+{
+  "titulo": "Teste em terreno sintético — 3 alternativas",
+  "terreno": {"tipo": "sintetico", "dx": 10, "largura": 1600, "altura": 1100},
+  "inicio": [703080, 7668600],
+  "fim": [704520, 7668640],
+  "parametros": {
+    "rampa_max": 0.08,
+    "raio_min": 60,
+    "raio_desejado": 120,
+    "plataforma": 8,
+    "n_alternativas": 3
+  },
+  "custos": {},
+  "restricoes": [
+    {"tipo": "proibido", "nome": "edificação",
+     "poligono": [[703820, 7668180], [703900, 7668180], [703900, 7668300], [703820, 7668300]]}
+  ],
+  "saida": "saida_sintetico"
+}

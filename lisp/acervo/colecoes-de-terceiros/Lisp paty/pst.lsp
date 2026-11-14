@@ -1,0 +1,35 @@
+(defun C:PST (/ PR SU ST K IDX MA G AT NV B B1)
+  (setq count 0)
+  (setq PR (getstring 1 "\nEntre com o prefixo : "))
+  (setq SU (getstring 1 "\nEntre com o sufixo : "))
+  (princ "\nSelecione o TEXTO a ser alterado ...")
+  (if (setq ST (ssget))
+    (progn
+      (setq K (sslength ST))
+      (setq IDX 0)
+      (repeat K
+	(setq MA (entget (ssname ST IDX)))
+	(setq IDX (1+ IDX))
+	(if (= "TEXT" (cdr (assoc 0 MA)))
+	  (progn
+	    (setq G (assoc 1 MA))
+	    (setq AT (cdr G))
+	    (setq NV (strcat PR AT SU))
+	    (setq B (cons (car G) NV))
+	    (setq B1 (subst B G MA))
+	    (setq count (1+ count))
+	    (entmod B1)
+	  )
+	  nil
+	)
+      )
+    )
+    (princ "\nNenhuma entidade foi selecionada ...")
+  )
+  (princ (strcat "\n"
+		 (itoa count)
+		 " entidades TEXTO foram alteradas..."
+	 )
+  )
+  (princ)
+)

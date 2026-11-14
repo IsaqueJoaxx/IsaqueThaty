@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFrameworks>net8.0-windows;net10.0-windows</TargetFrameworks><UseWindowsForms>true</UseWindowsForms><UseWPF>true</UseWPF><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><PlatformTarget>x64</PlatformTarget><AssemblyName>Terraplenagem.IFM.Civil</AssemblyName><Version>0.1.0</Version><NuGetAudit>false</NuGetAudit><EnableDynamicLoading>true</EnableDynamicLoading></PropertyGroup>
+ <PropertyGroup Condition="'$(TargetFramework)'=='net8.0-windows'"><AcadRoot>C:\Program Files\Autodesk\AutoCAD 2026</AcadRoot></PropertyGroup>
+ <PropertyGroup Condition="'$(TargetFramework)'=='net10.0-windows'"><AcadRoot>C:\Program Files\Autodesk\AutoCAD 2027</AcadRoot></PropertyGroup>
+ <ItemGroup><ProjectReference Include="..\Core\Terraplenagem.Core.csproj"/><Using Remove="System.Windows.Forms"/><Using Remove="System.Drawing"/></ItemGroup>
+ <ItemGroup>
+ <Reference Include="AcMgd"><HintPath>$(AcadRoot)\acmgd.dll</HintPath><Private>false</Private></Reference>
+ <Reference Include="AcDbMgd"><HintPath>$(AcadRoot)\acdbmgd.dll</HintPath><Private>false</Private></Reference>
+ <Reference Include="AcCoreMgd"><HintPath>$(AcadRoot)\accoremgd.dll</HintPath><Private>false</Private></Reference>
+ <Reference Include="AecBaseMgd"><HintPath>$(AcadRoot)\ACA\AecBaseMgd.dll</HintPath><Private>false</Private></Reference>
+ <Reference Include="AeccDbMgd"><HintPath>$(AcadRoot)\C3D\AeccDbMgd.dll</HintPath><Private>false</Private></Reference>
+ </ItemGroup>
+</Project>

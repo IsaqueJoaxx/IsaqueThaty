@@ -1,0 +1,1 @@
+(defun c:MELEV () (command "change" PAUSE "" "p" "E" (getstring "\nDigite a Elevação...:")""))

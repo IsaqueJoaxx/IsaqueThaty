@@ -1,0 +1,35 @@
+{
+  "terraplanagem": [
+    {
+      "trecho": "Estacas 0 a 300",
+      "inicio_m": 0,
+      "fim_m": 6000,
+      "secoes": 307,
+      "volumes_m3": {
+        "Corte 95%": 0.0,
+        "Corte 100%": 134.48115528138933,
+        "Aterro 95%": 2695.3827940829633,
+        "Aterro 100%": 63481.27886110222
+      }
+    },
+    {
+      "trecho": "Estacas 350 a 400",
+      "inicio_m": 7000,
+      "fim_m": 8000,
+      "secoes": 51,
+      "volumes_m3": {
+        "Corte 95%": 0.0,
+        "Corte 100%": 5.840518484888033,
+        "Aterro 95%": 1771.9361001703624,
+        "Aterro 100%": 8564.081325013207
+      }
+    }
+  ],
+  "total_terraplanagem_m3": {
+    "Corte 95%": 0.0,
+    "Corte 100%": 140.32167376627737,
+    "Aterro 95%": 4467.318894253325,
+    "Aterro 100%": 72045.36018611543
+  },
+  "subleito": "Pendente: espessura, largura/limites e unidade de medicao nao definidos."
+}

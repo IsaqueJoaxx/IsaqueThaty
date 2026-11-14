@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>Projeta.ConfTeste</AssemblyName>
+    <PlatformTarget>x64</PlatformTarget>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <NoWarn>$(NoWarn);CA1416;MSB3270;MSB3277</NoWarn>
+    <AcadDir>C:\Program Files\Autodesk\AutoCAD 2027</AcadDir>
+    <Bin>$(MSBuildThisFileDirectory)..\..\projeta\src\Projeta.Civil3D\bin\Release\net10.0-windows</Bin>
+    <OutputPath>C:\Temp\nsteste\av4\out\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- usa as DLLs reais do plugin (copiadas para a pasta de saÃ­da); as classes internas sÃ£o chamadas por reflexÃ£o -->
+    <Reference Include="Projeta.Core"><HintPath>$(Bin)\Projeta.Core.dll</HintPath><Private>True</Private></Reference>
+    <Reference Include="Projeta.Redes"><HintPath>$(Bin)\Projeta.Redes.dll</HintPath><Private>True</Private></Reference>
+    <Reference Include="Projeta.Mcp"><HintPath>$(Bin)\Projeta.Mcp.dll</HintPath><Private>True</Private></Reference>
+    <Reference Include="AcCoreMgd"><HintPath>$(AcadDir)\AcCoreMgd.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AcDbMgd"><HintPath>$(AcadDir)\AcDbMgd.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AcMgd"><HintPath>$(AcadDir)\AcMgd.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AecBaseMgd"><HintPath>$(AcadDir)\ACA\AecBaseMgd.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AeccDbMgd"><HintPath>$(AcadDir)\C3D\AeccDbMgd.dll</HintPath><Private>False</Private></Reference>
+  </ItemGroup>
+</Project>

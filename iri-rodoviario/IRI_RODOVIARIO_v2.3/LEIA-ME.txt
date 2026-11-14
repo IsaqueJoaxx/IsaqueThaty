@@ -1,0 +1,45 @@
+IRI RODOVIARIO v2.3 - conformacao + camada final de 23 cm
+================================================================
+
+NAO PRECISA INSTALAR NADA. Copie esta pasta para qualquer computador com Windows 10/11.
+
+PARA RODAR
+  - Duplo clique em IRI_RODOVIARIO.exe: ele pede o eixo (.xml) e depois o levantamento (.csv).
+  - Ou selecione os dois arquivos e arraste em cima do IRI_RODOVIARIO.exe.
+  - A primeira abertura demora uns segundos (o programa se descompacta).
+  - O resultado sai na pasta RESULTADO_<nome do levantamento>, ao lado do .csv:
+      IRI_NOTAS_...xlsx            Resumo, Custos, Nota Conformacao, Nota Final +23, IRI por 100 m
+      LINHAS_3D_...dxf             linhas 3D (final, conformacao, existente e secoes) p/ Civil 3D
+      PONTOS_CONFORMACAO_...csv    pontos PNEZD (Civil 3D)
+      PONTOS_FINAL_...csv          pontos PNEZD (Civil 3D)
+      PERFIS_...xml                eixo + perfis CONFORMACAO e FINAL (LandXML)
+      PERFIL_...png                grafico do perfil
+
+FORMATO DO LEVANTAMENTO
+  numero;N;E;cota;codigo   (uma linha por ponto, secoes com eixo e os dois bordos)
+
+PARAMETROS
+  Ficam no IRI_PARAMETROS.txt, ao lado do .exe (espessura, larguras, caimento, custos,
+  precos, IRI alvo, limite de fresagem, superelevacao). Abra no Bloco de Notas, mude o valor
+  depois do "=" e rode de novo. Se apagar o arquivo, ele volta com os valores padrao.
+
+CUSTOS
+  Na aba Custos da planilha, preencha os precos unitarios (R$/m3) nas celulas amarelas. Ela
+  compara o greide original (0,23 m direto sobre a pista) com o novo greide (conformacao +
+  0,23 m) e mostra o aumento total, por km e a cada 100 m.
+  Para o programa ACHAR o greide mais barato com os seus precos, coloque os mesmos valores no
+  IRI_PARAMETROS.txt (preco_enchimento, preco_fresagem, preco_concreto) e rode de novo.
+
+LINHAS 3D (Civil 3D / AutoCAD)
+  Abra ou insira o LINHAS_3D_...dxf. Camadas: IRI_FINAL (vermelho), IRI_FINAL_SECOES,
+  IRI_CONFORMACAO (azul), IRI_CONF_SECOES, IRI_EXISTENTE (cinza) e IRI_ESTACAS.
+  Para conferir o volume: crie uma superficie com as linhas IRI_FINAL + IRI_FINAL_SECOES
+  (breaklines), outra com IRI_CONFORMACAO + IRI_CONF_SECOES, e compare no Volumes Dashboard.
+
+SE O WINDOWS AVISAR "O Windows protegeu o computador"
+  Clique em "Mais informacoes" e depois em "Executar assim mesmo". O aviso aparece porque o
+  programa nao tem assinatura digital, nao porque tenha algum problema.
+
+SE DER ERRO
+  A janela mostra a mensagem e grava ERRO_IRI_RODOVIARIO.txt ao lado do .csv.
+  Se a planilha anterior estiver aberta no Excel, a nova sai com outro nome.

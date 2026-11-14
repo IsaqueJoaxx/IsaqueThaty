@@ -1,0 +1,37 @@
+superficies: Eixo traçado 2 T5, Primitivo, VOLUME-1 (vol)
+projeto=Eixo traçado 2 T5 bbox 878.1 x 2011.4 m; faixa A: x<591407.74 (+0,15); faixa B: 591407.74<=x<591495.55 (-0,08); resto ruido +-0,02
+pontos da obra: 9442 (A=5295, B=762, C=3385) em 2184 ms
+alinhamento: Eixo traçado 2 T5 0.0..2503.1
+ESPERADO (pelos pontos): acima 56.1 %, abaixo 8.1 %, dentro 35.9 %
+CALCULO (1664 ms): celula 1 m, malha 2008x874, volumes exatos=True
+  Sobreposição das superfícies: area 34603.0 m2; dentro 31.15 %, acima 56.91 %, abaixo 11.94 %; media 0.0833 dp 0.1297 emq 0.1542; max 0.779 min -0.464; vol acima 3394.41 abaixo 557.15 -> Não conforme
+  faixa Acima do projeto (cortar): mais de 0,20 m: 3175.0 m2, 1064.28 m3
+  faixa Acima do projeto (cortar): 0,10 a 0,20 m: 15460.0 m2, 2265.61 m3
+  faixa Acima do projeto (cortar): 0,05 a 0,10 m: 1056.0 m2, 76.85 m3
+  faixa Dentro da tolerância (-0,05 a +0,05 m): 10779.0 m2, 183.25 m3
+  faixa Abaixo do projeto (aterrar): 0,05 a 0,10 m: 2198.0 m2, 168.76 m3
+  faixa Abaixo do projeto (aterrar): 0,10 a 0,20 m: 1354.0 m2, 188.27 m3
+  faixa Abaixo do projeto (aterrar): mais de 0,20 m: 581.0 m2, 146.45 m3
+  P1: (591321.72; 7766974.67) estaca 2054.97 afast 5.42 proj 769.155 obra 769.933 desvio 0.779 excesso 0.729 faixa 0
+  P2: (591631.72; 7768317.67) estaca 521.97 afast -18.19 proj 817.695 obra 818.392 desvio 0.697 excesso 0.647 faixa 0
+  P3: (591320.72; 7767318.67) estaca 1712.34 afast -18.08 proj 780.929 obra 781.600 desvio 0.671 excesso 0.621 faixa 0
+  P4: (591375.72; 7767736.67) estaca 1156.54 afast -5.67 proj 813.126 obra 813.794 desvio 0.668 excesso 0.618 faixa 0
+  P5: (591368.72; 7767745.67) estaca 1155.45 afast 5.68 proj 813.212 obra 813.879 desvio 0.667 excesso 0.617 faixa 0
+  P6: (591354.72; 7767719.67) estaca 1182.82 afast -5.51 proj 810.925 obra 811.586 desvio 0.660 excesso 0.610 faixa 0
+  P7: (591385.72; 7767746.67) estaca 1142.80 afast -5.72 proj 814.169 obra 814.822 desvio 0.653 excesso 0.603 faixa 0
+  P8: (591354.72; 7767733.67) estaca 1174.45 afast 5.71 proj 811.713 obra 812.364 desvio 0.652 excesso 0.602 faixa 0
+  criticos: 20; na faixa A (x<xa): 19; na B: 0; fora de A/B: 1
+  estacas: Eixo traçado 2 T5, 116 linhas, afastamentos [-30; -28; -26; -24; -22; -20; -18; -16; -14; -12; -10; -8; -6; -4; -2; 0; 2; 4; 6; 8; 10]
+    20.00: n=5 fora=2 media=0.031 max=0.111@-4 min=-0.031@0 2 ponto(s) fora
+    40.00: n=7 fora=2 media=0.001 max=0.124@4 min=-0.075@6 2 ponto(s) fora
+    60.00: n=7 fora=4 media=0.008 max=0.156@-4 min=-0.114@6 4 ponto(s) fora
+    1180.00: n=7 fora=7 media=0.269 max=0.701@-6 min=0.133@0 7 ponto(s) fora
+    1200.00: n=7 fora=7 media=0.212 max=0.299@4 min=0.118@0 7 ponto(s) fora
+  origem Desenho: C:\Temp\nsteste\teste.dwg
+  origem Método: Superfície de volume TIN do Civil 3D (obra - projeto), criada só para o cálculo e desfeita; desvio amostrado no centro de cada célula da malha; volumes acima/abaixo do projeto pelo cálculo exato por prisma.
+  origem Área de análise: sobreposição das duas superfícies
+  origem Controle por estaca: alinhamento Eixo traçado 2 T5, estacas 0+0,000 a 125+3,069 a cada 20 m; afastamentos automáticos: -30; -28; -26; -24; -22; -20; -18; -16; -14; -12; -10; -8; -6; -4; -2; 0; 2; 4; 6; 8; 10 m; 116 estaca(s) com dados, 11 sem as duas superfícies (fora da planilha)
+  origem Pontos críticos: maior excesso sobre a tolerância em cada região, até 20 pontos afastados pelo menos 10 m entre si; cotas lidas nas duas superfícies.
+  origem Gerado em: 13/11/2026 12:33
+MAPA: 11524 solidos; entidades na camada: 11579
+superficies depois: Eixo traçado 2 T5, Primitivo, VOLUME-1, OBRA TESTE

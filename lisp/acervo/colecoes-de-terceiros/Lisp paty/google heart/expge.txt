@@ -1,0 +1,131 @@
+ExpGE, Exportar/Importar autocad<->google earth
+
+Desenvolvedor:
+Neyton Luiz Dalle Molle
+Engenheiro Civil
+
+Contato:
+neyton@yahoo.com
+neyton@hotmail.com
+
++-------------------------------------------------------------------------------------------------------+
+Antes de continuar, se você acha que este programa vale um dolar, mande-me um cartão
+postal da sua cidade (com um dolar junto!!, hehehe)
+Endereço: Rua Francisco Raitani, 7081 - Curitiba, Paraná - Brasil
+CEP 81110-070
++-------------------------------------------------------------------------------------------------------+
+Before any thing, if you believe that this program costs 1 dollar, you order me a
+postal card of your city! (with 1 dollar together! , hehehe)
+address: Avenue Senator Souza Naves, 600 - Curitiba, Paraná - Brazil
+Zip Code 80050-040
++-------------------------------------------------------------------------------------------------------+
+
+Para Usar, na linha de comando digite:
+ExpGE para EXPORTAR linhas e pontos para o GOOGLE EARTH
+ReadKml para IMPORTAR pontos e linhas de arquivos KML
+GEProps para editar o NOME e a DESCRIÇÃO das entidades ANTES de EXPORTAR
+
+
+após selecionar as entidades que serão exportadas, aparecerá um quadro de diálogo
+perguntando como devem ser processadas as COTAS das coordenadas, se são relativas
+ao solo, se são cotas absolutas, ou se devem ser ignoradas (as linhas são desenhadas
+sobre o solo)
+
+
+Deve ser informado qual o referencial usado no autocad (WGS84, SAD69...) os quais 
+estão predefinidos no arquivo "expge.ini" com os parâmetros:
+
+"a"              -> semi-eixo maior do elipsóide,
+"achatamento"    -> ... (1/f, onde f é o valor que aparece na lista deste arquivo)
+"dx", "dy", "dz" -> translações da coordenada no sistema carteziano para converter
+                    um ponto de um referencial para outro
+
+
+será perguntado em qual hemisfério está localizada as entidades (Norte/Sul)
+
+também será necessário informar em qual fuso se está trabalhando (no meu caso,
+Curitiba está no fuso 22, com meridiano central 51W)
+
+Obs: Pode-se escolher qual parâmetro informar, se o fuso ou o meridiano central
+     caso seja informado o meridiano central, usar com sinal NEGATIVO para OESTE
+     e positivo para LESTE
+
+Após todos estes parâmetros estiverem corretamente definidos, será criado um arquivo
+"*.KML" que é o formato usado no Google Earth
+
+Cada entidade processada no AutoCad, possui uma Layer e este será visualizado no Google
+Earth como uma "folder", onde esta(s) entidade(s) estarão localizadas
+
+Entidades Exportáveis:
+POINT, LINE, LWPOLYLINE, POLYLINE, SPLINE, CIRCLE, ARC, ELLIPSE
+
+blocos ainda não são exportáveis, mas estou trabalhando nisso
+as linhas que não são LINE, serão exportadas como POLYGON, isto é, qualquer segmento
+não RETO será convertido em segmentos de reta, criando-se vértices de modo a imitar
+tal segmento
+
+Licença de Uso:
+Grátis, para uso não comercial
+
+Garantias: NENHUMA! Use por sua própria conta e risco!
+
+Atualizações:
+
+VERSÃO 0.0
+10/12/2006 - Primeiros testes
+11/12/2006 - Rotinas para transformação de coordenadas UTM em Geográficas
+08/01/2007 - Conversão de referenciais (SAD69->WGS84 etc)
+14/01/2007 - a rotina passa a aceitar cotas absolutas, relativas e "no solo"
+14/01/2007 - Correção para layers OFF, correção para o semi-eixo INTEIRO, é preciso
+	convertê-lo para FLOAT
+	correção de lixos no codigo (obrigado alexlibrelon!!!)
+16/01/2007 - Abertura automática do google earth
+17/01/2007 - Correção de cotas de pontos 2d (assumir z=0)
+	Correção de falha ao imitar arcos em LWPOLYLINE
+18/01/2007 - Implementação de mapa para determinação do Fuso e do hemisfério
+	Implementação da possibilidade de alterar a lingua padrão das telas do programa
+19/01/2007 - Correção de bug: o hemisferio Norte não era calculado corretamente
+20/01/2007 - Correção de bug: Conflito entre dx/dy da conversão com w/h do slide (mapa)
+	Implementação: ao carregar o programa, ele adiciona a "support file search path"
+		posibilidade de alterar algumas propriedades das entidades
+		(GEProps)
+		Menu e barra de ferramentas próprios
+24/01/2007 - Correção de bug: toda vez que o programa era acionado, uma nova entrada era
+	criada na lista de referencial
+	Correção de bug: DZ definido pelo usuário era confundido com DX na hora
+	de mostrar na tela (apesar de calcular corretamente)
+26/01/2007 - Alteração da forma de salvamento dos parâmetros, agora cada DWG pode ter seus
+	próprios parâmetros
+	   - Primeira versão do progra READKML, que importa pontos, polígonos e linhas de
+	arquivos KML
+03/02/2007 - Aperfeiçoado o READKML, agora, as FOLDER do KML, são interpretados como
+		sendo LAYERs, com opção para layer padrão quando a FOLDER não existir
+	READKML agora lê o nome e a descrição das entidades
+04/02/2007 - Correção de Erro fatal ao definir um layer que não existe no readkml
+	   - Redefinição da relação de aspecto do lide, em alguns temas do windows XP, ele ficava
+		fora de posição
+06/02/2007 - Teste de novo Parser para o XML do KML... erros de string muito longa foram
+	observados e contornados com algumas "explosões" de string
+18/02/2007 - Inclusão de uma barra de status para acompanhar o processamento
+03/05/2007 - Correção de Bugs ao calcular coordenadas
+29/01/2008 - Correção de bug ao alterar a linguagem dos dcls
+19/02/2008 - Correção de bug ao procurar kml pelo readkml 
+	(findfile podia receber nil, causando erro)
+25/02/2008 - Possibilidade de alterar o link que aparece no kml (endereço do blog)
+29/03/2008 - Melhorado sistema de controle de versão
+
+VERSÃO 1.0
+07/05/2008 - Exportar textos e  blocos com atributos como markedpoint
+           - Variáveis *INI* para controlar alguns campos
+21/05/2008 - Corrigido bug com cotas absolutas
+10/06/2008 - Possibilidade de ler/gravar coordenadas geográficas, alguns mapas são extensos
+	demais (mapa do estado de São Paulo por exemplo) e passam de um fuso de largura
+	Fica mais interessante mudar a projeção, faça um teste usando o mapa do Brasil em anexo
+14/07/2008 - ReadKml pode ler MarkedPoints como blocos com atributos
+	Com isso, a ID e a DESCRIPTION serão os atributos do bloco, caso o bloco padrão
+	não exista ele cria. É possível editar o bloco
+	   - Correção dos textos em UTF8 lidos pelo readkml que iam para o autocad em caracteres
+	     trocados
+16/07/2008 - Correção dos caracteres UTF8 e caracteres especiais do html que o expge exporta
+17/07/2008 - ExpGE exporta entidades com a cor diferente da cor do seu layer
+	(cores byblock são ignorados, isto é, considera-se como bylayer)

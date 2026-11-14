@@ -1,0 +1,20 @@
+limpeza: 2306 objeto(s) da demonstração apagados; TN ok; retângulo 4 vértices, handle 154B7
+L: centróide fora do retângulo, cota fixa 854.7
+tempo 2.8 s; superfícies: PRJ Platô 1 - projeto, PRJ Platô 2 - projeto + PRJ-PLATOS FINAL (TN - Terreno natural)
+Platô 1: cota 850.206 (compensada), piso 849.973 a 850.439, caimento 0.50 % para 201.6°
+   área piso 9600.0 m2, terraplenagem 11868.5 m2, talude corte 1046 m2, aterro 1223 m2
+   alturas: corte 6.15 m, aterro 4.32 m; crista 218.6 m, pé 227.6 m
+   volumes EXATOS corte 10525.34 aterro 8422.24 | malha corte 10526.37 aterro 8423.00 (dif -0.01 % / -0.01 %)
+   saldo -2.46 m3 (aterro x 1.25 = 10527.80) -> Equilíbrio
+Platô 2: cota 854.700 (fixa), piso 854.596 a 854.816, caimento 0.50 % para 197.1°
+   área piso 1200.0 m2, terraplenagem 1421.9 m2, talude corte 116 m2, aterro 106 m2
+   alturas: corte 1.49 m, aterro 1.38 m; crista 95.1 m, pé 77.9 m
+   volumes EXATOS corte 335.84 aterro 317.92 | malha corte 337.10 aterro 318.67 (dif -0.37 % / -0.23 %)
+   saldo -61.56 m3 (aterro x 1.25 = 397.41) -> Falta (empréstimo)
+VolumesCivil Platô 1: área2D 11868.5, corte 10525.34, aterro 8422.24
+VolumesCivil Platô 2: área2D 1421.9, corte 335.84, aterro 317.92
+final no centróide do retângulo 850.206 (piso 850.206); num vértice 849.973
+final 60 m fora do retângulo (x+) 854.078 x TN 854.078
+final no L (5035,8250) 854.627 (fixa 854.7); no canto reentrante (5049,8264) 854.715
+lado 1: piso 850.008, 3 m fora 848.507, TN ali 847.031 -> inclinação 1V:2.00H
+planilha C:\Temp\nsteste\plato5\platos_teste.xlsx

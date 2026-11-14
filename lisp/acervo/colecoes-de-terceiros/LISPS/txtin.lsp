@@ -1,0 +1,46 @@
+(DEFUN C:TXTIN ();V1.10
+;By Scott Hull, 06-01-86
+;SAH Mechanical Design (415) 343-4015
+;Imports text files.
+
+
+ (DEFUN *ERROR* (ST)
+  (PRINC "error: ")
+  (PRINC ST)
+  (TERPRI))
+
+ (DEFUN CONT ( / OPNF TEXTLINE TSTYLEX TSTYLE PT1 TSZ RA AUSTAT BLIPSTAT)
+  (SETQ OPNF (OPEN OPNFX "r"))
+  (SETQ TEXTLINE (READ-LINE OPNF))
+  (IF (NOT TSTYLE) (SETQ TSTYLE "STANDARD"))
+  (SETQ TSTYLEX (GETSTRING (STRCAT "\nStyle name <" TSTYLE ">: ")))
+  (IF (/= TSTYLEX "") (SETQ TSTYLE TSTYLEX))
+  (SETQ PT1 (GETPOINT "\nStarting point: "))
+  (SETQ TSZ (GETDIST PT1 
+    (STRCAT "\nHeight <"
+     (RTOS (GETVAR "TEXTSIZE") (GETVAR "LUNITS") (GETVAR "LUPREC")) ">: ")))
+  (IF (/= TSZ NIL) (SETVAR "TEXTSIZE" TSZ))
+  (SETQ RA 0.0)
+  (SETQ RA (GETANGLE PT1 "\nRotation angle <0>: "))
+  (IF (= RA NIL) (SETQ RA 0.0))
+  (SETQ AUSTAT (GETVAR "AUNITS"))
+  (SETQ BLIPSTAT (GETVAR "BLIPMODE"))
+  (setq hl (getvar "highlight"))
+  (setvar "highlight" 0)
+  (SETVAR "BLIPMODE" 0)
+  (SETVAR "AUNITS" 4)
+  (SETVAR "CMDECHO" 0)
+  (COMMAND "TEXT" "S" TSTYLE PT1 (GETVAR "TEXTSIZE") RA TEXTLINE)
+  (WHILE (NOT (NULL TEXTLINE))
+   (SETQ PT1 (POLAR PT1 (+ RA (* 1.5 PI)) (* (/ 5.0 3.0) (GETVAR "TEXTSIZE"))))
+   (SETQ TEXTLINE (READ-LINE OPNF))
+   (COMMAND "TEXT" PT1 "" "" TEXTLINE))
+  (SETVAR "BLIPMODE" BLIPSTAT)
+  (SETVAR "AUNITS" AUSTAT)
+  (setvar "highlight" hl)
+  (CLOSE OPNF))
+ 
+ (SETQ OPNFX (GETSTRING "\nNAME OF TEXT FILE TO OPEN: "))
+ (IF (/= OPNFX "") (CONT)))
+     (command "change" "L" "" "P" "C" txt-clr "")
+     (se

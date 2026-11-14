@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LandXML xmlns="http://www.landxml.org/schema/LandXML-1.2" version="1.2">
+<Alignments><Alignment name="EIXO_SINTETICO" length="2000.000" staStart="0">
+<CoordGeom>
+<Line length="800"><Start>7800000.0000 600000.0000</Start><End>7800000.0000 600800.0000</End></Line>
+<Curve rot="cw" length="400.0000" radius="500.0"><Start>7800000.0000 600800.0000</Start><Center>7799500.0000 600800.0000</Center><End>7799848.3534 601158.6780</End></Curve>
+<Line length="800"><Start>7799848.3534 601158.6780</Start><End>7799274.4685 601716.0434</End></Line>
+</CoordGeom>
+</Alignment></Alignments>
+</LandXML>

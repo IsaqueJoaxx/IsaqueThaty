@@ -1,0 +1,5 @@
+(setq txt0 "BLD")
+(setq txt1 "CT=668,790")
+(setq txt2 "CF=667,590")
+(setq txt3 "H=  1,20m")
+(command "leader" p1 p2 "" "" "" txt0 txt1 txt2 txt3 "")

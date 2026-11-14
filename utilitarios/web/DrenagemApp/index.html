@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dimensionamento de Drenagem Rodoviária</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --line:#334155;
+    --txt:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; --accent2:#0ea5e9;
+    --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444; --head:#0b1220;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:14px}
+  header{background:linear-gradient(90deg,#0b1220,#1e293b);padding:14px 20px;border-bottom:2px solid var(--accent2);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  header h1{font-size:18px;margin:0;font-weight:600}
+  header .sub{color:var(--muted);font-size:12px}
+  .tabs{display:flex;gap:2px;background:var(--head);padding:0 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .tab{padding:11px 16px;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;font-weight:500;user-select:none}
+  .tab:hover{color:var(--txt)}
+  .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+  main{padding:18px 20px;max-width:1400px;margin:0 auto}
+  .view{display:none}
+  .view.active{display:block}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:16px}
+  .card h2{margin:0 0 4px;font-size:15px;color:var(--accent)}
+  .card .desc{color:var(--muted);font-size:12px;margin-bottom:14px;line-height:1.5}
+  .grid{display:grid;gap:12px}
+  .field{display:flex;flex-direction:column;gap:4px}
+  .field label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+  .field input,.field select{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:8px 9px;font-size:14px}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--accent)}
+  .field .unit{font-size:10px;color:var(--muted)}
+  button{background:var(--accent2);color:#031018;border:none;border-radius:6px;padding:8px 14px;font-weight:600;cursor:pointer;font-size:13px}
+  button:hover{background:var(--accent)}
+  button.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+  button.ghost:hover{border-color:var(--accent);color:var(--accent)}
+  button.sm{padding:5px 10px;font-size:12px}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{border:1px solid var(--line);padding:6px 7px;text-align:center}
+  thead th{background:var(--head);color:var(--accent);font-weight:600;position:sticky;top:0;font-size:11px;text-transform:uppercase;letter-spacing:.3px}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+  td input,td select{width:100%;background:transparent;border:1px solid transparent;color:var(--txt);border-radius:4px;padding:5px 4px;font-size:13px;text-align:center}
+  td input:hover,td select:hover{border-color:var(--line)}
+  td input:focus,td select:focus{outline:none;border-color:var(--accent);background:var(--panel2)}
+  td.out{background:rgba(56,189,248,.07);font-variant-numeric:tabular-nums;font-weight:500}
+  .tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+  .tag.ok{background:rgba(34,197,94,.15);color:var(--ok)}
+  .tag.bad{background:rgba(239,68,68,.15);color:var(--bad)}
+  .tag.sub{background:rgba(56,189,248,.15);color:var(--accent)}
+  .tag.sup{background:rgba(245,158,11,.15);color:var(--warn)}
+  .row-actions{white-space:nowrap}
+  .del{background:transparent;color:var(--bad);border:none;cursor:pointer;font-size:16px;padding:2px 6px}
+  .scroll{overflow-x:auto}
+  .resultbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+  .res{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  .res .k{font-size:11px;color:var(--muted);text-transform:uppercase}
+  .res .v{font-size:20px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
+  .res .u{font-size:11px;color:var(--muted)}
+  .note{font-size:12px;color:var(--muted);line-height:1.6;background:var(--panel2);border-left:3px solid var(--accent2);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:6px}
+  .formula{font-family:"Consolas",monospace;background:var(--head);padding:2px 6px;border-radius:4px;color:#7dd3fc}
+  footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+  @media print{
+    header,.tabs,.toolbar,footer,.del,.row-actions{display:none!important}
+    body{background:#fff;color:#000}
+    .view{display:block!important}
+    .card{break-inside:avoid;border-color:#999}
+    th,td{border-color:#999}
+    .view:not(.active){display:none!important}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>💧 Dimensionamento de Drenagem Rodoviária</h1>
+    <div class="sub">Método Racional + Equação de Manning · Sarjetas, Valetas, Galerias e Bueiros de Greide</div>
+  </div>
+</header>
+
+<div class="tabs" id="tabs">
+  <div class="tab active" data-v="config">⚙️ Projeto / Chuva (IDF)</div>
+  <div class="tab" data-v="vazao">1 · Vazão (Racional)</div>
+  <div class="tab" data-v="trap">2 · Sarjeta / Valeta (Trapezoidal)</div>
+  <div class="tab" data-v="ret">3 · Canal Retangular</div>
+  <div class="tab" data-v="circ">4 · Bueiro de Greide (Circular)</div>
+</div>
+
+<main>
+  <!-- ============ CONFIG ============ -->
+  <section class="view active" id="view-config">
+    <div class="card">
+      <h2>Identificação da Obra</h2>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+        <div class="field"><label>Obra / Rodovia</label><input id="cfg-obra" placeholder="Ex.: SPA-363/425"></div>
+        <div class="field"><label>Trecho</label><input id="cfg-trecho" placeholder="Ex.: km 0+000 a km 12+000"></div>
+        <div class="field"><label>Município</label><input id="cfg-mun" placeholder="Ex.: São Paulo"></div>
+        <div class="field"><label>Responsável</label><input id="cfg-resp"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Curva IDF (Intensidade–Duração–Frequência)</h2>
+      <div class="desc">
+        Intensidade da chuva de projeto:
+        <span class="formula">i = a / (t<sub>c</sub> + b)<sup>c</sup></span> &nbsp;(i em mm/min, t<sub>c</sub> em min).
+        Escolha um preset ajustado a partir das suas planilhas ou informe os coeficientes da sua estação.
+        O tempo mínimo de concentração padrão é 5 min.
+      </div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+        <div class="field">
+          <label>Preset (origem)</label>
+          <select id="idf-preset">
+            <option value="19.1849,10.5,0.660">Bueiros de Greide (Tr=10)</option>
+            <option value="30.6458,15.0,0.790">Valeta Trapezoidal (DimDren.)</option>
+            <option value="27.4144,15.0,0.755">Valeta de Banqueta</option>
+            <option value="6.5659,4.0,0.375">Rede Coletora (Trapez.)</option>
+            <option value="custom">Personalizado…</option>
+          </select>
+        </div>
+        <div class="field"><label>a (coef.)</label><input id="idf-a" type="number" step="any" value="19.1849"></div>
+        <div class="field"><label>b (min)</label><input id="idf-b" type="number" step="any" value="10.5"></div>
+        <div class="field"><label>c (expoente)</label><input id="idf-c" type="number" step="any" value="0.660"></div>
+        <div class="field"><label>Período de retorno Tr</label><input id="cfg-tr" type="number" step="any" value="10"><span class="unit">anos (informativo)</span></div>
+        <div class="field"><label>tc mínimo</label><input id="cfg-tcmin" type="number" step="any" value="5"><span class="unit">min</span></div>
+      </div>
+      <div class="resultbox">
+        <div class="res"><div class="k">i para tc = 5 min</div><div class="v" id="idf-i5">–</div><div class="u">mm/min</div></div>
+        <div class="res"><div class="k">i para tc = 10 min</div><div class="v" id="idf-i10">–</div><div class="u">mm/min</div></div>
+        <div class="res"><div class="k">i para tc = 15 min</div><div class="v" id="idf-i15">–</div><div class="u">mm/min</div></div>
+      </div>
+      <div class="note">
+        <b>Método Racional:</b> <span class="formula">Q = Σ(Aᵢ·Cᵢ) · i / 6</span> — com A em ha e i em mm/min, resulta Q em m³/s
+        (equivale a Q = C·i·A/360 com i em mm/h). <b>Manning:</b> <span class="formula">Q = (1/n)·A·R<sub>h</sub>^(2/3)·S^(1/2)</span>.
+      </div>
+    </div>
+    <div class="toolbar">
+      <button onclick="saveAll()">💾 Salvar projeto (neste navegador)</button>
+      <button class="ghost" onclick="exportJSON()">⬇️ Exportar projeto (.json)</button>
+      <button class="ghost" onclick="document.getElementById('imp').click()">⬆️ Importar (.json)</button>
+      <input type="file" id="imp" accept=".json" style="display:none" onchange="importJSON(event)">
+      <button class="ghost" onclick="window.print()">🖨️ Imprimir / PDF</button>
+      <button class="ghost" onclick="if(confirm('Limpar todos os dados salvos?')){localStorage.removeItem(LS);location.reload()}">🗑️ Limpar tudo</button>
+    </div>
+  </section>
+
+  <!-- ============ VAZÃO ============ -->
+  <section class="view" id="view-vazao">
+    <div class="card">
+      <h2>1 · Vazão de Projeto — Método Racional</h2>
+      <div class="desc">
+        Cada linha é um ponto/trecho de contribuição. Informe as sub-áreas e seus coeficientes de escoamento C
+        (ex.: pista 0,90 · sarjeta/talude 0,35–0,70 · terreno natural 0,25). A intensidade é obtida da curva IDF
+        pelo t<sub>c</sub>. O <b>Q</b> calculado pode ser copiado para as abas de seção.
+      </div>
+      <div class="toolbar">
+        <button class="sm" onclick="addVazao()">➕ Adicionar trecho</button>
+        <button class="sm ghost" onclick="exportCSV('vazao')">⬇️ CSV</button>
+      </div>
+      <div class="scroll">
+        <table id="tbl-vazao">
+          <thead>
+            <tr>
+              <th>Estaca / Trecho</th>
+              <th>A₁ (ha)</th><th>C₁</th>
+              <th>A₂ (ha)</th><th>C₂</th>
+              <th>A₃ (ha)</th><th>C₃</th>
+              <th>Σ A·C</th>
+              <th>t<sub>c</sub> (min)</th>
+              <th>i (mm/min)</th>
+              <th>Q (m³/s)</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRAPEZOIDAL ============ -->
+  <section class="view" id="view-trap">
+    <div class="card">
+      <h2>2 · Sarjeta / Valeta — Seção Trapezoidal / Triangular</h2>
+      <div class="desc">
+        Cobre sarjetas de corte, de aterro, valetas de proteção e de banqueta (séries DR). Seção definida por base
+        <b>b</b>, altura <b>h</b> e inclinação dos taludes <b>1:z</b> (z = 0 → retangular estreita; b = 0 → triangular).
+        Calcula a profundidade normal <b>y<sub>n</sub></b> (Manning), velocidade, Froude, regime e a capacidade da seção cheia (y = h).
+        Informe Q diretamente ou A·C·t<sub>c</sub> para calcular pelo Racional.
+      </div>
+      <div class="toolbar">
+        <button class="sm" onclick="addTrap()">➕ Adicionar trecho</button>
+        <button class="sm ghost" onclick="exportCSV('trap')">⬇️ CSV</button>
+      </div>
+      <div class="scroll">
+        <table id="tbl-trap">
+          <thead>
+            <tr>
+              <th>Estaca / Trecho</th>
+              <th>A (ha)</th><th>C</th><th>t<sub>c</sub> (min)</th><th>Q (m³/s)</th>
+              <th>b (m)</th><th>h (m)</th><th>z (1:z)</th>
+              <th>S (m/m)</th><th>n</th>
+              <th>y<sub>n</sub> (m)</th><th>V (m/s)</th><th>Q<sub>cheia</sub></th>
+              <th>y/h</th><th>Froude</th><th>Regime</th><th>Situação</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="note">Q (m³/s) em branco → calculado por Racional (A·C·i/6). Se informado, o Racional é ignorado. <b>Situação OK</b> quando y<sub>n</sub> ≤ h.</div>
+    </div>
+  </section>
+
+  <!-- ============ RETANGULAR ============ -->
+  <section class="view" id="view-ret">
+    <div class="card">
+      <h2>3 · Canal / Galeria — Seção Retangular</h2>
+      <div class="desc">
+        Para galerias e canais retangulares. <b>Capacidade máxima</b> calculada com 15% de borda livre (lâmina = 0,85·H).
+        Profundidade normal y<sub>n</sub>, velocidade, profundidade crítica y<sub>c</sub>, Froude e tipo de escoamento.
+      </div>
+      <div class="toolbar">
+        <button class="sm" onclick="addRet()">➕ Adicionar trecho</button>
+        <button class="sm ghost" onclick="exportCSV('ret')">⬇️ CSV</button>
+      </div>
+      <div class="scroll">
+        <table id="tbl-ret">
+          <thead>
+            <tr>
+              <th>Trecho / Bacia</th>
+              <th>Q (m³/s)</th>
+              <th>B (m)</th><th>H (m)</th><th>S (m/m)</th><th>n</th>
+              <th>Q<sub>cap</sub> (15% bl)</th>
+              <th>y<sub>n</sub> (m)</th><th>V (m/s)</th><th>y<sub>c</sub> (m)</th>
+              <th>Froude</th><th>Regime</th><th>Situação</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CIRCULAR ============ -->
+  <section class="view" id="view-circ">
+    <div class="card">
+      <h2>4 · Bueiro de Greide — Tubo Circular</h2>
+      <div class="desc">
+        Dreno pluvial / bueiro de greide circular. Calcula capacidade a seção plena <b>Q<sub>p</sub></b>, velocidade plena,
+        e para a vazão de projeto a lâmina d'água <b>h</b>, relação y/D, velocidade e número de Froude.
+      </div>
+      <div class="toolbar">
+        <button class="sm" onclick="addCirc()">➕ Adicionar bueiro</button>
+        <button class="sm ghost" onclick="exportCSV('circ')">⬇️ CSV</button>
+      </div>
+      <div class="scroll">
+        <table id="tbl-circ">
+          <thead>
+            <tr>
+              <th>Estaca / Local</th>
+              <th>A (ha)</th><th>C</th><th>t<sub>c</sub> (min)</th><th>Q (m³/s)</th>
+              <th>Ø (m)</th><th>S (m/m)</th><th>n</th>
+              <th>Q<sub>plena</sub></th><th>V<sub>plena</sub></th>
+              <th>h (m)</th><th>y/D</th><th>V (m/s)</th><th>Froude</th><th>Situação</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="note">Critério usual: y/D ≤ 0,80–0,85 (não trabalhar afogado). <b>Situação OK</b> quando Q ≤ Q<sub>plena</sub> e y/D ≤ 0,85.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Dimensionamento de Drenagem · Método Racional &amp; Manning · dados salvos localmente no navegador.<br>
+  Ferramenta de apoio ao projeto — confira sempre os resultados conforme as normas (DNIT/DER) e o bom senso de engenharia.
+</footer>
+
+<script>
+const LS = "drenagem_app_v1";
+const g = 9.81;
+const $ = id => document.getElementById(id);
+const num = v => { const x = parseFloat(String(v).replace(',','.')); return isFinite(x)?x:0; };
+const fmt = (v,d=3) => (isFinite(v)&&v!==null) ? v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}) : '–';
+
+/* ---------- IDF ---------- */
+function idf(){ return {a:num($('idf-a').value), b:num($('idf-b').value), c:num($('idf-c').value)}; }
+function intensidade(tc){ const {a,b,c}=idf(); const t=Math.max(tc, num($('cfg-tcmin').value)||0); return a/Math.pow(t+b,c); }
+function refreshIDF(){
+  $('idf-i5').textContent = fmt(intensidade(5),3);
+  $('idf-i10').textContent = fmt(intensidade(10),3);
+  $('idf-i15').textContent = fmt(intensidade(15),3);
+  recalcAll();
+}
+
+/* ---------- Hidráulica: Manning ---------- */
+// Trapezoidal: área e perímetro
+function trapA(y,b,z){ return (b + z*y)*y; }
+function trapP(y,b,z){ return b + 2*y*Math.sqrt(1+z*z); }
+function trapT(y,b,z){ return b + 2*z*y; }           // largura de topo
+function manningQ(A,Rh,S,n){ return (1/n)*A*Math.pow(Rh,2/3)*Math.sqrt(S); }
+
+// Resolve profundidade normal yn (bissecção) p/ seção trapezoidal dado Q
+function ynTrap(Q,b,z,S,n){
+  if(Q<=0||S<=0||n<=0) return NaN;
+  let lo=1e-6, hi=50;
+  const f=y=>{const A=trapA(y,b,z),P=trapP(y,b,z); return manningQ(A,A/P,S,n)-Q;};
+  if(f(hi)<0) return NaN;
+  for(let i=0;i<200;i++){const m=(lo+hi)/2; if(f(m)>0) hi=m; else lo=m;}
+  return (lo+hi)/2;
+}
+// Profundidade crítica trapezoidal: A^3/T = Q^2/g
+function ycTrap(Q,b,z){
+  if(Q<=0) return NaN;
+  const k=Q*Q/g; let lo=1e-6,hi=50;
+  const f=y=>{const A=trapA(y,b,z); return A*A*A/trapT(y,b,z)-k;};
+  if(f(hi)<0) return NaN;
+  for(let i=0;i<200;i++){const m=(lo+hi)/2; if(f(m)>0) hi=m; else lo=m;}
+  return (lo+hi)/2;
+}
+
+// Circular: ângulo th (rad) cheio=2π
+function circA(th,D){ return (D*D/8)*(th-Math.sin(th)); }
+function circP(th,D){ return D*th/2; }
+function circTop(th,D){ return D*Math.sin(th/2); }
+function circDepth(th,D){ return (D/2)*(1-Math.cos(th/2)); }
+function thFromQ(Q,D,S,n){
+  if(Q<=0) return NaN;
+  let lo=1e-6, hi=2*Math.PI*0.999999;
+  const f=th=>{const A=circA(th,D),P=circP(th,D); return manningQ(A,A/P,S,n)-Q;};
+  if(f(hi)<0) return NaN; // exige seção mais que plena
+  for(let i=0;i<200;i++){const m=(lo+hi)/2; if(f(m)>0) hi=m; else lo=m;}
+  return (lo+hi)/2;
+}
+
+/* ---------- Estado / linhas ---------- */
+const state = {vazao:[], trap:[], ret:[], circ:[]};
+
+function cellIn(val,cls=''){ return `<input class="${cls}" value="${val??''}">`; }
+
+/* ===== VAZÃO ===== */
+function addVazao(d={}){ state.vazao.push({est:d.est||'',a1:d.a1??'',c1:d.c1??'0,90',a2:d.a2??'',c2:d.c2??'0,35',a3:d.a3??'',c3:d.c3??'0,25',tc:d.tc??'5'}); renderVazao(); }
+function renderVazao(){
+  const tb=$('tbl-vazao').querySelector('tbody'); tb.innerHTML='';
+  state.vazao.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${cellIn(r.est)}</td>
+      <td>${cellIn(r.a1)}</td><td>${cellIn(r.c1)}</td>
+      <td>${cellIn(r.a2)}</td><td>${cellIn(r.c2)}</td>
+      <td>${cellIn(r.a3)}</td><td>${cellIn(r.c3)}</td>
+      <td class="out" data-o="sac"></td>
+      <td>${cellIn(r.tc)}</td>
+      <td class="out" data-o="i"></td>
+      <td class="out" data-o="q"></td>
+      <td class="row-actions"><button class="del" onclick="rm('vazao',${i})">✕</button></td>`;
+    const ins=tr.querySelectorAll('input');
+    const keys=['est','a1','c1','a2','c2','a3','c3','tc'];
+    ins.forEach((inp,k)=>inp.addEventListener('input',()=>{r[keys[k]]=inp.value; calcVazao(r,tr);}));
+    tb.appendChild(tr); calcVazao(r,tr);
+  });
+}
+function calcVazao(r,tr){
+  const sac = num(r.a1)*num(r.c1)+num(r.a2)*num(r.c2)+num(r.a3)*num(r.c3);
+  const i = intensidade(num(r.tc));
+  const q = sac*i/6;
+  tr.querySelector('[data-o=sac]').textContent=fmt(sac,4);
+  tr.querySelector('[data-o=i]').textContent=fmt(i,3);
+  tr.querySelector('[data-o=q]').textContent=fmt(q,4);
+}
+
+/* ===== TRAPEZOIDAL ===== */
+function addTrap(d={}){ state.trap.push({est:d.est||'',a:d.a??'',c:d.c??'0,7',tc:d.tc??'5',q:d.q??'',b:d.b??'0,4',h:d.h??'0,4',z:d.z??'1',s:d.s??'0,02',n:d.n??'0,016'}); renderTrap(); }
+function renderTrap(){
+  const tb=$('tbl-trap').querySelector('tbody'); tb.innerHTML='';
+  state.trap.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${cellIn(r.est)}</td>
+      <td>${cellIn(r.a)}</td><td>${cellIn(r.c)}</td><td>${cellIn(r.tc)}</td><td>${cellIn(r.q)}</td>
+      <td>${cellIn(r.b)}</td><td>${cellIn(r.h)}</td><td>${cellIn(r.z)}</td>
+      <td>${cellIn(r.s)}</td><td>${cellIn(r.n)}</td>
+      <td class="out" data-o="yn"></td><td class="out" data-o="v"></td><td class="out" data-o="qc"></td>
+      <td class="out" data-o="yh"></td><td class="out" data-o="fr"></td><td class="out" data-o="reg"></td><td class="out" data-o="sit"></td>
+      <td class="row-actions"><button class="del" onclick="rm('trap',${i})">✕</button></td>`;
+    const keys=['est','a','c','tc','q','b','h','z','s','n'];
+    tr.querySelectorAll('input').forEach((inp,k)=>inp.addEventListener('input',()=>{r[keys[k]]=inp.value; calcTrap(r,tr);}));
+    tb.appendChild(tr); calcTrap(r,tr);
+  });
+}
+function calcTrap(r,tr){
+  const b=num(r.b),h=num(r.h),z=num(r.z),S=num(r.s),n=num(r.n);
+  let Q = num(r.q);
+  if(Q<=0){ Q = (num(r.a)*num(r.c))*intensidade(num(r.tc))/6; }
+  const set=(o,v)=>tr.querySelector(`[data-o=${o}]`);
+  const yn=ynTrap(Q,b,z,S,n);
+  const A=trapA(yn,b,z); const V=A>0?Q/A:NaN;
+  const Qc=(()=>{const Ah=trapA(h,b,z),Ph=trapP(h,b,z);return manningQ(Ah,Ah/Ph,S,n);})();
+  const Fr=(yn>0)?V/Math.sqrt(g*yn):NaN;
+  tr.querySelector('[data-o=yn]').textContent=fmt(yn,3);
+  tr.querySelector('[data-o=v]').textContent=fmt(V,3);
+  tr.querySelector('[data-o=qc]').textContent=fmt(Qc,3);
+  tr.querySelector('[data-o=yh]').textContent=fmt(h>0?yn/h:NaN,2);
+  tr.querySelector('[data-o=fr]').textContent=fmt(Fr,3);
+  tr.querySelector('[data-o=reg]').innerHTML = isFinite(Fr)?(Fr<1?'<span class="tag sub">Subcrít.</span>':'<span class="tag sup">Supercrít.</span>'):'–';
+  const ok = isFinite(yn)&&yn<=h;
+  tr.querySelector('[data-o=sit]').innerHTML = isFinite(yn)?(ok?'<span class="tag ok">OK</span>':'<span class="tag bad">Excede h</span>'):'<span class="tag bad">s/ solução</span>';
+}
+
+/* ===== RETANGULAR ===== */
+function addRet(d={}){ state.ret.push({est:d.est||'',q:d.q??'',b:d.b??'2,5',h:d.h??'2,0',s:d.s??'0,005',n:d.n??'0,018'}); renderRet(); }
+function renderRet(){
+  const tb=$('tbl-ret').querySelector('tbody'); tb.innerHTML='';
+  state.ret.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${cellIn(r.est)}</td><td>${cellIn(r.q)}</td>
+      <td>${cellIn(r.b)}</td><td>${cellIn(r.h)}</td><td>${cellIn(r.s)}</td><td>${cellIn(r.n)}</td>
+      <td class="out" data-o="qc"></td><td class="out" data-o="yn"></td><td class="out" data-o="v"></td>
+      <td class="out" data-o="yc"></td><td class="out" data-o="fr"></td><td class="out" data-o="reg"></td><td class="out" data-o="sit"></td>
+      <td class="row-actions"><button class="del" onclick="rm('ret',${i})">✕</button></td>`;
+    const keys=['est','q','b','h','s','n'];
+    tr.querySelectorAll('input').forEach((inp,k)=>inp.addEventListener('input',()=>{r[keys[k]]=inp.value; calcRet(r,tr);}));
+    tb.appendChild(tr); calcRet(r,tr);
+  });
+}
+function calcRet(r,tr){
+  const Q=num(r.q),b=num(r.b),h=num(r.h),S=num(r.s),n=num(r.n);
+  // retangular = trapezoidal com z=0
+  const Qcap=(()=>{const y=0.85*h,A=b*y,P=b+2*y;return manningQ(A,A/P,S,n);})();
+  const yn=ynTrap(Q,b,0,S,n);
+  const A=b*yn, V=A>0?Q/A:NaN;
+  const q=b>0?Q/b:NaN, yc=Math.pow(q*q/g,1/3);
+  const Fr=yn>0?V/Math.sqrt(g*yn):NaN;
+  tr.querySelector('[data-o=qc]').textContent=fmt(Qcap,3);
+  tr.querySelector('[data-o=yn]').textContent=fmt(yn,3);
+  tr.querySelector('[data-o=v]').textContent=fmt(V,3);
+  tr.querySelector('[data-o=yc]').textContent=fmt(yc,3);
+  tr.querySelector('[data-o=fr]').textContent=fmt(Fr,3);
+  tr.querySelector('[data-o=reg]').innerHTML=isFinite(Fr)?(Fr<1?'<span class="tag sub">Subcrít.</span>':'<span class="tag sup">Supercrít.</span>'):'–';
+  const ok=isFinite(yn)&&Q<=Qcap;
+  tr.querySelector('[data-o=sit]').innerHTML=isFinite(yn)?(ok?'<span class="tag ok">OK</span>':'<span class="tag bad">Q&gt;Cap.</span>'):'<span class="tag bad">s/ solução</span>';
+}
+
+/* ===== CIRCULAR ===== */
+function addCirc(d={}){ state.circ.push({est:d.est||'',a:d.a??'',c:d.c??'0,9',tc:d.tc??'10',q:d.q??'',d:d.d??'0,80',s:d.s??'0,01',n:d.n??'0,013'}); renderCirc(); }
+function renderCirc(){
+  const tb=$('tbl-circ').querySelector('tbody'); tb.innerHTML='';
+  state.circ.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${cellIn(r.est)}</td>
+      <td>${cellIn(r.a)}</td><td>${cellIn(r.c)}</td><td>${cellIn(r.tc)}</td><td>${cellIn(r.q)}</td>
+      <td>${cellIn(r.d)}</td><td>${cellIn(r.s)}</td><td>${cellIn(r.n)}</td>
+      <td class="out" data-o="qp"></td><td class="out" data-o="vp"></td>
+      <td class="out" data-o="h"></td><td class="out" data-o="yd"></td><td class="out" data-o="v"></td><td class="out" data-o="fr"></td><td class="out" data-o="sit"></td>
+      <td class="row-actions"><button class="del" onclick="rm('circ',${i})">✕</button></td>`;
+    const keys=['est','a','c','tc','q','d','s','n'];
+    tr.querySelectorAll('input').forEach((inp,k)=>inp.addEventListener('input',()=>{r[keys[k]]=inp.value; calcCirc(r,tr);}));
+    tb.appendChild(tr); calcCirc(r,tr);
+  });
+}
+function calcCirc(r,tr){
+  const D=num(r.d),S=num(r.s),n=num(r.n);
+  let Q=num(r.q);
+  if(Q<=0){ Q=(num(r.a)*num(r.c))*intensidade(num(r.tc))/6; }
+  const Afull=Math.PI*D*D/4, Rhfull=D/4;
+  const Qp=manningQ(Afull,Rhfull,S,n);
+  const Vp=Afull>0?Qp/Afull:NaN;
+  let h=NaN,yd=NaN,V=NaN,Fr=NaN, semSol=false;
+  const th=thFromQ(Q,D,S,n);
+  if(isFinite(th)){
+    h=circDepth(th,D); yd=h/D;
+    const A=circA(th,D),T=circTop(th,D); V=A>0?Q/A:NaN;
+    const Dh=T>0?A/T:NaN; Fr=V/Math.sqrt(g*Dh);
+  } else if(Q>0){ semSol=true; }
+  tr.querySelector('[data-o=qp]').textContent=fmt(Qp,3);
+  tr.querySelector('[data-o=vp]').textContent=fmt(Vp,3);
+  tr.querySelector('[data-o=h]').textContent=semSol?'> plena':fmt(h,3);
+  tr.querySelector('[data-o=yd]').textContent=semSol?'–':fmt(yd,3);
+  tr.querySelector('[data-o=v]').textContent=fmt(V,3);
+  tr.querySelector('[data-o=fr]').textContent=fmt(Fr,3);
+  const ok=!semSol&&Q<=Qp&&isFinite(yd)&&yd<=0.85;
+  tr.querySelector('[data-o=sit]').innerHTML = (Q<=0)?'–':(ok?'<span class="tag ok">OK</span>':'<span class="tag bad">Insuficiente</span>');
+}
+
+/* ---------- util ---------- */
+function rm(t,i){ state[t].splice(i,1); ({vazao:renderVazao,trap:renderTrap,ret:renderRet,circ:renderCirc})[t](); }
+function recalcAll(){ renderVazao(); renderTrap(); renderRet(); renderCirc(); }
+
+/* ---------- tabs ---------- */
+$('tabs').addEventListener('click',e=>{
+  const t=e.target.closest('.tab'); if(!t)return;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active'); $('view-'+t.dataset.v).classList.add('active');
+});
+
+/* ---------- IDF preset ---------- */
+$('idf-preset').addEventListener('change',e=>{
+  if(e.target.value==='custom') return;
+  const [a,b,c]=e.target.value.split(',');
+  $('idf-a').value=a; $('idf-b').value=b; $('idf-c').value=c; refreshIDF();
+});
+['idf-a','idf-b','idf-c','cfg-tcmin'].forEach(id=>$(id).addEventListener('input',refreshIDF));
+
+/* ---------- persistência ---------- */
+function collectCfg(){ const o={}; ['cfg-obra','cfg-trecho','cfg-mun','cfg-resp','cfg-tr','cfg-tcmin','idf-a','idf-b','idf-c'].forEach(id=>o[id]=$(id).value); return o; }
+function saveAll(){ localStorage.setItem(LS, JSON.stringify({cfg:collectCfg(),state})); flash('Projeto salvo neste navegador.'); }
+function flash(msg){ const d=document.createElement('div'); d.textContent=msg; d.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0ea5e9;color:#031018;padding:10px 18px;border-radius:8px;font-weight:600;z-index:99'; document.body.appendChild(d); setTimeout(()=>d.remove(),1800); }
+function load(){
+  const raw=localStorage.getItem(LS);
+  if(raw){ try{ const o=JSON.parse(raw);
+    if(o.cfg) for(const k in o.cfg) if($(k)) $(k).value=o.cfg[k];
+    if(o.state) Object.assign(state,o.state);
+  }catch(e){} }
+  if(!state.vazao.length) addVazao({est:'EST. 7+4,000 a EST. 3+1,270',a1:'0,34',c1:'0,2',a2:'',c2:'0,7',a3:'0,06',c3:'0,9',tc:'5'});
+  if(!state.trap.length) addTrap({est:'Exemplo DR-3B',q:'0,80',b:'0,4',h:'0,4',z:'1',s:'0,0476',n:'0,016'});
+  if(!state.ret.length) addRet({est:'Bacia 1D',q:'15,263',b:'2,5',h:'2,5',s:'0,004',n:'0,018'});
+  if(!state.circ.length) addCirc({est:'Bueiro greide',q:'0,5',d:'0,80',s:'0,01',n:'0,013'});
+  refreshIDF();
+}
+
+/* ---------- export ---------- */
+function exportJSON(){
+  const blob=new Blob([JSON.stringify({cfg:collectCfg(),state},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='projeto_drenagem.json'; a.click();
+}
+function importJSON(ev){
+  const f=ev.target.files[0]; if(!f)return;
+  const rd=new FileReader(); rd.onload=()=>{ try{ const o=JSON.parse(rd.result);
+    if(o.cfg) for(const k in o.cfg) if($(k)) $(k).value=o.cfg[k];
+    state.vazao=[];state.trap=[];state.ret=[];state.circ=[];
+    if(o.state) Object.assign(state,o.state);
+    recalcAll(); refreshIDF(); flash('Projeto importado.');
+  }catch(e){ alert('Arquivo inválido.'); } }; rd.readAsText(f);
+}
+function exportCSV(t){
+  const tbl=$('tbl-'+t); const rows=[...tbl.querySelectorAll('tr')].filter(tr=>tr.querySelector('th,td'));
+  const lines=rows.map(tr=>[...tr.children].slice(0,-1).map(c=>{
+    const inp=c.querySelector('input,select'); let v=inp?inp.value:c.textContent.trim();
+    return '"'+String(v).replace(/"/g,'""')+'"';
+  }).join(';'));
+  const blob=new Blob(['﻿'+lines.join('\n')],{type:'text/csv'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=t+'_drenagem.csv'; a.click();
+}
+
+load();
+</script>
+</body>
+</html>

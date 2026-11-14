@@ -1,0 +1,362 @@
+{
+  "Uuid": "f347ff4b-fae2-4f11-8d0c-3edc71c0e5b7",
+  "IsCustomNode": false,
+  "Description": "Cria corredores em lote associando alinhamento, greide e secao tipo.",
+  "Name": "VerificaConcordancia",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "7536c3b089b24226b9c9a9f120421b64",
+      "Name": "RODAR",
+      "Type": "boolean",
+      "Type2": "boolean",
+      "Value": "false",
+      "Description": "Permite a seleção entre True e False"
+    },
+    {
+      "Id": "7c616eef7c1740c79d6800a2c0da4afc",
+      "Name": "MODO  (auto | codigo)",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "1",
+      "Description": "Cria uma sequência de caracteres."
+    },
+    {
+      "Id": "016f2896150e4d6db80431716b811877",
+      "Name": "CORREDOR UNICO",
+      "Type": "boolean",
+      "Type2": "boolean",
+      "Value": "false",
+      "Description": "Permite a seleção entre True e False"
+    },
+    {
+      "Id": "972bd44e1a0b432c9200c52ba0dc8d30",
+      "Name": "NOME BASE",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "CORREDOR LOTEAMENTO",
+      "Description": "Cria uma sequência de caracteres."
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "7536c3b089b24226b9c9a9f120421b64",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a6acfe2a5e59458bb12c45353e86e49f",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Permite a seleção entre True e False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "SerializedWidth": 0.0,
+      "SerializedHeight": 0.0,
+      "Id": "7c616eef7c1740c79d6800a2c0da4afc",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3eb2f6d7e85949a786aebc9a80fbd82d",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma sequência de caracteres.",
+      "InputValue": "1"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "016f2896150e4d6db80431716b811877",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "fe7b3c7d69484ae3bd4efe129eb9d5b7",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Permite a seleção entre True e False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "SerializedWidth": 0.0,
+      "SerializedHeight": 0.0,
+      "Id": "972bd44e1a0b432c9200c52ba0dc8d30",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "da09af73f89340a894743b612f0632c9",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma sequência de caracteres.",
+      "InputValue": "CORREDOR LOTEAMENTO"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "# -*- coding: utf-8 -*-\n# SOMENTE LEITURA. Mede as concordancias criadas e valida contra o esperado.\nRAIO_ESPERADO = 2.0\nOFFSET_ESPERADO = 4.2407\nDESTINO = r\"D:\\Claude ai\\Dynamo rotinas\\rotina corredores\\verifica.txt\"\n\nimport clr, io, math\nclr.AddReference('AcMgd'); clr.AddReference('AcDbMgd')\nclr.AddReference('AcCoreMgd'); clr.AddReference('AeccDbMgd')\nfrom Autodesk.AutoCAD.ApplicationServices import Application\nfrom Autodesk.AutoCAD.DatabaseServices import OpenMode\nfrom Autodesk.Civil.ApplicationServices import CivilApplication\ntry:\n    from Autodesk.Civil import AlignmentType\nexcept ImportError:\n    AlignmentType = None\n\nout = []\n\ndef st_off(a, x, y):\n    for args in ((x, y), (x, y, 0.0, 0.0)):\n        try:\n            r = a.StationOffset(*args)\n            if r is not None:\n                return float(r[0]), float(r[1])\n        except Exception:\n            pass\n    return None, None\n\nadoc = Application.DocumentManager.MdiActiveDocument\ncivdoc = CivilApplication.ActiveDocument\n\nwith adoc.LockDocument():\n    db = adoc.Database\n    with db.TransactionManager.StartTransaction() as t:\n\n        todos = []\n        for aid in civdoc.GetAlignmentIds():\n            a = t.GetObject(aid, OpenMode.ForRead)\n            todos.append((a.Name, aid, a))\n\n        out.append(u\"=== %d alinhamento(s) no desenho ===\" % len(todos))\n        for nome, aid, a in todos:\n            tipo = u\"?\"\n            try:\n                tipo = str(a.AlignmentType)\n            except Exception:\n                pass\n            out.append(u\"   %-45s  tipo=%-12s  comp=%8.3f\"\n                       % (nome, tipo, a.EndingStation - a.StartingStation))\n        out.append(u\"\")\n\n        # ------------------------------------------------ concordancias\n        conc = [(n, i, a) for n, i, a in todos if n.startswith(u\"CONC\")]\n        out.append(u\"=== %d concordancia(s) ===\" % len(conc))\n\n        eixos = [(n, i, a) for n, i, a in todos if not n.startswith(u\"CONC\")]\n\n        for nome, aid, a in conc:\n            out.append(u\"\")\n            out.append(u\"--- %s ---\" % nome)\n            out.append(u\"   comprimento total = %.4f m\"\n                       % (a.EndingStation - a.StartingStation))\n            try:\n                out.append(u\"   AlignmentType = %s\" % a.AlignmentType)\n            except Exception:\n                pass\n\n            # geometria: entidades\n            try:\n                out.append(u\"   %d entidade(s):\" % a.Entities.Count)\n                for e in a.Entities:\n                    tn = type(e).__name__\n                    linha = u\"      %s\" % tn\n                    for prop in ('Length', 'Radius', 'StartPoint', 'EndPoint',\n                                 'Delta'):\n                        try:\n                            v = getattr(e, prop)\n                            if prop in ('StartPoint', 'EndPoint'):\n                                linha += u\"  %s=(%.3f, %.3f)\" % (prop, v.X, v.Y)\n                            elif prop == 'Delta':\n                                linha += u\"  %s=%.4f rad (%.2f graus)\" % (\n                                    prop, float(v), math.degrees(float(v)))\n                            else:\n                                linha += u\"  %s=%.4f\" % (prop, float(v))\n                        except Exception:\n                            pass\n                    out.append(linha)\n            except Exception as ex:\n                out.append(u\"   (entidades: %s)\" % ex)\n\n            # extremos e distancia aos eixos pais\n            try:\n                p0 = a.StartPoint\n                p1 = a.EndPoint\n                out.append(u\"   inicio = (%.3f, %.3f)\" % (p0.X, p0.Y))\n                out.append(u\"   fim    = (%.3f, %.3f)\" % (p1.X, p1.Y))\n                for rot, pt in ((u\"inicio\", p0), (u\"fim\", p1)):\n                    melhor = None\n                    for n2, i2, a2 in eixos:\n                        s, o = st_off(a2, pt.X, pt.Y)\n                        if s is None:\n                            continue\n                        if melhor is None or abs(o) < abs(melhor[2]):\n                            melhor = (n2, s, o)\n                    if melhor:\n                        marca = u\"\"\n                        if abs(abs(melhor[2]) - OFFSET_ESPERADO) < 0.02:\n                            marca = u\"   <-- bate com a face do meio-fio\"\n                        out.append(u\"   %s: eixo mais proximo %s  est %.3f  \"\n                                   u\"offset %+.4f%s\"\n                                   % (rot, melhor[0], melhor[1], melhor[2], marca))\n            except Exception as ex:\n                out.append(u\"   (extremos: %s)\" % ex)\n\n            # perfis\n            try:\n                pids = a.GetProfileIds()\n                out.append(u\"   perfis: %d\" % pids.Count)\n                for pid in pids:\n                    pr = t.GetObject(pid, OpenMode.ForRead)\n                    out.append(u\"      %s  (%s)\" % (pr.Name, pr.ProfileType))\n            except Exception as ex:\n                out.append(u\"   (perfis: %s)\" % ex)\n\n        t.Commit()\n\nf = io.open(DESTINO, 'w', encoding='utf-8'); f.write(u\"\\n\".join(out)); f.close()\nOUT = [u\"gravado: %s (%d linhas)\" % (DESTINO, len(out))]\n",
+      "Engine": "PythonNet3",
+      "VariableInputPorts": true,
+      "Id": "5cf48fab9bae459b94325586bfcdb3c2",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "bd9f9f73d8a8466ab4ab8eaa160f4cbc",
+          "Name": "IN[0]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "efffb0b10e8e4a32b59129c3710e18d2",
+          "Name": "IN[1]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0125a82089804690ab7ce15ec68672d3",
+          "Name": "IN[2]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3d69a6dc2c50437dbf5fbab75d4e4fad",
+          "Name": "IN[3]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8e8aaf9d490644ec93ece00952790c3a",
+          "Name": "OUT",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Executa um script Python incorporado."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "WatchWidth": 200.0,
+      "WatchHeight": 200.0,
+      "Id": "90ab4f648dc54d4cb9179637b83696f0",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "7d835fa627824bcca3142d9d1c0c84a1",
+          "Name": "",
+          "Description": "No a avaliar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a62b273fe1834f87904bdf649a28588e",
+          "Name": "",
+          "Description": "Conteudo",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualiza a saída de um nó"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "a6acfe2a5e59458bb12c45353e86e49f",
+      "End": "bd9f9f73d8a8466ab4ab8eaa160f4cbc",
+      "Id": "8bea11674d8f46faa5ddd1abba263b31",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "3eb2f6d7e85949a786aebc9a80fbd82d",
+      "End": "efffb0b10e8e4a32b59129c3710e18d2",
+      "Id": "9652a297d3224299a1e26d781c7575a9",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "fe7b3c7d69484ae3bd4efe129eb9d5b7",
+      "End": "0125a82089804690ab7ce15ec68672d3",
+      "Id": "353e011d40864140bce71fe00f2c3115",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "da09af73f89340a894743b612f0632c9",
+      "End": "3d69a6dc2c50437dbf5fbab75d4e4fad",
+      "Id": "f3204666c0524624a9d0feab4f281271",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "8e8aaf9d490644ec93ece00952790c3a",
+      "End": "7d835fa627824bcca3142d9d1c0c84a1",
+      "Id": "6aba24b1f16942848d8def7d01bc9eaa",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Propriedades",
+      "Version": "4.0",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "Nenhum",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "4.0.2.3852",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Visualização do plano de fundo",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "7536c3b089b24226b9c9a9f120421b64",
+        "Name": "RODAR",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "Id": "7c616eef7c1740c79d6800a2c0da4afc",
+        "Name": "MODO  (auto | codigo)",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 120.0
+      },
+      {
+        "Id": "016f2896150e4d6db80431716b811877",
+        "Name": "CORREDOR UNICO",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 240.0
+      },
+      {
+        "Id": "972bd44e1a0b432c9200c52ba0dc8d30",
+        "Name": "NOME BASE",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 360.0
+      },
+      {
+        "Id": "5cf48fab9bae459b94325586bfcdb3c2",
+        "Name": "Criar Corredores em Lote",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 400.0,
+        "Y": 130.0
+      },
+      {
+        "Id": "90ab4f648dc54d4cb9179637b83696f0",
+        "Name": "Relatorio",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 760.0,
+        "Y": 130.0
+      }
+    ],
+    "Annotations": [],
+    "X": 60.0,
+    "Y": 60.0,
+    "Zoom": 0.9
+  }
+}

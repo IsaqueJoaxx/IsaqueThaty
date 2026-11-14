@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Planetas</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000010;
+    color: #e0e8ff;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  canvas {
+    display: block;
+    cursor: crosshair;
+  }
+
+  #ui {
+    position: fixed;
+    top: 0; left: 0;
+    width: 280px;
+    height: 100vh;
+    background: rgba(5, 10, 30, 0.92);
+    border-right: 1px solid rgba(80, 120, 255, 0.3);
+    padding: 16px;
+    overflow-y: auto;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+  }
+
+  h1 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #7aa4ff;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: #4a6ab0;
+    margin-bottom: 20px;
+  }
+
+  .section {
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #5580cc;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(80, 120, 255, 0.2);
+  }
+
+  .preset-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .preset-btn {
+    padding: 8px 6px;
+    border: 1px solid rgba(80, 120, 255, 0.35);
+    background: rgba(30, 50, 120, 0.3);
+    color: #a0c0ff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.15s;
+    text-align: center;
+  }
+
+  .preset-btn:hover {
+    background: rgba(60, 100, 220, 0.4);
+    border-color: rgba(120, 160, 255, 0.6);
+    color: #d0e4ff;
+  }
+
+  .preset-btn.active {
+    background: rgba(80, 130, 255, 0.35);
+    border-color: #5588ff;
+    color: #ffffff;
+  }
+
+  label {
+    display: block;
+    font-size: 11px;
+    color: #7090c0;
+    margin-bottom: 4px;
+    margin-top: 10px;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: #5588ff;
+    cursor: pointer;
+  }
+
+  .val-display {
+    text-align: right;
+    font-size: 11px;
+    color: #5588ff;
+    margin-top: 2px;
+  }
+
+  .color-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+
+  .color-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+
+  .color-swatch:hover { transform: scale(1.15); }
+  .color-swatch.selected { border-color: #fff; transform: scale(1.15); }
+
+  .action-btn {
+    width: 100%;
+    padding: 9px;
+    margin-top: 6px;
+    border: 1px solid rgba(80, 120, 255, 0.4);
+    background: rgba(30, 50, 120, 0.35);
+    color: #a0c0ff;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+
+  .action-btn:hover {
+    background: rgba(60, 100, 220, 0.45);
+    color: #fff;
+  }
+
+  .action-btn.danger {
+    border-color: rgba(255, 80, 80, 0.4);
+    background: rgba(120, 30, 30, 0.35);
+    color: #ff9090;
+  }
+
+  .action-btn.danger:hover {
+    background: rgba(200, 50, 50, 0.45);
+    color: #fff;
+  }
+
+  .stats-box {
+    background: rgba(10, 20, 60, 0.5);
+    border: 1px solid rgba(80, 120, 255, 0.2);
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 11px;
+    line-height: 1.8;
+    color: #7090c0;
+  }
+
+  .stats-box span { color: #a0c4ff; font-weight: 600; }
+
+  .hint {
+    font-size: 10px;
+    color: #3a5280;
+    line-height: 1.6;
+    margin-top: 6px;
+  }
+
+  #toggle-ui {
+    position: fixed;
+    top: 10px;
+    left: 290px;
+    z-index: 20;
+    background: rgba(5, 10, 30, 0.85);
+    border: 1px solid rgba(80, 120, 255, 0.4);
+    color: #7aa4ff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+
+  #toggle-ui:hover { background: rgba(30, 60, 140, 0.85); }
+
+  #pause-btn {
+    position: fixed;
+    top: 10px;
+    right: 14px;
+    z-index: 20;
+    background: rgba(5, 10, 30, 0.85);
+    border: 1px solid rgba(80, 120, 255, 0.4);
+    color: #7aa4ff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  #pause-btn:hover { background: rgba(30, 60, 140, 0.85); }
+
+  #arrow-hint {
+    position: fixed;
+    bottom: 14px;
+    right: 14px;
+    font-size: 11px;
+    color: #334466;
+    z-index: 5;
+  }
+
+  .toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .toggle-label { font-size: 11px; color: #7090c0; }
+
+  .toggle {
+    width: 36px;
+    height: 18px;
+    background: rgba(30, 50, 100, 0.6);
+    border-radius: 9px;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgba(80, 120, 255, 0.3);
+    transition: background 0.2s;
+  }
+
+  .toggle.on { background: rgba(60, 120, 255, 0.5); border-color: #5588ff; }
+
+  .toggle::after {
+    content: '';
+    position: absolute;
+    width: 12px; height: 12px;
+    background: #5588ff;
+    border-radius: 50%;
+    top: 2px; left: 2px;
+    transition: left 0.2s, background 0.2s;
+  }
+
+  .toggle.on::after { left: 20px; background: #aaddff; }
+</style>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div id="ui">
+  <h1>🌌 Simulador</h1>
+  <p class="subtitle">Física gravitacional N-corpos</p>
+
+  <div class="section">
+    <div class="section-title">Cenários Prontos</div>
+    <div class="preset-grid">
+      <button class="preset-btn" onclick="loadPreset('solar')">☀️ Sistema Solar</button>
+      <button class="preset-btn" onclick="loadPreset('binary')">⭐ Estrelas Duplas</button>
+      <button class="preset-btn" onclick="loadPreset('chaos')">💥 Caos</button>
+      <button class="preset-btn" onclick="loadPreset('galaxy')">🌀 Galáxia</button>
+      <button class="preset-btn" onclick="loadPreset('dance')">💃 Dança Orbital</button>
+      <button class="preset-btn" onclick="loadPreset('empty')">✨ Vazio</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Novo Planeta</div>
+    <p class="hint">Clique no espaço para soltar · Arraste para dar velocidade</p>
+
+    <label>Massa</label>
+    <input type="range" id="mass-slider" min="1" max="200" value="20">
+    <div class="val-display" id="mass-val">20</div>
+
+    <label>Cor do Planeta</label>
+    <div class="color-row" id="color-row"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Simulação</div>
+
+    <label>Velocidade de Tempo</label>
+    <input type="range" id="speed-slider" min="1" max="20" value="8">
+    <div class="val-display" id="speed-val">×8</div>
+
+    <label>Força Gravitacional (G)</label>
+    <input type="range" id="g-slider" min="1" max="100" value="30">
+    <div class="val-display" id="g-val">30</div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Rastros</span>
+      <div class="toggle on" id="trail-toggle" onclick="toggleTrails()"></div>
+    </div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Colisões</span>
+      <div class="toggle on" id="collision-toggle" onclick="toggleCollisions()"></div>
+    </div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Vetores de Velocidade</span>
+      <div class="toggle" id="vector-toggle" onclick="toggleVectors()"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Status</div>
+    <div class="stats-box" id="stats">
+      Corpos: <span id="s-bodies">0</span><br>
+      E. Cinética: <span id="s-ke">0</span><br>
+      E. Potencial: <span id="s-pe">0</span><br>
+      FPS: <span id="s-fps">0</span>
+    </div>
+  </div>
+
+  <button class="action-btn" onclick="addRandomPlanet()">+ Planeta Aleatório</button>
+  <button class="action-btn danger" onclick="clearAll()">🗑 Limpar Tudo</button>
+</div>
+
+<button id="toggle-ui" onclick="toggleUI()">◀ Painel</button>
+<button id="pause-btn" onclick="togglePause()">⏸ Pausar</button>
+<div id="arrow-hint">Scroll: zoom · Drag vazio: mover câmera</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let W, H;
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Camera
+let cam = { x: 0, y: 0, zoom: 1 };
+let panning = false, panStart = { x: 0, y: 0 }, camStart = { x: 0, y: 0 };
+
+// State
+let bodies = [];
+let paused = false;
+let showTrails = true;
+let showCollisions = true;
+let showVectors = false;
+let uiVisible = true;
+
+let G = 30;
+let timeScale = 8;
+let selectedColor = '#4488ff';
+
+let dragging = false, dragStart = null, dragPos = null;
+
+// FPS
+let lastTime = 0, fps = 0, frameCount = 0, fpsTimer = 0;
+
+const PLANET_COLORS = [
+  '#4488ff','#ff6644','#ffcc44','#44dd88','#cc44ff',
+  '#ff4488','#44ccff','#ffaa22','#88ff44','#ff88cc',
+  '#ffffff','#ff4444'
+];
+
+function buildColorPalette() {
+  const row = document.getElementById('color-row');
+  PLANET_COLORS.forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'color-swatch' + (c === selectedColor ? ' selected' : '');
+    d.style.background = c;
+    d.onclick = () => {
+      selectedColor = c;
+      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+      d.classList.add('selected');
+    };
+    row.appendChild(d);
+  });
+}
+buildColorPalette();
+
+// Sliders
+const massSlider = document.getElementById('mass-slider');
+const speedSlider = document.getElementById('speed-slider');
+const gSlider = document.getElementById('g-slider');
+massSlider.oninput = () => document.getElementById('mass-val').textContent = massSlider.value;
+speedSlider.oninput = () => { timeScale = +speedSlider.value; document.getElementById('speed-val').textContent = '×' + timeScale; };
+gSlider.oninput = () => { G = +gSlider.value; document.getElementById('g-val').textContent = G; };
+
+class Body {
+  constructor(x, y, vx, vy, mass, color, isStar = false) {
+    this.x = x; this.y = y;
+    this.vx = vx; this.vy = vy;
+    this.mass = mass;
+    this.color = color;
+    this.isStar = isStar;
+    this.r = Math.max(3, Math.cbrt(mass) * 2.2);
+    this.trail = [];
+    this.ax = 0; this.ay = 0;
+    this.alive = true;
+  }
+
+  addTrail() {
+    if (!showTrails) return;
+    this.trail.push({ x: this.x, y: this.y });
+    if (this.trail.length > 220) this.trail.shift();
+  }
+}
+
+function toScreen(wx, wy) {
+  const cx = W / 2 - (uiVisible ? 140 : 0);
+  return {
+    x: (wx - cam.x) * cam.zoom + cx,
+    y: (wy - cam.y) * cam.zoom + H / 2
+  };
+}
+
+function toWorld(sx, sy) {
+  const cx = W / 2 - (uiVisible ? 140 : 0);
+  return {
+    x: (sx - cx) / cam.zoom + cam.x,
+    y: (sy - H / 2) / cam.zoom + cam.y
+  };
+}
+
+function step(dt) {
+  const n = bodies.length;
+  const softening = 40;
+
+  // Reset accelerations
+  for (let i = 0; i < n; i++) { bodies[i].ax = 0; bodies[i].ay = 0; }
+
+  // Compute pairwise gravity
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      const a = bodies[i], b = bodies[j];
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const dist2 = dx * dx + dy * dy + softening;
+      const dist = Math.sqrt(dist2);
+      const force = G * a.mass * b.mass / dist2;
+      const fx = force * dx / dist, fy = force * dy / dist;
+      a.ax += fx / a.mass; a.ay += fy / a.mass;
+      b.ax -= fx / b.mass; b.ay -= fy / b.mass;
+    }
+  }
+
+  // Integrate
+  for (let i = 0; i < n; i++) {
+    const b = bodies[i];
+    b.vx += b.ax * dt; b.vy += b.ay * dt;
+    b.x += b.vx * dt; b.y += b.vy * dt;
+    b.addTrail();
+  }
+
+  // Collisions
+  if (showCollisions) {
+    for (let i = 0; i < bodies.length; i++) {
+      for (let j = i + 1; j < bodies.length; j++) {
+        const a = bodies[i], b = bodies[j];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < a.r + b.r - 2) {
+          // Merge: larger absorbs smaller
+          const total = a.mass + b.mass;
+          const survivor = a.mass >= b.mass ? a : b;
+          const other = a.mass >= b.mass ? b : a;
+          survivor.vx = (a.vx * a.mass + b.vx * b.mass) / total;
+          survivor.vy = (a.vy * a.mass + b.vy * b.mass) / total;
+          survivor.x = (a.x * a.mass + b.x * b.mass) / total;
+          survivor.y = (a.y * a.mass + b.y * b.mass) / total;
+          survivor.mass = total;
+          survivor.r = Math.max(3, Math.cbrt(total) * 2.2);
+          if (survivor.mass > 800) survivor.isStar = true;
+          other.alive = false;
+        }
+      }
+    }
+    bodies = bodies.filter(b => b.alive);
+  }
+}
+
+function drawBody(b) {
+  const s = toScreen(b.x, b.y);
+  const sr = b.r * cam.zoom;
+
+  // Trail
+  if (showTrails && b.trail.length > 1) {
+    ctx.beginPath();
+    const ts0 = toScreen(b.trail[0].x, b.trail[0].y);
+    ctx.moveTo(ts0.x, ts0.y);
+    for (let i = 1; i < b.trail.length; i++) {
+      const ts = toScreen(b.trail[i].x, b.trail[i].y);
+      ctx.lineTo(ts.x, ts.y);
+    }
+    ctx.strokeStyle = b.color + '55';
+    ctx.lineWidth = Math.max(0.5, sr * 0.35);
+    ctx.stroke();
+  }
+
+  // Glow
+  if (b.isStar || b.mass > 80) {
+    const glowR = sr * (b.isStar ? 3.5 : 2.2);
+    const grad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowR);
+    grad.addColorStop(0, b.color + 'aa');
+    grad.addColorStop(1, b.color + '00');
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, glowR, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+  }
+
+  // Body
+  const grad2 = ctx.createRadialGradient(s.x - sr * 0.3, s.y - sr * 0.3, 0, s.x, s.y, sr);
+  grad2.addColorStop(0, lighten(b.color));
+  grad2.addColorStop(1, darken(b.color));
+  ctx.beginPath();
+  ctx.arc(s.x, s.y, Math.max(2, sr), 0, Math.PI * 2);
+  ctx.fillStyle = grad2;
+  ctx.fill();
+
+  // Velocity vector
+  if (showVectors) {
+    const scale = 3 * cam.zoom;
+    const ex = s.x + b.vx * scale, ey = s.y + b.vy * scale;
+    ctx.beginPath();
+    ctx.moveTo(s.x, s.y);
+    ctx.lineTo(ex, ey);
+    ctx.strokeStyle = '#ffffff66';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+}
+
+function lighten(hex) {
+  const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+  return `rgb(${Math.min(255,r+80)},${Math.min(255,g+80)},${Math.min(255,b+80)})`;
+}
+
+function darken(hex) {
+  const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+  return `rgb(${Math.max(0,r-40)},${Math.max(0,g-40)},${Math.max(0,b-40)})`;
+}
+
+function drawStarfield() {
+  // Static stars (seeded)
+  if (!drawStarfield.stars) {
+    drawStarfield.stars = Array.from({length: 300}, (_, i) => ({
+      x: (Math.sin(i * 1.7) * 0.5 + 0.5) * 4000 - 2000,
+      y: (Math.sin(i * 2.9) * 0.5 + 0.5) * 4000 - 2000,
+      r: Math.random() * 1.2 + 0.3,
+      a: Math.random() * 0.6 + 0.2
+    }));
+  }
+  drawStarfield.stars.forEach(star => {
+    const s = toScreen(star.x, star.y);
+    if (s.x < -10 || s.x > W + 10 || s.y < -10 || s.y > H + 10) return;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, star.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(200,220,255,${star.a})`;
+    ctx.fill();
+  });
+}
+
+function drawDragArrow() {
+  if (!dragging || !dragStart || !dragPos) return;
+  const s = toScreen(dragStart.x, dragStart.y);
+  ctx.beginPath();
+  ctx.arc(s.x, s.y, +massSlider.value * cam.zoom / 10 + 4, 0, Math.PI * 2);
+  ctx.strokeStyle = selectedColor + '99';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  const dx = dragPos.x - dragStart.x, dy = dragPos.y - dragStart.y;
+  const len = Math.sqrt(dx * dx + dy * dy);
+  if (len < 5) return;
+
+  ctx.beginPath();
+  ctx.moveTo(s.x, s.y);
+  const e = toScreen(dragStart.x + dx, dragStart.y + dy);
+  ctx.lineTo(e.x, e.y);
+  ctx.strokeStyle = selectedColor + 'cc';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([5, 5]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+let lastStats = 0;
+function updateStats() {
+  document.getElementById('s-bodies').textContent = bodies.length;
+  let ke = 0, pe = 0;
+  bodies.forEach(b => ke += 0.5 * b.mass * (b.vx * b.vx + b.vy * b.vy));
+  for (let i = 0; i < bodies.length; i++)
+    for (let j = i + 1; j < bodies.length; j++) {
+      const dx = bodies[j].x - bodies[i].x, dy = bodies[j].y - bodies[i].y;
+      pe -= G * bodies[i].mass * bodies[j].mass / Math.sqrt(dx * dx + dy * dy + 1);
+    }
+  document.getElementById('s-ke').textContent = ke.toFixed(0);
+  document.getElementById('s-pe').textContent = pe.toFixed(0);
+  document.getElementById('s-fps').textContent = fps.toFixed(0);
+}
+
+function loop(ts) {
+  requestAnimationFrame(loop);
+  const dt = Math.min((ts - lastTime) / 1000, 0.05);
+  lastTime = ts;
+
+  // FPS
+  frameCount++;
+  fpsTimer += dt;
+  if (fpsTimer > 0.5) { fps = frameCount / fpsTimer; frameCount = 0; fpsTimer = 0; }
+
+  if (!paused) {
+    const steps = Math.max(1, Math.round(timeScale / 3));
+    const subDt = dt * timeScale / steps;
+    for (let s = 0; s < steps; s++) step(subDt);
+  }
+
+  // Draw background
+  ctx.fillStyle = '#000010';
+  ctx.fillRect(0, 0, W, H);
+  drawStarfield();
+
+  bodies.forEach(drawBody);
+  drawDragArrow();
+
+  lastStats += dt;
+  if (lastStats > 0.25) { updateStats(); lastStats = 0; }
+}
+
+// ── Input ──────────────────────────────────────────────────────
+canvas.addEventListener('mousedown', e => {
+  const w = toWorld(e.clientX, e.clientY);
+
+  if (e.button === 0) {
+    // Check if clicking on existing body (pan)
+    let hitBody = false;
+    bodies.forEach(b => {
+      const s = toScreen(b.x, b.y);
+      const dx = e.clientX - s.x, dy = e.clientY - s.y;
+      if (Math.sqrt(dx * dx + dy * dy) < b.r * cam.zoom + 6) hitBody = true;
+    });
+
+    if (!hitBody) {
+      dragging = true;
+      dragStart = w;
+      dragPos = { ...w };
+    }
+  }
+
+  if (e.button === 1 || (e.button === 0 && e.altKey)) {
+    panning = true;
+    panStart = { x: e.clientX, y: e.clientY };
+    camStart = { x: cam.x, y: cam.y };
+  }
+});
+
+canvas.addEventListener('mousemove', e => {
+  if (dragging) dragPos = toWorld(e.clientX, e.clientY);
+  if (panning) {
+    cam.x = camStart.x - (e.clientX - panStart.x) / cam.zoom;
+    cam.y = camStart.y - (e.clientY - panStart.y) / cam.zoom;
+  }
+});
+
+canvas.addEventListener('mouseup', e => {
+  if (e.button === 1) { panning = false; return; }
+  if (dragging && dragStart) {
+    const w = toWorld(e.clientX, e.clientY);
+    const vx = (w.x - dragStart.x) * 0.8;
+    const vy = (w.y - dragStart.y) * 0.8;
+    const mass = +massSlider.value;
+    bodies.push(new Body(dragStart.x, dragStart.y, vx, vy, mass, selectedColor, mass > 120));
+  }
+  dragging = false; dragStart = null; dragPos = null;
+  panning = false;
+});
+
+canvas.addEventListener('contextmenu', e => {
+  e.preventDefault();
+  panning = true;
+  panStart = { x: e.clientX, y: e.clientY };
+  camStart = { x: cam.x, y: cam.y };
+});
+
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  const factor = e.deltaY < 0 ? 1.1 : 0.9;
+  const wx = toWorld(e.clientX, e.clientY);
+  cam.zoom *= factor;
+  cam.zoom = Math.max(0.05, Math.min(10, cam.zoom));
+  // Zoom toward cursor
+  const wx2 = toWorld(e.clientX, e.clientY);
+  cam.x -= wx2.x - wx.x;
+  cam.y -= wx2.y - wx.y;
+}, { passive: false });
+
+// ── Presets ────────────────────────────────────────────────────
+function clearAll() { bodies = []; }
+
+function loadPreset(name) {
+  clearAll();
+  cam.zoom = 1; cam.x = 0; cam.y = 0;
+
+  if (name === 'solar') {
+    bodies.push(new Body(0, 0, 0, 0, 2000, '#ffdd44', true));
+    const planets = [
+      { d: 120, s: 18, m: 3, c: '#aa8866' },
+      { d: 200, s: 14, m: 7, c: '#ddaa66' },
+      { d: 290, s: 12, m: 10, c: '#4488ff' },
+      { d: 380, s: 13, m: 6, c: '#cc4422' },
+      { d: 560, s: 7,  m: 60, c: '#cc9966' },
+      { d: 720, s: 6,  m: 45, c: '#ddcc88' },
+      { d: 870, s: 8,  m: 20, c: '#88ccff' },
+      { d: 1010, s: 7, m: 18, c: '#4466cc' },
+    ];
+    planets.forEach(p => {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = p.s * (Math.random() * 0.1 + 0.95);
+      bodies.push(new Body(
+        p.d * Math.cos(angle), p.d * Math.sin(angle),
+        -speed * Math.sin(angle), speed * Math.cos(angle),
+        p.m, p.c
+      ));
+    });
+    cam.zoom = 0.5;
+  }
+
+  else if (name === 'binary') {
+    bodies.push(new Body(-180, 0,  0, -14, 800, '#ffee88', true));
+    bodies.push(new Body( 180, 0,  0,  14, 800, '#88ccff', true));
+    for (let i = 0; i < 12; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const d = 350 + Math.random() * 300;
+      const speed = 22 / Math.sqrt(d / 100);
+      const c = PLANET_COLORS[Math.floor(Math.random() * PLANET_COLORS.length)];
+      bodies.push(new Body(
+        d * Math.cos(a), d * Math.sin(a),
+        -speed * Math.sin(a) * (Math.random() > 0.5 ? 1 : -1),
+         speed * Math.cos(a) * (Math.random() > 0.5 ? 1 : -1),
+        2 + Math.random() * 15, c
+      ));
+    }
+  }
+
+  else if (name === 'chaos') {
+    for (let i = 0; i < 25; i++) {
+      const x = (Math.random() - 0.5) * 800;
+      const y = (Math.random() - 0.5) * 800;
+      const m = 5 + Math.random() * 80;
+      const c = PLANET_COLORS[Math.floor(Math.random() * PLANET_COLORS.length)];
+      bodies.push(new Body(x, y, (Math.random()-0.5)*20, (Math.random()-0.5)*20, m, c, m > 60));
+    }
+  }
+
+  else if (name === 'galaxy') {
+    bodies.push(new Body(0, 0, 0, 0, 5000, '#ffffff', true));
+    for (let i = 0; i < 80; i++) {
+      const a = Math.random() * Math.PI * 2 + (i / 80) * Math.PI * 4;
+      const d = 60 + i * 12 + Math.random() * 30;
+      const speed = Math.sqrt(G * 5000 / d) * 0.9;
+      const c = `hsl(${200 + i * 2},80%,${50 + Math.random() * 30}%)`;
+      bodies.push(new Body(
+        d * Math.cos(a), d * Math.sin(a),
+        -speed * Math.sin(a) + (Math.random()-0.5) * 3,
+         speed * Math.cos(a) + (Math.random()-0.5) * 3,
+        1 + Math.random() * 8, c
+      ));
+    }
+    cam.zoom = 0.35;
+  }
+
+  else if (name === 'dance') {
+    const N = 3, M = 600;
+    for (let i = 0; i < N; i++) {
+      const a = (i / N) * Math.PI * 2;
+      const d = 250;
+      const speed = 16;
+      const colors = ['#ff6644','#44aaff','#aaff44'];
+      bodies.push(new Body(
+        d * Math.cos(a), d * Math.sin(a),
+        -speed * Math.sin(a), speed * Math.cos(a),
+        M, colors[i], true
+      ));
+    }
+  }
+
+  else if (name === 'empty') {
+    // nothing
+  }
+}
+
+function addRandomPlanet() {
+  const a = Math.random() * Math.PI * 2;
+  const d = 200 + Math.random() * 400;
+  const m = 5 + Math.random() * 60;
+  const c = PLANET_COLORS[Math.floor(Math.random() * PLANET_COLORS.length)];
+  const speed = 12 + Math.random() * 8;
+  bodies.push(new Body(
+    d * Math.cos(a) + cam.x, d * Math.sin(a) + cam.y,
+    -speed * Math.sin(a), speed * Math.cos(a),
+    m, c
+  ));
+}
+
+function togglePause() {
+  paused = !paused;
+  document.getElementById('pause-btn').textContent = paused ? '▶ Continuar' : '⏸ Pausar';
+}
+
+function toggleTrails() {
+  showTrails = !showTrails;
+  document.getElementById('trail-toggle').classList.toggle('on', showTrails);
+  if (!showTrails) bodies.forEach(b => b.trail = []);
+}
+
+function toggleCollisions() {
+  showCollisions = !showCollisions;
+  document.getElementById('collision-toggle').classList.toggle('on', showCollisions);
+}
+
+function toggleVectors() {
+  showVectors = !showVectors;
+  document.getElementById('vector-toggle').classList.toggle('on', showVectors);
+}
+
+function toggleUI() {
+  uiVisible = !uiVisible;
+  document.getElementById('ui').style.display = uiVisible ? 'block' : 'none';
+  document.getElementById('toggle-ui').style.left = uiVisible ? '290px' : '10px';
+  document.getElementById('toggle-ui').textContent = uiVisible ? '◀ Painel' : '▶ Painel';
+}
+
+// Start with Solar System
+loadPreset('solar');
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

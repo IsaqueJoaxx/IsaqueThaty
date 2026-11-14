@@ -1,0 +1,250 @@
+{
+  "parametros": {
+    "rampa_max": 0.08,
+    "tolerancia_rampa": 0.06,
+    "sigma_suavizacao": 15,
+    "plataforma": 8,
+    "talude_corte": 1.0,
+    "talude_aterro": 1.5,
+    "giro_max_grau": 45.0,
+    "raio_min": 40,
+    "raio_desejado": 80,
+    "tangente_min": 15,
+    "area_bueiro_ha": 2.0,
+    "area_ponte_ha": 200.0,
+    "fator_corredor": 1.8,
+    "n_alternativas": 3,
+    "dist_penalizacao": 30,
+    "fator_penalizacao": 0.6,
+    "tolerancia_dp": null,
+    "passo_amostragem": 5.0,
+    "k_vertical": 15.0,
+    "meia_largura_secao": 60.0,
+    "peso_curva": 20000.0,
+    "penal_borda": 2.0
+  },
+  "custos": {
+    "extensao": 1500.0,
+    "terraplenagem": 30.0,
+    "bueiro": 60000.0,
+    "ponte": 1500000.0,
+    "contencao": 8000.0,
+    "faixa_talvegue": 400.0
+  },
+  "alternativas": [
+    {
+      "id": "ALT-2",
+      "avisos": [
+        "104 m com a seção saindo da área levantada (volume subestimado aí)"
+      ],
+      "sobreposicao": 0.18947368421052632,
+      "extensao_m": 703.546408984671,
+      "n_curvas": 6,
+      "raio_min_m": 48.98391074521476,
+      "curvas_abaixo_desejado": 4,
+      "rampa_max_pct": 8.000000000001819,
+      "corte_m3": 20970.186198373656,
+      "aterro_m3": 29826.417409367,
+      "balanco_m3": -8856.231210993345,
+      "corte_max_m": 13.662469031496244,
+      "aterro_max_m": 8.242545954945854,
+      "talude_nao_fecha_m": 0.0,
+      "secao_fora_mdt_m": 104.48988594499976,
+      "travessias": [],
+      "n_bueiros": 0,
+      "n_pontes": 0,
+      "custo": {
+        "extensao": 1055319.6134770066,
+        "terraplenagem": 1523898.1082322197,
+        "bueiros": 0.0,
+        "pontes": 0.0,
+        "contencao": 0.0,
+        "faixa_talvegue": 0.0,
+        "restricoes": 0.0
+      },
+      "custo_total": 2579217.7217092263
+    },
+    {
+      "id": "ALT-1",
+      "avisos": [],
+      "sobreposicao": 0.0,
+      "extensao_m": 545.6317680057995,
+      "n_curvas": 5,
+      "raio_min_m": 48.87247458551338,
+      "curvas_abaixo_desejado": 3,
+      "rampa_max_pct": 8.000000000013847,
+      "corte_m3": 6145.036609788021,
+      "aterro_m3": 50613.860546240154,
+      "balanco_m3": -44468.82393645213,
+      "corte_max_m": 9.332866674196225,
+      "aterro_max_m": 22.009861251264738,
+      "talude_nao_fecha_m": 0.0,
+      "secao_fora_mdt_m": 0.0,
+      "travessias": [
+        {
+          "estaca": 125.0,
+          "area_ha": 2.5875,
+          "tipo": "bueiro",
+          "altura_aterro": 4.763991163679748,
+          "extensao_na_faixa": 25.0
+        },
+        {
+          "estaca": 345.0,
+          "area_ha": 5.0175,
+          "tipo": "bueiro",
+          "altura_aterro": 9.496188694074135,
+          "extensao_na_faixa": 15.0
+        }
+      ],
+      "n_bueiros": 2,
+      "n_pontes": 0,
+      "custo": {
+        "extensao": 818447.6520086993,
+        "terraplenagem": 1702766.9146808453,
+        "bueiros": 120000.0,
+        "pontes": 0.0,
+        "contencao": 0.0,
+        "faixa_talvegue": 16000.0,
+        "restricoes": 0.0
+      },
+      "custo_total": 2657214.5666895444
+    },
+    {
+      "id": "ALT-3",
+      "avisos": [],
+      "sobreposicao": 0.6847826086956522,
+      "extensao_m": 602.3250246942883,
+      "n_curvas": 6,
+      "raio_min_m": 43.57834392418618,
+      "curvas_abaixo_desejado": 5,
+      "rampa_max_pct": 8.000000000005395,
+      "corte_m3": 2618.1355246320195,
+      "aterro_m3": 97525.32867852281,
+      "balanco_m3": -94907.1931538908,
+      "corte_max_m": 4.598976173746564,
+      "aterro_max_m": 22.955023201723748,
+      "talude_nao_fecha_m": 0.0,
+      "secao_fora_mdt_m": 0.0,
+      "travessias": [
+        {
+          "estaca": 100.0,
+          "area_ha": 2.65,
+          "tipo": "bueiro",
+          "altura_aterro": 13.225959237153006,
+          "extensao_na_faixa": 15.0
+        },
+        {
+          "estaca": 400.0,
+          "area_ha": 5.065,
+          "tipo": "bueiro",
+          "altura_aterro": 9.697887400336185,
+          "extensao_na_faixa": 20.0
+        }
+      ],
+      "n_bueiros": 2,
+      "n_pontes": 0,
+      "custo": {
+        "extensao": 903487.5370414326,
+        "terraplenagem": 3004303.9260946447,
+        "bueiros": 120000.0,
+        "pontes": 0.0,
+        "contencao": 0.0,
+        "faixa_talvegue": 14000.0,
+        "restricoes": 0.0
+      },
+      "custo_total": 4041791.4631360774
+    },
+    {
+      "id": "REF ALINHAMENTO - 2 · greide expedito",
+      "avisos": [],
+      "sobreposicao": null,
+      "extensao_m": 469.00976605591046,
+      "n_curvas": 1,
+      "raio_min_m": 394.0,
+      "curvas_abaixo_desejado": 0,
+      "rampa_max_pct": 8.000000000001819,
+      "corte_m3": 18114.149577733966,
+      "aterro_m3": 95367.94193070979,
+      "balanco_m3": -77253.79235297581,
+      "corte_max_m": 19.3820170969218,
+      "aterro_max_m": 24.27654386940526,
+      "talude_nao_fecha_m": 0.0,
+      "secao_fora_mdt_m": 0.0,
+      "travessias": [
+        {
+          "estaca": 105.0,
+          "area_ha": 4.7575,
+          "tipo": "bueiro",
+          "altura_aterro": 22.29622475586666,
+          "extensao_na_faixa": 20.0
+        },
+        {
+          "estaca": 280.0,
+          "area_ha": 4.76,
+          "tipo": "bueiro",
+          "altura_aterro": 8.396125703147163,
+          "extensao_na_faixa": 30.0
+        }
+      ],
+      "n_bueiros": 2,
+      "n_pontes": 0,
+      "custo": {
+        "extensao": 703514.6490838657,
+        "terraplenagem": 3404462.745253313,
+        "bueiros": 120000.0,
+        "pontes": 0.0,
+        "contencao": 0.0,
+        "faixa_talvegue": 20000.0,
+        "restricoes": 0.0
+      },
+      "custo_total": 4247977.394337179,
+      "referencia": true
+    },
+    {
+      "id": "REF ALINHAMENTO - 2 · VERTICAL- 2",
+      "avisos": [],
+      "sobreposicao": null,
+      "extensao_m": 469.00976605591046,
+      "n_curvas": 1,
+      "raio_min_m": 394.0,
+      "curvas_abaixo_desejado": 0,
+      "rampa_max_pct": 61.06544135741843,
+      "corte_m3": 9999.881330517213,
+      "aterro_m3": 6304.050732866621,
+      "balanco_m3": 3695.8305976505926,
+      "corte_max_m": 9.300246790283268,
+      "aterro_max_m": 5.425637313799257,
+      "talude_nao_fecha_m": 0.0,
+      "secao_fora_mdt_m": 0.0,
+      "travessias": [
+        {
+          "estaca": 105.0,
+          "area_ha": 4.7575,
+          "tipo": "bueiro",
+          "altura_aterro": 3.343584053009522,
+          "extensao_na_faixa": 20.0
+        },
+        {
+          "estaca": 280.0,
+          "area_ha": 4.76,
+          "tipo": "bueiro",
+          "altura_aterro": 0.0,
+          "extensao_na_faixa": 30.0
+        }
+      ],
+      "n_bueiros": 2,
+      "n_pontes": 0,
+      "custo": {
+        "extensao": 703514.6490838657,
+        "terraplenagem": 489117.961901515,
+        "bueiros": 120000.0,
+        "pontes": 0.0,
+        "contencao": 0.0,
+        "faixa_talvegue": 20000.0,
+        "restricoes": 0.0
+      },
+      "custo_total": 1332632.6109853806,
+      "referencia": true
+    }
+  ]
+}

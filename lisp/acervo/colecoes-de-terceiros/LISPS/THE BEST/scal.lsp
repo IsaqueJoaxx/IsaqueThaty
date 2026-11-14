@@ -1,0 +1,15 @@
+;THIS FILE WILL SCALE OBJECTS BY THIER INSERTION POINTS
+(defun c:scal ()
+  (command)
+  (setq SC (getreal "\nSCALE FACTOR: "))
+  (command)
+  (prompt "\nSelect objects, ")
+  (setq ssloop (ssget))
+  (setq i 0)
+  (while (setq obj (ssname ssloop (- (setq i (1+ i)) 1)))
+    (setq inspt (cdr (assoc '10 (entget obj))))
+    (command "SCALE" OBJ "" INSPT SC)
+  )
+  (prin1)
+)
+

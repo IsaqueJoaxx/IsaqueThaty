@@ -1,0 +1,25 @@
+{
+  "id": "MEIA_CANA_COM_ABAS",
+  "nome": "Meia-cana com abas laterais (exemplo)",
+  "categoria": "Valeta",
+  "descricao": "Exemplo de seção do usuário misturando arcos e pontos. Origem no fundo da meia-cana.",
+  "parametros": [
+    { "nome": "r", "padrao": 0.30, "descricao": "Raio interno" },
+    { "nome": "a", "padrao": 0.25, "descricao": "Largura de cada aba" },
+    { "nome": "e", "padrao": 0.07, "descricao": "Espessura" },
+    { "nome": "i", "padrao": 0.05, "unidade": "m/m", "descricao": "Caimento das abas para dentro" }
+  ],
+  "contornoHidraulico": [
+    { "x": "-r - a", "y": "r + a*i" },
+    { "arco": true, "x": 0, "y": "r", "raio": "r", "de": 180, "ate": 360, "segmentos": 16 },
+    { "x": "r + a", "y": "r + a*i" }
+  ],
+  "concreto": [
+    { "x": "-r - a", "y": "r + a*i" },
+    { "arco": true, "x": 0, "y": "r", "raio": "r", "de": 180, "ate": 360, "segmentos": 16 },
+    { "x": "r + a", "y": "r + a*i" },
+    { "x": "r + a", "y": "r + a*i - e" },
+    { "arco": true, "x": 0, "y": "r", "raio": "r + e", "de": 360, "ate": 180, "segmentos": 16 },
+    { "x": "-r - a", "y": "r + a*i - e" }
+  ]
+}

@@ -1,0 +1,1 @@
+(defun c:SP	() (command "pedit" pause "s" ""))

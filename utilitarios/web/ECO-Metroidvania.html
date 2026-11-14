@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECO — O Eco das Profundezas</title>
+<style>
+  html,body{margin:0;height:100%;background:#05060a;color:#cfe;font-family:Consolas,monospace;overflow:hidden}
+  #wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
+  canvas{background:#05060a;image-rendering:pixelated;border:1px solid #1a2a44;box-shadow:0 0 40px #0af3;max-width:100%}
+  #tip{margin-top:8px;font-size:12px;color:#5a7}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="c" width="640" height="400" tabindex="0"></canvas>
+  <div id="tip">← → mover &nbsp;•&nbsp; Z pular &nbsp;•&nbsp; X atirar &nbsp;•&nbsp; ↓ virar esfera &nbsp;•&nbsp; ↑ mirar p/ cima &nbsp;•&nbsp; Enter iniciar</div>
+</div>
+<script>
+const cv=document.getElementById('c'),g=cv.getContext('2d');
+const TS=20,VW=32,VH=20; // tiles visíveis
+const W=120,HH=40;       // tamanho do mundo em tiles
+// ---------- áudio sintetizado ----------
+let AC=null;
+function actx(){ if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}} return AC; }
+function beep(f,d,type,vol){ const a=actx(); if(!a)return; const o=a.createOscillator(),gn=a.createGain();
+  o.type=type||'square'; o.frequency.value=f; gn.gain.value=(vol||0.06); o.connect(gn); gn.connect(a.destination);
+  const t=a.currentTime; gn.gain.setValueAtTime(gn.gain.value,t); gn.gain.exponentialRampToValueAtTime(0.001,t+d);
+  o.start(t); o.stop(t+d); }
+const S={jump:()=>beep(420,0.12,'square',0.05), shoot:()=>beep(760,0.07,'square',0.04),
+  hit:()=>beep(150,0.18,'sawtooth',0.07), item:()=>{beep(660,0.1,'square',0.06);setTimeout(()=>beep(990,0.14,'square',0.06),90);},
+  door:()=>beep(300,0.16,'triangle',0.06), hurt:()=>beep(110,0.22,'sawtooth',0.08),
+  boss:()=>beep(80,0.3,'sawtooth',0.09), win:()=>{[523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,0.25,'square',0.07),i*140));}};
+
+// ---------- mundo ----------
+let grid;
+function carve(x,y,w,h,v){ v=v||0; for(let yy=y;yy<y+h;yy++)for(let xx=x;xx<x+w;xx++) if(yy>=0&&yy<HH&&xx>=0&&xx<W) grid[yy][xx]=v; }
+function solid(x,y,w,h){ carve(x,y,w,h,1); }
+function buildWorld(){
+  grid=[]; for(let y=0;y<HH;y++){grid[y]=[];for(let x=0;x<W;x++)grid[y][x]=1;}
+  carve(3,29,16,8);    // sala inicial
+  carve(17,32,6,4);    // corredor -> hub
+  carve(22,5,12,32);   // hub vertical
+  carve(33,32,16,4);   // hub -> sala da esfera
+  carve(46,28,9,9);    // sala da esfera
+  carve(53,35,14,1);   // túnel estreito (precisa esfera)
+  carve(64,29,12,8);   // sala do salto
+  carve(66,9,5,21);    // poço vertical alto
+  carve(60,6,14,5);    // sala do escudo
+  carve(72,7,22,5);    // corredor de perigo
+  carve(94,4,22,30);   // arena do chefe
+  // plataformas do hub
+  solid(28,30,3,1);solid(23,25,3,1);solid(28,20,3,1);solid(23,15,3,1);solid(28,10,3,1);
+  // degraus do poço (espaçados — exigem Pulso)
+  solid(67,32,2,1);solid(66,28,2,1);solid(68,24,2,1);solid(66,20,2,1);solid(68,16,2,1);solid(67,12,2,1);
+  // piso de perigo (dano sem escudo)
+  carve(74,12,16,1,2);
+  // parede da porta-núcleo do chefe
+  solid(93,4,1,30);
+}
+
+// ---------- objetos ----------
+let items,doors,enemies,boss,shots,bshots,parts;
+function spawnWorld(){
+  items=[
+    item(15,35,'beam','B'), item(50,33,'sphere','S'), item(68,35,'jump','J'),
+    item(63,9,'shield','H'), item(29,35,'tank','+'),
+    core(72,35), core(70,9), core(90,10)
+  ];
+  doors=[
+    door(40,32,1,4,'beam'),          // porta que abre com tiro
+    door(93,7,1,5,'core')            // porta-núcleo do chefe (precisa 3 núcleos)
+  ];
+  enemies=[
+    crawler(38,35), crawler(45,31), crawler(24,35),
+    flyer(78,9), flyer(86,9)
+  ];
+  boss={x:104*TS,y:24*TS,w:46,h:46,hp:34,mhp:34,vx:1.4,vy:-0.7,t:0,dead:false,active:false,hurt:0};
+  shots=[]; bshots=[]; parts=[];
+}
+const item=(tx,ty,k,c)=>({x:tx*TS,y:ty*TS,k,c,got:false,t:0});
+const core=(tx,ty)=>({x:tx*TS,y:ty*TS,k:'core',c:'◆',got:false,t:0});
+const door=(tx,ty,w,h,k)=>({x:tx*TS,y:ty*TS,w:w*TS,h:h*TS,k,open:false});
+const crawler=(tx,ty)=>({x:tx*TS,y:ty*TS,w:18,h:14,vx:0.7,hp:2,kind:'crawler',t:0,dead:false});
+const flyer=(tx,ty)=>({x:tx*TS,y:ty*TS,w:18,h:16,vx:0,vy:0.8,hp:2,kind:'flyer',t:Math.random()*6,dead:false,ox:tx*TS});
+
+// ---------- jogador ----------
+let P, cam={x:0,y:0}, state='title', cores=0, msg='', msgT=0, winT=0;
+function resetPlayer(){
+  P={x:6*TS,y:33*TS,w:14,h:30,vx:0,vy:0,onG:false,face:1,morph:false,
+     hasBeam:false,hasSphere:false,hasJump:false,hasShield:false,
+     energy:99,maxE:99,cool:0,inv:0,aimUp:false};
+}
+function newGame(){ buildWorld(); spawnWorld(); resetPlayer(); cores=0; state='play'; flash('SISTEMA ONLINE — recupere os 3 núcleos'); }
+
+// ---------- input ----------
+const K={};
+addEventListener('keydown',e=>{ if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();
+  K[e.key]=true;
+  if(e.key==='Enter'){ if(state==='title'||state==='dead'||state==='win'){ actx(); newGame(); } }
+  if((e.key==='z'||e.key==='Z'||e.key===' ')) tryJump();
+});
+addEventListener('keyup',e=>{K[e.key]=false;});
+cv.addEventListener('mousedown',()=>cv.focus());
+
+function flash(t){ msg=t; msgT=180; }
+
+// ---------- física ----------
+function tileAt(px,py){ const tx=Math.floor(px/TS),ty=Math.floor(py/TS);
+  if(tx<0||ty<0||tx>=W||ty>=HH) return 1; return grid[ty][tx]; }
+function solidPt(px,py){ const v=tileAt(px,py); if(v===1||v===2) return true; return false; }
+function boxSolid(x,y,w,h){
+  return solidPt(x,y)||solidPt(x+w,y)||solidPt(x,y+h)||solidPt(x+w,y+h)||
+         solidPt(x+w/2,y)||solidPt(x+w/2,y+h)||solidPt(x,y+h/2)||solidPt(x+w,y+h/2);
+}
+function doorSolid(x,y,w,h){
+  for(const d of doors){ if(d.open) continue;
+    if(x< d.x+d.w && x+w> d.x && y< d.y+d.h && y+h> d.y) return true; }
+  return false;
+}
+function blocked(x,y,w,h){ return boxSolid(x,y,w,h)||doorSolid(x,y,w,h); }
+
+function tryJump(){
+  if(state!=='play'||!P.onG||P.morph) return;
+  P.vy = P.hasJump? -12 : -8.4; P.onG=false; S.jump();
+}
+
+function updatePlayer(){
+  const sp=P.morph?2.6:2.9, ac=0.6;
+  let dir=0; if(K.ArrowLeft||K.a)dir=-1; if(K.ArrowRight||K.d)dir=1;
+  if(dir){ P.vx+=dir*ac; P.face=dir; } else { P.vx*=0.78; }
+  P.vx=Math.max(-sp,Math.min(sp,P.vx));
+  P.aimUp = !!(K.ArrowUp);
+
+  // morph
+  if(P.hasSphere){
+    if((K.ArrowDown)&&!P.morph){ P.morph=true; P.y+=P.h-16; P.h=16; P.w=16; }
+    else if((K.ArrowUp)&&P.morph){ // desmorfar se houver espaço
+      if(!blocked(P.x,P.y-(30-16),P.w,30)){ P.y-=(30-16); P.h=30; P.w=14; P.morph=false; }
+    }
+  }
+
+  // gravidade
+  P.vy=Math.min(12,P.vy+0.6);
+  // mover X
+  let nx=P.x+P.vx;
+  if(!blocked(nx,P.y,P.w,P.h)) P.x=nx; else { P.vx=0; }
+  // mover Y
+  let ny=P.y+P.vy; P.onG=false;
+  if(!blocked(P.x,ny,P.w,P.h)) P.y=ny;
+  else { if(P.vy>0){ P.onG=true; while(!blocked(P.x,P.y+1,P.w,P.h)&&Math.abs(P.y%TS)>0.01&&!blocked(P.x,P.y+1,P.w,P.h)){P.y++;} } P.vy=0; }
+
+  // perigo (piso quente)
+  const feet=[ [P.x+2,P.y+P.h+1],[P.x+P.w-2,P.y+P.h+1] ];
+  let onHaz=false; for(const f of feet) if(tileAt(f[0],f[1])===2) onHaz=true;
+  if(onHaz && !P.hasShield){ if(P.inv<=0){ P.energy-=1; if(P.energy%6===0)S.hurt(); } }
+
+  // tiro
+  P.cool=Math.max(0,P.cool-1);
+  if((K.x||K.X)&&P.cool<=0&&P.hasBeam&&!P.morph){
+    P.cool=12; S.shoot();
+    const up=P.aimUp;
+    shots.push({x:P.x+(up?P.w/2:(P.face>0?P.w:0)), y:P.y+(up?-2:P.h*0.35),
+      vx:up?0:7*P.face, vy:up?-7:0, life:60});
+  }
+
+  if(P.inv>0)P.inv--;
+  if(P.energy<=0){ P.energy=0; state='dead'; S.hurt(); }
+}
+
+// ---------- coleta ----------
+function overlap(a,b){ return a.x< b.x+(b.w||TS) && a.x+(a.w||TS)> b.x && a.y< b.y+(b.h||TS) && a.y+(a.h||TS)> b.y; }
+function pickups(){
+  for(const it of items){ if(it.got)continue; it.t++;
+    if(P.x< it.x+TS && P.x+P.w> it.x && P.y< it.y+TS && P.y+P.h> it.y){
+      it.got=true; S.item();
+      if(it.k==='beam'){P.hasBeam=true; flash('CANHÃO DE PLASMA — X para atirar, ↑ mira p/ cima');}
+      if(it.k==='sphere'){P.hasSphere=true; flash('MODO ESFERA — ↓ para rolar em túneis estreitos');}
+      if(it.k==='jump'){P.hasJump=true; flash('PROPULSOR DE PULSO — seu salto agora é altíssimo');}
+      if(it.k==='shield'){P.hasShield=true; flash('ESCUDO TÉRMICO — imune ao piso incandescente');}
+      if(it.k==='tank'){P.maxE+=50; P.energy=P.maxE; flash('TANQUE DE ENERGIA — capacidade +50');}
+      if(it.k==='core'){cores++; flash('NÚCLEO DE ECO recuperado ('+cores+'/3)');
+        if(cores>=3) flash('3 NÚCLEOS! A porta selada do Devorador cedeu...');}
+    }
+  }
+  // portas
+  for(const d of doors){ if(d.open)continue;
+    if(d.k==='core'&&cores>=3){ d.open=true; S.door(); }
+  }
+}
+
+// ---------- tiros ----------
+function updateShots(){
+  for(const s of shots){ s.x+=s.vx; s.y+=s.vy; s.life--;
+    if(solidPt(s.x,s.y)) s.life=0;
+    for(const d of doors){ if(!d.open&&d.k==='beam'&&s.x>d.x&&s.x<d.x+d.w&&s.y>d.y&&s.y<d.y+d.h){ d.open=true; s.life=0; S.door(); flash('Porta destrancada'); } }
+    for(const e of enemies){ if(e.dead)continue; if(s.x>e.x&&s.x<e.x+e.w&&s.y>e.y&&s.y<e.y+e.h){ e.hp--; s.life=0; S.hit(); burst(e.x+e.w/2,e.y+e.h/2,'#fa6'); if(e.hp<=0){e.dead=true; burst(e.x+e.w/2,e.y+e.h/2,'#fc8',14);} } }
+    if(boss.active&&!boss.dead&&s.x>boss.x&&s.x<boss.x+boss.w&&s.y>boss.y&&s.y<boss.y+boss.h){ boss.hp--; boss.hurt=6; s.life=0; S.hit(); burst(s.x,s.y,'#f6a'); if(boss.hp<=0){ boss.dead=true; winT=120; S.win(); for(let i=0;i<40;i++)burst(boss.x+boss.w/2,boss.y+boss.h/2,'#f9d',1);} }
+  }
+  shots=shots.filter(s=>s.life>0);
+  for(const b of bshots){ b.x+=b.vx; b.y+=b.vy; b.life--; if(solidPt(b.x,b.y))b.life=0;
+    if(P.inv<=0&&b.x>P.x&&b.x<P.x+P.w&&b.y>P.y&&b.y<P.y+P.h){ damage(12); b.life=0; } }
+  bshots=bshots.filter(b=>b.life>0);
+}
+function damage(n){ if(P.inv>0)return; P.energy-=n; P.inv=60; S.hurt(); flash('-'+n+' energia'); if(P.energy<=0){P.energy=0;state='dead';} }
+
+// ---------- inimigos ----------
+function updateEnemies(){
+  for(const e of enemies){ if(e.dead)continue; e.t++;
+    if(e.kind==='crawler'){
+      let nx=e.x+e.vx;
+      if(solidPt(nx+(e.vx>0?e.w:0),e.y+e.h+2) && !solidPt(nx+(e.vx>0?e.w:0),e.y+e.h-2)) e.x=nx; else e.vx*=-1;
+      e.y+=2; if(solidPt(e.x,e.y+e.h)) { while(solidPt(e.x,e.y+e.h))e.y--; }
+    } else { // flyer sobe/desce
+      e.y+=Math.sin(e.t*0.05)*1.2; e.x=e.ox+Math.sin(e.t*0.03)*30;
+    }
+    if(P.inv<=0&&overlap(P,e)) damage(10);
+  }
+  enemies=enemies.filter(e=>!e.dead);
+  // chefe
+  if(!boss.dead){
+    if(!boss.active && P.x> 95*TS){ boss.active=true; flash('O DEVORADOR DE ECO desperta!'); S.boss(); }
+    if(boss.active){ boss.t++;
+      boss.x+=boss.vx; boss.y+=boss.vy; boss.vy+=0.04;
+      if(boss.x<95*TS||boss.x+boss.w>115*TS) boss.vx*=-1;
+      if(boss.y<6*TS||boss.y+boss.h>32*TS) boss.vy=-Math.abs(boss.vy)*0.9-0.6;
+      if(boss.y+boss.h>32*TS){boss.y=32*TS-boss.h; boss.vy=-3;}
+      if(boss.hurt>0)boss.hurt--;
+      if(boss.t%70===0){ const dx=P.x-boss.x,dy=P.y-boss.y,d=Math.hypot(dx,dy)||1;
+        bshots.push({x:boss.x+boss.w/2,y:boss.y+boss.h/2,vx:dx/d*3.4,vy:dy/d*3.4,life:160}); S.boss(); }
+      if(P.inv<=0&&overlap(P,boss)) damage(15);
+    }
+  }
+}
+
+// ---------- partículas ----------
+function burst(x,y,col,n){ n=n||6; for(let i=0;i<n;i++)parts.push({x,y,vx:(Math.random()-0.5)*4,vy:(Math.random()-0.5)*4,life:24,col}); }
+function updateParts(){ for(const p of parts){p.x+=p.vx;p.y+=p.vy;p.vy+=0.15;p.life--;} parts=parts.filter(p=>p.life>0); }
+
+// ---------- estações de recarga ----------
+const saves=[{x:23*TS,y:35*TS}];
+function checkSave(){ for(const s of saves){ if(Math.abs((P.x)-s.x)<TS && Math.abs(P.y-s.y)<TS*2){ if(P.energy<P.maxE){P.energy=P.maxE; flash('Energia recarregada');} } } }
+
+// ---------- render ----------
+const stars=[]; for(let i=0;i<70;i++)stars.push({x:Math.random()*W*TS,y:Math.random()*HH*TS,s:Math.random()*1.5+0.3});
+function draw(){
+  g.clearRect(0,0,640,400);
+  // fundo
+  g.fillStyle='#070a12'; g.fillRect(0,0,640,400);
+  for(const st of stars){ const sx=st.x-cam.x*0.4,sy=st.y-cam.y*0.4; if(sx>-2&&sx<642&&sy>-2&&sy<402){ g.fillStyle='rgba(120,180,255,'+(0.2+st.s*0.3)+')'; g.fillRect(sx,sy,st.s,st.s);} }
+
+  const x0=Math.floor(cam.x/TS),y0=Math.floor(cam.y/TS);
+  for(let y=y0;y<=y0+VH+1;y++)for(let x=x0;x<=x0+VW+1;x++){
+    if(y<0||x<0||y>=HH||x>=W)continue; const v=grid[y][x]; if(v===0)continue;
+    const sx=x*TS-cam.x, sy=y*TS-cam.y;
+    if(v===2){ g.fillStyle='#3a1206'; g.fillRect(sx,sy,TS,TS); g.fillStyle='#ff7a18'; g.fillRect(sx,sy,TS,4); g.fillStyle='rgba(255,150,40,.5)'; g.fillRect(sx,sy+4,TS,3); }
+    else { g.fillStyle='#16243e'; g.fillRect(sx,sy,TS,TS); g.fillStyle='#1f3357'; g.fillRect(sx+1,sy+1,TS-2,TS-2); g.fillStyle='#0e1a30'; g.fillRect(sx+2,sy+TS-4,TS-4,2); }
+  }
+  // estações
+  for(const s of saves){ const sx=s.x-cam.x,sy=s.y-cam.y; g.fillStyle='#0af'; g.fillRect(sx+2,sy-30,2,30); g.fillStyle='rgba(0,200,255,.25)'; g.fillRect(sx-6,sy-36,18,40); }
+
+  // portas
+  for(const d of doors){ if(d.open)continue; const sx=d.x-cam.x,sy=d.y-cam.y;
+    g.fillStyle=d.k==='core'?'#a0f':'#0bd'; g.fillRect(sx,sy,d.w,d.h);
+    g.fillStyle='rgba(255,255,255,.3)'; for(let i=0;i<d.h;i+=6)g.fillRect(sx,sy+i,d.w,2);
+    if(d.k==='core'){ g.fillStyle='#fff'; g.font='10px monospace'; g.fillText(cores+'/3',sx-6,sy-4); }
+  }
+
+  // itens
+  for(const it of items){ if(it.got)continue; const sx=it.x-cam.x,sy=it.y-cam.y; if(sx<-30||sx>660)continue;
+    const pulse=2+Math.sin(it.t*0.12)*2; const col=it.k==='core'?'#b6f':it.k==='tank'?'#6f8':'#ffcf4d';
+    g.fillStyle='rgba(255,240,150,.18)'; g.beginPath(); g.arc(sx+TS/2,sy+TS/2,10+pulse,0,7); g.fill();
+    g.fillStyle=col; g.beginPath(); g.arc(sx+TS/2,sy+TS/2,7,0,7); g.fill();
+    g.fillStyle='#222'; g.font='bold 11px monospace'; g.textAlign='center'; g.fillText(it.c,sx+TS/2,sy+TS/2+4); g.textAlign='left';
+  }
+
+  // partículas
+  for(const p of parts){ g.globalAlpha=p.life/24; g.fillStyle=p.col; g.fillRect(p.x-cam.x,p.y-cam.y,3,3); g.globalAlpha=1; }
+
+  // tiros
+  g.fillStyle='#9ef'; for(const s of shots) g.fillRect(s.x-cam.x-2,s.y-cam.y-2,4,4);
+  g.fillStyle='#f6a'; for(const b of bshots){ g.beginPath(); g.arc(b.x-cam.x,b.y-cam.y,4,0,7); g.fill(); }
+
+  // inimigos
+  for(const e of enemies){ const sx=e.x-cam.x,sy=e.y-cam.y;
+    if(e.kind==='crawler'){ g.fillStyle='#7d3'; g.fillRect(sx,sy,e.w,e.h); g.fillStyle='#250'; g.fillRect(sx+3,sy+3,3,3); g.fillRect(sx+e.w-6,sy+3,3,3); g.fillStyle='#5b2'; for(let i=0;i<e.w;i+=4)g.fillRect(sx+i,sy+e.h,2,3); }
+    else { g.fillStyle='#c5f'; g.beginPath(); g.ellipse(sx+e.w/2,sy+e.h/2,e.w/2,e.h/2,0,0,7); g.fill(); g.fillStyle='#fff'; g.fillRect(sx+e.w/2-1,sy+4,2,2); g.fillStyle='rgba(200,120,255,.4)'; g.fillRect(sx-3,sy+e.h/2,e.w+6,3); }
+  }
+
+  // chefe
+  if(boss.active&&!boss.dead){ const sx=boss.x-cam.x,sy=boss.y-cam.y;
+    g.fillStyle=boss.hurt>0?'#fff':'#7a1840'; g.beginPath(); g.ellipse(sx+boss.w/2,sy+boss.h/2,boss.w/2,boss.h/2,0,0,7); g.fill();
+    g.fillStyle='#d44'; for(let a=0;a<7;a++){const an=boss.t*0.02+a; g.beginPath(); g.arc(sx+boss.w/2+Math.cos(an)*boss.w/2,sy+boss.h/2+Math.sin(an)*boss.h/2,4,0,7); g.fill();}
+    g.fillStyle='#ff0'; g.beginPath(); g.arc(sx+boss.w/2,sy+boss.h/2,7,0,7); g.fill(); g.fillStyle='#400'; g.beginPath(); g.arc(sx+boss.w/2,sy+boss.h/2,3,0,7); g.fill();
+    // barra de vida
+    g.fillStyle='#400'; g.fillRect(170,18,300,10); g.fillStyle='#e34'; g.fillRect(170,18,300*boss.hp/boss.mhp,10);
+    g.fillStyle='#fbb'; g.font='10px monospace'; g.fillText('DEVORADOR DE ECO',170,14);
+  }
+
+  // jogador
+  drawPlayer();
+
+  // HUD
+  drawHUD();
+}
+function drawPlayer(){
+  const sx=Math.round(P.x-cam.x),sy=Math.round(P.y-cam.y); const blink=P.inv>0&&Math.floor(P.inv/4)%2===0;
+  if(blink)g.globalAlpha=0.4;
+  if(P.morph){ g.fillStyle='#4cf'; g.beginPath(); g.arc(sx+8,sy+8,8,0,7); g.fill(); g.fillStyle='#08597a'; g.beginPath(); g.arc(sx+8,sy+8,8,0,7); g.lineWidth=2; g.strokeStyle='#0cf'; g.stroke(); g.fillStyle='#cff'; g.fillRect(sx+5,sy+5,2,2); g.fillRect(sx+10,sy+8,2,2); }
+  else {
+    g.fillStyle='#2b6cb0'; g.fillRect(sx,sy+8,P.w,P.h-8);            // corpo
+    g.fillStyle='#63b3ed'; g.fillRect(sx+1,sy+10,P.w-2,8);          // peito
+    g.fillStyle='#cbd5e0'; g.fillRect(sx+1,sy,P.w-2,9);             // capacete
+    g.fillStyle='#0ff'; g.fillRect(sx+(P.face>0?P.w-6:2),sy+2,4,4); // viseira
+    g.fillStyle='#1a4971'; g.fillRect(sx,sy+P.h-5,P.w,5);           // pés
+    if(P.hasBeam){ g.fillStyle='#fc6'; if(P.aimUp)g.fillRect(sx+P.w/2-2,sy-4,4,5); else g.fillRect(P.face>0?sx+P.w:sx-4,sy+9,4,4);} // canhão
+  }
+  g.globalAlpha=1;
+}
+function drawHUD(){
+  g.fillStyle='rgba(0,0,0,.45)'; g.fillRect(6,6,150,46);
+  g.fillStyle='#0f8'; g.font='11px monospace'; g.textAlign='left';
+  g.fillText('ENERGIA',12,20);
+  g.fillStyle='#022'; g.fillRect(12,24,120,8); g.fillStyle='#0f8'; g.fillRect(12,24,120*P.energy/P.maxE,8);
+  g.fillStyle='#cfe'; g.fillText(Math.round(P.energy)+'/'+P.maxE,12,44);
+  // núcleos
+  g.fillStyle='#b6f'; g.fillText('NÚCLEOS '+cores+'/3',74,44);
+  // habilidades
+  let ax=170; g.font='10px monospace';
+  const ab=[['B',P.hasBeam,'#fc6'],['S',P.hasSphere,'#4cf'],['J',P.hasJump,'#6f8'],['H',P.hasShield,'#f96']];
+  for(const a of ab){ g.fillStyle=a[1]?a[2]:'#333'; g.fillRect(ax,8,16,16); g.fillStyle=a[1]?'#111':'#666'; g.textAlign='center'; g.fillText(a[0],ax+8,19); ax+=20; }
+  g.textAlign='left';
+  if(msgT>0){ g.globalAlpha=Math.min(1,msgT/40); g.fillStyle='rgba(0,0,0,.6)'; g.fillRect(0,372,640,28); g.fillStyle='#ffe9a8'; g.font='12px monospace'; g.textAlign='center'; g.fillText(msg,320,390); g.textAlign='left'; g.globalAlpha=1; }
+}
+
+// ---------- telas ----------
+function drawTitle(){
+  g.fillStyle='#05060a'; g.fillRect(0,0,640,400);
+  for(const st of stars){ g.fillStyle='rgba(120,180,255,'+(0.2+st.s*0.3)+')'; g.fillRect((st.x*0.1)%640,(st.y*0.1)%400,st.s,st.s); }
+  g.textAlign='center';
+  g.fillStyle='#4cf'; g.font='bold 48px monospace'; g.fillText('E C O',320,150);
+  g.fillStyle='#8af'; g.font='14px monospace'; g.fillText('o eco das profundezas',320,178);
+  g.fillStyle='#cfe'; g.font='12px monospace';
+  g.fillText('Você é NOVA, uma exploradora android perdida nas',320,232);
+  g.fillText('cavernas de um planeta morto. Recupere os 3 Núcleos',320,250);
+  g.fillText('de Eco e enfrente o que dorme nas profundezas.',320,268);
+  g.fillStyle='#5fd'; g.fillText('← → mover   •   Z pular   •   X atirar',320,304);
+  g.fillStyle='#5fd'; g.fillText('↓ virar esfera   •   ↑ mirar para cima',320,322);
+  g.fillStyle=(Math.floor(Date.now()/400)%2)?'#ff6':'#fa3'; g.font='bold 16px monospace';
+  g.fillText('— pressione ENTER —',320,360);
+  g.textAlign='left';
+}
+function drawEnd(win){
+  g.fillStyle=win?'#04140a':'#160406'; g.fillRect(0,0,640,400); g.textAlign='center';
+  g.fillStyle=win?'#6f8':'#f66'; g.font='bold 34px monospace';
+  g.fillText(win?'NÚCLEO ESTÁVEL':'SINAL PERDIDO',320,170);
+  g.fillStyle='#cfe'; g.font='13px monospace';
+  if(win){ g.fillText('O Devorador silenciou. NOVA ergue o último núcleo',320,212);
+    g.fillText('e a caverna inteira pulsa com luz viva de novo.',320,232);
+    g.fillText('Núcleos: '+cores+'/3   •   Você venceu!',320,262); }
+  else { g.fillText('A energia de NOVA se esgotou nas profundezas.',320,212);
+    g.fillText('Núcleos recuperados: '+cores+'/3',320,238); }
+  g.fillStyle=(Math.floor(Date.now()/400)%2)?'#ff6':'#fa3'; g.font='bold 15px monospace';
+  g.fillText('— ENTER para tentar de novo —',320,320); g.textAlign='left';
+}
+
+// ---------- loop ----------
+let acc=0,last=performance.now();
+function frame(now){
+  const dt=Math.min(50,now-last); last=now; acc+=dt;
+  while(acc>=16.6){
+    if(state==='play'){
+      updatePlayer(); pickups(); updateShots(); updateEnemies(); updateParts(); checkSave();
+      if(msgT>0)msgT--;
+      if(winT>0){ winT--; if(winT===0) state='win'; }
+      // câmera
+      const tx=P.x+P.w/2-320, ty=P.y+P.h/2-200;
+      cam.x+=(tx-cam.x)*0.12; cam.y+=(ty-cam.y)*0.12;
+      cam.x=Math.max(0,Math.min(W*TS-640,cam.x)); cam.y=Math.max(0,Math.min(HH*TS-400,cam.y));
+    }
+    acc-=16.6;
+  }
+  if(state==='title')drawTitle();
+  else if(state==='dead')drawEnd(false);
+  else if(state==='win')drawEnd(true);
+  else draw();
+  requestAnimationFrame(frame);
+}
+buildWorld(); spawnWorld(); resetPlayer();
+requestAnimationFrame(frame);
+cv.focus();
+</script>
+</body>
+</html>

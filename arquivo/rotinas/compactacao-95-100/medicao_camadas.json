@@ -1,0 +1,24 @@
+{
+  "trechos": [
+    {
+      "trecho": "0 a 300",
+      "comprimento_m": 6000,
+      "largura_m": 13.4,
+      "subleito_m3": 16080.0,
+      "area_planta_m2": 80400.0,
+      "base_m3": 16080.0,
+      "subbase_m3": 16080.0,
+      "reforco_m3": 32160.0
+    },
+    {
+      "trecho": "350 a 400",
+      "comprimento_m": 1000,
+      "largura_m": 13.4,
+      "subleito_m3": 2680.0,
+      "area_planta_m2": 13400.0,
+      "base_m3": 2680.0,
+      "subbase_m3": 2680.0,
+      "reforco_m3": 5360.0
+    }
+  ]
+}

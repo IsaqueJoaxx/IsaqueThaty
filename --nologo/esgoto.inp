@@ -1,0 +1,98 @@
+[TITLE]
+;;Rede Esgoto Teste — exportada pelo PROJETA em 13/11/2026 23:01
+
+[OPTIONS]
+FLOW_UNITS           CMS
+INFILTRATION         HORTON
+FLOW_ROUTING         DYNWAVE
+LINK_OFFSETS         ELEVATION
+MIN_SLOPE            0
+ALLOW_PONDING        NO
+SKIP_STEADY_STATE    NO
+START_DATE           01/01/2000
+START_TIME           00:00:00
+REPORT_START_DATE    01/01/2000
+REPORT_START_TIME    00:00:00
+END_DATE             01/01/2000
+END_TIME             03:00:00
+SWEEP_START          01/01
+SWEEP_END            12/31
+DRY_DAYS             0
+REPORT_STEP          00:01:00
+WET_STEP             00:01:00
+DRY_STEP             01:00:00
+ROUTING_STEP         5
+INERTIAL_DAMPING     PARTIAL
+NORMAL_FLOW_LIMITED  BOTH
+FORCE_MAIN_EQUATION  H-W
+VARIABLE_STEP        0.75
+LENGTHENING_STEP     0
+MIN_SURFAREA         1.167
+MAX_TRIALS           8
+HEAD_TOLERANCE       0.0015
+SYS_FLOW_TOL         5
+LAT_FLOW_TOL         5
+MINIMUM_STEP         0.5
+THREADS              1
+
+[JUNCTIONS]
+;;Name  Elevation  MaxDepth  InitDepth  SurDepth  Aponded
+PV-E01  858.93  1.07  0  0  0
+PV-E02  858.58  1.07  0  0  0
+PV-E03  858.23  1.07  0  0  0
+PV-E04  857.88  1.07  0  0  0
+PV-E05  857.53  1.07  0  0  0
+PV-E07  859.13  1.07  0  0  0
+
+[OUTFALLS]
+;;Name  Elevation  Type  StageData  Gated
+PV-E06  857.18  FREE  NO
+
+[CONDUITS]
+;;Name  From  To  Length  Roughness  InOffset  OutOffset  InitFlow  MaxFlow
+T-01  PV-E01  PV-E02  70  0.013  858.93  858.58  0  0
+T-02  PV-E02  PV-E03  70  0.013  858.58  858.23  0  0
+T-03  PV-E03  PV-E04  70  0.013  858.23  857.88  0  0
+T-04  PV-E04  PV-E05  70  0.013  857.88  857.53  0  0
+T-05  PV-E05  PV-E06  70  0.013  857.53  857.18  0  0
+T-06  PV-E07  PV-E03  80  0.013  859.13  858.23  0  0
+
+[XSECTIONS]
+;;Link  Shape  Geom1  Geom2  Geom3  Geom4  Barrels
+T-01  CIRCULAR  0.15  0  0  0  1
+T-02  CIRCULAR  0.15  0  0  0  1
+T-03  CIRCULAR  0.15  0  0  0  1
+T-04  CIRCULAR  0.15  0  0  0  1
+T-05  CIRCULAR  0.15  0  0  0  1
+T-06  CIRCULAR  0.15  0  0  0  1
+
+[DWF]
+;;Node  Constituent  Baseline  Patterns
+PV-E01  FLOW  0.000875
+PV-E02  FLOW  0.000875
+PV-E03  FLOW  0.000875
+PV-E04  FLOW  0.000875
+PV-E05  FLOW  0.000875
+PV-E07  FLOW  0.001
+
+[REPORT]
+INPUT      NO
+CONTROLS   NO
+SUBCATCHMENTS ALL
+NODES ALL
+LINKS ALL
+
+[MAP]
+DIMENSIONS -10 0 360 100
+Units      Meters
+
+[COORDINATES]
+;;Node  X-Coord  Y-Coord
+PV-E01  0  10
+PV-E02  70  10
+PV-E03  140  10
+PV-E04  210  10
+PV-E05  280  10
+PV-E06  350  10
+PV-E07  140  90
+

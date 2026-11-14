@@ -1,0 +1,17 @@
+(defun rango^3dface ()
+  (setq indx^rango 0 lista^cota '())
+  (repeat (sslength grupo^3dface)
+    (setq  listasoc (entget (ssname grupo^3dface indx^rango))
+         indx^rango (1+ indx^rango)
+	    puntero 10
+    )
+    (repeat 3
+      (setq lista^cota (cons (nth 3 (assoc puntero listasoc)) lista^cota)
+	       puntero (1+ puntero)
+      )
+    )  
+    (prompt (strcat "\n3DFACE " (rtos indx^rango 2 0) " de " (rtos (sslength grupo^3dface) 2 0)))
+  )
+  (setq cota^minima (apply 'min lista^cota) cota^maxima (apply 'max lista^cota))
+  (prompt (strcat "\nCota Minima : " (rtos cota^minima 2 2) " - Cota Maxima : " (rtos cota^maxima 2 2)))
+)

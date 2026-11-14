@@ -1,0 +1,12 @@
+VERIFICAÇÃO — DISTRIBUIÇÃO DE TERRAPLENAGEM — IFM 0.1.0
+
+Compilado contra as bibliotecas locais do Civil 3D 2026 e 2027.
+Compilação final: 0 avisos, 0 erros.
+Núcleo: 18 grupos de testes aprovados, incluindo 100 redes comparadas com enumeração exaustiva.
+Cobertura: banco/geométrico, arcos reversos, CBR/expansão/permeabilidade/categoria, jazidas e ADME opcionais, descarte, barreiras/desvios, bloqueios, DMT e franquia, faixas de custo, cubação/centroides, volumes nativos, compensação lateral e balanço, entradas inválidas, CSV/JSON.
+
+Não executado em sessão Civil 3D. Ainda precisam de validação no aplicativo: abertura do painel, leitura de material list, inserção do diagrama e desenho em planta.
+
+Nenhuma DLL original DDM utilizada. Nenhuma alteração nos plugins PROJETA existentes. Este pacote não foi instalado automaticamente.
+
+Teste recomendado em desenho de validação: PRJTERRADEMO → Calcular distribuição → Relatório HTML. Depois PRJTERRALINK em uma lista com fatores 1; conferir volumes com o relatório nativo do Civil 3D. Confirmar fatores de homogeneização e classificação geotécnica antes de usar um cenário real.

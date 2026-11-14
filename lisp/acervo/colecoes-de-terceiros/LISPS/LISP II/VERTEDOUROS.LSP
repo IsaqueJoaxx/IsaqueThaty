@@ -1,0 +1,18 @@
+(Command "cmdecho" "0" )
+(Prompt "\n Programa de rotinas para Desenhar Vertedouros")
+(Prompt "\n  Desenvolvido por Rubens Junior")
+(defun c:V1 (); VERTEDOURO TRAPEZOIDAL DE 1m Larg x 1m Alt = Incli X=1.5,1=Y
+(PRINC "LISP QUE DESENHA VERTEDOURO TRAPEZOIDAL..")
+(command "PLINE" (list 0 0) (list 0 0) (list 1.5 -1) (list 2.5 -1) (list 4 0))
+(setq V1 (entsel "\nSelecione a POLYLINHA...: "))
+(command "offset" "0.15" V1 pause "")
+(entdel V1)
+(command "zoom" "e")
+)
+
+;(setq V1 (entsel "\nSelecione a POLYLINHA...: "))
+;(command "offset" "0.15" v1 pause "")
+;(setq pl nil)
+ ;(while (= pl nil)
+;	(setq PL (entsel "\nSelecione a POLYLINHA...: "))
+ ;)

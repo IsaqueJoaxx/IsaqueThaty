@@ -1,0 +1,2 @@
+Função: criar taludes no formato conhecido como "piano".
+Linha de comando: talude

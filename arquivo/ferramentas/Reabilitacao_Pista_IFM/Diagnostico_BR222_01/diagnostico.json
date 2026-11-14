@@ -1,0 +1,818 @@
+{
+  "axis": "BR-222",
+  "axis_start": 251100.0,
+  "axis_end": 410490.0433320104,
+  "point_count": 707,
+  "descriptions": [
+    "CT"
+  ],
+  "point_station_min": 277320.01245585986,
+  "point_station_max": 278200.2352604033,
+  "offset_min": -0.14156462935052339,
+  "offset_max": 5.61233589052867,
+  "max_distance": 5.61233589052867,
+  "competing_candidates": 0,
+  "exploratory_groups": [
+    {
+      "station_min": 277320.01245585986,
+      "station_max": 277320.11288070015,
+      "count": 6,
+      "offset_min": -0.012565341412859213,
+      "offset_max": 5.489202533040382,
+      "elevation_min": 7.271,
+      "elevation_max": 7.598
+    },
+    {
+      "station_min": 277329.9721925872,
+      "station_max": 277330.1648259308,
+      "count": 8,
+      "offset_min": 0.04964418604563594,
+      "offset_max": 5.536300046432983,
+      "elevation_min": 7.273,
+      "elevation_max": 7.614
+    },
+    {
+      "station_min": 277339.9440976959,
+      "station_max": 277340.0624668641,
+      "count": 7,
+      "offset_min": 0.05562606201018415,
+      "offset_max": 5.5511101445255235,
+      "elevation_min": 7.292,
+      "elevation_max": 7.643
+    },
+    {
+      "station_min": 277349.9800435345,
+      "station_max": 277350.0773197918,
+      "count": 2,
+      "offset_min": 3.4652267554865785,
+      "offset_max": 5.5043791111354,
+      "elevation_min": 7.314,
+      "elevation_max": 7.32
+    },
+    {
+      "station_min": 277360.0013043986,
+      "station_max": 277360.0555966306,
+      "count": 2,
+      "offset_min": 3.4593508227647374,
+      "offset_max": 5.544513970702655,
+      "elevation_min": 7.307,
+      "elevation_max": 7.323
+    },
+    {
+      "station_min": 277369.9912074402,
+      "station_max": 277370.0034496394,
+      "count": 2,
+      "offset_min": 3.6223883590926085,
+      "offset_max": 5.547599030414831,
+      "elevation_min": 7.287,
+      "elevation_max": 7.301
+    },
+    {
+      "station_min": 277380.03783617,
+      "station_max": 277380.1930002963,
+      "count": 7,
+      "offset_min": 0.029830213197032954,
+      "offset_max": 5.5070040077681846,
+      "elevation_min": 7.259,
+      "elevation_max": 7.627
+    },
+    {
+      "station_min": 277390.06838361034,
+      "station_max": 277390.1708859571,
+      "count": 7,
+      "offset_min": 0.013711511082024692,
+      "offset_max": 5.538484336056097,
+      "elevation_min": 7.266,
+      "elevation_max": 7.618
+    },
+    {
+      "station_min": 277399.95587733504,
+      "station_max": 277400.0492364843,
+      "count": 7,
+      "offset_min": 0.046580476632957474,
+      "offset_max": 5.488943332001195,
+      "elevation_min": 7.231,
+      "elevation_max": 7.581
+    },
+    {
+      "station_min": 277409.8972219341,
+      "station_max": 277410.0332142157,
+      "count": 7,
+      "offset_min": -0.001964305656772159,
+      "offset_max": 5.5190850602607995,
+      "elevation_min": 7.196,
+      "elevation_max": 7.55
+    },
+    {
+      "station_min": 277420.03374990996,
+      "station_max": 277420.1149088159,
+      "count": 7,
+      "offset_min": 0.010649635932050889,
+      "offset_max": 5.5062155601583065,
+      "elevation_min": 7.178,
+      "elevation_max": 7.53
+    },
+    {
+      "station_min": 277429.92589956126,
+      "station_max": 277430.05478655593,
+      "count": 8,
+      "offset_min": 0.05115689588415016,
+      "offset_max": 5.495210737504738,
+      "elevation_min": 7.145,
+      "elevation_max": 7.495
+    },
+    {
+      "station_min": 277439.97727793857,
+      "station_max": 277440.08303207223,
+      "count": 8,
+      "offset_min": 0.04062722168376658,
+      "offset_max": 5.499317928846878,
+      "elevation_min": 7.131,
+      "elevation_max": 7.475
+    },
+    {
+      "station_min": 277450.0403452932,
+      "station_max": 277450.1217765806,
+      "count": 7,
+      "offset_min": 0.04165389847366438,
+      "offset_max": 5.485896441877088,
+      "elevation_min": 7.108,
+      "elevation_max": 7.436
+    },
+    {
+      "station_min": 277460.0315928295,
+      "station_max": 277460.06637860584,
+      "count": 8,
+      "offset_min": 0.02281207148902299,
+      "offset_max": 5.510929294899857,
+      "elevation_min": 7.048,
+      "elevation_max": 7.411
+    },
+    {
+      "station_min": 277469.98562872125,
+      "station_max": 277470.0695287822,
+      "count": 6,
+      "offset_min": 0.042000363573700766,
+      "offset_max": 5.506437886833178,
+      "elevation_min": 7.068,
+      "elevation_max": 7.394
+    },
+    {
+      "station_min": 277480.03899439296,
+      "station_max": 277480.1243590383,
+      "count": 7,
+      "offset_min": 0.057203768640460846,
+      "offset_max": 5.49932109850664,
+      "elevation_min": 7.044,
+      "elevation_max": 7.375
+    },
+    {
+      "station_min": 277489.99466419086,
+      "station_max": 277490.07289947825,
+      "count": 7,
+      "offset_min": 0.01255202427670216,
+      "offset_max": 5.488321279265851,
+      "elevation_min": 7.036,
+      "elevation_max": 7.367
+    },
+    {
+      "station_min": 277499.8864005204,
+      "station_max": 277500.0124516344,
+      "count": 8,
+      "offset_min": -0.02931565926266926,
+      "offset_max": 5.51075877340883,
+      "elevation_min": 7.033,
+      "elevation_max": 7.36
+    },
+    {
+      "station_min": 277509.9901955533,
+      "station_max": 277510.08251661184,
+      "count": 7,
+      "offset_min": 0.0061295414184581,
+      "offset_max": 5.520587762532118,
+      "elevation_min": 7.026,
+      "elevation_max": 7.366
+    },
+    {
+      "station_min": 277519.9470761853,
+      "station_max": 277520.09390394384,
+      "count": 8,
+      "offset_min": 0.021787188580977435,
+      "offset_max": 5.509537015019745,
+      "elevation_min": 7.02,
+      "elevation_max": 7.359
+    },
+    {
+      "station_min": 277530.0341946031,
+      "station_max": 277530.107683955,
+      "count": 8,
+      "offset_min": 0.013316788898232925,
+      "offset_max": 5.467726155083621,
+      "elevation_min": 7.017,
+      "elevation_max": 7.363
+    },
+    {
+      "station_min": 277539.9189224997,
+      "station_max": 277540.0519688195,
+      "count": 8,
+      "offset_min": 0.004196657970368202,
+      "offset_max": 5.513515981539321,
+      "elevation_min": 7.019,
+      "elevation_max": 7.346
+    },
+    {
+      "station_min": 277549.9582141917,
+      "station_max": 277550.01891174185,
+      "count": 8,
+      "offset_min": -0.07113335722220228,
+      "offset_max": 5.480481524050409,
+      "elevation_min": 6.968,
+      "elevation_max": 7.32
+    },
+    {
+      "station_min": 277559.98263836035,
+      "station_max": 277560.09155459446,
+      "count": 7,
+      "offset_min": -0.04512429749846339,
+      "offset_max": 5.511517617370256,
+      "elevation_min": 6.947,
+      "elevation_max": 7.307
+    },
+    {
+      "station_min": 277569.9709640629,
+      "station_max": 277570.04299918265,
+      "count": 7,
+      "offset_min": -0.05866854692934371,
+      "offset_max": 5.496451068961133,
+      "elevation_min": 6.967,
+      "elevation_max": 7.3
+    },
+    {
+      "station_min": 277579.9854761935,
+      "station_max": 277580.10434052575,
+      "count": 6,
+      "offset_min": 0.8736158945856174,
+      "offset_max": 5.5301484604123265,
+      "elevation_min": 6.981,
+      "elevation_max": 7.072
+    },
+    {
+      "station_min": 277590.0137746219,
+      "station_max": 277590.10597771924,
+      "count": 7,
+      "offset_min": -0.08549561797006436,
+      "offset_max": 5.479427536081817,
+      "elevation_min": 6.976,
+      "elevation_max": 7.292
+    },
+    {
+      "station_min": 277599.9494422532,
+      "station_max": 277600.0236539191,
+      "count": 7,
+      "offset_min": -0.018642356276697317,
+      "offset_max": 5.480116838091547,
+      "elevation_min": 6.964,
+      "elevation_max": 7.278
+    },
+    {
+      "station_min": 277609.8977046153,
+      "station_max": 277610.04154261615,
+      "count": 7,
+      "offset_min": -0.08442436649309121,
+      "offset_max": 5.488178003244223,
+      "elevation_min": 6.972,
+      "elevation_max": 7.282
+    },
+    {
+      "station_min": 277619.9547487157,
+      "station_max": 277620.0944549373,
+      "count": 7,
+      "offset_min": -0.10691870952197259,
+      "offset_max": 5.513154923886779,
+      "elevation_min": 6.952,
+      "elevation_max": 7.279
+    },
+    {
+      "station_min": 277630.025612153,
+      "station_max": 277630.11344801215,
+      "count": 7,
+      "offset_min": -0.12057982661636975,
+      "offset_max": 5.494961936506108,
+      "elevation_min": 6.961,
+      "elevation_max": 7.279
+    },
+    {
+      "station_min": 277640.07985525194,
+      "station_max": 277640.18452606164,
+      "count": 7,
+      "offset_min": -0.13741330747093086,
+      "offset_max": 5.503008090401074,
+      "elevation_min": 6.957,
+      "elevation_max": 7.279
+    },
+    {
+      "station_min": 277650.0362411207,
+      "station_max": 277650.3779910622,
+      "count": 8,
+      "offset_min": -0.09198498249387187,
+      "offset_max": 5.521904932448413,
+      "elevation_min": 6.927,
+      "elevation_max": 7.273
+    },
+    {
+      "station_min": 277660.0131941694,
+      "station_max": 277660.2561844937,
+      "count": 8,
+      "offset_min": -0.11204854202946771,
+      "offset_max": 5.490331837982989,
+      "elevation_min": 6.897,
+      "elevation_max": 7.268
+    },
+    {
+      "station_min": 277669.9840062039,
+      "station_max": 277670.232039463,
+      "count": 8,
+      "offset_min": -0.03400132262736968,
+      "offset_max": 5.5034609573903746,
+      "elevation_min": 6.935,
+      "elevation_max": 7.276
+    },
+    {
+      "station_min": 277679.8619949729,
+      "station_max": 277680.0420743626,
+      "count": 8,
+      "offset_min": -0.009067105669359756,
+      "offset_max": 5.470493330678192,
+      "elevation_min": 6.986,
+      "elevation_max": 7.297
+    },
+    {
+      "station_min": 277690.0015068126,
+      "station_max": 277690.20576368365,
+      "count": 7,
+      "offset_min": -0.06512563696479537,
+      "offset_max": 5.4789377950761295,
+      "elevation_min": 7.024,
+      "elevation_max": 7.346
+    },
+    {
+      "station_min": 277700.0092709026,
+      "station_max": 277700.08496388886,
+      "count": 7,
+      "offset_min": -0.14156462935052339,
+      "offset_max": 5.51293664378393,
+      "elevation_min": 7.046,
+      "elevation_max": 7.339
+    },
+    {
+      "station_min": 277709.99615525646,
+      "station_max": 277710.3395093386,
+      "count": 7,
+      "offset_min": -0.06928924454617236,
+      "offset_max": 5.537713963389519,
+      "elevation_min": 7.039,
+      "elevation_max": 7.333
+    },
+    {
+      "station_min": 277719.9769643326,
+      "station_max": 277720.0806184172,
+      "count": 8,
+      "offset_min": -0.08260976619582902,
+      "offset_max": 5.518852121780176,
+      "elevation_min": 7.017,
+      "elevation_max": 7.319
+    },
+    {
+      "station_min": 277730.0086438429,
+      "station_max": 277730.05647264014,
+      "count": 8,
+      "offset_min": -0.06683936344356183,
+      "offset_max": 5.570843898346886,
+      "elevation_min": 6.998,
+      "elevation_max": 7.287
+    },
+    {
+      "station_min": 277740.03947971325,
+      "station_max": 277740.15515825164,
+      "count": 9,
+      "offset_min": -0.09103469978230085,
+      "offset_max": 5.5355773669466695,
+      "elevation_min": 6.969,
+      "elevation_max": 7.269
+    },
+    {
+      "station_min": 277750.0372715789,
+      "station_max": 277750.1454295813,
+      "count": 9,
+      "offset_min": -0.10189174147339582,
+      "offset_max": 5.524271086410831,
+      "elevation_min": 6.916,
+      "elevation_max": 7.237
+    },
+    {
+      "station_min": 277759.9954741592,
+      "station_max": 277760.0680212949,
+      "count": 9,
+      "offset_min": -0.05888097203559328,
+      "offset_max": 5.515825705159279,
+      "elevation_min": 6.92,
+      "elevation_max": 7.207
+    },
+    {
+      "station_min": 277769.99924930756,
+      "station_max": 277770.31041248096,
+      "count": 9,
+      "offset_min": -0.04681901719809117,
+      "offset_max": 5.530686731523404,
+      "elevation_min": 6.862,
+      "elevation_max": 7.172
+    },
+    {
+      "station_min": 277780.00750157214,
+      "station_max": 277780.09732823644,
+      "count": 11,
+      "offset_min": -0.08058415627962814,
+      "offset_max": 5.445261728318253,
+      "elevation_min": 6.815,
+      "elevation_max": 7.141
+    },
+    {
+      "station_min": 277789.99366614304,
+      "station_max": 277790.17328855733,
+      "count": 10,
+      "offset_min": -0.09273798588544505,
+      "offset_max": 5.503956513521499,
+      "elevation_min": 6.8,
+      "elevation_max": 7.102
+    },
+    {
+      "station_min": 277799.85632670316,
+      "station_max": 277799.9599371912,
+      "count": 8,
+      "offset_min": 0.04765610183973563,
+      "offset_max": 5.539181207131761,
+      "elevation_min": 6.783,
+      "elevation_max": 7.099
+    },
+    {
+      "station_min": 277809.9803827133,
+      "station_max": 277810.07095541526,
+      "count": 10,
+      "offset_min": 0.0017944152404239877,
+      "offset_max": 5.554594220247206,
+      "elevation_min": 6.784,
+      "elevation_max": 7.085
+    },
+    {
+      "station_min": 277820.04123800667,
+      "station_max": 277820.2921822023,
+      "count": 8,
+      "offset_min": -0.0015512067003392912,
+      "offset_max": 5.529760051593954,
+      "elevation_min": 6.799,
+      "elevation_max": 7.081
+    },
+    {
+      "station_min": 277830.0491657811,
+      "station_max": 277830.2400166333,
+      "count": 11,
+      "offset_min": 0.02091130582804617,
+      "offset_max": 5.519577759624958,
+      "elevation_min": 6.796,
+      "elevation_max": 7.092
+    },
+    {
+      "station_min": 277839.9824328532,
+      "station_max": 277840.12302337744,
+      "count": 9,
+      "offset_min": 0.0419383651733339,
+      "offset_max": 5.574123973787192,
+      "elevation_min": 6.818,
+      "elevation_max": 7.077
+    },
+    {
+      "station_min": 277849.8588586021,
+      "station_max": 277850.00516617985,
+      "count": 9,
+      "offset_min": -0.012773341436567658,
+      "offset_max": 5.5265144777259945,
+      "elevation_min": 6.806,
+      "elevation_max": 7.057
+    },
+    {
+      "station_min": 277859.93936261494,
+      "station_max": 277860.0905775783,
+      "count": 7,
+      "offset_min": 0.02844295159771442,
+      "offset_max": 5.499244279004972,
+      "elevation_min": 6.798,
+      "elevation_max": 7.036
+    },
+    {
+      "station_min": 277869.9779333616,
+      "station_max": 277870.0826467642,
+      "count": 9,
+      "offset_min": 0.0499014447662016,
+      "offset_max": 5.522540105538841,
+      "elevation_min": 6.776,
+      "elevation_max": 7.01
+    },
+    {
+      "station_min": 277880.0002105623,
+      "station_max": 277880.1076961828,
+      "count": 9,
+      "offset_min": -0.005993146427074959,
+      "offset_max": 5.47965503229242,
+      "elevation_min": 6.761,
+      "elevation_max": 6.978
+    },
+    {
+      "station_min": 277889.92888647126,
+      "station_max": 277890.05802794034,
+      "count": 7,
+      "offset_min": 0.007317823483093344,
+      "offset_max": 5.567193447428782,
+      "elevation_min": 6.719,
+      "elevation_max": 6.945
+    },
+    {
+      "station_min": 277899.94402501837,
+      "station_max": 277900.2743553393,
+      "count": 7,
+      "offset_min": 0.008499675316348654,
+      "offset_max": 5.537516540808325,
+      "elevation_min": 6.689,
+      "elevation_max": 6.933
+    },
+    {
+      "station_min": 277909.9156610795,
+      "station_max": 277910.0579545416,
+      "count": 8,
+      "offset_min": 0.006317906316921855,
+      "offset_max": 5.533853425668409,
+      "elevation_min": 6.672,
+      "elevation_max": 6.926
+    },
+    {
+      "station_min": 277919.9222704194,
+      "station_max": 277920.10416131676,
+      "count": 8,
+      "offset_min": 0.010058955503121827,
+      "offset_max": 5.561450855092137,
+      "elevation_min": 6.669,
+      "elevation_max": 6.931
+    },
+    {
+      "station_min": 277929.84082190285,
+      "station_max": 277929.9895270713,
+      "count": 9,
+      "offset_min": -0.03269036899137847,
+      "offset_max": 5.61233589052867,
+      "elevation_min": 6.677,
+      "elevation_max": 6.955
+    },
+    {
+      "station_min": 277940.03331388894,
+      "station_max": 277940.18925164535,
+      "count": 10,
+      "offset_min": -0.023358065681786513,
+      "offset_max": 5.521815845497939,
+      "elevation_min": 6.747,
+      "elevation_max": 7.011
+    },
+    {
+      "station_min": 277949.91255146434,
+      "station_max": 277950.0471139033,
+      "count": 9,
+      "offset_min": -0.023285583947064738,
+      "offset_max": 5.5424697603017385,
+      "elevation_min": 6.807,
+      "elevation_max": 7.076
+    },
+    {
+      "station_min": 277960.01878318697,
+      "station_max": 277960.1327680707,
+      "count": 10,
+      "offset_min": -0.00024299996598464526,
+      "offset_max": 5.568752080770093,
+      "elevation_min": 6.881,
+      "elevation_max": 7.135
+    },
+    {
+      "station_min": 277969.9732938718,
+      "station_max": 277970.18813418126,
+      "count": 9,
+      "offset_min": -0.01826088761820594,
+      "offset_max": 5.534502237312797,
+      "elevation_min": 6.894,
+      "elevation_max": 7.203
+    },
+    {
+      "station_min": 277980.0011199735,
+      "station_max": 277980.1231597044,
+      "count": 10,
+      "offset_min": -0.0033232365310334783,
+      "offset_max": 5.554093734987973,
+      "elevation_min": 7.025,
+      "elevation_max": 7.28
+    },
+    {
+      "station_min": 277989.9036971257,
+      "station_max": 277990.0127777891,
+      "count": 8,
+      "offset_min": -0.056214614004762666,
+      "offset_max": 5.572166916100874,
+      "elevation_min": 7.092,
+      "elevation_max": 7.36
+    },
+    {
+      "station_min": 277999.97865446337,
+      "station_max": 278000.02924936946,
+      "count": 9,
+      "offset_min": 0.2655690000985289,
+      "offset_max": 5.569174684382156,
+      "elevation_min": 7.15,
+      "elevation_max": 7.433
+    },
+    {
+      "station_min": 278010.021156851,
+      "station_max": 278010.33837174665,
+      "count": 10,
+      "offset_min": 0.02744193360966358,
+      "offset_max": 5.516080286829798,
+      "elevation_min": 7.213,
+      "elevation_max": 7.516
+    },
+    {
+      "station_min": 278019.9882673714,
+      "station_max": 278020.0719063601,
+      "count": 11,
+      "offset_min": 0.00520054086065071,
+      "offset_max": 5.526608931515395,
+      "elevation_min": 7.291,
+      "elevation_max": 7.587
+    },
+    {
+      "station_min": 278029.8871194608,
+      "station_max": 278030.03992585774,
+      "count": 9,
+      "offset_min": 0.05578912076444184,
+      "offset_max": 5.532983237330321,
+      "elevation_min": 7.397,
+      "elevation_max": 7.635
+    },
+    {
+      "station_min": 278039.9224804897,
+      "station_max": 278040.03611667297,
+      "count": 8,
+      "offset_min": -0.05223517614539042,
+      "offset_max": 5.553493968412601,
+      "elevation_min": 7.477,
+      "elevation_max": 7.684
+    },
+    {
+      "station_min": 278049.92599242606,
+      "station_max": 278050.0458413692,
+      "count": 8,
+      "offset_min": -0.032734883960804255,
+      "offset_max": 5.5097897203729085,
+      "elevation_min": 7.55,
+      "elevation_max": 7.768
+    },
+    {
+      "station_min": 278059.97170335095,
+      "station_max": 278060.0675047597,
+      "count": 10,
+      "offset_min": -0.016134111508952647,
+      "offset_max": 5.537447039577896,
+      "elevation_min": 7.575,
+      "elevation_max": 7.799
+    },
+    {
+      "station_min": 278069.9144328177,
+      "station_max": 278070.0327465035,
+      "count": 10,
+      "offset_min": 0.015432179508230535,
+      "offset_max": 5.557482792697094,
+      "elevation_min": 7.577,
+      "elevation_max": 7.831
+    },
+    {
+      "station_min": 278079.92201306537,
+      "station_max": 278080.05424350576,
+      "count": 10,
+      "offset_min": -0.03306468519326512,
+      "offset_max": 5.551618612567231,
+      "elevation_min": 7.593,
+      "elevation_max": 7.856
+    },
+    {
+      "station_min": 278090.01390544977,
+      "station_max": 278090.1806277699,
+      "count": 9,
+      "offset_min": -0.03575363085796471,
+      "offset_max": 5.467609705014629,
+      "elevation_min": 7.613,
+      "elevation_max": 7.855
+    },
+    {
+      "station_min": 278099.61546590406,
+      "station_max": 278100.0872469809,
+      "count": 9,
+      "offset_min": 0.02332351573549871,
+      "offset_max": 5.524352923783055,
+      "elevation_min": 7.641,
+      "elevation_max": 7.861
+    },
+    {
+      "station_min": 278109.97780184884,
+      "station_max": 278110.0284088694,
+      "count": 8,
+      "offset_min": -0.010536030038986986,
+      "offset_max": 5.516684593796415,
+      "elevation_min": 7.633,
+      "elevation_max": 7.837
+    },
+    {
+      "station_min": 278119.8024118442,
+      "station_max": 278120.0591293285,
+      "count": 8,
+      "offset_min": 0.03429060060050096,
+      "offset_max": 5.559519989599483,
+      "elevation_min": 7.585,
+      "elevation_max": 7.826
+    },
+    {
+      "station_min": 278129.8906463706,
+      "station_max": 278130.03359378496,
+      "count": 8,
+      "offset_min": 0.03119307346766587,
+      "offset_max": 5.522319239082175,
+      "elevation_min": 7.535,
+      "elevation_max": 7.796
+    },
+    {
+      "station_min": 278139.86808213056,
+      "station_max": 278140.0456544802,
+      "count": 11,
+      "offset_min": 0.03710600179048357,
+      "offset_max": 5.546018271315945,
+      "elevation_min": 7.5,
+      "elevation_max": 7.78
+    },
+    {
+      "station_min": 278149.96527891594,
+      "station_max": 278150.08699895634,
+      "count": 8,
+      "offset_min": 0.018580794897654337,
+      "offset_max": 5.4420322996065025,
+      "elevation_min": 7.495,
+      "elevation_max": 7.748
+    },
+    {
+      "station_min": 278160.02010952285,
+      "station_max": 278160.07672288263,
+      "count": 7,
+      "offset_min": 0.02130997875976664,
+      "offset_max": 5.535534507664019,
+      "elevation_min": 7.459,
+      "elevation_max": 7.718
+    },
+    {
+      "station_min": 278169.99803784373,
+      "station_max": 278170.0879347667,
+      "count": 7,
+      "offset_min": 0.02384344743670272,
+      "offset_max": 5.46088797039641,
+      "elevation_min": 7.415,
+      "elevation_max": 7.667
+    },
+    {
+      "station_min": 278179.9548500959,
+      "station_max": 278180.0635847414,
+      "count": 9,
+      "offset_min": -0.023610232004845026,
+      "offset_max": 5.566721015803949,
+      "elevation_min": 7.351,
+      "elevation_max": 7.627
+    },
+    {
+      "station_min": 278189.82896567817,
+      "station_max": 278189.98862657265,
+      "count": 8,
+      "offset_min": -0.047633648324342484,
+      "offset_max": 5.531930072787946,
+      "elevation_min": 7.278,
+      "elevation_max": 7.572
+    },
+    {
+      "station_min": 278200.0229805698,
+      "station_max": 278200.2352604033,
+      "count": 7,
+      "offset_min": -0.012750776871936055,
+      "offset_max": 5.469238059930862,
+      "elevation_min": 7.213,
+      "elevation_max": 7.529
+    }
+  ]
+}

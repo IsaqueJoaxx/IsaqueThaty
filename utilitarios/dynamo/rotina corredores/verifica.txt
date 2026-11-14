@@ -1,0 +1,12 @@
+=== 9 alinhamento(s) no desenho ===
+   RUA DAMA DA NOITE                              tipo=Centerline    comp= 966.107
+   ALINHAMENTO -2                                 tipo=Centerline    comp= 134.771
+   ALINHAMENTO -1                                 tipo=Centerline    comp=  72.613
+   ALINHAMENTO - 8                                tipo=Centerline    comp=  67.698
+   ALINHAMENTO - 7                                tipo=Centerline    comp=  96.523
+   ALINHAMENTO - 6                                tipo=Centerline    comp= 125.627
+   ALINHAMENTO - 5                                tipo=Centerline    comp= 148.077
+   ALINHAMENTO - 4                                tipo=Centerline    comp= 161.322
+   ALINHAMENTO - 3                                tipo=Centerline    comp= 173.973
+
+=== 0 concordancia(s) ===

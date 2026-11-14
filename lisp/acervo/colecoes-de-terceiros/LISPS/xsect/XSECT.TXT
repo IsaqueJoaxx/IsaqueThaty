@@ -1,0 +1,4 @@
+Read the documentation section in "xsect.lsp".
+Use a text editor such as EDIT or NOTEPAD.
+
+The file "xsect.dwg" is an R14 sample file.

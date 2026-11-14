@@ -1,0 +1,131 @@
+SOLIDOS - plugin para modelagem de dispositivos, dimensionamento e simulação
+
+_______________________________________________________________________________________
+Autor:
+
+	Neyton Luiz Dalle Molle
+	Engenheiro Civil
+
+_______________________________________________________________________________________
+Instalação:
+
+1) Feche o Civil 3D se estiver aberto 
+
+2) Caso tenha usado a versão com instalador:
+   *Primeiro Desinstale a versão anterior no Painel de Controle*
+
+3) Caso tenha carregado com o NETLOAD de uma pasta qualquer:
+   *Primeiro renomeie a pasta, para que o Civil 3D não a encontre
+
+4) Descompactar todos os arquivos numa mesma pasta (pode ser qualquer uma)
+
+5) Rodar o instalador SETUP_SOLIDOS.exe com permissões de usuário NORMAL,
+   NÃO PRECISA SER ADMINISTRADOR
+
+   Se você usar a pasta padrão de instalação:
+      C:\ProgramData\Autodesk\ApplicationPlugins\SOLIDOS.bundle\
+   o Civil 3D irá carrgar o programa ao ser aberto
+
+   Se você escolher uma pasta diferente, deverá usar o comando NETLOAD para completar a
+   instalação. Neste caso, escolha a dll compatível com a versão do Civil 3D que está
+   usando:
+
+      Civil 3D               DLL a carregar
+   -------------------------------------------------
+   Civil 3D 2020:        ./dotnet_4/SOLIDOS_2020.dll
+
+   Civil 3D 2021:        ./dotnet_4/SOLIDOS_2021.dll
+   Civil 3D 2022:        ./dotnet_4/SOLIDOS_2021.dll
+   Civil 3D 2023:        ./dotnet_4/SOLIDOS_2021.dll
+   Civil 3D 2024:        ./dotnet_4/SOLIDOS_2021.dll
+
+   Civil 3D 2025:        ./dotnet_8/SOLIDOS_2025.dll
+   Civil 3D 2026:        ./dotnet_8/SOLIDOS_2025.dll
+
+   Civil 3D 2016 a 2019:   ./dotnet_4/C3DRENESG4_2020.dll
+      Note: estas versões não são mais oficialmente suportadas! 
+      Pode ser que funcione, ou não!
+   
+6) Abra na pasta onde instalou, o arquivo "./Suporte/catalogo.dwg" para ver
+   um catálogo de dispositivos já criados
+
+7) Para carregar o menu e as barras de ferramentas, use o comando CMENU
+   Se ele não funcionar, certifique-se que a pasta e todas as subpastas e arquivos 
+   onde o plugin está instalado é LEITURA e ESCRITA
+
+______________________________________________________________________________________
+Desinstalar:
+
+1) Feche o Civil 3D caso esteja abero
+
+2) Vá até o Painel de Controle, Adicionar ou Remover Programas, localize o SOLIDOS e
+   clique a opção Desinstalar
+
+_______________________________________________________________________________________
+Solucionando problemas de instalação:
+
+1) Certifique-se que a pasta e todas as subpastas e arquivos onde o plugin está
+   instalado é LEITURA e ESCRITA
+
+2) Caso o plugin não carregue:
+   Chame o comando SECURELOAD na linha de comando do Civil 3D e coloque 0,
+   então reinicie o Civil 3D
+
+3) Se você tem outros plugins TBN2NET (TBN2CAD, C3DRENESG4, C3DMEMO, TBN2C3D, DDM), 
+   será necessário atualizar todos em https://tbn2net.com pois pode ocorrer conflitos
+   entre as versões de DLLs ao serem carregadas no AutoCAD
+
+4) Se a DLL não carregou, mostrando um erro na linha de comando
+   1) Localize a pasta de instalação do programa
+   2) Clique o botão direito do mouse sobre a DLL compatível com sua versão do CAD
+   3) clique em Propriedades
+   4) Clique o botão Desbloquear, se existir
+   5) Reinicie o CAD e tente novamente com o comando NETLOAD
+
+5) Se os arquivos de ajuda (*.chm) não abrem:
+   1) Localize a pasta de instalação do programa
+   2) Clique o botão direito do mouse sobre os arquivos de ajuda do programa
+   3) clique em Propriedades
+   4) Clique o botão Desbloquear, se existir
+   
+   Caso o procedimento acima não funcione:
+      1) Abra o prompt de comando como administrador (CMD.exe, no menu iniciar)
+      2) Digite:
+          regsvr32 %systemroot%\system32\hhctrl.ocx 
+          regsvr32 %systemroot%\system32\itss.dll 
+
+   Ou ainda, veja a ajuda Online:
+
+   https://tbn2net.com/help/SOLIDOS
+
+ 6) Os menus ou o Ribbon não aparece após a instalação:
+    Use o comando SMENU
+
+_______________________________________________________________________________________
+Licença de uso:
+
+   Gratuita para testar por 15 dias, caso registre uma licença demonstrativa
+
+   Para registrar, preencha seu nome e email na tela que se abre
+   ao usar o programa e que informa ser uma versão demonstrativa.
+
+   Após este período, o programa volta a ficar em modo demonstrativo.
+
+   Caso adquira uma licença definitiva, você estará sujeito ao 
+   CONTRATO DE LICENCA DO PROGRAMA, disponível no pacote do mesmo.
+
+_______________________________________________________________________________________
+Garantias:
+
+   Nenhuma. Use por sua própria conta e risco!!!
+
+_______________________________________________________________________________________
+Suporte:
+
+    neyton@yahoo.com
+    https://tbn2.blogspot.com
+    https://tbn2net.com
+    whatsapp: +55 41 99827 5531
+    skype: neyton@hotmail.com
+
+duvido que alguém leu este documento.... Se leu, manda mensagem!!!

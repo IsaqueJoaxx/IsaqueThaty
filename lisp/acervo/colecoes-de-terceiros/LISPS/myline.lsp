@@ -1,0 +1,10 @@
+(defun C:myline ()
+    (setq e 1)
+    (while e
+      (setq pt1 (getpoint"\nPick the first point  "))
+      (if (= pt1 nil)
+        (prompt "\nYou didn't pick a point  ")
+        (setq e nil)
+      )
+    )
+)

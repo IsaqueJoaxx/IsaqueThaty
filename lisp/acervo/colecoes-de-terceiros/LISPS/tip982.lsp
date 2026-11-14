@@ -1,0 +1,92 @@
+; TIP982.LSP: DOOR.LSP    Insert Doors   (c)1994, Steven Hauk
+
+;This routine requires a previously made door block named "DOOR.DWG"
+;which must be a left hand door 1" wide. In other words, the door block
+;should consist of an arc with a 1" radius and a 1" wide door in the
+;desired position. The term "offset point" refers to the location on
+;the corner or wall behind the door. The strike location is approximate.
+;A strike point greater than 54" from the hinge point will insert a pair
+;of doors.
+
+(defun c:DOOR (/ PT0  PT1  PT2  PT3  PT4  PT5 PT0 
+                ANG1 ANG2 ANG3 DST1 DST2 DOORWN DOORW DOORW2)
+   (setq PB1 (getvar "pickbox"))
+   (setvar "pickbox" 1)
+   (if (not *DOORW) (setq *DOORW 36.0))
+   (if (not *DROF)  (setq *DROF 4.0))
+   (if (= *DROF 0.0)(setq *DROF 4.0))
+   (setvar "osmode" 33)
+   (graphscr)
+   (setq PT0 (getpoint "\nSelect offset point: "))
+   (princ "\nDistance from offset point <")
+   (princ *DROF)
+   (setq DROF (getdist ">: "))
+   (if (not DROF) (setq DROF *DROF) (setq *DROF DROF))
+   (setvar "osmode" 512)
+   (setq PT2 (getpoint PT0 "\nSelect approximate strike location: "))
+   (setq ANG2 (angle PT0 PT2)
+         PT1  (polar PT0 ANG2 DROF)
+   )
+   (setvar "osmode" 128)
+   (setq PT3 (getpoint PT1 "\nSelect opposite face to be opened: "))
+        (princ "\nEnter door width <")
+        (princ *DOORW)
+        (setq DOORW (getdist ">: "))
+        (if (not DOORW) (setq DOORW *DOORW) (setq *DOORW DOORW))
+        (setq DOORW2 (* 2.0 DOORW)
+              DOORWN (* -1.0 DOORW)
+        )
+   (setvar "osmode" 0)
+   (setq ANG1 (angle PT1 PT3)
+         ANG3 (fix (- ANG1 ANG2)) 
+         DST1 (distance PT1 PT3) 
+         DST2 (distance PT1 PT2)
+   )
+   (if (> DST2 54.0) (setq PT4 (polar PT1 ANG2 DOORW2)))
+   (if (< DST2 54.0) (setq PT4 (polar PT1 ANG2 DOORW)))
+   (setq PT5 (polar PT4 ANG1 DST1))
+   (command
+        "break" PT4 PT1
+        "break" PT5 PT3
+        "line"  PT1 PT3 ""
+        "line"  PT4 PT5 ""
+   )
+   (if  (and (= ANG3 1) (< DST2 54.0))
+        (command "insert" "door" PT1 DOORW DOORWN PT4)
+   )
+   (if  (and (= ANG3 -1) (< DST2 54.0))
+        (command "insert" "door" PT1 DOORW DOORW  PT4) 
+   )
+   (if  (and (= ANG3 4) (< DST2 54.0))
+        (command "insert" "door" PT1 DOORW DOORW  PT4) 
+   )
+   (if  (and (= ANG3 -4) (< DST2 54.0))
+        (command "insert" "door" PT1 DOORW DOORWN PT4) 
+   )
+   (if  (and (= ANG3 1)(> DST2 54.0))
+        (command "insert" "door" PT1 DOORW DOORWN PT4)
+   )
+   (if  (and (= ANG3 1)(> DST2 54.0))  
+        (command "insert" "door" PT4 DOORW DOORW  PT1)
+   )
+   (if  (and (= ANG3 4)(> DST2 54.0))
+        (command "insert" "door" PT4 DOORW DOORWN PT1)
+   )
+   (if  (and (= ANG3 4)(> DST2 54.0))  
+        (command "insert" "door" PT1 DOORW DOORW  PT4)
+   )
+   (if  (and (= ANG3 -4)(> DST2 54.0))
+        (command "insert" "door" PT4 DOORW DOORW PT1)
+   )
+   (if  (and (= ANG3 -4)(> DST2 54.0))  
+        (command "insert" "door" PT1 DOORW DOORWN  PT4)
+   )
+   (if  (and (= ANG3 -1)(> DST2 54.0))
+        (command "insert" "door" PT4 DOORW DOORWN PT1)
+   )
+   (if  (and (= ANG3 -1)(> DST2 54.0))  
+        (command "insert" "door" PT1 DOORW DOORW  PT4)
+   )
+   (setvar "pickbox" PB1)
+)
+

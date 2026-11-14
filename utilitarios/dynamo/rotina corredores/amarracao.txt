@@ -1,0 +1,6 @@
+=== 1 eixos ===
+=== 0 esquina(s) ===
+
+--- SIMULACAO: nada foi alterado. Ligue RODAR para aplicar. ---
+
+=== 0 PVI(s) alterado(s) ===

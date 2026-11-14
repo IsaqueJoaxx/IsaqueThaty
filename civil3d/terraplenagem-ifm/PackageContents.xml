@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage SchemaVersion="1.0" AutodeskProduct="AutoCAD" ProductType="Application" Name="DISTRIBUIÇÃO DE TERRAPLENAGEM — IFM" AppVersion="0.1.0" Description="Cubação e distribuição de terraplenagem" Author="PROJETA ENGENHARIA" ProductCode="{46959142-D426-438A-AAB0-7C22F81DF3C5}" UpgradeCode="{D2348C54-8359-457B-BD7B-1A102E1477B8}">
+ <CompanyDetails Name="PROJETA ENGENHARIA"/>
+ <Components Description="Civil 3D 2026"><RuntimeRequirements OS="Win64" Platform="Civil3D" SeriesMin="R25.1" SeriesMax="R25.1"/><ComponentEntry AppName="TerraplenagemIFM" Version="0.1.0" ModuleName="./Contents/2026/Terraplenagem.IFM.Civil.dll" LoadOnAutoCADStartup="True" AppType=".NET"/></Components>
+ <Components Description="Civil 3D 2027"><RuntimeRequirements OS="Win64" Platform="Civil3D" SeriesMin="R26.0" SeriesMax="R26.0"/><ComponentEntry AppName="TerraplenagemIFM" Version="0.1.0" ModuleName="./Contents/2027/Terraplenagem.IFM.Civil.dll" LoadOnAutoCADStartup="True" AppType=".NET"/></Components>
+</ApplicationPackage>

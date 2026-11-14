@@ -1,0 +1,7 @@
+﻿_backup_antes_mcp/
+bin/
+obj/
+*.dll
+*.exe
+.vs/
+

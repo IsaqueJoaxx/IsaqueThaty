@@ -1,0 +1,7 @@
+(DEFUN C:AROBM3 ()
+(prompt "Tecle <AROBM3> para iniciar o comando.")
+(setq S1 (entsel))
+(command "area" s1)
+(PROMPT "SELECT OBJETO\n")
+(princ)
+(alert  "CALCULO DE ÁREA - POLIGONO FECHADO.\n\nDigite ( AROBM3 ) para iniciar o programa!!!")

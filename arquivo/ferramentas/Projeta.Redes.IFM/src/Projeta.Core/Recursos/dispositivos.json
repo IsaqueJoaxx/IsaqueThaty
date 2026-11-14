@@ -1,0 +1,247 @@
+[
+  {
+    "id": "PV_CIRCULAR",
+    "nome": "PV circular em anéis pré-moldados",
+    "categoria": "PV",
+    "descricao": "Poço de visita circular: laje de fundo, corpo em anéis, laje de redução com abertura e chaminé. Origem no fundo (eixo), Z para cima.",
+    "autor": "PROJETA",
+    "alinharComTubo": false,
+    "raioFuros": "DiametroInterno/2",
+    "parametros": [
+      { "nome": "Profundidade", "padrao": 1.5, "origem": "rede", "descricao": "Da tampa ao fundo (preenchido pela rede)" },
+      { "nome": "DiametroMaximo", "padrao": 0.6, "origem": "rede", "descricao": "Maior tubo conectado (preenchido pela rede)" },
+      { "nome": "DiametroInterno", "padrao": "se(DiametroMaximo<=0.6, 1.0, se(DiametroMaximo<=0.8, 1.2, se(DiametroMaximo<=1.0, 1.5, DiametroMaximo+0.8)))", "min": 0.8, "max": 3.0, "descricao": "Diâmetro interno do corpo" },
+      { "nome": "EspessuraParede", "padrao": 0.10, "min": 0.06 },
+      { "nome": "EspessuraLajeFundo", "padrao": 0.15 },
+      { "nome": "EspessuraLajeTopo", "padrao": 0.15 },
+      { "nome": "DiametroChamine", "padrao": 0.60 },
+      { "nome": "EspessuraChamine", "padrao": 0.08 },
+      { "nome": "AlturaChamine", "padrao": "clamp(Profundidade - EspessuraLajeTopo - max(1.5, DiametroMaximo + 0.5), 0, 1.0)", "descricao": "0 = sem chaminé (corpo até a laje)" }
+    ],
+    "variaveis": [
+      { "nome": "De", "expr": "DiametroInterno + 2*EspessuraParede" },
+      { "nome": "HCorpo", "expr": "max(0.30, Profundidade - EspessuraLajeTopo - AlturaChamine)" },
+      { "nome": "ZCham", "expr": "HCorpo + EspessuraLajeTopo" }
+    ],
+    "solidos": [
+      { "id": "fundo", "op": "cilindro", "raio": "De/2 + 0.10", "altura": "EspessuraLajeFundo", "base": { "z": "-EspessuraLajeFundo" } },
+      { "id": "corpoExt", "op": "cilindro", "raio": "De/2", "altura": "HCorpo" },
+      { "id": "corpoInt", "op": "cilindro", "raio": "DiametroInterno/2", "altura": "HCorpo" },
+      { "id": "corpo", "op": "subtrair", "de": "corpoExt", "com": [ "corpoInt" ] },
+      { "id": "laje", "op": "cilindro", "raio": "De/2", "altura": "EspessuraLajeTopo", "base": { "z": "HCorpo" } },
+      { "id": "abertura", "op": "cilindro", "raio": "DiametroChamine/2", "altura": "EspessuraLajeTopo", "base": { "z": "HCorpo" } },
+      { "id": "lajeTopo", "op": "subtrair", "de": "laje", "com": [ "abertura" ] },
+      { "id": "chamExt", "op": "cilindro", "condicao": "AlturaChamine > 0.01", "raio": "DiametroChamine/2 + EspessuraChamine", "altura": "AlturaChamine", "base": { "z": "ZCham" } },
+      { "id": "chamInt", "op": "cilindro", "condicao": "AlturaChamine > 0.01", "raio": "DiametroChamine/2", "altura": "AlturaChamine", "base": { "z": "ZCham" } },
+      { "id": "chamine", "op": "subtrair", "condicao": "AlturaChamine > 0.01", "de": "chamExt", "com": [ "chamInt" ] },
+      { "id": "pv", "op": "uniao", "de": "fundo", "com": [ "corpo", "lajeTopo", "chamine" ] }
+    ],
+    "saida": [ "pv" ],
+    "planta": [
+      { "tipo": "circulo", "raio": "De/2", "camada": "contorno" },
+      { "tipo": "circulo", "raio": "DiametroChamine/2", "camada": "tampa" }
+    ],
+    "quantitativos": [
+      { "nome": "Concreto (estimado)", "unidade": "m³", "expr": "volume('pv')" },
+      { "nome": "Escavação", "unidade": "m³", "expr": "pi*(De/2 + 0.30)^2*(Profundidade + EspessuraLajeFundo)" },
+      { "nome": "Altura do corpo", "unidade": "m", "expr": "HCorpo" }
+    ]
+  },
+  {
+    "id": "PV_RETANGULAR",
+    "nome": "PV retangular moldado in loco",
+    "categoria": "PV",
+    "descricao": "Caixa retangular de concreto/alvenaria com laje de cobertura, abertura circular e chaminé. Alinha o comprimento com o tubo de saída.",
+    "autor": "PROJETA",
+    "alinharComTubo": true,
+    "raioFuros": "min(ComprimentoInterno, LarguraInterna)/2",
+    "parametros": [
+      { "nome": "Profundidade", "padrao": 1.5, "origem": "rede" },
+      { "nome": "DiametroMaximo", "padrao": 0.6, "origem": "rede" },
+      { "nome": "ComprimentoInterno", "padrao": "max(1.0, DiametroMaximo + 0.60)", "descricao": "Na direção do fluxo" },
+      { "nome": "LarguraInterna", "padrao": "max(1.0, DiametroMaximo + 0.60)" },
+      { "nome": "EspessuraParede", "padrao": 0.20 },
+      { "nome": "EspessuraLajeFundo", "padrao": 0.15 },
+      { "nome": "EspessuraLajeTopo", "padrao": 0.15 },
+      { "nome": "DiametroChamine", "padrao": 0.60 },
+      { "nome": "EspessuraChamine", "padrao": 0.15 },
+      { "nome": "AlturaChamine", "padrao": "clamp(Profundidade - EspessuraLajeTopo - max(1.5, DiametroMaximo + 0.5), 0, 1.0)" }
+    ],
+    "variaveis": [
+      { "nome": "Ce", "expr": "ComprimentoInterno + 2*EspessuraParede" },
+      { "nome": "Le", "expr": "LarguraInterna + 2*EspessuraParede" },
+      { "nome": "HCorpo", "expr": "max(0.30, Profundidade - EspessuraLajeTopo - AlturaChamine)" },
+      { "nome": "ZCham", "expr": "HCorpo + EspessuraLajeTopo" }
+    ],
+    "solidos": [
+      { "id": "fundo", "op": "caixa", "comprimento": "Ce + 0.20", "largura": "Le + 0.20", "altura": "EspessuraLajeFundo", "base": { "z": "-EspessuraLajeFundo" } },
+      { "id": "corpoExt", "op": "caixa", "comprimento": "Ce", "largura": "Le", "altura": "HCorpo" },
+      { "id": "corpoInt", "op": "caixa", "comprimento": "ComprimentoInterno", "largura": "LarguraInterna", "altura": "HCorpo" },
+      { "id": "corpo", "op": "subtrair", "de": "corpoExt", "com": [ "corpoInt" ] },
+      { "id": "laje", "op": "caixa", "comprimento": "Ce", "largura": "Le", "altura": "EspessuraLajeTopo", "base": { "z": "HCorpo" } },
+      { "id": "abertura", "op": "cilindro", "raio": "DiametroChamine/2", "altura": "EspessuraLajeTopo", "base": { "z": "HCorpo" } },
+      { "id": "lajeTopo", "op": "subtrair", "de": "laje", "com": [ "abertura" ] },
+      { "id": "chamExt", "op": "cilindro", "condicao": "AlturaChamine > 0.01", "raio": "DiametroChamine/2 + EspessuraChamine", "altura": "AlturaChamine", "base": { "z": "ZCham" } },
+      { "id": "chamInt", "op": "cilindro", "condicao": "AlturaChamine > 0.01", "raio": "DiametroChamine/2", "altura": "AlturaChamine", "base": { "z": "ZCham" } },
+      { "id": "chamine", "op": "subtrair", "condicao": "AlturaChamine > 0.01", "de": "chamExt", "com": [ "chamInt" ] },
+      { "id": "pv", "op": "uniao", "de": "fundo", "com": [ "corpo", "lajeTopo", "chamine" ] }
+    ],
+    "saida": [ "pv" ],
+    "planta": [
+      { "tipo": "retangulo", "largura": "Ce", "altura": "Le", "camada": "contorno" },
+      { "tipo": "retangulo", "largura": "ComprimentoInterno", "altura": "LarguraInterna", "camada": "eixo" },
+      { "tipo": "circulo", "raio": "DiametroChamine/2", "camada": "tampa" }
+    ],
+    "quantitativos": [
+      { "nome": "Concreto/alvenaria (estimado)", "unidade": "m³", "expr": "volume('pv')" },
+      { "nome": "Escavação", "unidade": "m³", "expr": "(Ce + 0.60)*(Le + 0.60)*(Profundidade + EspessuraLajeFundo)" },
+      { "nome": "Forma (paredes, 2 faces)", "unidade": "m²", "expr": "2*(Ce + Le + ComprimentoInterno + LarguraInterna)*HCorpo" }
+    ]
+  },
+  {
+    "id": "CAIXA_LIGACAO",
+    "nome": "Caixa de ligação / inspeção com tampa",
+    "categoria": "Caixa",
+    "descricao": "Caixa retangular rasa sem chaminé, fechada por tampa de concreto removível.",
+    "autor": "PROJETA",
+    "alinharComTubo": true,
+    "raioFuros": "min(ComprimentoInterno, LarguraInterna)/2",
+    "parametros": [
+      { "nome": "Profundidade", "padrao": 1.0, "origem": "rede" },
+      { "nome": "DiametroMaximo", "padrao": 0.4, "origem": "rede" },
+      { "nome": "ComprimentoInterno", "padrao": "max(0.60, DiametroMaximo + 0.40)" },
+      { "nome": "LarguraInterna", "padrao": "max(0.60, DiametroMaximo + 0.40)" },
+      { "nome": "EspessuraParede", "padrao": 0.15 },
+      { "nome": "EspessuraFundo", "padrao": 0.10 },
+      { "nome": "EspessuraTampa", "padrao": 0.08 }
+    ],
+    "variaveis": [
+      { "nome": "Ce", "expr": "ComprimentoInterno + 2*EspessuraParede" },
+      { "nome": "Le", "expr": "LarguraInterna + 2*EspessuraParede" },
+      { "nome": "HCorpo", "expr": "max(0.20, Profundidade - EspessuraTampa)" }
+    ],
+    "solidos": [
+      { "id": "fundo", "op": "caixa", "comprimento": "Ce", "largura": "Le", "altura": "EspessuraFundo", "base": { "z": "-EspessuraFundo" } },
+      { "id": "corpoExt", "op": "caixa", "comprimento": "Ce", "largura": "Le", "altura": "HCorpo" },
+      { "id": "corpoInt", "op": "caixa", "comprimento": "ComprimentoInterno", "largura": "LarguraInterna", "altura": "HCorpo" },
+      { "id": "corpo", "op": "subtrair", "de": "corpoExt", "com": [ "corpoInt" ] },
+      { "id": "tampa", "op": "caixa", "comprimento": "ComprimentoInterno + EspessuraParede", "largura": "LarguraInterna + EspessuraParede", "altura": "EspessuraTampa", "base": { "z": "HCorpo" } },
+      { "id": "caixa", "op": "uniao", "de": "fundo", "com": [ "corpo", "tampa" ] }
+    ],
+    "saida": [ "caixa" ],
+    "planta": [
+      { "tipo": "retangulo", "largura": "Ce", "altura": "Le", "camada": "contorno" },
+      { "tipo": "retangulo", "largura": "ComprimentoInterno + EspessuraParede", "altura": "LarguraInterna + EspessuraParede", "camada": "tampa" }
+    ],
+    "quantitativos": [
+      { "nome": "Concreto (estimado)", "unidade": "m³", "expr": "volume('caixa')" }
+    ]
+  },
+  {
+    "id": "BOCA_LOBO_SIMPLES",
+    "nome": "Boca de lobo simples com grelha",
+    "categoria": "BocaDeLobo",
+    "descricao": "Caixa coletora com laje de cobertura e abertura para grelha. Comprimento ao longo da sarjeta (eixo X local).",
+    "autor": "PROJETA",
+    "alinharComTubo": false,
+    "raioFuros": "min(ComprimentoInterno, LarguraInterna)/2",
+    "parametros": [
+      { "nome": "Profundidade", "padrao": 1.0, "origem": "rede" },
+      { "nome": "DiametroMaximo", "padrao": 0.4, "origem": "rede" },
+      { "nome": "ComprimentoInterno", "padrao": 1.00 },
+      { "nome": "LarguraInterna", "padrao": 0.60 },
+      { "nome": "EspessuraParede", "padrao": 0.15 },
+      { "nome": "EspessuraFundo", "padrao": 0.10 },
+      { "nome": "EspessuraLaje", "padrao": 0.10 },
+      { "nome": "ComprimentoGrelha", "padrao": 0.90 },
+      { "nome": "LarguraGrelha", "padrao": 0.40 },
+      { "nome": "MostrarGrelha", "padrao": 1, "descricao": "1 = modela a grelha" }
+    ],
+    "variaveis": [
+      { "nome": "Ce", "expr": "ComprimentoInterno + 2*EspessuraParede" },
+      { "nome": "Le", "expr": "LarguraInterna + 2*EspessuraParede" },
+      { "nome": "HCorpo", "expr": "max(0.30, Profundidade - EspessuraLaje)" }
+    ],
+    "solidos": [
+      { "id": "fundo", "op": "caixa", "comprimento": "Ce", "largura": "Le", "altura": "EspessuraFundo", "base": { "z": "-EspessuraFundo" } },
+      { "id": "corpoExt", "op": "caixa", "comprimento": "Ce", "largura": "Le", "altura": "HCorpo" },
+      { "id": "corpoInt", "op": "caixa", "comprimento": "ComprimentoInterno", "largura": "LarguraInterna", "altura": "HCorpo" },
+      { "id": "corpo", "op": "subtrair", "de": "corpoExt", "com": [ "corpoInt" ] },
+      { "id": "laje", "op": "caixa", "comprimento": "Ce", "largura": "Le", "altura": "EspessuraLaje", "base": { "z": "HCorpo" } },
+      { "id": "vao", "op": "caixa", "comprimento": "ComprimentoGrelha", "largura": "LarguraGrelha", "altura": "EspessuraLaje", "base": { "z": "HCorpo" } },
+      { "id": "lajeTopo", "op": "subtrair", "de": "laje", "com": [ "vao" ] },
+      { "id": "grelha", "op": "caixa", "condicao": "MostrarGrelha > 0", "comprimento": "ComprimentoGrelha - 0.02", "largura": "LarguraGrelha - 0.02", "altura": 0.04, "base": { "z": "HCorpo + EspessuraLaje - 0.04" } },
+      { "id": "bl", "op": "uniao", "de": "fundo", "com": [ "corpo", "lajeTopo", "grelha" ] }
+    ],
+    "saida": [ "bl" ],
+    "planta": [
+      { "tipo": "retangulo", "largura": "Ce", "altura": "Le", "camada": "contorno" },
+      { "tipo": "retangulo", "largura": "ComprimentoGrelha", "altura": "LarguraGrelha", "camada": "tampa" },
+      { "tipo": "linha", "camada": "tampa", "pontos": [ { "x": "-ComprimentoGrelha/2", "y": 0 }, { "x": "ComprimentoGrelha/2", "y": 0 } ] }
+    ],
+    "quantitativos": [
+      { "nome": "Concreto (estimado)", "unidade": "m³", "expr": "volume('bl')" }
+    ]
+  },
+  {
+    "id": "EXUTORIO",
+    "nome": "Ala de lançamento (muro de testa com alas e soleira)",
+    "categoria": "Exutorio",
+    "descricao": "Muro de testa no plano YZ (x=0), alas inclinadas e soleira a jusante. O tubo chega pelo lado -X; a origem fica na cota de fundo do tubo.",
+    "autor": "PROJETA",
+    "alinharComTubo": true,
+    "raioFuros": "0",
+    "parametros": [
+      { "nome": "Profundidade", "padrao": 1.0, "origem": "rede" },
+      { "nome": "DiametroMaximo", "padrao": 0.6, "origem": "rede" },
+      { "nome": "Largura", "padrao": "DiametroMaximo + 1.20" },
+      { "nome": "AlturaMuro", "padrao": "DiametroMaximo + 0.60" },
+      { "nome": "Espessura", "padrao": 0.25 },
+      { "nome": "ComprimentoSoleira", "padrao": "max(1.0, 2*DiametroMaximo)" },
+      { "nome": "EspessuraSoleira", "padrao": 0.20 },
+      { "nome": "AnguloAlas", "padrao": 30, "unidade": "graus" },
+      { "nome": "ComprimentoAlas", "padrao": "1.5*DiametroMaximo + 0.5" }
+    ],
+    "variaveis": [
+      { "nome": "Abre", "expr": "ComprimentoAlas*sin(rad(AnguloAlas))" }
+    ],
+    "solidos": [
+      { "id": "muro", "op": "caixa", "comprimento": "Espessura", "largura": "Largura", "altura": "AlturaMuro + EspessuraSoleira", "base": { "x": "-Espessura/2", "z": "-EspessuraSoleira" } },
+      { "id": "soleira", "op": "caixa", "comprimento": "ComprimentoSoleira", "largura": "Largura + 2*Abre", "altura": "EspessuraSoleira", "base": { "x": "ComprimentoSoleira/2", "z": "-EspessuraSoleira" } },
+      { "id": "alaE0", "op": "extrusao", "plano": "XZ", "altura": "Espessura", "base": { "y": "Largura/2 - Espessura" },
+        "perfil": [ { "x": 0, "y": "-EspessuraSoleira" }, { "x": "ComprimentoAlas", "y": "-EspessuraSoleira" }, { "x": "ComprimentoAlas", "y": 0.30 }, { "x": 0, "y": "AlturaMuro" } ] },
+      { "id": "alaE", "op": "rotacionar", "alvo": "alaE0", "eixo": { "z": 1 }, "angulo": "AnguloAlas", "base": { "y": "Largura/2" } },
+      { "id": "alaD0", "op": "extrusao", "plano": "XZ", "altura": "Espessura", "base": { "y": "-Largura/2" },
+        "perfil": [ { "x": 0, "y": "-EspessuraSoleira" }, { "x": "ComprimentoAlas", "y": "-EspessuraSoleira" }, { "x": "ComprimentoAlas", "y": 0.30 }, { "x": 0, "y": "AlturaMuro" } ] },
+      { "id": "alaD", "op": "rotacionar", "alvo": "alaD0", "eixo": { "z": 1 }, "angulo": "-AnguloAlas", "base": { "y": "-Largura/2" } },
+      { "id": "exutorio", "op": "uniao", "de": "muro", "com": [ "soleira", "alaE", "alaD" ] }
+    ],
+    "saida": [ "exutorio" ],
+    "planta": [
+      { "tipo": "retangulo", "centro": { "x": "-Espessura/2" }, "largura": "Espessura", "altura": "Largura", "camada": "contorno" },
+      { "tipo": "linha", "camada": "contorno", "pontos": [ { "x": 0, "y": "Largura/2" }, { "x": "ComprimentoAlas*cos(rad(AnguloAlas))", "y": "Largura/2 + Abre" } ] },
+      { "tipo": "linha", "camada": "contorno", "pontos": [ { "x": 0, "y": "-Largura/2" }, { "x": "ComprimentoAlas*cos(rad(AnguloAlas))", "y": "-Largura/2 - Abre" } ] },
+      { "tipo": "retangulo", "centro": { "x": "ComprimentoSoleira/2" }, "largura": "ComprimentoSoleira", "altura": "Largura", "camada": "eixo" }
+    ],
+    "quantitativos": [
+      { "nome": "Concreto (estimado)", "unidade": "m³", "expr": "volume('exutorio')" }
+    ]
+  },
+  {
+    "id": "MARCADOR",
+    "nome": "Marcador genérico (nó sem estrutura)",
+    "categoria": "Generico",
+    "descricao": "Usado em junções de redes de água e nós sem estrutura física.",
+    "autor": "PROJETA",
+    "alinharComTubo": false,
+    "parametros": [
+      { "nome": "Raio", "padrao": 0.25 }
+    ],
+    "solidos": [
+      { "id": "m", "op": "cilindro", "raio": "Raio", "altura": "Raio" }
+    ],
+    "planta": [
+      { "tipo": "circulo", "raio": "Raio", "camada": "contorno" }
+    ]
+  }
+]

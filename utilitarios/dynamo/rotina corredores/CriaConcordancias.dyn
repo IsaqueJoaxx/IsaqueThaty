@@ -1,0 +1,317 @@
+{
+  "Uuid": "0c1e548e-cde7-4858-9ddb-382f56c80756",
+  "IsCustomNode": false,
+  "Description": "Cria corredores em lote associando alinhamento, greide e secao tipo.",
+  "Name": "CriaConcordancias",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "7536c3b089b24226b9c9a9f120421b64",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a6acfe2a5e59458bb12c45353e86e49f",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selecao entre verdadeiro e falso.",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "Id": "7c616eef7c1740c79d6800a2c0da4afc",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3eb2f6d7e85949a786aebc9a80fbd82d",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma string.",
+      "InputValue": "0"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "016f2896150e4d6db80431716b811877",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "fe7b3c7d69484ae3bd4efe129eb9d5b7",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selecao entre verdadeiro e falso.",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "Id": "972bd44e1a0b432c9200c52ba0dc8d30",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "da09af73f89340a894743b612f0632c9",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma string.",
+      "InputValue": "CORREDOR LOTEAMENTO"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Id": "5cf48fab9bae459b94325586bfcdb3c2",
+      "NodeType": "PythonScriptNode",
+      "Code": "# -*- coding: utf-8 -*-\n# =============================================================================\n#  CONCORDANCIAS DE ESQUINA (curb returns)  -  Dynamo for Civil 3D\n#\n#  ENTRADAS:\n#    IN[0]  RODAR   (bool)    False = simula / True = cria\n#    IN[1]  LIMITE  (string)  quantas criar. \"1\" = so a primeira (teste),\n#                             vazio ou \"0\" = todas.\n#\n#  Usa Alignment.CreateConnectedAlignment, que e o mecanismo nativo de\n#  concordancia. NAO cria objeto Intersecao (a API nao permite).\n# =============================================================================\n\nRAIO         = 2.0        # raio da concordancia (m)\nOFFSET_BORDA = 4.2407     # eixo -> face do meio-fio (3.6007 pista + 0.64 guia)\nTOL_PONTA    = 1.0\nPREFIXO      = u\"CONC\"\nPASSO        = 5.0        # valor usado ao preencher campo obrigatorio vazio\nRELATORIO    = r\"D:\\Claude ai\\Dynamo rotinas\\rotina corredores\\concordancias.txt\"\n\nimport clr\nimport io\nimport re\n\nclr.AddReference('AcMgd')\nclr.AddReference('AcDbMgd')\nclr.AddReference('AcCoreMgd')\nclr.AddReference('AeccDbMgd')\n\nfrom System import IntPtr\nfrom Autodesk.AutoCAD.ApplicationServices import Application\nfrom Autodesk.AutoCAD.DatabaseServices import OpenMode, Intersect, ObjectId\nfrom Autodesk.AutoCAD.Geometry import Point3dCollection\nfrom Autodesk.Civil.ApplicationServices import CivilApplication\nimport Autodesk.Civil.DatabaseServices as CDS\nfrom Autodesk.Civil.DatabaseServices import ConnectedAlignmentParams\n\ntry:\n    from Autodesk.Civil import CurbReturnCurveGroupType\nexcept ImportError:\n    CurbReturnCurveGroupType = None\ntry:\n    from Autodesk.Civil import AlignmentType\nexcept ImportError:\n    AlignmentType = None\n\nRODAR = IN[0] if len(IN) > 0 and IN[0] is not None else False\ntry:\n    LIMITE = int((IN[1] or \"0\").strip()) if len(IN) > 1 else 0\nexcept Exception:\n    LIMITE = 0\n\nlog = []\ncriadas = 0\n\n\ndef st_off(a, p):\n    for args in ((p.X, p.Y), (p.X, p.Y, 0.0, 0.0)):\n        try:\n            r = a.StationOffset(*args)\n            if r is not None:\n                return float(r[0]), float(r[1])\n        except Exception:\n            pass\n    return None, None\n\n\ndef eh_offset(a):\n    if AlignmentType is None:\n        return False\n    try:\n        return a.AlignmentType in (AlignmentType.Offset, AlignmentType.CurbReturn)\n    except Exception:\n        return False\n\n\nadoc = Application.DocumentManager.MdiActiveDocument\ncivdoc = CivilApplication.ActiveDocument\n\nwith adoc.LockDocument():\n    db = adoc.Database\n    with db.TransactionManager.StartTransaction() as t:\n\n        eixos = []\n        for aid in civdoc.GetAlignmentIds():\n            a = t.GetObject(aid, OpenMode.ForRead)\n            if eh_offset(a):\n                continue\n            eixos.append({'id': aid, 'nome': a.Name, 'obj': a})\n\n        log.append(u\"=== %d eixos ===\" % len(eixos))\n\n        # ------------------------------------------------ esquinas\n        esquinas = []\n        esq_pt = []\n        for i in range(len(eixos)):\n            for j in range(i + 1, len(eixos)):\n                A, B = eixos[i], eixos[j]\n                pts = Point3dCollection()\n                ok = False\n                for modo in (Intersect.OnBothOperands, Intersect.ExtendBoth):\n                    try:\n                        pts.Clear()\n                        A['obj'].IntersectWith(B['obj'], modo, pts,\n                                               IntPtr.Zero, IntPtr.Zero)\n                        if pts.Count > 0:\n                            ok = True\n                            break\n                    except Exception:\n                        pass\n                if not ok:\n                    continue\n                for p in pts:\n                    stA, _ = st_off(A['obj'], p)\n                    stB, _ = st_off(B['obj'], p)\n                    if stA is None or stB is None:\n                        continue\n\n                    def dentro(e, s):\n                        return (e['obj'].StartingStation - TOL_PONTA <= s\n                                <= e['obj'].EndingStation + TOL_PONTA)\n\n                    if dentro(A, stA) and dentro(B, stB):\n                        esquinas.append((A, stA, B, stB))\n                        esq_pt.append(p)\n\n        log.append(u\"=== %d esquina(s) ===\" % len(esquinas))\n        log.append(u\"\")\n\n        # ------------------------------------------------ ids obrigatorios\n        # CreateConnectedAlignment recusa ObjectId.Null em layerId (e provavelmente\n        # em styleId/labelSetId). Herdamos do eixo pai / do documento.\n        def prop_id(obj, prop):\n            try:\n                v = getattr(obj, prop)\n                if v is not None and not v.IsNull:\n                    return v\n            except Exception:\n                pass\n            return None\n\n        def primeiro_estilo(caminho):\n            \"\"\"Primeiro ObjectId de uma colecao de estilos do documento.\"\"\"\n            try:\n                col = civdoc.Styles\n                for parte in caminho.split('.'):\n                    col = getattr(col, parte)\n                for oid in col:\n                    return oid\n            except Exception as e:\n                log.append(u\"   (sem %s: %s)\" % (caminho, e))\n            return None\n\n        base = eixos[0]['obj'] if eixos else None\n        LAYER_ID = prop_id(base, 'LayerId')\n        STYLE_ID = prop_id(base, 'StyleId')\n        LABEL_ID = (prop_id(base, 'LabelSetId') or\n                    primeiro_estilo('LabelSetStyles.AlignmentLabelSetStyles'))\n\n        if LAYER_ID is None:\n            LAYER_ID = db.Clayer\n        if STYLE_ID is None:\n            STYLE_ID = primeiro_estilo('AlignmentStyles')\n\n        log.append(u\"layer  = %s\" % LAYER_ID)\n        log.append(u\"estilo = %s\" % STYLE_ID)\n        log.append(u\"rotulo = %s\" % LABEL_ID)\n        log.append(u\"\")\n\n        grupo_arco = None\n        if CurbReturnCurveGroupType is not None:\n            try:\n                grupo_arco = CurbReturnCurveGroupType.Arc\n            except Exception:\n                grupo_arco = None\n\n        EXTRAS_OK = {}\n\n        # ---- assinatura geometrica das concordancias JA existentes ----\n        # (indice da esquina mais proxima, sinal do offset no eixo secundario).\n        # Evita recriar as que ja estao no desenho mesmo com nome diferente.\n        def assinatura(pmed, idx_esq):\n            A_, stA_, B_, stB_ = esquinas[idx_esq]\n            # o secundario e o que TERMINA na esquina\n            def continua(e, sv):\n                return (sv > e['obj'].StartingStation + TOL_PONTA and\n                        sv < e['obj'].EndingStation - TOL_PONTA)\n            sec_ = B_ if continua(A_, stA_) else A_\n            _, off_ = st_off(sec_['obj'], pmed)\n            if off_ is None:\n                return None\n            return (idx_esq, 1 if off_ >= 0 else -1)\n\n        FEITAS = set()\n        for aid in civdoc.GetAlignmentIds():\n            try:\n                c = t.GetObject(aid, OpenMode.ForRead)\n                if not c.Name.startswith(PREFIXO):\n                    continue\n                sp, ep = c.StartPoint, c.EndPoint\n                from Autodesk.AutoCAD.Geometry import Point3d\n                pmed = Point3d((sp.X + ep.X) / 2.0, (sp.Y + ep.Y) / 2.0, 0.0)\n                melhor, dmin = None, None\n                for k, (A_, stA_, B_, stB_) in enumerate(esquinas):\n                    d = ((pmed.X - esq_pt[k].X) ** 2 +\n                         (pmed.Y - esq_pt[k].Y) ** 2) ** 0.5\n                    if dmin is None or d < dmin:\n                        melhor, dmin = k, d\n                if melhor is not None and dmin is not None and dmin < 30.0:\n                    a = assinatura(pmed, melhor)\n                    if a:\n                        FEITAS.add(a)\n            except Exception as ex:\n                log.append(u\"(assinatura de %s: %s)\" % (aid, ex))\n\n        log.append(u\"%d concordancia(s) ja presentes reconhecidas\" % len(FEITAS))\n        log.append(u\"\")\n        n_conc = 0\n        for idx_esq, (A, stA, B, stB) in enumerate(esquinas):\n\n            # O quadrante e definido pelo SINAL do offset em cada eixo, nao\n            # pelo ramo. Testamos as 4 combinacoes; o Civil 3D recusa as que\n            # nao existem com \"No solution because of invalid parameters\".\n            for sa in (-1, +1):\n                for sb in (-1, +1):\n                    lado_a = 'antes' if sa < 0 else 'depois'\n                    lado_b = 'antes' if sb < 0 else 'depois'\n                    nome = u\"%s %s@%.0f x %s(%s)\" % (PREFIXO, A['nome'], stA,\n                                                     B['nome'], lado_b)\n\n                    if (idx_esq, sb) in FEITAS:\n                        log.append(u\"[%02d] %s  --> ja existe no desenho, pulando\"\n                                   % (n_conc, nome))\n                        continue\n                    if LIMITE and criadas >= LIMITE:\n                        continue\n                    log.append(u\"[%02d] %s\" % (n_conc, nome))\n                    log.append(u\"      %s est %.3f off %+.4f  |  %s est %.3f off %+.4f\"\n                               % (A['nome'], stA, sa * OFFSET_BORDA,\n                                  B['nome'], stB, sb * OFFSET_BORDA))\n\n                    if not RODAR:\n                        log.append(u\"      (simulacao)\")\n                        log.append(u\"\")\n                        continue\n\n                    # ---- criacao com auto-correcao dos campos obrigatorios\n                    extras = dict(EXTRAS_OK)   # aprende entre as concordancias\n                    novo = None\n                    erro_final = None\n                    for tentativa in range(1, 13):\n                        try:\n                            prm = ConnectedAlignmentParams()\n                            prm.IncomingParentAlignmentId = A['id']\n                            prm.IncomingParentAlignmentStation = stA\n                            prm.OutgoingParentAlignmentId = B['id']\n                            prm.OutgoingParentAlignmentStation = stB\n                            prm.OffsetIn = sa * OFFSET_BORDA\n                            prm.OffsetOut = sb * OFFSET_BORDA\n                            prm.CurveRadius = RAIO\n                            prm.GreaterThan180 = False\n                            if grupo_arco is not None:\n                                prm.CurveGroupType = grupo_arco\n                            for k, v in extras.items():\n                                try:\n                                    setattr(prm, k, v)\n                                except Exception as ex:\n                                    log.append(u\"      (nao setou %s: %s)\" % (k, ex))\n\n                            novo = CDS.Alignment.CreateConnectedAlignment(\n                                nome, ObjectId.Null, LAYER_ID, STYLE_ID,\n                                LABEL_ID, prm)\n                            break\n                        except Exception as e:\n                            msg = str(e).split(u\"\\n\")[0]\n                            erro_final = msg\n                            m = re.search(\n                                r'(\\w+)\\s+should be greater than(?: or equal to)?\\s+'\n                                r'([-\\d.]+)', msg)\n                            if m:\n                                campo = m.group(1)\n                                try:\n                                    minimo = float(m.group(2))\n                                except Exception:\n                                    minimo = 0.0\n                                valor = max(minimo + PASSO, PASSO)\n                                if extras.get(campo) == valor:\n                                    log.append(u\"      auto-correcao travou em %s\"\n                                               % campo)\n                                    break\n                                extras[campo] = valor\n                                log.append(u\"      [%d] %s -> %.3f  (%s)\"\n                                           % (tentativa, campo, valor, msg))\n                                continue\n                            break\n\n                    if novo is not None:\n                        criadas += 1\n                        EXTRAS_OK.update(extras)\n                        log.append(u\"      CRIADA: %s\" % novo)\n                        if extras:\n                            log.append(u\"      params extras: %s\"\n                                       % u\", \".join(u\"%s=%.3f\" % (k, v)\n                                                    for k, v in sorted(extras.items())))\n                    elif erro_final and u\"No solution\" in erro_final:\n                        log.append(u\"      (quadrante nao existe nesta esquina)\")\n                    else:\n                        log.append(u\"      FALHOU: %s\" % erro_final)\n                    log.append(u\"\")\n\n        log.append(u\"=== %d concordancia(s) possiveis / %d criada(s) ===\"\n                   % (n_conc, criadas))\n        if not RODAR:\n            log.append(u\"--- SIMULACAO: ligue RODAR para criar. ---\")\n        if LIMITE:\n            log.append(u\"--- LIMITE = %d (modo teste). Zere para criar todas. ---\"\n                       % LIMITE)\n\n        t.Commit()\n\ntry:\n    f = io.open(RELATORIO, 'w', encoding='utf-8')\n    f.write(u\"\\n\".join(log))\n    f.close()\nexcept Exception:\n    pass\n\nOUT = log\n",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Inputs": [
+        {
+          "Id": "bd9f9f73d8a8466ab4ab8eaa160f4cbc",
+          "Name": "IN[0]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "efffb0b10e8e4a32b59129c3710e18d2",
+          "Name": "IN[1]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0125a82089804690ab7ce15ec68672d3",
+          "Name": "IN[2]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3d69a6dc2c50437dbf5fbab75d4e4fad",
+          "Name": "IN[3]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8e8aaf9d490644ec93ece00952790c3a",
+          "Name": "OUT",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria corredores em lote no Civil 3D."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "Id": "90ab4f648dc54d4cb9179637b83696f0",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "7d835fa627824bcca3142d9d1c0c84a1",
+          "Name": "",
+          "Description": "No a avaliar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a62b273fe1834f87904bdf649a28588e",
+          "Name": "",
+          "Description": "Conteudo",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualiza a saida de um no."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "a6acfe2a5e59458bb12c45353e86e49f",
+      "End": "bd9f9f73d8a8466ab4ab8eaa160f4cbc",
+      "Id": "8bea11674d8f46faa5ddd1abba263b31",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "3eb2f6d7e85949a786aebc9a80fbd82d",
+      "End": "efffb0b10e8e4a32b59129c3710e18d2",
+      "Id": "9652a297d3224299a1e26d781c7575a9",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "fe7b3c7d69484ae3bd4efe129eb9d5b7",
+      "End": "0125a82089804690ab7ce15ec68672d3",
+      "Id": "353e011d40864140bce71fe00f2c3115",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "da09af73f89340a894743b612f0632c9",
+      "End": "3d69a6dc2c50437dbf5fbab75d4e4fad",
+      "Id": "f3204666c0524624a9d0feab4f281271",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "8e8aaf9d490644ec93ece00952790c3a",
+      "End": "7d835fa627824bcca3142d9d1c0c84a1",
+      "Id": "6aba24b1f16942848d8def7d01bc9eaa",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.13.1.3887",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "7536c3b089b24226b9c9a9f120421b64",
+        "Name": "RODAR",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "Id": "7c616eef7c1740c79d6800a2c0da4afc",
+        "Name": "MODO  (auto | codigo)",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 120.0
+      },
+      {
+        "Id": "016f2896150e4d6db80431716b811877",
+        "Name": "CORREDOR UNICO",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 240.0
+      },
+      {
+        "Id": "972bd44e1a0b432c9200c52ba0dc8d30",
+        "Name": "NOME BASE",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 360.0
+      },
+      {
+        "Id": "5cf48fab9bae459b94325586bfcdb3c2",
+        "Name": "Criar Corredores em Lote",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 400.0,
+        "Y": 130.0
+      },
+      {
+        "Id": "90ab4f648dc54d4cb9179637b83696f0",
+        "Name": "Relatorio",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 760.0,
+        "Y": 130.0
+      }
+    ],
+    "Annotations": [],
+    "X": 60.0,
+    "Y": 60.0,
+    "Zoom": 0.9
+  }
+}

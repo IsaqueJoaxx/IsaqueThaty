@@ -1,0 +1,136 @@
+{
+  "Uuid": "38042bab-33fb-4db6-901f-e87b924fd716",
+  "IsCustomNode": false,
+  "Description": "Geracao automatica de greide: le o perfil do terreno do alinhamento, gera os PIVs respeitando a rampa maxima e dimensiona as curvas verticais por K minimo.",
+  "Name": "GreideDiag",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Id": "559edfa8-b244-48f0-986d-21f5c6c0c49b",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "10e44956-c0ee-4b25-9c24-dabe75c20fdd",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script.",
+      "Code": "# -*- coding: utf-8 -*-\n# Descobre as assinaturas reais da API de perfis do Civil 3D por reflexao .NET\nimport clr\nclr.AddReference('AcMgd'); clr.AddReference('AcCoreMgd'); clr.AddReference('AcDbMgd')\nclr.AddReference('AecBaseMgd'); clr.AddReference('AeccDbMgd')\n\nfrom Autodesk.Civil.DatabaseServices import (ProfileEntityCollection, ProfilePVICollection,\n                                             ProfilePVI, Profile, VerticalCurveType)\n\nout = []\n\ndef dump(tipo, filtro):\n    out.append(\"\")\n    out.append(\"=\" * 78)\n    out.append(\"### \" + tipo.FullName)\n    out.append(\"=\" * 78)\n    vistos = set()\n    for m in tipo.GetMethods():\n        if filtro and not any(f.lower() in m.Name.lower() for f in filtro):\n            continue\n        ps = \", \".join(\"%s %s\" % (p.ParameterType.Name, p.Name) for p in m.GetParameters())\n        linha = \"%s %s(%s)\" % (m.ReturnType.Name, m.Name, ps)\n        if linha not in vistos:\n            vistos.add(linha)\n            out.append(\"  \" + linha)\n    for p in tipo.GetProperties():\n        if filtro and not any(f.lower() in p.Name.lower() for f in filtro):\n            continue\n        out.append(\"  [prop] %s %s  (get=%s set=%s)\"\n                   % (p.PropertyType.Name, p.Name, p.CanRead, p.CanWrite))\n\ndump(ProfileEntityCollection, [\"parabola\", \"curve\", \"tangent\", \"add\"])\ndump(ProfilePVICollection, [\"add\", \"item\"])\ndump(ProfilePVI, [\"curve\", \"length\", \"station\", \"elevation\", \"grade\", \"k\"])\n\nout.append(\"\")\nout.append(\"### VerticalCurveType (valores possiveis)\")\nfor n in VerticalCurveType.GetEnumNames():\n    out.append(\"  \" + n)\n\nout.append(\"\")\nout.append(\"### Profile.CreateByLayout (assinaturas)\")\nfor m in Profile.GetMethods():\n    if m.Name == \"CreateByLayout\":\n        ps = \", \".join(\"%s %s\" % (p.ParameterType.Name, p.Name) for p in m.GetParameters())\n        out.append(\"  %s CreateByLayout(%s)\" % (m.ReturnType.Name, ps))\n\nOUT = \"\\n\".join(out)\n",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "Id": "ca0d5a60-0498-4292-a372-78a0b926f535",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "51291564-8401-44b4-8111-fdf6a064aaa0",
+          "Name": "",
+          "Description": "Node to show output from",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "59b355f1-10d0-4ff0-9ab3-78d9c76d09c4",
+          "Name": "",
+          "Description": "Node output",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualizes a node's output."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "10e44956-c0ee-4b25-9c24-dabe75c20fdd",
+      "End": "51291564-8401-44b4-8111-fdf6a064aaa0",
+      "Id": "7511ac25-3e6d-489a-8b14-e6a76902b0b3",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.19.0.5742",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "559edfa8-b244-48f0-986d-21f5c6c0c49b",
+        "Name": "DIAGNOSTICO DA API",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 120.0,
+        "Y": 140.0
+      },
+      {
+        "Id": "ca0d5a60-0498-4292-a372-78a0b926f535",
+        "Name": "RELATORIO",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 560.0,
+        "Y": 140.0
+      }
+    ],
+    "Annotations": [],
+    "X": 0.0,
+    "Y": 0.0,
+    "Zoom": 1.0
+  }
+}

@@ -1,0 +1,28 @@
+(defun c:ra ()
+  (if (= (findfile "Captura Block.lsp") nil)
+    (progn
+      (alert "\nDebes revisar las opciones de configuración del sistema, alguna aplicación fue borrada o renombrada")
+      (quit)
+    )
+    (progn
+      (load (findfile "Captura Block.lsp"))
+      (captura^block)
+    )
+  )
+  (setq indx 0)
+  (initget (+ 1 4))
+  (setq angulo^view (/ (* (- 360.0 (getreal "\nIngresa Angulo de la View : ")) pi) 180))
+  (repeat (sslength grupo^block)
+    (setq entidad (entnext (ssname grupo^block indx))
+         listasoc (subst (cons 50 angulo^view) (assoc 50 (entget entidad)) (entget entidad))
+             indx (1+ indx)
+    )
+    (entmod listasoc)
+    (entupd entidad)
+  )
+  (princ)
+)
+
+(prompt "\nRutina Rotar Atributo Versión 1.0 Cargada.\nDigita < RA > Para Comenzar")
+
+(princ)

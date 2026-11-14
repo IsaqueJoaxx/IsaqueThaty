@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LandXML xmlns="http://www.landxml.org/schema/LandXML-1.2" version="1.2" date="2026-11-11" time="21:40:22">
+  <Units><Metric areaUnit="squareMeter" linearUnit="meter" volumeUnit="cubicMeter" temperatureUnit="celsius" pressureUnit="milliBars" angularUnit="decimal degrees" directionUnit="decimal degrees"/></Units>
+  <Application name="PROJETA Traçado Preliminar" manufacturer="Point Top" version="0.1"/>
+  <Alignments name="Traçado preliminar">
+    <Alignment name="ALT-2" length="703.5464" staStart="0.0000" desc="estudo preliminar — não é projeto">
+      <CoordGeom>
+        <Line length="4.4899"><Start>7669010.2780 703927.4420</Start><End>7669006.5825 703924.8921</End></Line>
+        <Curve rot="cw" crvType="arc" radius="80.0000" length="50.6778" delta="36.295294"><Start>7669006.5825 703924.8921</Start><Center>7669052.0168 703859.0459</Center><End>7668976.4203 703885.2217</End><PI>7668985.0000 703910.0000</PI></Curve>
+        <Line length="39.0580"><Start>7668976.4203 703885.2217</Start><End>7668963.6406 703848.3135</End></Line>
+        <Curve rot="cw" crvType="arc" radius="80.0000" length="112.8712" delta="80.838049"><Start>7668963.6406 703848.3135</Start><Center>7669039.2371 703822.1377</Center><End>7669001.3584 703751.6736</End><PI>7668941.3483 703783.9326</PI></Curve>
+        <Line length="55.2822"><Start>7669001.3584 703751.6736</Start><End>7669050.0511 703725.4983</End></Line>
+        <Curve rot="cw" crvType="arc" radius="50.1235" length="80.2172" delta="91.695653"><Start>7669050.0511 703725.4983</Start><Center>7669073.7838 703769.6472</Center><End>7669118.6156 703747.2313</End><PI>7669095.5263 703701.0526</PI></Curve>
+        <Line length="15.0000"><Start>7669118.6156 703747.2313</Start><End>7669125.3238 703760.6477</End></Line>
+        <Curve rot="ccw" crvType="arc" radius="50.1235" length="103.4968" delta="118.306366"><Start>7669125.3238 703760.6477</Start><Center>7669170.1557 703738.2318</Center><End>7669211.1499 703767.0735</End><PI>7669162.8571 703835.7143</PI></Curve>
+        <Line length="117.4591"><Start>7669211.1499 703767.0735</Start><End>7669278.7374 703671.0081</End></Line>
+        <Curve rot="cw" crvType="arc" radius="48.9839" length="37.2420" delta="43.561485"><Start>7669278.7374 703671.0081</Start><Center>7669318.7995 703699.1941</Center><End>7669309.1930 703651.1614</End><PI>7669290.0000 703655.0000</PI></Curve>
+        <Line length="15.0000"><Start>7669309.1930 703651.1614</Start><End>7669323.9017 703648.2197</End></Line>
+        <Curve rot="cw" crvType="arc" radius="48.9839" length="31.6816" delta="37.057502"><Start>7669323.9017 703648.2197</Start><Center>7669333.5082 703696.2523</Center><End>7669354.7872 703652.1317</End><PI>7669340.0000 703645.0000</PI></Curve>
+        <Line length="41.0704"><Start>7669354.7872 703652.1317</Start><End>7669391.7800 703669.9730</End></Line>
+      </CoordGeom>
+      <Profile name="ALT-2">
+        <ProfAlign name="ALT-2 - greide expedito">
+          <PVI>0.0000 719.0976</PVI>
+          <PVI>35.0000 716.3187</PVI>
+          <PVI>55.0000 715.0965</PVI>
+          <PVI>75.0000 714.5176</PVI>
+          <PVI>90.0000 714.8000</PVI>
+          <PVI>105.0000 715.7317</PVI>
+          <PVI>375.0000 737.3317</PVI>
+          <PVI>385.0000 738.0279</PVI>
+          <PVI>395.0000 738.3635</PVI>
+          <PVI>410.0000 737.9249</PVI>
+          <PVI>475.0000 732.7882</PVI>
+          <PVI>490.0000 731.9283</PVI>
+          <PVI>500.0000 731.6471</PVI>
+          <PVI>515.0000 731.6060</PVI>
+          <PVI>550.0000 732.2177</PVI>
+          <PVI>565.0000 732.2632</PVI>
+          <PVI>620.0000 730.9244</PVI>
+          <PVI>640.0000 730.8823</PVI>
+          <PVI>655.0000 731.2828</PVI>
+          <PVI>670.0000 732.0001</PVI>
+          <PVI>703.5464 734.3201</PVI>
+        </ProfAlign>
+      </Profile>
+    </Alignment>
+    <Alignment name="ALT-1" length="545.6318" staStart="0.0000" desc="estudo preliminar — não é projeto">
+      <CoordGeom>
+        <Line length="54.8784"><Start>7669010.2780 703927.4420</Start><End>7669031.9304 703877.0157</End></Line>
+        <Curve rot="cw" crvType="arc" radius="80.0000" length="129.3895" delta="92.668428"><Start>7669031.9304 703877.0157</Start><Center>7669105.4403 703908.5799</Center><End>7669140.3926 703836.6193</End><PI>7669065.0000 703800.0000</PI></Curve>
+        <Line length="43.8323"><Start>7669140.3926 703836.6193</Start><End>7669179.8201 703855.7698</End></Line>
+        <Curve rot="ccw" crvType="arc" radius="68.4925" length="133.9975" delta="112.092433"><Start>7669179.8201 703855.7698</Start><Center>7669209.7448 703794.1602</Center><End>7669278.0856 703798.7163</End><PI>7669271.3192 703900.2122</PI></Curve>
+        <Line length="18.9474"><Start>7669278.0856 703798.7163</Start><End>7669279.3459 703779.8109</End></Line>
+        <Curve rot="cw" crvType="arc" radius="48.8725" length="19.4063" delta="22.750976"><Start>7669279.3459 703779.8109</Start><Center>7669328.1102 703783.0618</Center><End>7669284.3973 703761.2054</End><PI>7669280.0000 703770.0000</PI></Curve>
+        <Line length="15.0000"><Start>7669284.3973 703761.2054</Start><End>7669291.1055 703747.7890</End></Line>
+        <Curve rot="cw" crvType="arc" radius="57.0836" length="38.2758" delta="38.418055"><Start>7669291.1055 703747.7890</Start><Center>7669342.1626 703773.3176</Center><End>7669318.0228 703721.5894</End><PI>7669300.0000 703730.0000</PI></Curve>
+        <Line length="40.5831"><Start>7669318.0228 703721.5894</Start><End>7669354.7985 703704.4273</End></Line>
+        <Curve rot="ccw" crvType="arc" radius="80.0000" length="43.4827" delta="31.142207"><Start>7669354.7985 703704.4273</Start><Center>7669320.9677 703631.9327</Center><End>7669387.4147 703676.4838</End><PI>7669375.0000 703695.0000</PI></Curve>
+        <Line length="7.8388"><Start>7669387.4147 703676.4838</Start><End>7669391.7800 703669.9730</End></Line>
+      </CoordGeom>
+      <Profile name="ALT-1">
+        <ProfAlign name="ALT-1 - greide expedito">
+          <PVI>0.0000 719.0976</PVI>
+          <PVI>120.0000 709.5450</PVI>
+          <PVI>135.0000 708.8351</PVI>
+          <PVI>155.0000 708.9586</PVI>
+          <PVI>170.0000 709.6775</PVI>
+          <PVI>190.0000 711.0546</PVI>
+          <PVI>295.0000 719.2643</PVI>
+          <PVI>310.0000 719.6735</PVI>
+          <PVI>345.0000 718.9872</PVI>
+          <PVI>360.0000 719.5437</PVI>
+          <PVI>545.6318 734.3199</PVI>
+        </ProfAlign>
+      </Profile>
+    </Alignment>
+    <Alignment name="ALT-3" length="602.3250" staStart="0.0000" desc="estudo preliminar — não é projeto">
+      <CoordGeom>
+        <Line length="48.7495"><Start>7669010.2780 703927.4420</Start><End>7669041.3768 703889.9004</End></Line>
+        <Curve rot="cw" crvType="arc" radius="80.0000" length="107.4108" delta="76.927318"><Start>7669041.3768 703889.9004</Start><Center>7669102.9843 703940.9349</Center><End>7669138.7614 703869.3807</End><PI>7669081.9187 703840.9593</PI></Curve>
+        <Line length="50.2147"><Start>7669138.7614 703869.3807</Start><End>7669183.6748 703891.8374</End></Line>
+        <Curve rot="cw" crvType="arc" radius="43.5783" length="14.0214" delta="18.434949"><Start>7669183.6748 703891.8374</Start><Center>7669164.1860 703930.8151</Center><End>7669195.0005 703900.0005</End><PI>7669190.0000 703895.0000</PI></Curve>
+        <Line length="15.0000"><Start>7669195.0005 703900.0005</Start><End>7669205.6071 703910.6071</End></Line>
+        <Curve rot="ccw" crvType="arc" radius="43.5783" length="102.6791" delta="135.000000"><Start>7669205.6071 703910.6071</Start><Center>7669236.4217 703879.7926</Center><End>7669280.0000 703879.7926</End><PI>7669280.0000 703985.0000</PI></Curve>
+        <Line length="97.4704"><Start>7669280.0000 703879.7926</Start><End>7669280.0000 703782.3222</End></Line>
+        <Curve rot="cw" crvType="arc" radius="52.1976" length="24.2013" delta="26.565051"><Start>7669280.0000 703782.3222</Start><Center>7669332.1976 703782.3222</Center><End>7669285.5106 703758.9787</End><PI>7669280.0000 703770.0000</PI></Curve>
+        <Line length="15.0000"><Start>7669285.5106 703758.9787</Start><End>7669292.2188 703745.5623</End></Line>
+        <Curve rot="cw" crvType="arc" radius="52.1976" length="33.5892" delta="36.869898"><Start>7669292.2188 703745.5623</Start><Center>7669338.9058 703768.9058</Center><End>7669315.5623 703722.2188</End><PI>7669300.0000 703730.0000</PI></Curve>
+        <Line length="48.8089"><Start>7669315.5623 703722.2188</Start><End>7669359.2183 703700.3909</End></Line>
+        <Curve rot="ccw" crvType="arc" radius="78.5127" length="45.1799" delta="32.970654"><Start>7669359.2183 703700.3909</Start><Center>7669324.1063 703630.1670</Center><End>7669391.7800 703669.9730</End><PI>7669380.0000 703690.0000</PI></Curve>
+      </CoordGeom>
+      <Profile name="ALT-3">
+        <ProfAlign name="ALT-3 - greide expedito">
+          <PVI>0.0000 719.0976</PVI>
+          <PVI>185.0000 704.3181</PVI>
+          <PVI>200.0000 703.5990</PVI>
+          <PVI>215.0000 703.7090</PVI>
+          <PVI>235.0000 704.9342</PVI>
+          <PVI>602.3250 734.3198</PVI>
+        </ProfAlign>
+      </Profile>
+    </Alignment>
+  </Alignments>
+</LandXML>

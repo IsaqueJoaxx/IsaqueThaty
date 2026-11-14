@@ -1,0 +1,35 @@
+para instalar:
+
+descompactar todos os arquivos numa mesma pasta
+( se vovê ainda tiver a versão demo, apague-a, ou descompacte
+  sobreescrevendo TODOS os arquivos)
+
+na linha de comando do cad, use o comando APPLOAD
+localize o EXPGE.VLX e clique o botão "Load"
+
+deverá adicionar a pasta automaticamente ao "Support File Search Path" do autocad
+para que ele sempre ache os arquvos de configuração
+
+se preferir, pode adicionar o expge.vlx na "Stratup Suite", clicando no botão
+abaixo da "maleta" que aparece na tela do APPLOAD
+
+qualquer dúvida, entre em contato:
+neyton@yahoo.com
+
+-------------------------------------------------------------------------------------
+A QUEM COMPRAR A LICENÇA:
+
+ao usar pela primeira vez, o programa irá perguntar o seu nome na linha de comando
+informe exatamente como aparece no email de retorno
+
+isso fará o programa gerar um arquivo "expge.cod"
+
+se tudo estiver certo, ele não terá mais limite de expotação
+
+se for digitado errado, o prograa cria a chave "expge.cod" como demonstrativa
+neste caso, apague este arquivo, e use o comando "expgelic", o programa irá
+pedir novamente o seu nome
+
+-------------------------------------------------------------------------------------
+
+

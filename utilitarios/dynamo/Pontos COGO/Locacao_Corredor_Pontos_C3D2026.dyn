@@ -1,0 +1,618 @@
+{
+    "Uuid":  "d62f276a-d6d0-4d33-8f80-91b2acbff8b9",
+    "IsCustomNode":  false,
+    "Description":  "Insere pontos COGO de locacao (eixo, bordo, sarjeta/drenagem, banquetas, offset) a partir dos codigos de ponto do corredor, cria grupo de pontos e exporta CSV PNEZD.",
+    "Name":  "Locacao_Corredor_Pontos_C3D2026",
+    "ElementResolver":  {
+                            "ResolutionMap":  {
+
+                                              }
+                        },
+    "Inputs":  [
+                   {
+                       "Id":  "399eb7e87989461db63cbe3712e9599a",
+                       "Name":  "1. Corredores (* = todos; separar por ;)",
+                       "Type":  "string",
+                       "Type2":  "string",
+                       "Value":  "*",
+                       "Description":  "Cria uma sequência de caracteres."
+                   },
+                   {
+                       "Id":  "e4f1f41df722491d9c639c6651cee38a",
+                       "Name":  "2. Codigos do corredor = descricao do ponto",
+                       "Type":  "string",
+                       "Type2":  "string",
+                       "Value":  "Crown=EIXO; ETW=BORDO; Drenagem*-6=FIM DRENAGEM; AterroBan*=BANQUETA",
+                       "Description":  "Cria uma sequência de caracteres."
+                   },
+                   {
+                       "Id":  "5446d124b2b94b8aa9f5d7f18e0dab21",
+                       "Name":  "3. Intervalo em metros (20 = estacas; 0 = todas as secoes)",
+                       "Type":  "number",
+                       "Type2":  "number",
+                       "Value":  "20",
+                       "NumberType":  "Double",
+                       "Description":  "Cria um número."
+                   },
+                   {
+                       "Id":  "b15b33365e904880a3a0ea3762468d19",
+                       "Name":  "4. Incluir pontos notaveis (PC, PT, TS, SC, inicio/fim de regiao)",
+                       "Type":  "boolean",
+                       "Type2":  "boolean",
+                       "Value":  "true",
+                       "Description":  "Permite a seleção entre True e False"
+                   },
+                   {
+                       "Id":  "195f5b59e3954fbda7d169c311dea38b",
+                       "Name":  "5. Prefixo do grupo de pontos",
+                       "Type":  "string",
+                       "Type2":  "string",
+                       "Value":  "LOCACAO",
+                       "Description":  "Cria uma sequência de caracteres."
+                   },
+                   {
+                       "Id":  "df2401afbd8a4cf68acb5f54fe5cc5a4",
+                       "Name":  "6. Apagar pontos anteriores do grupo",
+                       "Type":  "boolean",
+                       "Type2":  "boolean",
+                       "Value":  "true",
+                       "Description":  "Permite a seleção entre True e False"
+                   },
+                   {
+                       "Id":  "28e629353b544b148cc9f141375ee443",
+                       "Name":  "7. Pasta do CSV (vazio = pasta do DWG; - = nao exportar)",
+                       "Type":  "string",
+                       "Type2":  "string",
+                       "Value":  "",
+                       "Description":  "Cria uma sequência de caracteres."
+                   },
+                   {
+                       "Id":  "0960ca3f03814f6ab09c4a5c9aaf2017",
+                       "Name":  "8. EXECUTAR (False = so simula e lista codigos)",
+                       "Type":  "boolean",
+                       "Type2":  "boolean",
+                       "Value":  "true",
+                       "Description":  "Permite a seleção entre True e False"
+                   }
+               ],
+    "Outputs":  [
+                    {
+                        "Id":  "382165b52f7e4b33b72dedbb7293966d",
+                        "Name":  "Relatorio",
+                        "Type":  "unknown",
+                        "InitialValue":  "",
+                        "Description":  "Visualiza a saída de um nó"
+                    }
+                ],
+    "Nodes":  [
+                  {
+                      "ConcreteType":  "CoreNodeModels.Input.StringInput, CoreNodeModels",
+                      "SerializedWidth":  0.0,
+                      "SerializedHeight":  0.0,
+                      "Id":  "399eb7e87989461db63cbe3712e9599a",
+                      "NodeType":  "StringInputNode",
+                      "Inputs":  [
+
+                                 ],
+                      "Outputs":  [
+                                      {
+                                          "Id":  "8b1a4ff38beb48cc82aaa73b942ddbfd",
+                                          "Name":  "",
+                                          "Description":  "String",
+                                          "UsingDefaultValue":  false,
+                                          "Level":  2,
+                                          "UseLevels":  false,
+                                          "KeepListStructure":  false
+                                      }
+                                  ],
+                      "Replication":  "Disabled",
+                      "Description":  "Cria uma sequência de caracteres.",
+                      "InputValue":  "*"
+                  },
+                  {
+                      "ConcreteType":  "CoreNodeModels.Input.StringInput, CoreNodeModels",
+                      "SerializedWidth":  0.0,
+                      "SerializedHeight":  0.0,
+                      "Id":  "e4f1f41df722491d9c639c6651cee38a",
+                      "NodeType":  "StringInputNode",
+                      "Inputs":  [
+
+                                 ],
+                      "Outputs":  [
+                                      {
+                                          "Id":  "00cf152900d143d89bc30ae01653a305",
+                                          "Name":  "",
+                                          "Description":  "String",
+                                          "UsingDefaultValue":  false,
+                                          "Level":  2,
+                                          "UseLevels":  false,
+                                          "KeepListStructure":  false
+                                      }
+                                  ],
+                      "Replication":  "Disabled",
+                      "Description":  "Cria uma sequência de caracteres.",
+                      "InputValue":  "Crown=EIXO; ETW=BORDO; Drenagem*-6=FIM DRENAGEM; AterroBan*=BANQUETA"
+                  },
+                  {
+                      "ConcreteType":  "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+                      "NumberType":  "Double",
+                      "Id":  "5446d124b2b94b8aa9f5d7f18e0dab21",
+                      "NodeType":  "NumberInputNode",
+                      "Inputs":  [
+
+                                 ],
+                      "Outputs":  [
+                                      {
+                                          "Id":  "0f17c32d2c3a4db0a1cc74b6144639f6",
+                                          "Name":  "",
+                                          "Description":  "Double",
+                                          "UsingDefaultValue":  false,
+                                          "Level":  2,
+                                          "UseLevels":  false,
+                                          "KeepListStructure":  false
+                                      }
+                                  ],
+                      "Replication":  "Disabled",
+                      "Description":  "Cria um número.",
+                      "InputValue":  20.0
+                  },
+                  {
+                      "ConcreteType":  "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+                      "Id":  "b15b33365e904880a3a0ea3762468d19",
+                      "NodeType":  "BooleanInputNode",
+                      "Inputs":  [
+
+                                 ],
+                      "Outputs":  [
+                                      {
+                                          "Id":  "d1f667813c504014844ac087f22fa0a4",
+                                          "Name":  "",
+                                          "Description":  "Boolean",
+                                          "UsingDefaultValue":  false,
+                                          "Level":  2,
+                                          "UseLevels":  false,
+                                          "KeepListStructure":  false
+                                      }
+                                  ],
+                      "Replication":  "Disabled",
+                      "Description":  "Permite a seleção entre True e False",
+                      "InputValue":  true
+                  },
+                  {
+                      "ConcreteType":  "CoreNodeModels.Input.StringInput, CoreNodeModels",
+                      "SerializedWidth":  0.0,
+                      "SerializedHeight":  0.0,
+                      "Id":  "195f5b59e3954fbda7d169c311dea38b",
+                      "NodeType":  "StringInputNode",
+                      "Inputs":  [
+
+                                 ],
+                      "Outputs":  [
+                                      {
+                                          "Id":  "bf10cdae93664e89b4f171a5bd8eec04",
+                                          "Name":  "",
+                                          "Description":  "String",
+                                          "UsingDefaultValue":  false,
+                                          "Level":  2,
+                                          "UseLevels":  false,
+                                          "KeepListStructure":  false
+                                      }
+                                  ],
+                      "Replication":  "Disabled",
+                      "Description":  "Cria uma sequência de caracteres.",
+                      "InputValue":  "LOCACAO"
+                  },
+                  {
+                      "ConcreteType":  "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+                      "Id":  "df2401afbd8a4cf68acb5f54fe5cc5a4",
+                      "NodeType":  "BooleanInputNode",
+                      "Inputs":  [
+
+                                 ],
+                      "Outputs":  [
+                                      {
+                                          "Id":  "89fa8ccca6b5459898f0e34b8561b836",
+                                          "Name":  "",
+                                          "Description":  "Boolean",
+                                          "UsingDefaultValue":  false,
+                                          "Level":  2,
+                                          "UseLevels":  false,
+                                          "KeepListStructure":  false
+                                      }
+                                  ],
+                      "Replication":  "Disabled",
+                      "Description":  "Permite a seleção entre True e False",
+                      "InputValue":  true
+                  },
+                  {
+                      "ConcreteType":  "CoreNodeModels.Input.StringInput, CoreNodeModels",
+                      "SerializedWidth":  0.0,
+                      "SerializedHeight":  0.0,
+                      "Id":  "28e629353b544b148cc9f141375ee443",
+                      "NodeType":  "StringInputNode",
+                      "Inputs":  [
+
+                                 ],
+                      "Outputs":  [
+                                      {
+                                          "Id":  "6ab63d7061cf4181800b6919cff55897",
+                                          "Name":  "",
+                                          "Description":  "String",
+                                          "UsingDefaultValue":  false,
+                                          "Level":  2,
+                                          "UseLevels":  false,
+                                          "KeepListStructure":  false
+                                      }
+                                  ],
+                      "Replication":  "Disabled",
+                      "Description":  "Cria uma sequência de caracteres.",
+                      "InputValue":  ""
+                  },
+                  {
+                      "ConcreteType":  "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+                      "Id":  "0960ca3f03814f6ab09c4a5c9aaf2017",
+                      "NodeType":  "BooleanInputNode",
+                      "Inputs":  [
+
+                                 ],
+                      "Outputs":  [
+                                      {
+                                          "Id":  "cd21323fd25644a4b16d4fb58b2eda0f",
+                                          "Name":  "",
+                                          "Description":  "Boolean",
+                                          "UsingDefaultValue":  false,
+                                          "Level":  2,
+                                          "UseLevels":  false,
+                                          "KeepListStructure":  false
+                                      }
+                                  ],
+                      "Replication":  "Disabled",
+                      "Description":  "Permite a seleção entre True e False",
+                      "InputValue":  true
+                  },
+                  {
+                      "ConcreteType":  "PythonNodeModels.PythonNode, PythonNodeModels",
+                      "Code":  "# =====================================================================\n#  LOCACAO DE CORREDOR - pontos COGO por codigo de ponto do corredor\n#  Civil 3D 2026/2027 - Dynamo (CPython3 ou PythonNet3)\n#\n#  IN[0] Corredores   : nomes separados por \";\"  (\"*\" = todos; aceita curinga, ex. \"01*\")\n#  IN[1] Codigos      : \"CODIGO=DESCRICAO; ...\"   (primeiro que casar vence; aceita * e ?)\n#  IN[2] Intervalo (m): 20 = estacas inteiras; 10 = estacas e meias; 0 = todas as secoes do corredor\n#  IN[3] Pontos notaveis: True inclui PC/PT/TS/SC..., inicio/fim de regiao\n#  IN[4] Grupo de pontos: prefixo do grupo (sera \"\u003cprefixo\u003e - \u003ccorredor\u003e\")\n#  IN[5] Apagar anteriores: True remove os pontos que ja estavam no grupo\n#  IN[6] Pasta CSV    : \"\" = mesma pasta do DWG; \"-\" = nao exportar\n#  IN[7] EXECUTAR     : False = so lista codigos e simula; True = cria os pontos\n# =====================================================================\nimport clr, os, fnmatch\nclr.AddReference(\u0027AcMgd\u0027)\nclr.AddReference(\u0027AcCoreMgd\u0027)\nclr.AddReference(\u0027AcDbMgd\u0027)\nclr.AddReference(\u0027AecBaseMgd\u0027)\nclr.AddReference(\u0027AeccDbMgd\u0027)\n\nfrom Autodesk.AutoCAD.ApplicationServices import Application\nfrom Autodesk.AutoCAD.DatabaseServices import OpenMode\nfrom Autodesk.AutoCAD.Geometry import Point3d\nfrom Autodesk.Civil.ApplicationServices import CivilApplication\nfrom Autodesk.Civil.DatabaseServices import StandardPointGroupQuery\n\ntry:\n    from Autodesk.Civil import StationTypes\nexcept Exception:\n    try:\n        from Autodesk.Civil.DatabaseServices import StationTypes\n    except Exception:\n        StationTypes = None\n\n\ndef _s(v, d=\"\"):\n    return d if v is None else str(v)\n\n\ncorr_filtro = _s(IN[0], \"*\").strip() or \"*\"\ncodigos_txt = _s(IN[1])\nintervalo = float(IN[2] or 0)\nnotaveis = bool(IN[3])\ngrupo_prefixo = _s(IN[4], \"LOCACAO\").strip() or \"LOCACAO\"\napagar = bool(IN[5])\npasta_csv = _s(IN[6]).strip()\nexecutar = bool(IN[7])\n\nTOL_ST = 0.005      # tolerancia de estaca (m)\nTOL_XY = 0.001      # pontos duplicados (m)\n\n# ---- mapa de codigos -------------------------------------------------\nmapa = []\nfor par in codigos_txt.replace(\"\\n\", \";\").split(\";\"):\n    if \"=\" in par:\n        k, v = par.split(\"=\", 1)\n        if k.strip():\n            mapa.append((k.strip().lower(), v.strip().upper()))\n\n\ndef descricao_de(codes):\n    lc = [c.lower() for c in codes]\n    for pat, desc in mapa:\n        for c in lc:\n            if fnmatch.fnmatchcase(c, pat):\n                return desc\n    return None\n\n\ndef filtro_corredor(nome):\n    for pat in corr_filtro.split(\";\"):\n        pat = pat.strip()\n        if pat and fnmatch.fnmatchcase(nome.lower(), pat.lower()):\n            return True\n    return False\n\n\ndef estaca_txt(st, passo=20.0):\n    n = int((st + 1e-9) // passo)\n    r = st - n * passo\n    return (\"%d+%.2f\" % (n, r)).replace(\".\", \",\")\n\n\ndef lado_de(off):\n    if off \u003c -TOL_XY:\n        return \"LE\"\n    if off \u003e TOL_XY:\n        return \"LD\"\n    return \"\"\n\n\ndef xy_por_alinhamento(al, st, off):\n    r = al.PointLocation(st, off, 0.0, 0.0)\n    vals = [v for v in (r if isinstance(r, tuple) else [r]) if isinstance(v, float)]\n    return vals[-2], vals[-1]\n\n\ndef estacoes_notaveis(al, regioes):\n    sts = []\n    for rg in regioes:\n        sts += [rg.StartStation, rg.EndStation]\n    if StationTypes is not None and al is not None:\n        try:\n            for s in al.GetStationSet(StationTypes.GeometryPoint):\n                sts.append(float(s))\n        except Exception:\n            pass\n    return sts\n\n\ndef passa_estaca(st, notaveis_lst):\n    if intervalo \u003c= 0:\n        return True\n    r = st % intervalo\n    if r \u003c TOL_ST or intervalo - r \u003c TOL_ST:\n        return True\n    if notaveis:\n        for s in notaveis_lst:\n            if abs(s - st) \u003c TOL_ST:\n                return True\n    return False\n\n\ndef pontos_de(aa):\n    try:\n        return list(aa.Points)\n    except Exception:\n        return list(aa.GetPoints())\n\n\ndef faixas(nums):\n    nums = sorted(set(nums))\n    out, ini, ant = [], None, None\n    for n in nums:\n        if ini is None:\n            ini = ant = n\n        elif n == ant + 1:\n            ant = n\n        else:\n            out.append(str(ini) if ini == ant else \"%d-%d\" % (ini, ant))\n            ini = ant = n\n    if ini is not None:\n        out.append(str(ini) if ini == ant else \"%d-%d\" % (ini, ant))\n    return \",\".join(out)\n\n\nimport traceback\n\n\ndef main():\n    adoc = Application.DocumentManager.MdiActiveDocument\n    db = adoc.Database\n    civdoc = CivilApplication.ActiveDocument\n    relatorio = []\n    csv_linhas = []\n    csv_rel = []\n\n    lock = adoc.LockDocument()\n    try:\n        t = db.TransactionManager.StartTransaction()\n        try:\n            cogo = civdoc.CogoPoints\n            for cid in civdoc.CorridorCollection:\n                corr = t.GetObject(cid, OpenMode.ForRead)\n                if not filtro_corredor(corr.Name):\n                    continue\n                contagem_codigos = {}\n                candidatos = []   # (x, y, z, desc, baseline, st, off)\n                for bl in corr.Baselines:\n                    try:\n                        al = t.GetObject(bl.AlignmentId, OpenMode.ForRead)\n                    except Exception:\n                        al = None   # baseline por feature line (ex.: esquinas)\n                    try:\n                        bl_nome = str(bl.Name)\n                    except Exception:\n                        bl_nome = \u0027baseline\u0027\n                    regioes = list(bl.BaselineRegions)\n                    notav = estacoes_notaveis(al, regioes)\n                    for rg in regioes:\n                        for aa in rg.AppliedAssemblies:\n                            for cp in pontos_de(aa):\n                                codes = [str(c) for c in cp.CorridorCodes]\n                                for c in codes:\n                                    contagem_codigos[c] = contagem_codigos.get(c, 0) + 1\n                                desc = descricao_de(codes)\n                                if desc is None:\n                                    continue\n                                soe = cp.StationOffsetElevationToBaseline\n                                st, off, z = soe.X, soe.Y, soe.Z\n                                if not passa_estaca(st, notav):\n                                    continue\n                                try:\n                                    p = cp.XYZ\n                                    x, y, z = p.X, p.Y, p.Z\n                                except Exception:\n                                    if al is None:\n                                        continue\n                                    x, y = xy_por_alinhamento(al, st, off)\n                                candidatos.append((x, y, z, desc, bl_nome, st, off))\n\n                # remove duplicados (mesmo ponto vindo de subassemblies/regioes vizinhas)\n                vistos, pontos = set(), []\n                for c in sorted(candidatos, key=lambda k: (k[4], k[5], k[6])):\n                    chave = (round(c[0] / TOL_XY), round(c[1] / TOL_XY))\n                    if chave in vistos:\n                        continue\n                    vistos.add(chave)\n                    pontos.append(c)\n\n                resumo = {}\n                for c in pontos:\n                    d = (c[3] + \" \" + lado_de(c[6])).strip()\n                    resumo[d] = resumo.get(d, 0) + 1\n\n                relatorio.append(\"== CORREDOR: %s ==\" % corr.Name)\n                relatorio.append(\"Codigos encontrados: \" + \", \".join(\n                    \"%s(%d)\" % (k, v) for k, v in sorted(contagem_codigos.items())))\n                relatorio.append(\"Pontos a locar: %d -\u003e \" % len(pontos) + \", \".join(\n                    \"%s: %d\" % (k, v) for k, v in sorted(resumo.items())))\n\n                if not executar:\n                    continue\n\n                # ---- grupo de pontos ----\n                gnome = \"%s - %s\" % (grupo_prefixo, corr.Name)\n                pgs = civdoc.PointGroups\n                gid = None\n                for _id in pgs:\n                    if t.GetObject(_id, OpenMode.ForRead).Name == gnome:\n                        gid = _id\n                        break\n                if gid is not None:\n                    if apagar:\n                        pg_old = t.GetObject(gid, OpenMode.ForRead)\n                        removidos = 0\n                        for n in list(pg_old.GetPointNumbers()):\n                            try:\n                                cogo.Remove(cogo.GetPointByPointNumber(n))\n                                removidos += 1\n                            except Exception:\n                                pass\n                        relatorio.append(\"Pontos anteriores removidos: %d\" % removidos)\n                else:\n                    gid = pgs.Add(gnome)\n\n                numeros = []\n                for (x, y, z, desc, bln, st, off) in pontos:\n                    raw = (desc + \" \" + lado_de(off)).strip()\n                    pid = cogo.Add(Point3d(x, y, z), raw, True)\n                    cpt = t.GetObject(pid, OpenMode.ForRead)\n                    num = int(cpt.PointNumber)\n                    numeros.append(num)\n                    csv_linhas.append(\"%d,%.4f,%.4f,%.4f,%s\" % (num, y, x, z, raw))\n                    csv_rel.append(\"%d;%s;%s;%s;%s;%s;%s;%s;%s\" % (\n                        num, corr.Name, bln, estaca_txt(st), (\"%.3f\" % st).replace(\".\", \",\"),\n                        (\"%.3f\" % off).replace(\".\", \",\"), (\"%.4f\" % y).replace(\".\", \",\"),\n                        (\"%.4f\" % x).replace(\".\", \",\"), (\"%.4f\" % z).replace(\".\", \",\")) + \";\" + raw)\n\n                pg = t.GetObject(gid, OpenMode.ForWrite)\n                q = StandardPointGroupQuery()\n                q.IncludeNumbers = faixas(numeros)\n                pg.SetQuery(q)\n                pg.Update()\n                if numeros:\n                    relatorio.append(\"Criados %d pontos (%d a %d) no grupo \u0027%s\u0027\" % (\n                        len(numeros), min(numeros), max(numeros), gnome))\n\n            if executar:\n                t.Commit()\n            else:\n                t.Abort()\n        finally:\n            t.Dispose()\n    finally:\n        lock.Dispose()\n\n    # ---- CSV ------------------------------------------------------------\n    if executar and csv_linhas and pasta_csv != \"-\":\n        pasta = pasta_csv or os.path.dirname(db.Filename) or os.path.expanduser(\"~\")\n        base = os.path.splitext(os.path.basename(db.Filename or \"desenho\"))[0]\n        f1 = os.path.join(pasta, base + \"_LOCACAO_PNEZD.csv\")\n        f2 = os.path.join(pasta, base + \"_LOCACAO_relatorio.csv\")\n        with open(f1, \"w\", encoding=\"utf-8\") as f:\n            f.write(\"\\n\".join(csv_linhas) + \"\\n\")\n        with open(f2, \"w\", encoding=\"utf-8-sig\") as f:\n            f.write(\"Ponto;Corredor;Baseline;Estaca;Estaca_m;Offset;Norte;Este;Cota;Descricao\\n\")\n            f.write(\"\\n\".join(csv_rel) + \"\\n\")\n        relatorio.append(\"CSV coletora: \" + f1)\n        relatorio.append(\"CSV relatorio: \" + f2)\n\n    if not relatorio:\n        relatorio.append(\"Nenhum corredor encontrado com o filtro \u0027%s\u0027.\" % corr_filtro)\n    if not executar:\n        relatorio.insert(0, \"MODO SIMULACAO - nada foi criado. Ajuste os codigos e mude EXECUTAR para True.\")\n\n    return relatorio\n\n\ntry:\n    OUT = main()\nexcept Exception:\n    OUT = [\u0027ERRO - envie este texto:\u0027] + traceback.format_exc().splitlines()\n\ntry:\n    _p = os.path.join(os.path.expanduser(\u0027~\u0027), \u0027Documents\u0027, \u0027Dynamo\u0027)\n    with open(os.path.join(_p, \u0027locacao_ultimo_relatorio.txt\u0027), \u0027w\u0027, encoding=\u0027utf-8\u0027) as _f:\n        _f.write(chr(10).join(str(x) for x in OUT))\nexcept Exception:\n    pass\n",
+                      "Engine":  "CPython3",
+                      "VariableInputPorts":  true,
+                      "Id":  "0fd6dfda2a7940e094a7eb1e1afcef75",
+                      "NodeType":  "PythonScriptNode",
+                      "Inputs":  [
+                                     {
+                                         "Id":  "b57dcef17cb44355ae6cbcb9ebf283ed",
+                                         "Name":  "IN[0]",
+                                         "Description":  "Input #0",
+                                         "UsingDefaultValue":  false,
+                                         "Level":  2,
+                                         "UseLevels":  false,
+                                         "KeepListStructure":  false
+                                     },
+                                     {
+                                         "Id":  "bb8db54d18794032ada97de349571199",
+                                         "Name":  "IN[1]",
+                                         "Description":  "Input #1",
+                                         "UsingDefaultValue":  false,
+                                         "Level":  2,
+                                         "UseLevels":  false,
+                                         "KeepListStructure":  false
+                                     },
+                                     {
+                                         "Id":  "e9dd89972eca46298fd678f5a0dd721b",
+                                         "Name":  "IN[2]",
+                                         "Description":  "Input #2",
+                                         "UsingDefaultValue":  false,
+                                         "Level":  2,
+                                         "UseLevels":  false,
+                                         "KeepListStructure":  false
+                                     },
+                                     {
+                                         "Id":  "7a5e79a2d4dc4121a61cdece2f168d33",
+                                         "Name":  "IN[3]",
+                                         "Description":  "Input #3",
+                                         "UsingDefaultValue":  false,
+                                         "Level":  2,
+                                         "UseLevels":  false,
+                                         "KeepListStructure":  false
+                                     },
+                                     {
+                                         "Id":  "33a9475a47854e4e81b4facd8b76a5ac",
+                                         "Name":  "IN[4]",
+                                         "Description":  "Input #4",
+                                         "UsingDefaultValue":  false,
+                                         "Level":  2,
+                                         "UseLevels":  false,
+                                         "KeepListStructure":  false
+                                     },
+                                     {
+                                         "Id":  "e83194f8f49a40acabd445c65f2c9c74",
+                                         "Name":  "IN[5]",
+                                         "Description":  "Input #5",
+                                         "UsingDefaultValue":  false,
+                                         "Level":  2,
+                                         "UseLevels":  false,
+                                         "KeepListStructure":  false
+                                     },
+                                     {
+                                         "Id":  "05dc49becc0d4417ba971d29b620fac2",
+                                         "Name":  "IN[6]",
+                                         "Description":  "Input #6",
+                                         "UsingDefaultValue":  false,
+                                         "Level":  2,
+                                         "UseLevels":  false,
+                                         "KeepListStructure":  false
+                                     },
+                                     {
+                                         "Id":  "d9213715ec874c4d8e205995a609e12b",
+                                         "Name":  "IN[7]",
+                                         "Description":  "Input #7",
+                                         "UsingDefaultValue":  false,
+                                         "Level":  2,
+                                         "UseLevels":  false,
+                                         "KeepListStructure":  false
+                                     }
+                                 ],
+                      "Outputs":  [
+                                      {
+                                          "Id":  "67620b001d2b4ebcb5af6ee567199f7a",
+                                          "Name":  "OUT",
+                                          "Description":  "Result of the python script",
+                                          "UsingDefaultValue":  false,
+                                          "Level":  2,
+                                          "UseLevels":  false,
+                                          "KeepListStructure":  false
+                                      }
+                                  ],
+                      "Replication":  "Disabled",
+                      "Description":  "Executa um script Python incorporado."
+                  },
+                  {
+                      "ConcreteType":  "CoreNodeModels.Watch, CoreNodeModels",
+                      "WatchWidth":  200.0,
+                      "WatchHeight":  200.0,
+                      "Id":  "382165b52f7e4b33b72dedbb7293966d",
+                      "NodeType":  "ExtensionNode",
+                      "Inputs":  [
+                                     {
+                                         "Id":  "5645cf6a33b6446894eebaa6cc5faf2d",
+                                         "Name":  "",
+                                         "Description":  "Node to show output from",
+                                         "UsingDefaultValue":  false,
+                                         "Level":  -1,
+                                         "UseLevels":  false,
+                                         "KeepListStructure":  false
+                                     }
+                                 ],
+                      "Outputs":  [
+                                      {
+                                          "Id":  "41bae227e0d64d448d7a7e082123048b",
+                                          "Name":  "",
+                                          "Description":  "Node output",
+                                          "UsingDefaultValue":  false,
+                                          "Level":  -1,
+                                          "UseLevels":  false,
+                                          "KeepListStructure":  false
+                                      }
+                                  ],
+                      "Replication":  "Disabled",
+                      "Description":  "Visualiza a saída de um nó"
+                  }
+              ],
+    "Connectors":  [
+                       {
+                           "Start":  "8b1a4ff38beb48cc82aaa73b942ddbfd",
+                           "End":  "b57dcef17cb44355ae6cbcb9ebf283ed",
+                           "Id":  "2a1f85e4568346fbbc2bce4cc0d1f096",
+                           "IsHidden":  "False"
+                       },
+                       {
+                           "Start":  "00cf152900d143d89bc30ae01653a305",
+                           "End":  "bb8db54d18794032ada97de349571199",
+                           "Id":  "61a3472995f44025a5240cd8bc975b92",
+                           "IsHidden":  "False"
+                       },
+                       {
+                           "Start":  "0f17c32d2c3a4db0a1cc74b6144639f6",
+                           "End":  "e9dd89972eca46298fd678f5a0dd721b",
+                           "Id":  "9b0516a597c44e6eb67d1445c2a1e766",
+                           "IsHidden":  "False"
+                       },
+                       {
+                           "Start":  "d1f667813c504014844ac087f22fa0a4",
+                           "End":  "7a5e79a2d4dc4121a61cdece2f168d33",
+                           "Id":  "8da0afd511db47cbb5cec571b5d2761a",
+                           "IsHidden":  "False"
+                       },
+                       {
+                           "Start":  "bf10cdae93664e89b4f171a5bd8eec04",
+                           "End":  "33a9475a47854e4e81b4facd8b76a5ac",
+                           "Id":  "e6c025958d3a4fada0ef8a69c12b0bd9",
+                           "IsHidden":  "False"
+                       },
+                       {
+                           "Start":  "89fa8ccca6b5459898f0e34b8561b836",
+                           "End":  "e83194f8f49a40acabd445c65f2c9c74",
+                           "Id":  "8745cb301b524287b13f2e5fb6b6713c",
+                           "IsHidden":  "False"
+                       },
+                       {
+                           "Start":  "6ab63d7061cf4181800b6919cff55897",
+                           "End":  "05dc49becc0d4417ba971d29b620fac2",
+                           "Id":  "bbef2dfc68c140ceb65eb6f404bcceb8",
+                           "IsHidden":  "False"
+                       },
+                       {
+                           "Start":  "cd21323fd25644a4b16d4fb58b2eda0f",
+                           "End":  "d9213715ec874c4d8e205995a609e12b",
+                           "Id":  "dacb28aaae2a4bf6896c9f171d69334d",
+                           "IsHidden":  "False"
+                       },
+                       {
+                           "Start":  "67620b001d2b4ebcb5af6ee567199f7a",
+                           "End":  "5645cf6a33b6446894eebaa6cc5faf2d",
+                           "Id":  "3f2284563cf84f479c975ac2d5dea2fb",
+                           "IsHidden":  "False"
+                       }
+                   ],
+    "Dependencies":  [
+
+                     ],
+    "NodeLibraryDependencies":  [
+
+                                ],
+    "EnableLegacyPolyCurveBehavior":  false,
+    "Thumbnail":  null,
+    "GraphDocumentationURL":  null,
+    "ExtensionWorkspaceData":  [
+                                   {
+                                       "ExtensionGuid":  "28992e1d-abb9-417f-8b1b-05e053bee670",
+                                       "Name":  "Propriedades",
+                                       "Version":  "4.0",
+                                       "Data":  {
+
+                                                }
+                                   }
+                               ],
+    "Author":  "None provided",
+    "Linting":  {
+                    "activeLinter":  "Nenhum",
+                    "activeLinterId":  "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+                    "warningCount":  0,
+                    "errorCount":  0
+                },
+    "Bindings":  [
+
+                 ],
+    "View":  {
+                 "Dynamo":  {
+                                "ScaleFactor":  1.0,
+                                "HasRunWithoutCrash":  true,
+                                "IsVisibleInDynamoLibrary":  true,
+                                "Version":  "3.6.1.9956",
+                                "RunType":  "Manual",
+                                "RunPeriod":  "1000"
+                            },
+                 "Camera":  {
+                                "Name":  "_Visualização do plano de fundo",
+                                "EyeX":  -17.0,
+                                "EyeY":  24.0,
+                                "EyeZ":  50.0,
+                                "LookX":  12.0,
+                                "LookY":  -13.0,
+                                "LookZ":  -58.0,
+                                "UpX":  0.0,
+                                "UpY":  1.0,
+                                "UpZ":  0.0
+                            },
+                 "ConnectorPins":  [
+
+                                   ],
+                 "NodeViews":  [
+                                   {
+                                       "Id":  "399eb7e87989461db63cbe3712e9599a",
+                                       "Name":  "1. Corredores (* = todos; separar por ;)",
+                                       "IsSetAsInput":  true,
+                                       "IsSetAsOutput":  false,
+                                       "Excluded":  false,
+                                       "ShowGeometry":  true,
+                                       "X":  0.0,
+                                       "Y":  0.0
+                                   },
+                                   {
+                                       "Id":  "e4f1f41df722491d9c639c6651cee38a",
+                                       "Name":  "2. Codigos do corredor = descricao do ponto",
+                                       "IsSetAsInput":  true,
+                                       "IsSetAsOutput":  false,
+                                       "Excluded":  false,
+                                       "ShowGeometry":  true,
+                                       "X":  0.0,
+                                       "Y":  110.0
+                                   },
+                                   {
+                                       "Id":  "5446d124b2b94b8aa9f5d7f18e0dab21",
+                                       "Name":  "3. Intervalo em metros (20 = estacas; 0 = todas as secoes)",
+                                       "IsSetAsInput":  true,
+                                       "IsSetAsOutput":  false,
+                                       "Excluded":  false,
+                                       "ShowGeometry":  true,
+                                       "X":  0.0,
+                                       "Y":  220.0
+                                   },
+                                   {
+                                       "Id":  "b15b33365e904880a3a0ea3762468d19",
+                                       "Name":  "4. Incluir pontos notaveis (PC, PT, TS, SC, inicio/fim de regiao)",
+                                       "IsSetAsInput":  true,
+                                       "IsSetAsOutput":  false,
+                                       "Excluded":  false,
+                                       "ShowGeometry":  true,
+                                       "X":  0.0,
+                                       "Y":  330.0
+                                   },
+                                   {
+                                       "Id":  "195f5b59e3954fbda7d169c311dea38b",
+                                       "Name":  "5. Prefixo do grupo de pontos",
+                                       "IsSetAsInput":  true,
+                                       "IsSetAsOutput":  false,
+                                       "Excluded":  false,
+                                       "ShowGeometry":  true,
+                                       "X":  0.0,
+                                       "Y":  440.0
+                                   },
+                                   {
+                                       "Id":  "df2401afbd8a4cf68acb5f54fe5cc5a4",
+                                       "Name":  "6. Apagar pontos anteriores do grupo",
+                                       "IsSetAsInput":  true,
+                                       "IsSetAsOutput":  false,
+                                       "Excluded":  false,
+                                       "ShowGeometry":  true,
+                                       "X":  0.0,
+                                       "Y":  550.0
+                                   },
+                                   {
+                                       "Id":  "28e629353b544b148cc9f141375ee443",
+                                       "Name":  "7. Pasta do CSV (vazio = pasta do DWG; - = nao exportar)",
+                                       "IsSetAsInput":  true,
+                                       "IsSetAsOutput":  false,
+                                       "Excluded":  false,
+                                       "ShowGeometry":  true,
+                                       "X":  0.0,
+                                       "Y":  660.0
+                                   },
+                                   {
+                                       "Id":  "0960ca3f03814f6ab09c4a5c9aaf2017",
+                                       "Name":  "8. EXECUTAR (False = so simula e lista codigos)",
+                                       "IsSetAsInput":  true,
+                                       "IsSetAsOutput":  false,
+                                       "Excluded":  false,
+                                       "ShowGeometry":  true,
+                                       "X":  0.0,
+                                       "Y":  770.0
+                                   },
+                                   {
+                                       "Id":  "0fd6dfda2a7940e094a7eb1e1afcef75",
+                                       "Name":  "Locacao do corredor - pontos COGO",
+                                       "IsSetAsInput":  false,
+                                       "IsSetAsOutput":  false,
+                                       "Excluded":  false,
+                                       "ShowGeometry":  true,
+                                       "X":  620.0,
+                                       "Y":  330.0
+                                   },
+                                   {
+                                       "Id":  "382165b52f7e4b33b72dedbb7293966d",
+                                       "Name":  "Relatorio",
+                                       "IsSetAsInput":  false,
+                                       "IsSetAsOutput":  true,
+                                       "Excluded":  false,
+                                       "ShowGeometry":  true,
+                                       "X":  1375.0,
+                                       "Y":  863.75
+                                   }
+                               ],
+                 "Annotations":  [
+
+                                 ],
+                 "X":  60.0,
+                 "Y":  40.0,
+                 "Zoom":  0.8
+             }
+}

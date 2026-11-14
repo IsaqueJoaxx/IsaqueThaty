@@ -1,0 +1,17 @@
+(defun c:txch (/ ss n i e1 s1 s2 e2)
+      (setq ss (ssget))
+      (setq n (sslength ss))
+      (setq i 0)
+      (repeat n
+           (setq e1 (entget (ssname ss i)))
+           (setq i (+ i 1))
+           (setq s1 (assoc 0 e1))
+           (if (= "TEXT" (cdr s1))
+                (progn
+                     (setq s2 (assoc 40 e1))
+                     (setq e2 (subst '(40 . 3.0) s2 e1))
+                     (entmod e2)
+                )
+           )
+      )
+ )

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Abre as janelas do plugin fora do Civil 3D e salva capturas (teste visual das telas). Só Windows. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>Projeta.Sinalizacao.TesteUI</AssemblyName>
+    <AcadDir Condition="'$(AcadDir)' == ''">C:\Program Files\Autodesk\AutoCAD 2026</AcadDir>
+    <NoWarn>$(NoWarn);CA1416;MSB3277</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Projeta.Sinalizacao"><HintPath>..\..\src\Projeta.Sinalizacao\bin\Release\net8.0-windows\Projeta.Sinalizacao.dll</HintPath></Reference>
+    <Reference Include="Projeta.Sinalizacao.Core"><HintPath>..\..\src\Projeta.Sinalizacao\bin\Release\net8.0-windows\Projeta.Sinalizacao.Core.dll</HintPath></Reference>
+    <Reference Include="AcDbMgd"><HintPath>$(AcadDir)\AcDbMgd.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AcCoreMgd"><HintPath>$(AcadDir)\AcCoreMgd.dll</HintPath><Private>False</Private></Reference>
+  </ItemGroup>
+</Project>

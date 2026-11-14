@@ -1,0 +1,317 @@
+{
+  "Uuid": "00890171-4c6e-4eb3-88d0-789ccc375c79",
+  "IsCustomNode": false,
+  "Description": "Cria corredores em lote associando alinhamento, greide e secao tipo.",
+  "Name": "SondaAPI",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "7536c3b089b24226b9c9a9f120421b64",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a6acfe2a5e59458bb12c45353e86e49f",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selecao entre verdadeiro e falso.",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "Id": "7c616eef7c1740c79d6800a2c0da4afc",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3eb2f6d7e85949a786aebc9a80fbd82d",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma string.",
+      "InputValue": ""
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "016f2896150e4d6db80431716b811877",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "fe7b3c7d69484ae3bd4efe129eb9d5b7",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selecao entre verdadeiro e falso.",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "Id": "972bd44e1a0b432c9200c52ba0dc8d30",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "da09af73f89340a894743b612f0632c9",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma string.",
+      "InputValue": "CORREDOR LOTEAMENTO"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Id": "5cf48fab9bae459b94325586bfcdb3c2",
+      "NodeType": "PythonScriptNode",
+      "Code": "# -*- coding: utf-8 -*-\n# Sonda 2 - SOMENTE LEITURA. Foco: criacao de concordancias (curb return).\nimport clr, io\nclr.AddReference('AcMgd'); clr.AddReference('AcDbMgd')\nclr.AddReference('AcCoreMgd'); clr.AddReference('AeccDbMgd')\nimport Autodesk.Civil.DatabaseServices as CDS\nimport Autodesk.Civil as CIV\n\nDESTINO = r\"D:\\Claude ai\\Dynamo rotinas\\rotina corredores\\sonda_api2.txt\"\nout = []\n\ndef detalha(tipo, titulo):\n    out.append(u\"##### %s #####\" % titulo)\n    try:\n        t = clr.GetClrType(tipo)\n    except Exception as e:\n        out.append(u\"  <sem tipo CLR: %s>\" % e); out.append(u\"\"); return\n    out.append(u\"  -- construtores --\")\n    ctors = t.GetConstructors()\n    if not ctors:\n        out.append(u\"    (nenhum publico)\")\n    for c in ctors:\n        ps = u\", \".join(u\"%s %s\" % (p.ParameterType.Name, p.Name) for p in c.GetParameters())\n        out.append(u\"    new %s(%s)\" % (t.Name, ps))\n    out.append(u\"  -- propriedades --\")\n    for pi in sorted(t.GetProperties(), key=lambda x: x.Name):\n        out.append(u\"    %s %s  (get=%s set=%s)\"\n                   % (pi.PropertyType.Name, pi.Name, pi.CanRead, pi.CanWrite))\n    out.append(u\"  -- metodos --\")\n    ms = set()\n    for mi in t.GetMethods():\n        if mi.Name.startswith('get_') or mi.Name.startswith('set_'):\n            continue\n        ps = u\", \".join(u\"%s %s\" % (p.ParameterType.Name, p.Name) for p in mi.GetParameters())\n        ms.add(u\"    %s%s %s(%s)\" % (u\"static \" if mi.IsStatic else u\"\",\n                                     mi.ReturnType.Name, mi.Name, ps))\n    out.extend(sorted(ms))\n    out.append(u\"\")\n\ndef enum_vals(tipo, titulo):\n    out.append(u\"##### %s #####\" % titulo)\n    try:\n        t = clr.GetClrType(tipo)\n        for n in t.GetEnumNames():\n            out.append(u\"    %s\" % n)\n    except Exception as e:\n        out.append(u\"    <erro: %s>\" % e)\n    out.append(u\"\")\n\ndetalha(CDS.ConnectedAlignmentParams, u\"1. ConnectedAlignmentParams\")\nenum_vals(CIV.CurbReturnType, u\"2. CurbReturnType\")\nenum_vals(CIV.CurbReturnCurveGroupType, u\"3. CurbReturnCurveGroupType\")\n\nout.append(u\"##### 4. Tipos do namespace com 'Connected' ou 'Param' #####\")\nout += sorted([n for n in dir(CDS)\n               if 'connected' in n.lower() or 'curbreturn' in n.lower()]) or [u\"  (nenhum)\"]\nout.append(u\"\")\n\nout.append(u\"##### 5. IntersectionRoad / IntersectionRegion: metodos #####\")\nfor nome in ('IntersectionRoad', 'IntersectionRegion'):\n    try:\n        t = clr.GetClrType(getattr(CDS, nome))\n        out.append(u\"  -- %s --\" % nome)\n        for mi in sorted(set(m.Name for m in t.GetMethods()\n                             if not m.Name.startswith(('get_', 'set_')))):\n            out.append(u\"    %s\" % mi)\n    except Exception as e:\n        out.append(u\"  %s: %s\" % (nome, e))\nout.append(u\"\")\n\nf = io.open(DESTINO, 'w', encoding='utf-8'); f.write(u\"\\n\".join(out)); f.close()\nOUT = [u\"gravado: %s (%d linhas)\" % (DESTINO, len(out))]\n",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Inputs": [
+        {
+          "Id": "bd9f9f73d8a8466ab4ab8eaa160f4cbc",
+          "Name": "IN[0]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "efffb0b10e8e4a32b59129c3710e18d2",
+          "Name": "IN[1]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0125a82089804690ab7ce15ec68672d3",
+          "Name": "IN[2]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3d69a6dc2c50437dbf5fbab75d4e4fad",
+          "Name": "IN[3]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8e8aaf9d490644ec93ece00952790c3a",
+          "Name": "OUT",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria corredores em lote no Civil 3D."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "Id": "90ab4f648dc54d4cb9179637b83696f0",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "7d835fa627824bcca3142d9d1c0c84a1",
+          "Name": "",
+          "Description": "No a avaliar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a62b273fe1834f87904bdf649a28588e",
+          "Name": "",
+          "Description": "Conteudo",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualiza a saida de um no."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "a6acfe2a5e59458bb12c45353e86e49f",
+      "End": "bd9f9f73d8a8466ab4ab8eaa160f4cbc",
+      "Id": "8bea11674d8f46faa5ddd1abba263b31",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "3eb2f6d7e85949a786aebc9a80fbd82d",
+      "End": "efffb0b10e8e4a32b59129c3710e18d2",
+      "Id": "9652a297d3224299a1e26d781c7575a9",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "fe7b3c7d69484ae3bd4efe129eb9d5b7",
+      "End": "0125a82089804690ab7ce15ec68672d3",
+      "Id": "353e011d40864140bce71fe00f2c3115",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "da09af73f89340a894743b612f0632c9",
+      "End": "3d69a6dc2c50437dbf5fbab75d4e4fad",
+      "Id": "f3204666c0524624a9d0feab4f281271",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "8e8aaf9d490644ec93ece00952790c3a",
+      "End": "7d835fa627824bcca3142d9d1c0c84a1",
+      "Id": "6aba24b1f16942848d8def7d01bc9eaa",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.13.1.3887",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "7536c3b089b24226b9c9a9f120421b64",
+        "Name": "RODAR",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "Id": "7c616eef7c1740c79d6800a2c0da4afc",
+        "Name": "MODO  (auto | codigo)",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 120.0
+      },
+      {
+        "Id": "016f2896150e4d6db80431716b811877",
+        "Name": "CORREDOR UNICO",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 240.0
+      },
+      {
+        "Id": "972bd44e1a0b432c9200c52ba0dc8d30",
+        "Name": "NOME BASE",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 360.0
+      },
+      {
+        "Id": "5cf48fab9bae459b94325586bfcdb3c2",
+        "Name": "Criar Corredores em Lote",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 400.0,
+        "Y": 130.0
+      },
+      {
+        "Id": "90ab4f648dc54d4cb9179637b83696f0",
+        "Name": "Relatorio",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 760.0,
+        "Y": 130.0
+      }
+    ],
+    "Annotations": [],
+    "X": 60.0,
+    "Y": 60.0,
+    "Zoom": 0.9
+  }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage SchemaVersion="1.0" Name="PROJETA Sinalizacao" AppVersion="1.0.0"
+    Description="PROJETA • Sinalização Viária — sinalização horizontal, vertical, semafórica, obras, defensas, quantitativos e 3D"
+    Author="Isaque" ProductCode="{8E3B6A21-4C7D-4F92-B1E8-5A0D9C3F6B14}" UpgradeCode="{2D9F4C83-7A1E-4B6D-8C25-E3F0A6B9D471}">
+  <CompanyDetails Name="PROJETA" />
+  <Components Description="PROJETA Sinalização para Civil 3D 2026 (.NET 8)">
+    <RuntimeRequirements OS="Win64" Platform="AutoCAD*" SeriesMin="R25.1" SeriesMax="R25.1" />
+    <ComponentEntry AppName="PROJETA_SIN" ModuleName="./Contents/2026/Projeta.Sinalizacao.dll" AppDescription="PROJETA Sinalização 2026"
+        LoadOnAutoCADStartup="True" AppType=".NET" />
+  </Components>
+  <Components Description="PROJETA Sinalização para Civil 3D 2027 (.NET 10)">
+    <RuntimeRequirements OS="Win64" Platform="AutoCAD*" SeriesMin="R26.0" SeriesMax="R26.0" />
+    <ComponentEntry AppName="PROJETA_SIN" ModuleName="./Contents/2027/Projeta.Sinalizacao.dll" AppDescription="PROJETA Sinalização 2027"
+        LoadOnAutoCADStartup="True" AppType=".NET" />
+  </Components>
+</ApplicationPackage>

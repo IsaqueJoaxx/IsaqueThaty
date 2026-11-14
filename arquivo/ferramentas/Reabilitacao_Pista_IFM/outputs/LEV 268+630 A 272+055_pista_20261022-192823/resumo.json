@@ -1,0 +1,382 @@
+{
+  "gerado_em": "2026-10-22T19:28:28",
+  "eixo": {
+    "fonte": "PROVISÓRIO (linha média do levantamento)",
+    "nome": "EIXO PROVISÓRIO (levantamento)",
+    "inicio": 230.0,
+    "fim": 3644.935968010468,
+    "secoes_usadas": 615,
+    "residuo_medio_m": 0.04837828079014694,
+    "residuo_max_m": 0.5697121211826323,
+    "comprimento_m": 3414.935968010468
+  },
+  "pista": {
+    "arquivo": "LEV 268+630 A 272+055_pista.csv",
+    "pontos": 4568,
+    "ordem": "NE",
+    "separador": ";",
+    "avisos": []
+  },
+  "fundos": [
+    {
+      "arquivo": "ACOST-271+200 A 272+390_ld.csv",
+      "pontos": 814,
+      "ordem": "NE",
+      "separador": ";",
+      "avisos": [],
+      "lado": "LD",
+      "fora_do_eixo": 228,
+      "referencias": 81
+    },
+    {
+      "arquivo": "ACOST-271+740 a 272+510_le.csv",
+      "pontos": 241,
+      "ordem": "NE",
+      "separador": ";",
+      "avisos": [],
+      "lado": "LE",
+      "fora_do_eixo": 142,
+      "referencias": 0
+    }
+  ],
+  "parametros": {
+    "passo_m": 5.0,
+    "rebaixo_m": 0.26,
+    "espessura_min_m": 0.23,
+    "folga_m": 0.0,
+    "caimento_pct": 2.0,
+    "velocidade_kmh": 60.0,
+    "emax_pct": 6.0,
+    "raio_min_m": 133.3950903195924,
+    "raio_dispensa_superelevacao_m": 1800.0,
+    "rampa_relativa_max_pct": 0.6,
+    "suavidade_mm": 10.07,
+    "iri_alvo": 1.0,
+    "criterio_suavidade": "Menor volume com IRI teórico do greide ≤ 1.00 m/km em todo trecho de 100 m (trilhas ±0,9 e ±2,6 m e eixo) → variação máx. de rampa 10.07 mm a cada 5 m",
+    "pista_estado": "antes",
+    "controle_continuo": true,
+    "amarracoes": {}
+  },
+  "estacas": {
+    "inicio": 235.0,
+    "fim": 3640.0,
+    "quantidade": 682
+  },
+  "curvas": [
+    {
+      "inicio": 1030.0,
+      "fim": 1800.0,
+      "raio_m": 884.278214473649,
+      "lado": "direita",
+      "superelevacao_pct": 2.0,
+      "transicao_m": 23.333333333333336,
+      "entrada": [
+        1014.4444444444445,
+        1037.7777777777778
+      ],
+      "saida": [
+        1792.2222222222222,
+        1815.5555555555557
+      ]
+    }
+  ],
+  "coerencia": [
+    {
+      "controle": "LE 3,50",
+      "estacas": 62,
+      "rebaixo_medido_mediana": -0.010890484250522192,
+      "p10": -0.0378156490888637,
+      "p90": 0.009589100101596412
+    },
+    {
+      "controle": "EIXO",
+      "estacas": 60,
+      "rebaixo_medido_mediana": 0.0025593068240272743,
+      "p10": -0.010273078027776527,
+      "p90": 0.012509418218339442
+    },
+    {
+      "controle": "LD 3,50",
+      "estacas": 155,
+      "rebaixo_medido_mediana": -0.0013514004144123959,
+      "p10": -0.039552922353675864,
+      "p90": 0.020517600815805535
+    },
+    {
+      "controle": "REFERÊNCIA ORIGINAL x pista",
+      "estacas": 81,
+      "rebaixo_medido_mediana": 0.25183740888492956,
+      "p10": 0.22968700563686895,
+      "p90": 0.27606725926468734
+    }
+  ],
+  "volume_m3": 7250.964166666664,
+  "volume_limite_inferior_m3": 7096.000000000007,
+  "iri": {
+    "projeto_por_trilha": {
+      "-2.6": 0.7665397917028886,
+      "-0.9": 0.760477972006215,
+      "0.0": 0.7605987498745643,
+      "0.9": 0.7605987498745641,
+      "2.6": 0.7605987498745641
+    },
+    "existente_por_trilha_indicativo": {
+      "-2.6": 1.6081134319501804,
+      "-0.9": 1.418813465723385,
+      "0.0": 1.6159205318813545,
+      "0.9": 1.5363507238302878,
+      "2.6": 1.7976534944761218
+    },
+    "projeto_por_100m": [
+      {
+        "inicio": 235.0,
+        "fim": 335.0,
+        "iri": 0.7708459803877978
+      },
+      {
+        "inicio": 335.0,
+        "fim": 435.0,
+        "iri": 0.798718844627864
+      },
+      {
+        "inicio": 435.0,
+        "fim": 535.0,
+        "iri": 0.7434216280605632
+      },
+      {
+        "inicio": 535.0,
+        "fim": 635.0,
+        "iri": 0.8728172356486866
+      },
+      {
+        "inicio": 635.0,
+        "fim": 735.0,
+        "iri": 0.8173000629752778
+      },
+      {
+        "inicio": 735.0,
+        "fim": 835.0,
+        "iri": 0.7311971213909543
+      },
+      {
+        "inicio": 835.0,
+        "fim": 935.0,
+        "iri": 0.6957507414039421
+      },
+      {
+        "inicio": 935.0,
+        "fim": 1035.0,
+        "iri": 0.8271401725194109
+      },
+      {
+        "inicio": 1035.0,
+        "fim": 1135.0,
+        "iri": 0.8585161849057819
+      },
+      {
+        "inicio": 1135.0,
+        "fim": 1235.0,
+        "iri": 0.9741717717878632
+      },
+      {
+        "inicio": 1235.0,
+        "fim": 1335.0,
+        "iri": 0.8675577930267092
+      },
+      {
+        "inicio": 1335.0,
+        "fim": 1435.0,
+        "iri": 0.7800708709042745
+      },
+      {
+        "inicio": 1435.0,
+        "fim": 1535.0,
+        "iri": 0.9118120864327809
+      },
+      {
+        "inicio": 1535.0,
+        "fim": 1635.0,
+        "iri": 0.7418691902364467
+      },
+      {
+        "inicio": 1635.0,
+        "fim": 1735.0,
+        "iri": 0.7049321620457105
+      },
+      {
+        "inicio": 1735.0,
+        "fim": 1835.0,
+        "iri": 0.7677359386226904
+      },
+      {
+        "inicio": 1835.0,
+        "fim": 1935.0,
+        "iri": 0.8482915857975831
+      },
+      {
+        "inicio": 1935.0,
+        "fim": 2035.0,
+        "iri": 0.6435553042053639
+      },
+      {
+        "inicio": 2035.0,
+        "fim": 2135.0,
+        "iri": 0.9186842148806742
+      },
+      {
+        "inicio": 2135.0,
+        "fim": 2235.0,
+        "iri": 0.8675262748390394
+      },
+      {
+        "inicio": 2235.0,
+        "fim": 2335.0,
+        "iri": 0.9650963514599927
+      },
+      {
+        "inicio": 2335.0,
+        "fim": 2435.0,
+        "iri": 0.8558852902120307
+      },
+      {
+        "inicio": 2435.0,
+        "fim": 2535.0,
+        "iri": 0.7151132112025945
+      },
+      {
+        "inicio": 2535.0,
+        "fim": 2635.0,
+        "iri": 0.7483022518473612
+      },
+      {
+        "inicio": 2635.0,
+        "fim": 2735.0,
+        "iri": 0.7201851742659698
+      },
+      {
+        "inicio": 2735.0,
+        "fim": 2835.0,
+        "iri": 0.7253940085568811
+      },
+      {
+        "inicio": 2835.0,
+        "fim": 2935.0,
+        "iri": 0.5524572208683226
+      },
+      {
+        "inicio": 2935.0,
+        "fim": 3035.0,
+        "iri": 0.5698172153831949
+      },
+      {
+        "inicio": 3035.0,
+        "fim": 3135.0,
+        "iri": 0.7103371107031887
+      },
+      {
+        "inicio": 3135.0,
+        "fim": 3235.0,
+        "iri": 0.8159520601159873
+      },
+      {
+        "inicio": 3235.0,
+        "fim": 3335.0,
+        "iri": 0.7424148334029639
+      },
+      {
+        "inicio": 3335.0,
+        "fim": 3435.0,
+        "iri": 0.6354625876228903
+      },
+      {
+        "inicio": 3435.0,
+        "fim": 3535.0,
+        "iri": 0.757951793189757
+      },
+      {
+        "inicio": 3535.0,
+        "fim": 3635.0,
+        "iri": 0.43225985639729114
+      },
+      {
+        "inicio": 3635.0,
+        "fim": 3640.0,
+        "iri": 0.559258783671129
+      }
+    ]
+  },
+  "alternativas": [
+    {
+      "suavidade_mm": 2.5,
+      "status": "ótimo",
+      "volume_m3": 13734.152053623984,
+      "excesso_medio_cm": 25.833492111198424,
+      "iri_greide_m_km": 0.1507073204977838,
+      "iri_greide_max_100m": 0.4128567069928152
+    },
+    {
+      "suavidade_mm": 5.0,
+      "status": "ótimo",
+      "volume_m3": 8267.56008619262,
+      "excesso_medio_cm": 4.409454694754684,
+      "iri_greide_m_km": 0.3483601542947063,
+      "iri_greide_max_100m": 0.5771986356568555
+    },
+    {
+      "suavidade_mm": 7.5,
+      "status": "ótimo",
+      "volume_m3": 7366.64894507574,
+      "excesso_medio_cm": 1.0883391558546431,
+      "iri_greide_m_km": 0.5711260079071768,
+      "iri_greide_max_100m": 0.7565251816829263
+    },
+    {
+      "suavidade_mm": 10.0,
+      "status": "ótimo",
+      "volume_m3": 7247.436145833333,
+      "excesso_medio_cm": 0.623494449099261,
+      "iri_greide_m_km": 0.7674314639884194,
+      "iri_greide_max_100m": 0.9938954999022033
+    },
+    {
+      "suavidade_mm": 10.07,
+      "status": "ótimo",
+      "volume_m3": 7246.050007291676,
+      "excesso_medio_cm": 0.6177782956291102,
+      "iri_greide_m_km": 0.7722008351589585,
+      "iri_greide_max_100m": 0.9998242738004496
+    },
+    {
+      "suavidade_mm": 15.0,
+      "status": "ótimo",
+      "volume_m3": 7187.6931250000025,
+      "excesso_medio_cm": 0.37769777265743376,
+      "iri_greide_m_km": 1.0650931599584075,
+      "iri_greide_max_100m": 1.52948520903619
+    },
+    {
+      "suavidade_mm": 20.0,
+      "status": "ótimo",
+      "volume_m3": 7158.047916666676,
+      "excesso_medio_cm": 0.25684611087837483,
+      "iri_greide_m_km": 1.246551915873489,
+      "iri_greide_max_100m": 2.070915669510846
+    }
+  ],
+  "alertas": [
+    "EIXO PROVISÓRIO gerado do levantamento: estacas e afastamentos são aproximados. Substituir pelo eixo oficial (LandXML) antes de liberar para campo.",
+    "ACOST-271+200 A 272+390_ld.csv: 228 pontos fora da extensão do eixo (ignorados).",
+    "ACOST-271+740 a 272+510_le.csv: 142 pontos fora da extensão do eixo (ignorados).",
+    "LEV 268+630 A 272+055_pista.csv: 13 pontos fora da extensão do eixo (ignorados).",
+    "LE 3,50: diferença pista − fundo medido = -0.011 m (mediana, 62 estacas); esperado 0.26 m para pista \"antes\" do corte. Conferir o estado do levantamento da pista.",
+    "EIXO: diferença pista − fundo medido = 0.003 m (mediana, 60 estacas); esperado 0.26 m para pista \"antes\" do corte. Conferir o estado do levantamento da pista.",
+    "LD 3,50: diferença pista − fundo medido = -0.001 m (mediana, 155 estacas); esperado 0.26 m para pista \"antes\" do corte. Conferir o estado do levantamento da pista.",
+    "Pontos altos colados ao eixo (referência original) estão 0.252 m ACIMA do levantamento da pista (81 pontos). Se eles são a superfície original, o levantamento da pista nesse trecho já é do fundo cortado.",
+    "Superelevação calculada sobre curva ESTIMADA do eixo provisório; recalcular com PC/PT do eixo oficial.",
+    "LE 3,50: 30 estacas sem levantamento (lacuna): espessura NÃO verificada ali; greide interpolado pelos vizinhos.",
+    "EIXO: 14 estacas sem levantamento (lacuna): espessura NÃO verificada ali; greide interpolado pelos vizinhos.",
+    "LD 3,50: 17 estacas sem levantamento (lacuna): espessura NÃO verificada ali; greide interpolado pelos vizinhos.",
+    "Acostamento (5,50): sem levantamento após rebaixo em LE 5,50 623 de 682, LD 5,50 535 de 682 estacas; ali a cota de projeto é dada pelo caimento e a espessura fica em branco."
+  ],
+  "espessura_minima_controles": 0.22999999999999687
+}

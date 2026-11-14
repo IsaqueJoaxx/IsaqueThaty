@@ -1,0 +1,4 @@
+interface:
+  display_name: "PROJETA VIÁRIO — IFM"
+  short_description: "Padrões PROJETA para projetos viários no Civil 3D"
+  default_prompt: "Use $projeta-viario-ifm para trabalhar neste projeto viário conforme os padrões confirmados da PROJETA."

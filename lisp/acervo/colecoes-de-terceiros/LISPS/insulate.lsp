@@ -1,0 +1,21 @@
+[BATT INS]^C^C+
+SETQ RB 20);+
+(SETQ P "Batt");
+
+[Rigid   ]^C^C+
+(SETQ RB 3);+
+(SETQ P "Rigid");
+
+[INSULATE]^C^C+
+(SETQ A (GETPOINT "FIRST POINT: "));\+
+(SETQ B (GETPOINT "WIDTH: "));\+
+(SETQ AB (DISTANCE A B));+
+(SETQ C (GETPOINT "END POINT: "));\+
+(SETQ CA (POLAR C (ANGLE B A) AB));+
+PLINE;!A;!B;!C;!CA;C;+
+(SETQ D (/ AB RB));+
+(SETQ E (GETVAR "SNAPBASE"));+
+(SETQ F (GETVAR "SNAPANG"));+
+(SETQ EF (* 180 (/ (ANGLE B C) PI)));+
+SNAP;R;!B;!EF;+
+HATCH;!P;!D;;L;;SNAP;R;!E;!F;

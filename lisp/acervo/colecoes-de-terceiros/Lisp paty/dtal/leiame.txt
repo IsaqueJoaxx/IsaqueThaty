@@ -1,0 +1,50 @@
+DTAL.VLX
+Desenho de simbologia de taludes (o "pente")
+
+Desenvolvedor: Neyton Luiz Dalle Molle
+engenheiro civil
+
+contato: neyton@yahoo.com
+
+visite: http://tbn2.blogspot.com
+
+LICENÇA DE USO:
+GRATIS PARA USO PESSOAL OU COMERCIAL
+NÃO É PERMITIDO VENDER PARA TERCEIROS
+
+
+--------------------------------Para instalar...-------------------------------------
+
+descompacte ambos os arquivos numa mesma pasta,
+
+carregue o dtal.vlx com o comando APPLOAD
+
+--------------------------------Para usar...-----------------------------------------
+após carregado, digite DTAL na linha de comando
+será pedido quantas divisões desenhar e o que desenhar (linhas, triângulo cheio ou
+vazado
+
+--------------------------------Para configurar...-----------------------------------
+
+o arquivo dtal.ini forneçe as opções padrão do programa, que são:
+layercorte = "talude-corte", 	ao selecionar a linha que é fixa, a seguinte é variavel, 
+				entao a aconvenção pode ser de corte ou aterro, 
+				mude o layer aqui
+layeraterro = "talude-aterro"	, idem
+opção = "N" de liNha, as outras são: "V" de triângulo Vasado e "C" de triângulo cheio
+
+
+--------------------------------Para saber...----------------------------------------
+
+12/07/2006:
+- primeira versão
+
+10/10/2008:
+- desenho de símbolos triangulares na crista do talude
+- talude em linhas 3D
+
+12/02/2010:
+- desenho da convenção em layers para corte e aterro
+
+15/04/2011
+- Suporte à seleção de featurelines

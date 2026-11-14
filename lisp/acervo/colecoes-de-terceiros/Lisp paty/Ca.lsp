@@ -1,0 +1,11 @@
+;----------------DESENHA A COTA DO PONTO---------------------------*
+(defun c:ca ()
+    (command "layer" "m" "cotas" "c" "3" "" "")
+    (setq laymo (getvar "clayer"))
+    (setq osmo (getvar "osmode"))
+    (setq p1 (getpoint "\nEscolha o Ponto..."))
+    (setq zp (rtos (nth 2 p1) 2 3))
+    (command "insert" "c:/blocos/pd2" p1 "" "" pause zp)
+    (setvar "clayer" laymo)
+    (setvar "osmode" osmo)
+)

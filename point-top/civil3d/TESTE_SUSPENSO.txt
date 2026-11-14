@@ -1,0 +1,6 @@
+CONECTOR 0.3: NÃO USAR
+
+Esta DLL foi substituída pelo conector 0.4, na pasta civil3d-conector.
+Veja docs\CONECTOR_04.md para o teste e docs\INCIDENTE_CIVIL3D_20261106.md para o histórico.
+
+O fechamento atribuído a esta DLL provavelmente não foi causado por ela, mas ela não tem proteção contra exceções e permanece aqui apenas para análise.

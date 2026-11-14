@@ -1,0 +1,83 @@
+(VMON)
+(DEFUN C:GRIDLINE (/ PHI PHI2 PHI3 G PT1 PT2 PT3 PT4)
+  (SETVAR "CMDECHO" 0) (SETVAR "BLIPMODE" 0) (SETQ H (GETVAR "CLAYER"))
+  (PROMPT "Will grid line bubble be placed at the start (S), end (E),")
+  (TERPRI)
+  (PROMPT "at both ends (B) of the line, or not drawn at all (N)?")
+  (SETQ BUBB (STRCASE (GTSTRNGG BUBB "S" 1 "B, E, N or S <")))
+  (IF (/= BUBB "N")
+    (SETQ CIRC (GTDST CIRC 30 "bubble diameter <")
+          LETT (GTDST LETT 12 "lettering size <")
+          STYL (GTSTRNGG STYL "COMPLEX" 80 "text style name <")
+             G (COMMAND "LAYER" "NEW" "LETTER" "COLOR" 2 "LETTER" "") 
+    )
+    (SETQ LETT 0.0 CIRC 0.0 G "A")
+  )
+  (SETQ PT1 (GETPOINT "\nEnter the STARTING point of grid line:")
+    PT2 (GETPOINT PT1 "\nEnter the ENDING point of the grid line:")
+        PHI (ANGLE PT1 PT2) PHI2 (ANGLE PT2 PT1) D 360.0
+        PHI3 (/ (+ PHI PHI2 PI PI) 2.0)
+  )
+  
+  (IF (= X 0) (SCREEN3))
+  
+  (COMMAND "LAYER" "NEW" "COLGRID" "COLOR" 6 "COLGRID" "")
+
+  (WHILE (> (ABS D) 0)
+    (SETQ PT3 (POLAR PT2 PHI (/ CIRC 2.0))
+          PT4 (POLAR PT1 PHI2 (/ CIRC 2.0))
+       G (IF (/= BUBB "N") (GTSTRNGG G "A" 80 "Grid line name <") G)
+     )
+    (COMMAND "LAYER" "SET" "COLGRID" "" "LINE" PT1 PT2 "")
+    (IF (OR (= BUBB "B") (= BUBB "S")) (DOCR PT4))
+    (IF (OR (= BUBB "B") (= BUBB "E")) (DOCR PT3))
+    (TERPRI)
+    (PROMPT "*** ENTER 0 TO EXIT GRIDLINE ROUTINE ***")
+    (SETQ D (GTDST D 360.0 "distance to the next grid line <")
+      PT1 (POLAR PT1 PHI3 D)
+      PT2 (POLAR PT2 PHI3 D)
+    )
+    (IF (> (ASCII G) 64)
+       (SETQ G (STRCAT (SUBSTR G 1 (- (STRLEN G) 1))
+           (CHR (+ (ASCII (SUBSTR G (STRLEN G))) 1))))
+       (SETQ G (ITOA (FIX (+ (ATOF G) 1))))
+    )
+  )
+  (COMMAND "LAYER" "SET" H "")
+)
+
+
+(DEFUN DOCR (PT)
+  (COMMAND "LAYER" "SET" "LETTER" "" "CIRCLE" PT "D" CIRC
+      "TEXT" "S" STYL "M" PT LETT 0 G)
+)
+
+
+(DEFUN GTDST (DEFLT HOLD G)
+  (TERPRI)
+  (IF (= DEFLT NIL) (SETQ DEFLT HOLD))
+  (SETQ G (STRCAT "Enter " G (RTOS DEFLT) ">:")
+        HOLD (GETDIST G)
+  )
+  (IF (= HOLD NIL) (SETQ DEFLT DEFLT) (SETQ DEFLT HOLD))
+)
+
+
+(DEFUN GTSTRNGG (DEFLT HOLD LL G)
+  (TERPRI)
+  (IF (= DEFLT NIL) (SETQ DEFLT HOLD))
+  (SETQ G (STRCAT "Enter " G DEFLT ">:")
+        HOLD (GETSTRING G)
+  )
+  (IF (= (STRLEN HOLD) 0) (SETQ DEFLT DEFLT)
+    (SETQ DEFLT (SUBSTR HOLD 1 LL)))
+)
+
+
+(DEFUN *ERROR* ( G )
+  (TERPRI)
+  (PRINC G) (PRINC " Sorry for the inconvenience.") (TERPRI)
+)
+
+(SETQ G (PRINC "*** GRIDLINE COMMAND LOADED ***") G (TERPRI))
+

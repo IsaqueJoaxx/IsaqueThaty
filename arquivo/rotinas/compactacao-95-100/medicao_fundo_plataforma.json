@@ -1,0 +1,33 @@
+{
+  "escopo": "Somente plataforma -6,70 a +6,70 m; fundo = TOP -1,00 m em cota vertical. Taludes fora da plataforma nao incluidos nem redesenhados.",
+  "referencia_anterior": "Os arquivos GO-220_Compactacao_95_100.dwg e quantitativos.csv usam TOP e nao representam esta revisao.",
+  "trechos": [
+    {
+      "trecho": "0 a 300",
+      "secoes": 307,
+      "volumes_m3": {
+        "Corte 95%": 131.5686392605997,
+        "Corte 100%": 23345.94149027439,
+        "Aterro 95%": 0.0,
+        "Aterro 100%": 2593.597973888314
+      }
+    },
+    {
+      "trecho": "350 a 400",
+      "secoes": 51,
+      "volumes_m3": {
+        "Corte 95%": 4.666470741655253,
+        "Corte 100%": 5618.82454150657,
+        "Aterro 95%": 200.5928576096757,
+        "Aterro 100%": 1417.097518710701
+      }
+    }
+  ],
+  "totais_m3": {
+    "Corte 95%": 136.23511000225494,
+    "Corte 100%": 28964.766031780957,
+    "Aterro 95%": 200.5928576096757,
+    "Aterro 100%": 4010.695492599015
+  },
+  "subleito": "Pendente confirmar posicao dos 20 cm em relacao ao pacote de 1 m."
+}

@@ -1,0 +1,165 @@
+== Autodesk.Civil.DatabaseServices.TinVolumeSurface
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId Create(System.String, Autodesk.AutoCAD.DatabaseServices.ObjectId, Autodesk.AutoCAD.DatabaseServices.ObjectId, Autodesk.AutoCAD.DatabaseServices.ObjectId)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId Create(System.String, Autodesk.AutoCAD.DatabaseServices.ObjectId, Autodesk.AutoCAD.DatabaseServices.ObjectId)
+  Method Autodesk.Civil.DatabaseServices.TinSurfaceProperties GetTinProperties()
+  Method Autodesk.Civil.DatabaseServices.VolumeSurfaceProperties GetVolumeProperties()
+  Property Double FillFactor
+  Property Double CutFactor
+== Autodesk.Civil.DatabaseServices.SurfaceVolumeInfo
+  Property Double Net
+  Property Double Fill
+  Property Double Cut
+== Autodesk.Civil.DatabaseServices.VolumeSurfaceProperties
+  Property Double UnadjustedNetVolume
+  Property Double UnadjustedFillVolume
+  Property Double UnadjustedCutVolume
+  Property Double AdjustedNetVolume
+  Property Double AdjustedFillVolume
+  Property Double AdjustedCutVolume
+  Property Double FillFactor
+  Property Double CutFactor
+  Property Autodesk.AutoCAD.DatabaseServices.ObjectId ComparisonSurface
+  Property Autodesk.AutoCAD.DatabaseServices.ObjectId BaseSurface
+== Autodesk.Civil.DatabaseServices.TinSurface
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId Create(System.String, Autodesk.AutoCAD.DatabaseServices.ObjectId)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId Create(Autodesk.AutoCAD.DatabaseServices.Database, System.String)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId CreateFromTin(Autodesk.AutoCAD.DatabaseServices.Database, System.String)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId CreateFromLandXML(Autodesk.AutoCAD.DatabaseServices.Database, System.String, System.String, System.String)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId CreateFromLandXML(Autodesk.AutoCAD.DatabaseServices.Database, System.String, System.String)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId CreateFromIMX(Autodesk.AutoCAD.DatabaseServices.Database, Autodesk.AutoCAD.DatabaseServices.ObjectId, System.String, System.String, System.String, System.String, Boolean)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId CreateByCropping(Autodesk.AutoCAD.DatabaseServices.Database, System.String, Autodesk.AutoCAD.DatabaseServices.ObjectId, Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection, Autodesk.AutoCAD.Geometry.Point2d)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId CreateByCropping(Autodesk.AutoCAD.DatabaseServices.Database, System.String, Autodesk.AutoCAD.DatabaseServices.ObjectId, Autodesk.AutoCAD.Geometry.Point3dCollection)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId CreateByCropping(Autodesk.AutoCAD.DatabaseServices.Database, System.String, Autodesk.AutoCAD.DatabaseServices.ObjectId, Autodesk.AutoCAD.Geometry.Point2dCollection)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectId CreateFromCorridorSurface(System.String, Autodesk.Civil.DatabaseServices.CorridorSurface)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection CreateSolidsAtDepth(Double, System.String, UInt16)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection CreateSolidsAtDepthToFile(Double, System.String, UInt16, System.String ByRef)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection CreateSolidsAtFixedElevation(Double, System.String, UInt16)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection CreateSolidsAtFixedElevationToFile(Double, System.String, UInt16, System.String ByRef)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection CreateSolidsAtSurface(Autodesk.AutoCAD.DatabaseServices.ObjectId, System.String, UInt16)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection CreateSolidsAtSurfaceToFile(Autodesk.AutoCAD.DatabaseServices.ObjectId, System.String, UInt16, System.String ByRef)
+  Method Autodesk.Civil.DatabaseServices.TinSurfaceProperties GetTinProperties()
+  Method Autodesk.Civil.DatabaseServices.TerrainSurfaceProperties GetTerrainProperties()
+  Method Autodesk.Civil.DatabaseServices.TinSurfaceTriangleCollection GetTriangles(Boolean)
+  Method Autodesk.Civil.DatabaseServices.TinSurfaceVertex FindVertexAtXY(Double, Double)
+  Method Autodesk.Civil.DatabaseServices.TinSurfaceEdge FindEdgeAtXY(Double, Double)
+  Method Autodesk.Civil.DatabaseServices.TinSurfaceTriangle FindTriangleAtXY(Double, Double)
+  Method System.Type IdentifyFeatureTypeAtXY(Double, Double)
+  Method Autodesk.Civil.DatabaseServices.TinSurfaceVertex[] GetVerticesInsidePolylinesRandom(Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection, Int32)
+  Method Autodesk.Civil.DatabaseServices.TinSurfaceVertex[] GetVerticesInsidePolylines(Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection)
+  Method Autodesk.Civil.DatabaseServices.TinSurfaceVertex[] GetVerticesInsideBorderRandom(Autodesk.AutoCAD.Geometry.Point3dCollection, Int32)
+  Method Autodesk.Civil.DatabaseServices.TinSurfaceVertex[] GetVerticesInsideBorder(Autodesk.AutoCAD.Geometry.Point3dCollection)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationAddTinVertex AddVertex(Autodesk.AutoCAD.Geometry.Point2d)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationAddTinVertex AddVertex(Autodesk.AutoCAD.Geometry.Point3d)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationAddTinMultipleVertices AddVertices(Autodesk.AutoCAD.Geometry.Point2dCollection)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationAddTinMultipleVertices AddVertices(Autodesk.AutoCAD.Geometry.Point3dCollection)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationDeleteTinVertex DeleteVertex(Autodesk.Civil.DatabaseServices.TinSurfaceVertex)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationDeleteMultipleTinVertices DeleteVertices(System.Collections.Generic.IEnumerable`1[Autodesk.Civil.DatabaseServices.TinSurfaceVertex])
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationModifyTinVertexElevation SetVertexElevation(Autodesk.Civil.DatabaseServices.TinSurfaceVertex, Double)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationModifyMultipleTinVerticesElevation SetVerticesElevation(System.Collections.Generic.IEnumerable`1[Autodesk.Civil.DatabaseServices.TinSurfaceVertex], Double)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationModifyMultipleTinVerticesElevation RaiseVertices(System.Collections.Generic.IEnumerable`1[Autodesk.Civil.DatabaseServices.TinSurfaceVertex], Double)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationMoveTinVertex MoveVertex(Autodesk.Civil.DatabaseServices.TinSurfaceVertex, Autodesk.AutoCAD.Geometry.Point2d)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationAddLine AddLine(Autodesk.Civil.DatabaseServices.TinSurfaceVertex, Autodesk.Civil.DatabaseServices.TinSurfaceVertex)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationDeleteLine DeleteLine(Autodesk.Civil.DatabaseServices.TinSurfaceEdge)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationDeleteMultipleLines DeleteLines(System.Collections.Generic.IEnumerable`1[Autodesk.Civil.DatabaseServices.TinSurfaceEdge])
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationSwapEdge SwapEdge(Autodesk.Civil.DatabaseServices.TinSurfaceEdge)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationRaise RaiseSurface(Double)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationPasteSurface PasteSurface(Autodesk.AutoCAD.DatabaseServices.ObjectId)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationSimplify SimplifySurface(Autodesk.Civil.DatabaseServices.SurfaceSimplifyOptions)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationMinimizeFlatAreas MinimizeFlatAreas(Autodesk.Civil.DatabaseServices.SurfaceMinimizeFlatAreaOptions)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationSmooth SmoothSurfaceByNNI(Autodesk.Civil.DatabaseServices.SurfacePointOutputOptions)
+  Method Autodesk.Civil.DatabaseServices.SurfaceOperationSmooth SmoothSurfaceByKriging(Autodesk.Civil.DatabaseServices.KrigingMethodOptions, Autodesk.Civil.DatabaseServices.SurfacePointOutputOptions)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractBorder(Autodesk.Civil.SurfaceExtractionSettingsType)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractWatershed(Autodesk.Civil.SurfaceExtractionSettingsType)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractGridded(Autodesk.Civil.SurfaceExtractionSettingsType)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractMajorContours(Autodesk.Civil.SurfaceExtractionSettingsType, Autodesk.Civil.DatabaseServices.Styles.ContourSmoothingType, Int32)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractMajorContours(Autodesk.Civil.SurfaceExtractionSettingsType)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractMinorContours(Autodesk.Civil.SurfaceExtractionSettingsType, Autodesk.Civil.DatabaseServices.Styles.ContourSmoothingType, Int32)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractMinorContours(Autodesk.Civil.SurfaceExtractionSettingsType)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractContoursAt(Double, Autodesk.Civil.DatabaseServices.Styles.ContourSmoothingType, Int32)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractContoursAt(Double)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractContours(Double, Autodesk.Civil.DatabaseServices.Styles.ContourSmoothingType, Int32)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractContours(Double)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractContours(Double, Double, Double, Autodesk.Civil.DatabaseServices.Styles.ContourSmoothingType, Int32)
+  Method Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection ExtractContours(Double, Double, Double)
+  Method Autodesk.AutoCAD.Geometry.Point3dCollection SampleElevations(Autodesk.AutoCAD.Geometry.Point3d, Autodesk.AutoCAD.Geometry.Point3d)
+  Method Autodesk.AutoCAD.Geometry.Point3dCollection SampleElevations(Autodesk.AutoCAD.DatabaseServices.ObjectId)
+  Property Autodesk.Civil.DatabaseServices.SurfaceDefinitionAddPointSurveyQueries SurveyQueriesAddPointDefinition
+  Property Autodesk.Civil.DatabaseServices.SurfaceDefinitionAddFigureSurveyQueries SurveyQueriesAddFigureDefinition
+  Property Autodesk.Civil.DatabaseServices.SurfaceDefinitionPointFiles PointFilesDefinition
+  Property Autodesk.Civil.DatabaseServices.SurfaceDefinitionPointGroups PointGroupsDefinition
+  Property Autodesk.Civil.DatabaseServices.SurfaceDefinitionDrawingObjects DrawingObjectsDefinition
+  Property Autodesk.Civil.DatabaseServices.TinSurfaceTriangleCollection Triangles
+  Property Autodesk.Civil.DatabaseServices.TinSurfaceVertexCollection Vertices
+  Property Autodesk.Civil.DatabaseServices.SurfaceDefinitionDEMFiles DEMFilesDefinition
+  Property Autodesk.Civil.DatabaseServices.SurfaceDefinitionContours ContoursDefinition
+  Property Autodesk.Civil.DatabaseServices.SurfaceDefinitionBreaklines BreaklinesDefinition
+== Autodesk.Civil.DatabaseServices.Surface
+  Method Autodesk.Civil.DatabaseServices.GeneralSurfaceProperties GetGeneralProperties()
+  Method Double FindElevationAtXY(Double, Double)
+  Method Double FindSlopeAtXY(Double, Double)
+  Method Double FindDirectionAtXY(Double, Double)
+  Method Void Rebuild()
+  Method Void CreateSnapshot()
+  Method Void RemoveSnapshot()
+  Method Void RebuildSnapshot()
+  Method Void ExportToDEM(System.String, System.String, Double, Autodesk.Civil.ExportDetermineElevationType)
+  Method Void ExportToDEM(System.String, System.String, Double, Autodesk.Civil.ExportDetermineElevationType, Boolean, Single)
+  Method Autodesk.Civil.DatabaseServices.SurfaceVolumeInfo GetBoundedVolumes(Autodesk.AutoCAD.Geometry.Point3dCollection, Double)
+  Method Autodesk.Civil.DatabaseServices.SurfaceVolumeInfo GetBoundedVolumes(Autodesk.AutoCAD.Geometry.Point3dCollection)
+  Method Autodesk.AutoCAD.Geometry.Point3d GetIntersectionPoint(Autodesk.AutoCAD.Geometry.Point3d, Autodesk.AutoCAD.Geometry.Vector3d)
+  Method Autodesk.AutoCAD.Geometry.Point3dCollection FindPointsAlongLine(Autodesk.AutoCAD.Geometry.LineSegment3d)
+  Property Autodesk.Civil.DatabaseServices.SurfaceOriginationType OriginationType
+  Property Boolean IsLevelOfDetailEnabled
+  Property Autodesk.Civil.DatabaseServices.SurfaceMaskCollection Masks
+  Property Boolean AutoRebuild
+  Property Boolean Lock
+  Property Autodesk.AutoCAD.DatabaseServices.ObjectId StyleId
+  Property Boolean IsSnapshotOutOfDate
+  Property Boolean HasSnapshot
+  Property Boolean IsOutOfDate
+  Property Autodesk.Civil.DatabaseServices.SurfacePartialReferenceBoundaryMgr PartialReferenceBoundaryManager
+  Property Autodesk.Civil.DatabaseServices.SurfaceBuildOptions BuildOptions
+  Property Autodesk.Civil.DatabaseServices.SurfaceOperationCollection Operations
+  Property Autodesk.Civil.DatabaseServices.SurfaceDefinitionBoundaries BoundariesDefinition
+  Property Autodesk.Civil.DatabaseServices.SurfaceAnalysis Analysis
+  Property Boolean IsVolumeSurface
+SUPERFICIE Eixo traçado 2 T5 tipo=TinSurface
+   g.MeanElevation = 797.5547927098518
+   g.MaximumElevation = 826.6256709456748
+   g.MinimumElevation = 747.989239207533
+   g.MaximumCoordinateY = 7768551.548021297
+   g.MaximumCoordinateX = 592066.3212789976
+   g.MinimumCoordinateY = 7766540.173152174
+   g.MinimumCoordinateX = 591188.2161021025
+   g.NumberOfPoints = 31191
+   g.RevisionNumber = 0
+SUPERFICIE Primitivo tipo=TinSurface
+   g.MeanElevation = 787.3287023341288
+   g.MaximumElevation = 843
+   g.MinimumElevation = 741
+   g.MaximumCoordinateY = 7768654.454183049
+   g.MaximumCoordinateX = 592157.0678884032
+   g.MinimumCoordinateY = 7763897.340501749
+   g.MinimumCoordinateX = 587948.8010903649
+   g.NumberOfPoints = 812088
+   g.RevisionNumber = 0
+SUPERFICIE VOLUME-1 tipo=TinVolumeSurface
+   UnadjustedNetVolume = -3380.911192784675
+   UnadjustedFillVolume = 33015.582004428186
+   UnadjustedCutVolume = 36396.49319721227
+   AdjustedNetVolume = -3380.911192784086
+   AdjustedFillVolume = 33015.582004428186
+   AdjustedCutVolume = 36396.49319721227
+   FillFactor = 1
+   CutFactor = 1
+   ComparisonSurface = (2091724954032)
+   BaseSurface = (2091723375648)
+   g.MeanElevation = -0.08955370297484358
+   g.MaximumElevation = 8.579281603315053
+   g.MinimumElevation = -8.22345278102705
+   g.MaximumCoordinateY = 7768551.548021297
+   g.MaximumCoordinateX = 592066.3212789976
+   g.MinimumCoordinateY = 7766540.173152174
+   g.MinimumCoordinateX = 591188.2161021025
+   g.NumberOfPoints = 228789
+   g.RevisionNumber = 0

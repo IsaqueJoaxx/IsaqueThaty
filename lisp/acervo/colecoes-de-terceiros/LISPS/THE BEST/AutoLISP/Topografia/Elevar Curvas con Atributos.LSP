@@ -1,0 +1,71 @@
+(defun datos^entrada ()
+  (setvar "cmdecho" 0)
+  (setq indx 0)
+  (if (= (findfile "Captura Grupo.lsp") nil)
+    (progn
+      (alert "\nDebes revisar las opciones de configuración del sistema, alguna aplicación fue borrada o renombrada")
+      (quit)
+    )
+    (progn
+      (load (findfile "Captura Grupo.lsp"))
+      (captura^grupo)
+    )
+  )
+)
+
+(defun desarrollo ()
+  (repeat (sslength grupo)
+    (setq entidad (ssname grupo indx)
+                z (atof (cdr (assoc 1 (entget (entnext entidad)))))
+	     indx (1+ indx)
+    )
+    (command "explode" entidad
+             "change" "l" "" "p" "e" z ""
+    )
+  )
+  (setq	grupo^attdef (ssget "x" '((0 . "ATTDEF"))))
+  (if (/= (sslength grupo^attdef) 0)
+    (command "erase" grupo^attdef "")
+  )
+  (setq	grupo^texto (ssget "x" '((0 . "TEXT")))
+               indx 0
+  )
+  (if (/= (sslength grupo^texto) 0)
+    (progn
+      (repeat (sslength grupo^texto)
+        (setq entidad (ssname grupo^texto indx)
+	         indx (1+ indx)
+	     listasoc (entget entidad)
+	      par^xyz (assoc 10 listasoc)
+	        valor (atoi (cdr (assoc 1 listasoc)))
+  	     listasoc (subst (subst valor (last par^xyz) par^xyz) par^xyz listasoc)
+        )
+        (entmod listasoc)
+      )
+    )	
+  )
+)
+
+(defun datos^salida ()
+  (if (= (findfile "Variables Salida.lsp") nil)
+    (progn
+      (alert "\nDebes revisar las opciones de configuración del sistema, alguna aplicación fue borrada o renombrada")
+      (quit)
+    )
+    (progn
+      (load (findfile "Variables Salida.lsp"))
+      (variables^salida)
+    )
+  )
+)
+
+(defun c:eca ()
+  (datos^entrada)
+  (desarrollo)
+  (datos^salida)
+  (princ)
+ )
+
+(prompt "\nRutina Elevar Curvas con Atributos Versión 1.0 Cargada.\nDigita < ECA > Para Comenzar")
+
+(princ)

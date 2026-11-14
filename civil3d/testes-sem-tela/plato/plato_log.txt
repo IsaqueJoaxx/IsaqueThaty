@@ -1,0 +1,20 @@
+taludes: 236 pontos; corte max 6.19 m; aterro max 4.37 m
+TN: 32361 pontos
+PLATO - Projeto: 436 pontos, cotas 845.64 a 856.60
+TERRENO FINAL: 29832 pontos, cotas 833.97 a 868.32
+estilos de superficie: TRIÂNGULOS E CURVAS | TRI_PTO_BRD | INVISIVEL | CURVAS-1&5 (outros) | BACIAS | MAPA DE ELEVAÇÕES | CURVAS-1&5 (GEOMETRIA) | TRIÂNGULOS E PONTOS | CURVAS E SETAS | CURVAS-2&10 (outros) | Norma | DECLIVIDADES
+estilo TN=CURVAS-1&5 (outros) | FINAL=CURVAS-1&5 (GEOMETRIA) | PROJETO=INVISIVEL
+desenho: piso, 3 trecho(s) de crista/pé, 189 tracinhos de talude
+VOLUMES: corte 10513.98 m3, aterro 8451.19 m3, aterro x 1.25 = 10563.98, saldo -50.00 (Falta (empréstimo)); area 11867.5 m2; malha 0.5 m
+   Corte 0,00 a 0,50 m: 945 m2, 240 m3
+   Corte 0,50 a 1,00 m: 934 m2, 699 m3
+   Corte 1,00 a 2,00 m: 1772 m2, 2647 m3
+   Corte 2,00 a 3,00 m: 1374 m2, 3364 m3
+   Corte acima de 3,00 m: 968 m2, 3563 m3
+   Aterro 0,00 a 0,50 m: 1026 m2, 261 m3
+   Aterro 0,50 a 1,00 m: 1032 m2, 773 m3
+   Aterro 1,00 a 2,00 m: 1996 m2, 2984 m3
+   Aterro 2,00 a 3,00 m: 1666 m2, 4072 m3
+   Aterro acima de 3,00 m: 115 m2, 362 m3
+MAPA: 2076 solidos
+planilha: C:\Users\User\OneDrive\Documentos\Projeto Plato Galpao\plato_galpao_volumes.xlsx

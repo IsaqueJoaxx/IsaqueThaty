@@ -1,0 +1,26 @@
+{
+  "version": "0.9.2",
+  "years": [
+    2026,
+    2027
+  ],
+  "files_verified": 63,
+  "other_codex_settings_preserved": true,
+  "mcp_initialize": "ok",
+  "tool_count": 28,
+  "health": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\r\n  \"error\": \"No running Civil 3D has published a Horizun bridge. Open Civil 3D (the Horizun.Civil3D bundle loads at startup). If Civil 3D is open, run HZ_STATUS in its command line to see why the bridge did not start. Nothing ran.\",\r\n  \"code\": \"no_civil3d_instance\",\r\n  \"running_civil3d\": [],\r\n  \"selection\": \"automatic\"\r\n}"
+      }
+    ],
+    "structuredContent": {
+      "error": "No running Civil 3D has published a Horizun bridge. Open Civil 3D (the Horizun.Civil3D bundle loads at startup). If Civil 3D is open, run HZ_STATUS in its command line to see why the bridge did not start. Nothing ran.",
+      "code": "no_civil3d_instance",
+      "running_civil3d": [],
+      "selection": "automatic"
+    },
+    "isError": true
+  }
+}

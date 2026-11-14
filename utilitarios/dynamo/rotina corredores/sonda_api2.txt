@@ -1,0 +1,68 @@
+##### 1. ConnectedAlignmentParams #####
+  -- construtores --
+    new ConnectedAlignmentParams()
+  -- propriedades --
+    Double ArcInLength  (get=True set=True)
+    Double ArcInRadius  (get=True set=True)
+    Double ArcMiddleRadius  (get=True set=True)
+    Double ArcOutLength  (get=True set=True)
+    Double ArcOutRadius  (get=True set=True)
+    Double ConnectionOverlapLengthIn  (get=True set=True)
+    Double ConnectionOverlapLengthOut  (get=True set=True)
+    CurbReturnCurveGroupType CurveGroupType  (get=True set=True)
+    Double CurveRadius  (get=True set=True)
+    Boolean GreaterThan180  (get=True set=True)
+    ObjectId IncomingParentAlignmentId  (get=True set=True)
+    Double IncomingParentAlignmentStation  (get=True set=True)
+    Double OffsetIn  (get=True set=True)
+    Double OffsetOut  (get=True set=True)
+    ObjectId OutgoingParentAlignmentId  (get=True set=True)
+    Double OutgoingParentAlignmentStation  (get=True set=True)
+    Double ReverseSpiralInLength  (get=True set=True)
+    Double ReverseSpiralOutLength  (get=True set=True)
+    SpiralType SpiralDefinition  (get=True set=True)
+    Double SpiralInLength  (get=True set=True)
+    Double SpiralOutLength  (get=True set=True)
+  -- metodos --
+    Boolean Equals(Object obj)
+    Int32 GetHashCode()
+    String ToString()
+    Type GetType()
+
+##### 2. CurbReturnType #####
+    Chamfer
+    CircularFillet
+    ThreeCenteredArcs
+
+##### 3. CurbReturnCurveGroupType #####
+    Arc
+    CCC
+    SCS
+    SSCS
+    SCSS
+    SSCSS
+
+##### 4. Tipos do namespace com 'Connected' ou 'Param' #####
+ConnectedAlignmentArcInfo
+ConnectedAlignmentCCCInfo
+ConnectedAlignmentInfo
+ConnectedAlignmentParams
+ConnectedAlignmentSCSInfo
+ConnectedAlignmentSCSSInfo
+ConnectedAlignmentSSCSInfo
+ConnectedAlignmentSSCSSInfo
+CurbReturnJoiningType
+
+##### 5. IntersectionRoad / IntersectionRegion: metodos #####
+  -- IntersectionRoad --
+    Dispose
+    Equals
+    GetHashCode
+    GetType
+    ToString
+  -- IntersectionRegion --
+    Dispose
+    Equals
+    GetHashCode
+    GetType
+    ToString

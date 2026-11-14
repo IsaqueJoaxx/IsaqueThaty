@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Uma compilaÃ§Ã£o para cada Civil 3D: 2026 roda em .NET 8, 2027 em .NET 10. -->
+  <PropertyGroup>
+    <TargetFrameworks>net8.0-windows;net10.0-windows</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <PlatformTarget>x64</PlatformTarget>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Projeta.Civil3D</AssemblyName>
+    <Version>0.6.0</Version>
+    <AutoCAD2026Root Condition="'$(AutoCAD2026Root)' == ''">C:\Program Files\Autodesk\AutoCAD 2026</AutoCAD2026Root>
+    <AutoCAD2027Root Condition="'$(AutoCAD2027Root)' == ''">C:\Program Files\Autodesk\AutoCAD 2027</AutoCAD2027Root>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
+    <CivilVersion>2026</CivilVersion>
+    <AutoCADRoot>$(AutoCAD2026Root)</AutoCADRoot>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-windows'">
+    <CivilVersion>2027</CivilVersion>
+    <AutoCADRoot>$(AutoCAD2027Root)</AutoCADRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="_versoes antigas\**" />
+    <None Remove="_versoes antigas\**" />
+  </ItemGroup>
+  <!-- O SDK 10 pede os pacotes de referÃªncia .NET 8 mais novos, que exigiriam download.
+       O Compilar.ps1 informa a versÃ£o jÃ¡ instalada pelo SDK 8 desta mÃ¡quina; nada Ã© baixado. -->
+  <PropertyGroup>
+    <DisableTransitiveFrameworkReferenceDownloads>true</DisableTransitiveFrameworkReferenceDownloads>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(Net8TargetingPackVersion)' != ''">
+    <KnownFrameworkReference Update="@(KnownFrameworkReference)">
+      <TargetingPackVersion Condition="'%(TargetFramework)' == 'net8.0'">$(Net8TargetingPackVersion)</TargetingPackVersion>
+    </KnownFrameworkReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="AcMgd"><HintPath>$(AutoCADRoot)\acmgd.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="AcCoreMgd"><HintPath>$(AutoCADRoot)\accoremgd.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="AcDbMgd"><HintPath>$(AutoCADRoot)\acdbmgd.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="AecBaseMgd"><HintPath>$(AutoCADRoot)\ACA\AecBaseMgd.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="AeccDbMgd"><HintPath>$(AutoCADRoot)\C3D\AeccDbMgd.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+  <Target Name="CheckAutodeskReferences" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(AutoCADRoot)\C3D\AeccDbMgd.dll')" Text="Biblioteca do Civil 3D $(CivilVersion) ausente em $(AutoCADRoot). Informe AutoCAD$(CivilVersion)Root com a pasta da instalaÃ§Ã£o." />
+  </Target>
+</Project>

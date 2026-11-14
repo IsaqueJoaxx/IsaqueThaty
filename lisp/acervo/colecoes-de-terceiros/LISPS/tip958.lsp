@@ -1,0 +1,49 @@
+; TIP958.LSP: CHGCASE.LSP   Change Case of Text   (c)1994, C.D. Iddings
+
+(defun C:CHGCASE()
+   (setvar "cmdecho" 0)
+
+   (defun *error* (msg)
+      (princ "error : ")
+      (princ msg)
+      (terpri)
+   )
+   (prompt "\nCHANGES CASE TO ALL UPPER OR ALL LOWER    ")
+   (setq itm (entsel "\nSelect Text String: ")
+      enty (entget (car itm))
+   itmid (cdr (assoc 0 (entget (car itm)))))
+   (if (/= itmid "TEXT")(chgcase))
+   (initget 1 "L U")
+   (setq cse (getkword"\nWhat case (U/L)   :  ")
+      txtoc (cdr (assoc 1 (entget (car itm))))
+      lntxtoc (strlen txtoc)
+   o_chr (ascii (substr txtoc 1 1)))
+   (cond
+      ((= cse "L")
+         (if (and (>= o_chr 65)(<= o_chr 90))
+      (setq n_chr (chr (+ o_chr 32)))(setq n_chr (chr o_chr))))
+      ((= cse "U")
+         (if (and (<= o_chr 122)(>= o_chr 97))
+      (setq n_chr (chr (- o_chr 32)))(setq n_chr (chr o_chr))))
+   )
+   (setq n_str n_chr
+   cnt 2)
+
+   (repeat (- lntxtoc 1)
+      (setq o_chr (ascii (substr txtoc cnt 1)))
+      (cond
+         ((= cse "L")
+            (if (and (>= o_chr 65)(<= o_chr 90))
+         (setq n_chr (chr (+ o_chr 32)))(setq n_chr (chr o_chr))))
+         ((= cse "U")
+            (if (and (<= o_chr 122)(>= o_chr 97))
+         (setq n_chr (chr (- o_chr 32)))(setq n_chr (chr o_chr))))
+      )
+      (setq n_str (strcat n_str n_chr)
+      cnt (+ cnt 1))
+   )
+
+   (setq enty (subst (cons 1 n_str)(assoc 1 enty) enty))
+   (entmod enty)
+   (princ)
+);  end chgcase.lsp

@@ -1,0 +1,33 @@
+para instalar:
+
+descompactar todos os arquivos numa mesma pasta
+( se você comprou a licença de uso e ainda tiver a versão demo, 
+  apague-a, ou descompacte sobreescrevendo TODOS os arquivos)
+
+na linha de comando do cad, use o comando APPLOAD
+localize o EXPGE.VLX e clique o botão "Load"
+
+deverá adicionar a pasta automaticamente ao "Support File Search Path" do autocad
+para que ele sempre ache os arquvos de configuração
+
+se preferir, pode adicionar o expge.vlx na "Stratup Suite", clicando no botão
+abaixo da "maleta" que aparece na tela do APPLOAD
+
+qualquer dúvida, entre em contato:
+neyton@yahoo.com
+
+-------------------------------------------------------------------------------------
+A QUEM REGISTRAR A LICENÇA:
+
+Ao usar pela primeira vez, na tela do expge aparecerá um botão de registro, clique-o
+ele te fornecerá um código de registro. Na tela que se abriu, terá um botão para você 
+clicar e fazer o registro. Após completar o registro, será informado um código
+de acesso, o qual você deverá preencher no campo Access Code.
+
+Se tudo estiver certo, sua licença estará liberada
+
+-------------------------------------------------------------------------------------
+
+
+
+

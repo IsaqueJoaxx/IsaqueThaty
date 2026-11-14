@@ -1,0 +1,371 @@
+{
+  "Uuid": "bcdd1122-6b66-4dd6-b2c5-b8d5a5422766",
+  "IsCustomNode": false,
+  "Description": "Cria corredores em lote associando alinhamento, greide e secao tipo.",
+  "Name": "CriarCorredoresEmLote_BACKUP_original",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "1886162a2932458dbba02cf31290622b",
+      "Name": "RODAR",
+      "Type": "boolean",
+      "Type2": "boolean",
+      "Value": "false",
+      "Description": "Permite a seleção entre True e False"
+    },
+    {
+      "Id": "46d79c1c5b5b4854af079aef549a3c9b",
+      "Name": "MODO  (auto | codigo)",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "auto",
+      "Description": "Cria uma sequência de caracteres."
+    },
+    {
+      "Id": "9215dd36b7304e6f9f876cf08a7b7bef",
+      "Name": "CORREDOR UNICO",
+      "Type": "boolean",
+      "Type2": "boolean",
+      "Value": "true",
+      "Description": "Permite a seleção entre True e False"
+    },
+    {
+      "Id": "5104fde92621424e891092db7792fa2f",
+      "Name": "NOME BASE",
+      "Type": "string",
+      "Type2": "string",
+      "Value": "CORREDOR LOTEAMENTO",
+      "Description": "Cria uma sequência de caracteres."
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "1886162a2932458dbba02cf31290622b",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "451db1ca3b944b829cd45d27dd7f56d1",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Permite a seleção entre True e False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "SerializedWidth": 0.0,
+      "SerializedHeight": 0.0,
+      "Id": "46d79c1c5b5b4854af079aef549a3c9b",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "809216cbece2407086f50721bdd19bcc",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma sequência de caracteres.",
+      "InputValue": "auto"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "9215dd36b7304e6f9f876cf08a7b7bef",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "233c320c6e874b7085adfbffc6825ad7",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Permite a seleção entre True e False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "SerializedWidth": 0.0,
+      "SerializedHeight": 0.0,
+      "Id": "5104fde92621424e891092db7792fa2f",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f84488c93aeb42e5881c063050fad081",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Cria uma sequência de caracteres.",
+      "InputValue": "CORREDOR LOTEAMENTO"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "# -*- coding: utf-8 -*-\n# =============================================================================\n#  CRIACAO DE CORREDORES EM LOTE  -  Dynamo for Civil 3D (no Python Script)\n# =============================================================================\n#\n#  ENTRADAS (portas do no Python Script, nessa ordem):\n#\n#   IN[0]  RODAR             (bool)   False = so simula e reporta, True = cria\n#   IN[1]  MODO              (string) \"auto\"   -> greide vem do proprio alinhamento\n#                                     \"codigo\" -> greide casado pelo codigo do nome\n#   IN[2]  CORREDOR_UNICO    (bool)   True  = 1 corredor com N baselines\n#                                     False = 1 corredor por rua\n#   IN[3]  NOME_BASE         (string) ex.: \"CORREDOR LOTEAMENTO\"  (usado se unico)\n#                                     ou prefixo, se um corredor por rua\n#\n#  CONVENCAO DE NOMES ESPERADA (modo \"codigo\"):\n#     01 RUA SAO MIGUEL ALINHAMENTO\n#     01 RUA SAO MIGUEL GREIDE\n#     01 RUA SAO MIGUEL SECAO      (ou 01 SECAO TIPO, ou uma unica assembly p/ tudo)\n#\n#  O codigo e o primeiro numero do nome. \"01\", \"1\" e \"001\" sao tratados como iguais.\n#  Acentos e caixa sao ignorados na leitura das palavras-chave.\n# =============================================================================\n\nimport clr\nimport re\nimport unicodedata\n\nclr.AddReference('AcMgd')\nclr.AddReference('AcDbMgd')\nclr.AddReference('AcCoreMgd')\nclr.AddReference('AeccDbMgd')\n\nfrom Autodesk.AutoCAD.ApplicationServices import Application\nfrom Autodesk.AutoCAD.DatabaseServices import OpenMode\nfrom Autodesk.Civil.ApplicationServices import CivilApplication\nfrom Autodesk.Civil.DatabaseServices import ProfileType\n\n# ------------------------------------------------------------------ entradas\nRODAR          = IN[0] if len(IN) > 0 and IN[0] is not None else False\nMODO           = (IN[1] if len(IN) > 1 and IN[1] else \"auto\").strip().lower()\nCORREDOR_UNICO = IN[2] if len(IN) > 2 and IN[2] is not None else True\nNOME_BASE      = (IN[3] if len(IN) > 3 and IN[3] else \"CORREDOR\").strip()\n\nlog = []\ncriados = []\n\n\n# ------------------------------------------------------------------ utilidades\n# compatibilidade IronPython 2.7  x  CPython3 (Dynamo 2.13+)\ntry:\n    TEXTO = unicode\nexcept NameError:\n    TEXTO = str\n\n\ndef normaliza(txt):\n    \"\"\"Minusculas, sem acento, espacos colapsados. Para comparar palavras-chave.\"\"\"\n    if txt is None:\n        return \"\"\n    t = unicodedata.normalize('NFKD', TEXTO(txt))\n    t = u\"\".join(c for c in t if not unicodedata.combining(c))\n    return re.sub(r'\\s+', ' ', t).strip().lower()\n\n\ndef codigo(nome):\n    \"\"\"Extrai o primeiro numero do nome como chave. '01 Rua X' -> '1'. Sem numero -> None.\"\"\"\n    m = re.search(r'\\d+', nome or \"\")\n    return str(int(m.group(0))) if m else None\n\n\ndef papel(nome):\n    \"\"\"Classifica o objeto pelo nome: 'ali', 'gre', 'sec' ou None.\"\"\"\n    n = normaliza(nome)\n    if re.search(r'\\b(alinhamento|alinham|align|eixo|ali)\\b', n):\n        return 'ali'\n    if re.search(r'\\b(greide|gre|perfil de projeto|projeto|pv)\\b', n):\n        return 'gre'\n    if re.search(r'\\b(secao|sec|secao tipo|tipo|assembly|montagem)\\b', n):\n        return 'sec'\n    return None\n\n\ndef rotulo(nome):\n    \"\"\"Nome limpo para compor o nome do corredor: tira codigo e palavra-chave.\"\"\"\n    n = re.sub(r'^\\s*\\d+\\s*[-_.)]?\\s*', '', nome or \"\")\n    n = re.sub(r'(?i)\\s*(alinhamento|alinham|align|eixo|greide|secao|seção|sec|tipo)\\s*$', '', n)\n    return n.strip() or (nome or \"\").strip()\n\n\n# ------------------------------------------------------------------ documento\nadoc = Application.DocumentManager.MdiActiveDocument\ncivdoc = CivilApplication.ActiveDocument\n\nwith adoc.LockDocument():\n    db = adoc.Database\n    with db.TransactionManager.StartTransaction() as t:\n\n        # -------------------------------------------------- coleta alinhamentos\n        alis = []   # (codigo, nome, ObjectId, objeto)\n        for aid in civdoc.GetAlignmentIds():\n            a = t.GetObject(aid, OpenMode.ForRead)\n            alis.append((codigo(a.Name), a.Name, aid, a))\n\n        # -------------------------------------------------- coleta assemblies\n        asms = {}          # codigo -> ObjectId\n        asms_todas = []    # (nome, ObjectId)\n        for sid in civdoc.GetAssemblyIds():\n            s = t.GetObject(sid, OpenMode.ForRead)\n            asms_todas.append((s.Name, sid))\n            c = codigo(s.Name)\n            if c and c not in asms:\n                asms[c] = sid\n\n        assembly_unica = asms_todas[0][1] if len(asms_todas) == 1 else None\n\n        if not alis:\n            log.append(u\"Nenhum alinhamento encontrado no desenho.\")\n\n        # -------------------------------------------------- monta os pares\n        # cada item: dict com nome da rua, alinhamento, greide e assembly\n        pares = []\n\n        for cod, nome_ali, aid, a in alis:\n\n            # ignora alinhamentos que claramente nao sao eixo de rua\n            if MODO == \"codigo\" and papel(nome_ali) not in ('ali', None):\n                continue\n\n            # ---------------- GREIDE\n            prof_id = None\n            prof_nome = None\n\n            # 1) sempre olha primeiro os perfis do proprio alinhamento\n            candidatos = []\n            for pid in a.GetProfileIds():\n                p = t.GetObject(pid, OpenMode.ForRead)\n                candidatos.append((p.Name, pid, p.ProfileType))\n\n            fg = [c for c in candidatos if c[2] == ProfileType.FG]\n\n            if MODO == \"codigo\" and cod:\n                # casa pelo codigo + palavra \"greide\" dentro dos perfis do alinhamento\n                match = [c for c in candidatos\n                         if codigo(c[0]) == cod and papel(c[0]) == 'gre']\n                if not match:\n                    match = [c for c in candidatos if papel(c[0]) == 'gre']\n                if match:\n                    prof_nome, prof_id = match[0][0], match[0][1]\n\n            if prof_id is None:\n                # modo auto (ou fallback): pega o perfil de projeto (FG)\n                if len(fg) == 1:\n                    prof_nome, prof_id = fg[0][0], fg[0][1]\n                elif len(fg) > 1:\n                    pref = [c for c in fg if papel(c[0]) == 'gre'] or fg\n                    prof_nome, prof_id = pref[0][0], pref[0][1]\n                    log.append(u\"AVISO  %s: %d greides FG, usando '%s'.\"\n                               % (nome_ali, len(fg), prof_nome))\n\n            if prof_id is None:\n                log.append(u\"PULOU  %s: sem greide (perfil FG) definido.\" % nome_ali)\n                continue\n\n            # ---------------- SECAO TIPO\n            asm_id = None\n            if cod and cod in asms:\n                asm_id = asms[cod]\n            elif assembly_unica is not None:\n                asm_id = assembly_unica\n            else:\n                # tenta casar por nome da rua\n                alvo = normaliza(rotulo(nome_ali))\n                for nm, sid in asms_todas:\n                    if alvo and alvo in normaliza(nm):\n                        asm_id = sid\n                        break\n\n            if asm_id is None:\n                log.append(u\"PULOU  %s: nenhuma secao tipo correspondente \"\n                           u\"(codigo '%s').\" % (nome_ali, cod))\n                continue\n\n            pares.append({\n                'cod': cod or '--',\n                'rua': rotulo(nome_ali),\n                'ali_nome': nome_ali,\n                'ali_id': aid,\n                'gre_nome': prof_nome,\n                'gre_id': prof_id,\n                'asm_id': asm_id,\n                'ini': a.StartingStation,\n                'fim': a.EndingStation\n            })\n\n        # -------------------------------------------------- relatorio previo\n        log.insert(0, u\"=== %d rua(s) prontas para virar corredor ===\" % len(pares))\n        for p in pares:\n            log.append(u\"  [%s] %s  |  greide: %s  |  est %.2f a %.2f\"\n                       % (p['cod'], p['rua'], p['gre_nome'], p['ini'], p['fim']))\n\n        # -------------------------------------------------- criacao\n        if RODAR and pares:\n\n            existentes = set()\n            for cid in civdoc.CorridorCollection:\n                try:\n                    existentes.add(t.GetObject(cid, OpenMode.ForRead).Name)\n                except:\n                    pass\n\n            def novo_nome(base):\n                nome, i = base, 1\n                while nome in existentes:\n                    i += 1\n                    nome = u\"%s (%d)\" % (base, i)\n                existentes.add(nome)\n                return nome\n\n            def add_region(baseline, nome_reg, asm_id, ini, fim):\n                \"\"\"Cobre as variacoes de assinatura entre versoes do Civil 3D.\"\"\"\n                try:\n                    return baseline.BaselineRegions.Add(nome_reg, asm_id, ini, fim)\n                except:\n                    return baseline.BaselineRegions.Add(nome_reg, asm_id)\n\n            if CORREDOR_UNICO:\n                nome_corr = novo_nome(NOME_BASE)\n                cid = civdoc.CorridorCollection.Add(nome_corr)\n                corr = t.GetObject(cid, OpenMode.ForWrite)\n\n                for p in pares:\n                    bl_nome = u\"BL %s %s\" % (p['cod'], p['rua'])\n                    bl = corr.Baselines.Add(bl_nome, p['ali_id'], p['gre_id'])\n                    add_region(bl, u\"RG %s %s\" % (p['cod'], p['rua']),\n                               p['asm_id'], p['ini'], p['fim'])\n\n                corr.Rebuild()\n                criados.append(nome_corr)\n                log.append(u\"OK  corredor unico '%s' com %d baselines.\"\n                           % (nome_corr, len(pares)))\n\n            else:\n                for p in pares:\n                    nome_corr = novo_nome(u\"%s %s %s\"\n                                          % (NOME_BASE, p['cod'], p['rua']))\n                    cid = civdoc.CorridorCollection.Add(nome_corr)\n                    corr = t.GetObject(cid, OpenMode.ForWrite)\n\n                    bl = corr.Baselines.Add(u\"BL %s\" % p['rua'],\n                                            p['ali_id'], p['gre_id'])\n                    add_region(bl, u\"RG %s\" % p['rua'],\n                               p['asm_id'], p['ini'], p['fim'])\n\n                    corr.Rebuild()\n                    criados.append(nome_corr)\n                    log.append(u\"OK  %s\" % nome_corr)\n\n        elif not RODAR:\n            log.append(u\"--- MODO SIMULACAO: ligue RODAR para criar de fato. ---\")\n\n        t.Commit()\n\nOUT = log\n",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "6c2199886fd548a58ac39c6a02f25ebc",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "2e00b7ce7b9d4051bee8703e7bed1d43",
+          "Name": "IN[0]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bba1d9ae7cb14a88805498db3c6d352d",
+          "Name": "IN[1]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4320d766976d444db15f5e6eb8b0d8c6",
+          "Name": "IN[2]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b9d368a898c6426ca1c9dd20d6d13cc1",
+          "Name": "IN[3]",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bc892ec3a1c946d1bab9889b5d374fdc",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0f87560e73f64a78a8af47d18ea5d3b7",
+          "Name": "OUT",
+          "Description": "",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Executa um script Python incorporado."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "WatchWidth": 50.0,
+      "WatchHeight": 40.0,
+      "Id": "be7596a1d874424891e81ac1522eac68",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "2312fe0ea65d4fb6bb2d0803e9441cff",
+          "Name": "",
+          "Description": "No a avaliar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ac779ca8a3864a2f81d3e472ee1ae4d1",
+          "Name": "",
+          "Description": "Conteudo",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualiza a saída de um nó"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "451db1ca3b944b829cd45d27dd7f56d1",
+      "End": "2e00b7ce7b9d4051bee8703e7bed1d43",
+      "Id": "fc8d153fa3004ac6ae6e534495079c37",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "809216cbece2407086f50721bdd19bcc",
+      "End": "bba1d9ae7cb14a88805498db3c6d352d",
+      "Id": "0aadaba9e9264d87af0a07e4660876e3",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "233c320c6e874b7085adfbffc6825ad7",
+      "End": "4320d766976d444db15f5e6eb8b0d8c6",
+      "Id": "ec1ef4d25553478488c1f05762678a19",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "f84488c93aeb42e5881c063050fad081",
+      "End": "b9d368a898c6426ca1c9dd20d6d13cc1",
+      "Id": "6d54d027170547209e114752c08e9914",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "0f87560e73f64a78a8af47d18ea5d3b7",
+      "End": "2312fe0ea65d4fb6bb2d0803e9441cff",
+      "Id": "432dec1d2a69461f9e451f04f284be03",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Propriedades",
+      "Version": "3.6",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "Nenhum",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "3.6.1.9956",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Visualização do plano de fundo",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "1886162a2932458dbba02cf31290622b",
+        "Name": "RODAR",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "Id": "46d79c1c5b5b4854af079aef549a3c9b",
+        "Name": "MODO  (auto | codigo)",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 120.0
+      },
+      {
+        "Id": "9215dd36b7304e6f9f876cf08a7b7bef",
+        "Name": "CORREDOR UNICO",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 240.0
+      },
+      {
+        "Id": "5104fde92621424e891092db7792fa2f",
+        "Name": "NOME BASE",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 0.0,
+        "Y": 360.0
+      },
+      {
+        "Id": "6c2199886fd548a58ac39c6a02f25ebc",
+        "Name": "Criar Corredores em Lote",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 400.0,
+        "Y": 130.0
+      },
+      {
+        "Id": "be7596a1d874424891e81ac1522eac68",
+        "Name": "Relatorio",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 760.0,
+        "Y": 130.0
+      }
+    ],
+    "Annotations": [],
+    "X": 154.2653968253968,
+    "Y": 146.00634920634923,
+    "Zoom": 0.766984126984127
+  }
+}

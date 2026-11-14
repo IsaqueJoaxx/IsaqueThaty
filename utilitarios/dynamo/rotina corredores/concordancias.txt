@@ -1,0 +1,252 @@
+=== 9 eixos ===
+=== 14 esquina(s) ===
+
+layer  = (1753774389776)
+estilo = (1718962582128)
+rotulo = (1647200875824)
+
+0 concordancia(s) ja presentes reconhecidas
+
+[00] CONC RUA DAMA DA NOITE@196 x ALINHAMENTO -2(antes)
+      RUA DAMA DA NOITE est 195.855 off -4.2407  |  ALINHAMENTO -2 est 0.000 off -4.2407
+      [1] ConnectionOverlapLengthIn -> 5.000  (ConnectionOverlapLengthIn should be greater than 0.0.)
+      [2] ConnectionOverlapLengthOut -> 5.000  (ConnectionOverlapLengthOut should be greater than 0.0.)
+      CRIADA: (1719570190704)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@196 x ALINHAMENTO -2(depois)
+      RUA DAMA DA NOITE est 195.855 off -4.2407  |  ALINHAMENTO -2 est 0.000 off +4.2407
+      CRIADA: (1719570191008)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@196 x ALINHAMENTO -2(antes)
+      RUA DAMA DA NOITE est 195.855 off +4.2407  |  ALINHAMENTO -2 est 0.000 off -4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@196 x ALINHAMENTO -2(antes)')
+
+[00] CONC RUA DAMA DA NOITE@196 x ALINHAMENTO -2(depois)
+      RUA DAMA DA NOITE est 195.855 off +4.2407  |  ALINHAMENTO -2 est 0.000 off +4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@196 x ALINHAMENTO -2(depois)')
+
+[00] CONC RUA DAMA DA NOITE@143 x ALINHAMENTO -1(antes)
+      RUA DAMA DA NOITE est 142.579 off -4.2407  |  ALINHAMENTO -1 est 0.000 off -4.2407
+      CRIADA: (1719570191280)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@143 x ALINHAMENTO -1(depois)
+      RUA DAMA DA NOITE est 142.579 off -4.2407  |  ALINHAMENTO -1 est 0.000 off +4.2407
+      CRIADA: (1719570191552)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@143 x ALINHAMENTO -1(antes)
+      RUA DAMA DA NOITE est 142.579 off +4.2407  |  ALINHAMENTO -1 est 0.000 off -4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@143 x ALINHAMENTO -1(antes)')
+
+[00] CONC RUA DAMA DA NOITE@143 x ALINHAMENTO -1(depois)
+      RUA DAMA DA NOITE est 142.579 off +4.2407  |  ALINHAMENTO -1 est 0.000 off +4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@143 x ALINHAMENTO -1(depois)')
+
+[00] CONC RUA DAMA DA NOITE@521 x ALINHAMENTO - 8(antes)
+      RUA DAMA DA NOITE est 520.516 off -4.2407  |  ALINHAMENTO - 8 est 0.000 off -4.2407
+      CRIADA: (1719570191824)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@521 x ALINHAMENTO - 8(depois)
+      RUA DAMA DA NOITE est 520.516 off -4.2407  |  ALINHAMENTO - 8 est 0.000 off +4.2407
+      CRIADA: (1719570192096)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@521 x ALINHAMENTO - 8(antes)
+      RUA DAMA DA NOITE est 520.516 off +4.2407  |  ALINHAMENTO - 8 est 0.000 off -4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@521 x ALINHAMENTO - 8(antes)')
+
+[00] CONC RUA DAMA DA NOITE@521 x ALINHAMENTO - 8(depois)
+      RUA DAMA DA NOITE est 520.516 off +4.2407  |  ALINHAMENTO - 8 est 0.000 off +4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@521 x ALINHAMENTO - 8(depois)')
+
+[00] CONC RUA DAMA DA NOITE@668 x ALINHAMENTO - 8(antes)
+      RUA DAMA DA NOITE est 668.408 off -4.2407  |  ALINHAMENTO - 8 est 67.698 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@668 x ALINHAMENTO - 8(depois)
+      RUA DAMA DA NOITE est 668.408 off -4.2407  |  ALINHAMENTO - 8 est 67.698 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@668 x ALINHAMENTO - 8(antes)
+      RUA DAMA DA NOITE est 668.408 off +4.2407  |  ALINHAMENTO - 8 est 67.698 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@668 x ALINHAMENTO - 8(depois)
+      RUA DAMA DA NOITE est 668.408 off +4.2407  |  ALINHAMENTO - 8 est 67.698 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@466 x ALINHAMENTO - 7(antes)
+      RUA DAMA DA NOITE est 465.649 off -4.2407  |  ALINHAMENTO - 7 est 0.000 off -4.2407
+      CRIADA: (1719524281072)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@466 x ALINHAMENTO - 7(depois)
+      RUA DAMA DA NOITE est 465.649 off -4.2407  |  ALINHAMENTO - 7 est 0.000 off +4.2407
+      CRIADA: (1719524281344)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@466 x ALINHAMENTO - 7(antes)
+      RUA DAMA DA NOITE est 465.649 off +4.2407  |  ALINHAMENTO - 7 est 0.000 off -4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@466 x ALINHAMENTO - 7(antes)')
+
+[00] CONC RUA DAMA DA NOITE@466 x ALINHAMENTO - 7(depois)
+      RUA DAMA DA NOITE est 465.649 off +4.2407  |  ALINHAMENTO - 7 est 0.000 off +4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@466 x ALINHAMENTO - 7(depois)')
+
+[00] CONC RUA DAMA DA NOITE@723 x ALINHAMENTO - 7(antes)
+      RUA DAMA DA NOITE est 722.909 off -4.2407  |  ALINHAMENTO - 7 est 96.512 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@723 x ALINHAMENTO - 7(depois)
+      RUA DAMA DA NOITE est 722.909 off -4.2407  |  ALINHAMENTO - 7 est 96.512 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@723 x ALINHAMENTO - 7(antes)
+      RUA DAMA DA NOITE est 722.909 off +4.2407  |  ALINHAMENTO - 7 est 96.512 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@723 x ALINHAMENTO - 7(depois)
+      RUA DAMA DA NOITE est 722.909 off +4.2407  |  ALINHAMENTO - 7 est 96.512 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@409 x ALINHAMENTO - 6(antes)
+      RUA DAMA DA NOITE est 409.444 off -4.2407  |  ALINHAMENTO - 6 est 0.000 off -4.2407
+      CRIADA: (1719524292624)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@409 x ALINHAMENTO - 6(depois)
+      RUA DAMA DA NOITE est 409.444 off -4.2407  |  ALINHAMENTO - 6 est 0.000 off +4.2407
+      CRIADA: (1719524292896)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@409 x ALINHAMENTO - 6(antes)
+      RUA DAMA DA NOITE est 409.444 off +4.2407  |  ALINHAMENTO - 6 est 0.000 off -4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@409 x ALINHAMENTO - 6(antes)')
+
+[00] CONC RUA DAMA DA NOITE@409 x ALINHAMENTO - 6(depois)
+      RUA DAMA DA NOITE est 409.444 off +4.2407  |  ALINHAMENTO - 6 est 0.000 off +4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@409 x ALINHAMENTO - 6(depois)')
+
+[00] CONC RUA DAMA DA NOITE@777 x ALINHAMENTO - 6(antes)
+      RUA DAMA DA NOITE est 776.847 off -4.2407  |  ALINHAMENTO - 6 est 125.627 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@777 x ALINHAMENTO - 6(depois)
+      RUA DAMA DA NOITE est 776.847 off -4.2407  |  ALINHAMENTO - 6 est 125.627 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@777 x ALINHAMENTO - 6(antes)
+      RUA DAMA DA NOITE est 776.847 off +4.2407  |  ALINHAMENTO - 6 est 125.627 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@777 x ALINHAMENTO - 6(depois)
+      RUA DAMA DA NOITE est 776.847 off +4.2407  |  ALINHAMENTO - 6 est 125.627 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@355 x ALINHAMENTO - 5(antes)
+      RUA DAMA DA NOITE est 354.607 off -4.2407  |  ALINHAMENTO - 5 est 0.000 off -4.2407
+      CRIADA: (1719524293808)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@355 x ALINHAMENTO - 5(depois)
+      RUA DAMA DA NOITE est 354.607 off -4.2407  |  ALINHAMENTO - 5 est 0.000 off +4.2407
+      CRIADA: (1719524294080)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@355 x ALINHAMENTO - 5(antes)
+      RUA DAMA DA NOITE est 354.607 off +4.2407  |  ALINHAMENTO - 5 est 0.000 off -4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@355 x ALINHAMENTO - 5(antes)')
+
+[00] CONC RUA DAMA DA NOITE@355 x ALINHAMENTO - 5(depois)
+      RUA DAMA DA NOITE est 354.607 off +4.2407  |  ALINHAMENTO - 5 est 0.000 off +4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@355 x ALINHAMENTO - 5(depois)')
+
+[00] CONC RUA DAMA DA NOITE@830 x ALINHAMENTO - 5(antes)
+      RUA DAMA DA NOITE est 830.296 off -4.2407  |  ALINHAMENTO - 5 est 148.077 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@830 x ALINHAMENTO - 5(depois)
+      RUA DAMA DA NOITE est 830.296 off -4.2407  |  ALINHAMENTO - 5 est 148.077 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@830 x ALINHAMENTO - 5(antes)
+      RUA DAMA DA NOITE est 830.296 off +4.2407  |  ALINHAMENTO - 5 est 148.077 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@830 x ALINHAMENTO - 5(depois)
+      RUA DAMA DA NOITE est 830.296 off +4.2407  |  ALINHAMENTO - 5 est 148.077 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@302 x ALINHAMENTO - 4(antes)
+      RUA DAMA DA NOITE est 301.889 off -4.2407  |  ALINHAMENTO - 4 est 0.000 off -4.2407
+      CRIADA: (1720665655760)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@302 x ALINHAMENTO - 4(depois)
+      RUA DAMA DA NOITE est 301.889 off -4.2407  |  ALINHAMENTO - 4 est 0.000 off +4.2407
+      CRIADA: (1720665656032)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@302 x ALINHAMENTO - 4(antes)
+      RUA DAMA DA NOITE est 301.889 off +4.2407  |  ALINHAMENTO - 4 est 0.000 off -4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@302 x ALINHAMENTO - 4(antes)')
+
+[00] CONC RUA DAMA DA NOITE@302 x ALINHAMENTO - 4(depois)
+      RUA DAMA DA NOITE est 301.889 off +4.2407  |  ALINHAMENTO - 4 est 0.000 off +4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@302 x ALINHAMENTO - 4(depois)')
+
+[00] CONC RUA DAMA DA NOITE@884 x ALINHAMENTO - 4(antes)
+      RUA DAMA DA NOITE est 884.426 off -4.2407  |  ALINHAMENTO - 4 est 161.322 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@884 x ALINHAMENTO - 4(depois)
+      RUA DAMA DA NOITE est 884.426 off -4.2407  |  ALINHAMENTO - 4 est 161.322 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@884 x ALINHAMENTO - 4(antes)
+      RUA DAMA DA NOITE est 884.426 off +4.2407  |  ALINHAMENTO - 4 est 161.322 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@884 x ALINHAMENTO - 4(depois)
+      RUA DAMA DA NOITE est 884.426 off +4.2407  |  ALINHAMENTO - 4 est 161.322 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@249 x ALINHAMENTO - 3(antes)
+      RUA DAMA DA NOITE est 248.813 off -4.2407  |  ALINHAMENTO - 3 est 0.000 off -4.2407
+      CRIADA: (1720665656944)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@249 x ALINHAMENTO - 3(depois)
+      RUA DAMA DA NOITE est 248.813 off -4.2407  |  ALINHAMENTO - 3 est 0.000 off +4.2407
+      CRIADA: (1720665769984)
+      params extras: ConnectionOverlapLengthIn=5.000, ConnectionOverlapLengthOut=5.000
+
+[00] CONC RUA DAMA DA NOITE@249 x ALINHAMENTO - 3(antes)
+      RUA DAMA DA NOITE est 248.813 off +4.2407  |  ALINHAMENTO - 3 est 0.000 off -4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@249 x ALINHAMENTO - 3(antes)')
+
+[00] CONC RUA DAMA DA NOITE@249 x ALINHAMENTO - 3(depois)
+      RUA DAMA DA NOITE est 248.813 off +4.2407  |  ALINHAMENTO - 3 est 0.000 off +4.2407
+      FALHOU: Duplicate alignment name. (Parameter 'CONC RUA DAMA DA NOITE@249 x ALINHAMENTO - 3(depois)')
+
+[00] CONC RUA DAMA DA NOITE@939 x ALINHAMENTO - 3(antes)
+      RUA DAMA DA NOITE est 938.676 off -4.2407  |  ALINHAMENTO - 3 est 173.973 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@939 x ALINHAMENTO - 3(depois)
+      RUA DAMA DA NOITE est 938.676 off -4.2407  |  ALINHAMENTO - 3 est 173.973 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@939 x ALINHAMENTO - 3(antes)
+      RUA DAMA DA NOITE est 938.676 off +4.2407  |  ALINHAMENTO - 3 est 173.973 off -4.2407
+      (quadrante nao existe nesta esquina)
+
+[00] CONC RUA DAMA DA NOITE@939 x ALINHAMENTO - 3(depois)
+      RUA DAMA DA NOITE est 938.676 off +4.2407  |  ALINHAMENTO - 3 est 173.973 off +4.2407
+      (quadrante nao existe nesta esquina)
+
+=== 0 concordancia(s) possiveis / 16 criada(s) ===

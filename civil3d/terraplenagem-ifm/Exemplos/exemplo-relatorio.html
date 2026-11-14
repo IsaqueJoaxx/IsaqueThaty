@@ -1,0 +1,110 @@
+﻿<!doctype html><html lang='pt-BR'><meta charset='utf-8'><title>DISTRIBUIÇÃO DE TERRAPLENAGEM — IFM</title><style>body{font:15px Arial;margin:35px;color:#203140}table{border-collapse:collapse;width:100%;margin:16px 0}td,th{padding:7px;border:1px solid #bbc}th{background:#e5f1ef}h1{color:#14685f}@media print{body{margin:12mm}}</style><h1>DISTRIBUIÇÃO DE TERRAPLENAGEM — IFM</h1><h2>Exemplo fict&#237;cio</h2><p>Fonte: Entrada manual. Objetivo: menor momento total, após minimizar as pendências de cortes e aterros em volume de banco. Fatores de homogeneização e propriedades dos materiais são informados pelo usuário.</p><p>Distribuído: 1.800,000 m³ de banco. Momento total: 758,000 m³·km. Momento extraordinário: 758,000 m³·km. Franquia: 0,000 m. Estimativa de custo: 3.260,000.</p><h2>Quadro de distribuição</h2><table><tr><th>Origem</th><th>Destino</th><th>Categoria</th><th>Banco (m³)</th><th>Geométrico (m³)</th><th>DMT (m)</th><th>Momento (m³·km)</th></tr><tr><td>C1</td><td>A1</td><td>1</td><td>770,000</td><td>700,000</td><td>300,000</td><td>231,000</td></tr><tr><td>C1</td><td>A2</td><td>1</td><td>80,000</td><td>72,727</td><td>1.400,000</td><td>112,000</td></tr><tr><td>C1</td><td>ADME1</td><td>1</td><td>150,000</td><td>150,000</td><td>1.700,000</td><td>255,000</td></tr><tr><td>C2</td><td>A2</td><td>1</td><td>800,000</td><td>727,273</td><td>200,000</td><td>160,000</td></tr></table><h2>Escavação, carga e transporte por categoria e faixa</h2><table><tr><th>Categoria</th><th>Faixa</th><th>Banco (m³)</th><th>DMT ponderada (m)</th><th>Extraordinário (m³·km)</th><th>Custo estimado</th></tr><tr><td>1</td><td>200–1000 m</td><td>770,000</td><td>300,000</td><td>231,000</td><td>1.540,000</td></tr><tr><td>1</td><td>Acima de 1000 m</td><td>230,000</td><td>1.595,652</td><td>367,000</td><td>920,000</td></tr><tr><td>1</td><td>0–200 m</td><td>800,000</td><td>200,000</td><td>160,000</td><td>800,000</td></tr></table><h2>Aterros por energia informada</h2><table><tr><th>Energia</th><th>Geométrico atendido (m³)</th></tr><tr><td>Informar</td><td>1.500,000</td></tr></table><h2>Pendências e reservas</h2><table><tr><th>Item</th><th>Situação</th><th>Banco (m³)</th><th>Geométrico (m³)</th></tr><tr><td>J1</td><td>Reserva de jazida n&#227;o utilizada</td><td>600,000</td><td>600,000</td></tr><tr><td>ADME1</td><td>Capacidade ADME n&#227;o utilizada</td><td>150,000</td><td>150,000</td></tr></table><h2>Entradas e rastreabilidade</h2><p>Os números abaixo são entradas do cenário, sem certificação automática de adequação geotécnica. ADME tem capacidade em banco; os aterros usam volume geométrico × fator banco/geométrico. Custos são por m³ de banco na faixa inteira, sem tarifa marginal.</p><pre>{
+  &quot;Schema&quot;: 1,
+  &quot;Nome&quot;: &quot;Exemplo fict\u00EDcio&quot;,
+  &quot;Origens&quot;: [
+    {
+      &quot;Nome&quot;: &quot;C1&quot;,
+      &quot;Progressiva_m&quot;: 0,
+      &quot;Volume_banco_m3&quot;: 1000,
+      &quot;Categoria&quot;: 1,
+      &quot;CBR_pct&quot;: 15,
+      &quot;Expansao_pct&quot;: 1,
+      &quot;Permeabilidade_m_s&quot;: 0,
+      &quot;Acesso_m&quot;: 0,
+      &quot;Jazida&quot;: false,
+      &quot;SoDescarte&quot;: false
+    },
+    {
+      &quot;Nome&quot;: &quot;C2&quot;,
+      &quot;Progressiva_m&quot;: 1200,
+      &quot;Volume_banco_m3&quot;: 800,
+      &quot;Categoria&quot;: 1,
+      &quot;CBR_pct&quot;: 5,
+      &quot;Expansao_pct&quot;: 1,
+      &quot;Permeabilidade_m_s&quot;: 0,
+      &quot;Acesso_m&quot;: 0,
+      &quot;Jazida&quot;: false,
+      &quot;SoDescarte&quot;: false
+    },
+    {
+      &quot;Nome&quot;: &quot;J1&quot;,
+      &quot;Progressiva_m&quot;: 2000,
+      &quot;Volume_banco_m3&quot;: 600,
+      &quot;Categoria&quot;: 1,
+      &quot;CBR_pct&quot;: 20,
+      &quot;Expansao_pct&quot;: 1,
+      &quot;Permeabilidade_m_s&quot;: 0,
+      &quot;Acesso_m&quot;: 300,
+      &quot;Jazida&quot;: true,
+      &quot;SoDescarte&quot;: false
+    }
+  ],
+  &quot;Destinos&quot;: [
+    {
+      &quot;Nome&quot;: &quot;A1&quot;,
+      &quot;Progressiva_m&quot;: 300,
+      &quot;Volume_geometrico_m3&quot;: 700,
+      &quot;Banco_por_geometrico&quot;: 1.1,
+      &quot;CBR_min_pct&quot;: 10,
+      &quot;Expansao_max_pct&quot;: 100,
+      &quot;Permeabilidade_max_m_s&quot;: 1,
+      &quot;Categoria_exigida&quot;: 0,
+      &quot;Acesso_m&quot;: 0,
+      &quot;ADME&quot;: false,
+      &quot;Energia&quot;: &quot;Informar&quot;
+    },
+    {
+      &quot;Nome&quot;: &quot;A2&quot;,
+      &quot;Progressiva_m&quot;: 1400,
+      &quot;Volume_geometrico_m3&quot;: 800,
+      &quot;Banco_por_geometrico&quot;: 1.1,
+      &quot;CBR_min_pct&quot;: 4,
+      &quot;Expansao_max_pct&quot;: 100,
+      &quot;Permeabilidade_max_m_s&quot;: 1,
+      &quot;Categoria_exigida&quot;: 0,
+      &quot;Acesso_m&quot;: 0,
+      &quot;ADME&quot;: false,
+      &quot;Energia&quot;: &quot;Informar&quot;
+    },
+    {
+      &quot;Nome&quot;: &quot;ADME1&quot;,
+      &quot;Progressiva_m&quot;: 1700,
+      &quot;Volume_geometrico_m3&quot;: 300,
+      &quot;Banco_por_geometrico&quot;: 1,
+      &quot;CBR_min_pct&quot;: 0,
+      &quot;Expansao_max_pct&quot;: 100,
+      &quot;Permeabilidade_max_m_s&quot;: 1,
+      &quot;Categoria_exigida&quot;: 0,
+      &quot;Acesso_m&quot;: 0,
+      &quot;ADME&quot;: true,
+      &quot;Energia&quot;: &quot;Informar&quot;
+    }
+  ],
+  &quot;Faixas&quot;: [
+    {
+      &quot;Nome&quot;: &quot;0\u2013200 m&quot;,
+      &quot;Ate_m&quot;: 200,
+      &quot;Custo_por_m3_banco&quot;: 1
+    },
+    {
+      &quot;Nome&quot;: &quot;200\u20131000 m&quot;,
+      &quot;Ate_m&quot;: 1000,
+      &quot;Custo_por_m3_banco&quot;: 2
+    },
+    {
+      &quot;Nome&quot;: &quot;Acima de 1000 m&quot;,
+      &quot;Ate_m&quot;: 1000000000,
+      &quot;Custo_por_m3_banco&quot;: 4
+    }
+  ],
+  &quot;Rotas&quot;: [],
+  &quot;Barreiras&quot;: [],
+  &quot;Cubacao&quot;: [],
+  &quot;Fonte&quot;: &quot;Entrada manual&quot;,
+  &quot;CompensacaoLateral&quot;: [],
+  &quot;FatorCubacao&quot;: 1,
+  &quot;DMT_max_m&quot;: 1000000000,
+  &quot;Franquia_m&quot;: 0,
+  &quot;UsarCustos&quot;: false,
+  &quot;MinimizarExtraordinario&quot;: false
+}</pre></html>

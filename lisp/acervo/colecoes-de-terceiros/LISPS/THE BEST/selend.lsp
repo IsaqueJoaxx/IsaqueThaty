@@ -1,0 +1,10 @@
+(defun c:endp() 
+  (setq ssel (ssget) num 0)       ; seleciona as entidades 
+(repeat (sslength ssel) 
+  (setq sn (entget (ssname ssel num))) 
+  (setq p1 (cdr (assoc 10 sn))) 
+  (setq p2 (cdr (assoc 11 sn))) 
+  (command "point" p1)  (command "point" p2) 
+  (setq num (+ num 1)) 
+) 
+) 

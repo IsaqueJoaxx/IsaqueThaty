@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    PROJETA • Giro de Veículos — plugin para Civil 3D 2026/2027 (também roda no AutoCAD puro, sem alinhamentos).
+    Civil 3D 2026 roda em .NET 8; o 2027 em .NET 10:
+      dotnet build -c Release                      (2026 → bin\Release\net8.0-windows)
+      dotnet build -c Release -p:CivilVersao=2027  (2027 → bin\Release\net10.0-windows)
+    Instalação (bundle de autocarga): instalador\instalar.ps1
+  -->
+  <PropertyGroup>
+    <CivilVersao Condition="'$(CivilVersao)' == ''">2026</CivilVersao>
+    <TargetFramework Condition="'$(CivilVersao)' == '2027'">net10.0-windows</TargetFramework>
+    <TargetFramework Condition="'$(CivilVersao)' != '2027'">net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Projeta.Giro</RootNamespace>
+    <AssemblyName>Projeta.Giro</AssemblyName>
+    <Version>1.0.0</Version>
+    <PlatformTarget>x64</PlatformTarget>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <NoWarn>$(NoWarn);CA1416;MSB3270;MSB3277;WFO1000;CS8618</NoWarn>
+    <AcadDir Condition="'$(AcadDir)' == ''">C:\Program Files\Autodesk\AutoCAD $(CivilVersao)</AcadDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+    <Using Remove="System.Windows" />
+    <Using Remove="System.Windows.Controls" />
+    <Using Remove="System.Windows.Media" />
+    <Using Remove="System.Windows.Input" />
+    <!-- projetos WPF não incluem System.IO nos usings implícitos -->
+    <Using Include="System.IO" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AcCoreMgd"><HintPath>$(AcadDir)\AcCoreMgd.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AcDbMgd"><HintPath>$(AcadDir)\AcDbMgd.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AcMgd"><HintPath>$(AcadDir)\AcMgd.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AdWindows"><HintPath>$(AcadDir)\AdWindows.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AecBaseMgd"><HintPath>$(AcadDir)\ACA\AecBaseMgd.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="AeccDbMgd"><HintPath>$(AcadDir)\C3D\AeccDbMgd.dll</HintPath><Private>False</Private></Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Projeta.Giro.Core\Projeta.Giro.Core.csproj" />
+  </ItemGroup>
+
+</Project>

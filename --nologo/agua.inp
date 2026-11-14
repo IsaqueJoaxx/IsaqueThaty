@@ -1,0 +1,81 @@
+[TITLE]
+Rede Agua Teste — exportada pelo PROJETA em 13/11/2026 23:01
+
+[JUNCTIONS]
+;ID  Elev  Demand  Pattern
+PV-01  870  3.08219  
+PV-02  869  2.05479  
+PV-03  868  1.36986  
+PV-04  868  2.05479  
+PV-05  867  2.73973  
+PV-06  866  2.05479  
+PV-07  866  2.05479  
+PV-08  865  2.73973  
+PV-09  864  2.05479  
+PV-10  864  1.36986  
+PV-11  863  2.05479  
+PV-12  862  1.36986  
+
+[RESERVOIRS]
+;ID  Head  Pattern
+RES  905  
+
+[TANKS]
+;ID  Elevation  InitLevel  MinLevel  MaxLevel  Diameter  MinVol  VolCurve
+
+[PIPES]
+;ID  Node1  Node2  Length  Diameter(mm)  Roughness  MinorLoss  Status
+T-01  RES  PV-01  100  200  140  0  Open
+T-02  PV-01  PV-04  80  100  140  0  Open
+T-03  PV-01  PV-02  80  100  140  0  Open
+T-04  PV-02  PV-05  80  100  140  0  Open
+T-05  PV-02  PV-03  80  100  140  0  Open
+T-06  PV-03  PV-06  80  100  140  0  Open
+T-07  PV-04  PV-07  80  100  140  0  Open
+T-08  PV-04  PV-05  80  100  140  0  Open
+T-09  PV-05  PV-08  80  100  140  0  Open
+T-10  PV-05  PV-06  80  100  140  0  Open
+T-11  PV-06  PV-09  80  100  140  0  Open
+T-12  PV-07  PV-10  80  100  140  0  Open
+T-13  PV-07  PV-08  80  100  140  0  Open
+T-14  PV-08  PV-11  80  100  140  0  Open
+T-15  PV-08  PV-09  80  100  140  0  Open
+T-16  PV-09  PV-12  80  100  140  0  Open
+T-17  PV-10  PV-11  80  100  140  0  Open
+T-18  PV-11  PV-12  80  100  140  0  Open
+
+[OPTIONS]
+ Units              LPS
+ Headloss           H-W
+ Trials             200
+ Accuracy           0.001
+ Unbalanced         Continue 10
+ Demand Multiplier  1.0
+
+[TIMES]
+ Duration           0
+
+[REPORT]
+ Status             No
+ Summary            No
+ Page               0
+ Nodes              All
+ Links              All
+
+[COORDINATES]
+;Node  X-Coord  Y-Coord
+RES  0  0
+PV-01  100  0
+PV-02  100  80
+PV-03  100  160
+PV-04  180  0
+PV-05  180  80
+PV-06  180  160
+PV-07  260  0
+PV-08  260  80
+PV-09  260  160
+PV-10  340  0
+PV-11  340  80
+PV-12  340  160
+
+[END]

@@ -1,0 +1,7252 @@
+[
+  {
+    "Municipio": "Cubatão",
+    "Uf": "SP",
+    "Estacao": "PIACAGUERA (EFSJ)",
+    "Codigo": "2346076",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23515",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Guarujá",
+    "Uf": "SP",
+    "Estacao": "VICENTE DE CARVALHO",
+    "Codigo": "2346089",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17571",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guarulhos",
+    "Uf": "SP",
+    "Estacao": "OBSERVATÓRIO DO IAG",
+    "Codigo": "2346059",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23531",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Itaquaquecetuba",
+    "Uf": "SP",
+    "Estacao": "SANTA ISABEL",
+    "Codigo": "2346019",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23537",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Itu",
+    "Uf": "SP",
+    "Estacao": "PIRAPITINGUI",
+    "Codigo": "2347024",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23538",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Santos",
+    "Uf": "SP",
+    "Estacao": "VICENTE DE CARVALHO",
+    "Codigo": "2346089",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17593",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Vicente",
+    "Uf": "SP",
+    "Estacao": "VICENTE DE CARVALHO",
+    "Codigo": "2346089",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17595",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rio Fortuna",
+    "Uf": "SC",
+    "Estacao": "ANITÁPOLIS",
+    "Codigo": "2749027",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23552",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Sapucaia",
+    "Uf": "RJ",
+    "Estacao": "ANTA",
+    "Codigo": "2242028",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23721",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Antônio Carlos",
+    "Uf": "SC",
+    "Estacao": "ANTONIO CARLOS",
+    "Codigo": "2748016",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17506",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Arcoverde",
+    "Uf": "PE",
+    "Estacao": "ARCOVERDE",
+    "Codigo": "837003",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22845",
+    "TrMax": "45",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Nilópolis",
+    "Uf": "RJ",
+    "Estacao": "BANGU",
+    "Codigo": "2243141",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23733",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Barra Mansa",
+    "Uf": "RJ",
+    "Estacao": "BARRA MANSA - FURNAS",
+    "Codigo": "2244042",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23506",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "José Boiteux",
+    "Uf": "SC",
+    "Estacao": "BARRAGEM NORTE",
+    "Codigo": "2649061",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17515",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bezerros",
+    "Uf": "PE",
+    "Estacao": "BEZERROS",
+    "Codigo": "835007",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23637",
+    "TrMax": "40",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Blumenau",
+    "Uf": "SC",
+    "Estacao": "BLUMENAU",
+    "Codigo": "2649007",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23510",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Gaspar",
+    "Uf": "SC",
+    "Estacao": "BLUMENAU",
+    "Codigo": "2649007",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23529",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guaratinguetá",
+    "Uf": "SP",
+    "Estacao": "BONFIM",
+    "Codigo": "2245053",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23530",
+    "TrMax": "50",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Botuverá",
+    "Uf": "SC",
+    "Estacao": "BOTUVERA-MONTANTE",
+    "Codigo": "2749045",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23511",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Brusque",
+    "Uf": "SC",
+    "Estacao": "BRUSQUE",
+    "Codigo": "2748000",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23512",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itapema",
+    "Uf": "SC",
+    "Estacao": "BRUSQUE  (PCD)",
+    "Codigo": "2748000",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17510",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rio Grande da Serra",
+    "Uf": "SP",
+    "Estacao": "CAMPO GRANDE",
+    "Codigo": "2346067",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23545",
+    "TrMax": "75",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Campo Maior",
+    "Uf": "PI",
+    "Estacao": "CAMPO MAIOR",
+    "Codigo": "442004",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22847",
+    "TrMax": "50",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Campos dos Goytacazes",
+    "Uf": "RJ",
+    "Estacao": "CAMPOS - PONTE MUNICIPAL",
+    "Codigo": "2141002",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22850",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cândido Sales",
+    "Uf": "BA",
+    "Estacao": "CÂNDIDO SALES",
+    "Codigo": "1541001",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23646",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Catende",
+    "Uf": "PE",
+    "Estacao": "CATENDE",
+    "Codigo": "",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23641",
+    "TrMax": "30",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Taboão da Serra",
+    "Uf": "SP",
+    "Estacao": "CIDADE UNIVERSITÁRIA",
+    "Codigo": "2346353",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23560",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Sorocaba",
+    "Uf": "SP",
+    "Estacao": "ÉDEN",
+    "Codigo": "2347028",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23559",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Guapimirim",
+    "Uf": "RJ",
+    "Estacao": "ESTAÇÃO DE BOMB. DE IMUNANA",
+    "Codigo": "2242011",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23698",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itaboraí",
+    "Uf": "RJ",
+    "Estacao": "ESTAÇÃO DE BOMB. DE IMUNANA",
+    "Codigo": "2242011",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23728",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Nova Trento",
+    "Uf": "SC",
+    "Estacao": "FAZENDA BOA ESPERANCA",
+    "Codigo": "2749015",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23548",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Forquilha",
+    "Uf": "CE",
+    "Estacao": "FAZENDA POCINHOS",
+    "Codigo": "340036",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23626",
+    "TrMax": "80",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Cachoeiras de Macacu",
+    "Uf": "RJ",
+    "Estacao": "FAZENDA SÃO JOAQUIM",
+    "Codigo": "2242016",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23697",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São José do Vale do Rio Preto",
+    "Uf": "RJ",
+    "Estacao": "FAZENDA SOBRADINHO",
+    "Codigo": "2242027",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23720",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Florianópolis",
+    "Uf": "SC",
+    "Estacao": "FLORIANÓPOLIS",
+    "Codigo": "2748006",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23525",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "São José",
+    "Uf": "SC",
+    "Estacao": "FLORIANÓPOLIS",
+    "Codigo": "2748006",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23554",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Caieiras",
+    "Uf": "SP",
+    "Estacao": "FRANCO DA ROCHA (HOSP. JUQUERI)",
+    "Codigo": "2346021",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17567",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Francisco Morato",
+    "Uf": "SP",
+    "Estacao": "FRANCO DA ROCHA (HOSP. JUQUERI)",
+    "Codigo": "2346021",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17576",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Mairiporã",
+    "Uf": "SP",
+    "Estacao": "FRANCO DA ROCHA (HOSP. JUQUERI)",
+    "Codigo": "2346021",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23541",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Glória do Goitá",
+    "Uf": "PE",
+    "Estacao": "GLÓRIA DE GOITA",
+    "Codigo": "835027",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23643",
+    "TrMax": "65",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Rosário do Sul",
+    "Uf": "RS",
+    "Estacao": "GRANJA UMBU",
+    "Codigo": "3054016",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22865",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Niterói",
+    "Uf": "RJ",
+    "Estacao": "HORTO FLORESTAL",
+    "Codigo": "2243236",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23734",
+    "TrMax": "100",
+    "Observacao": "Operada pelo Inea"
+  },
+  {
+    "Municipio": "São Gonçalo",
+    "Uf": "RJ",
+    "Estacao": "HORTO FLORESTAL",
+    "Codigo": "2243236",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23719",
+    "TrMax": "100",
+    "Observacao": "Operada pelo Inea"
+  },
+  {
+    "Municipio": "Mangaratiba",
+    "Uf": "RJ",
+    "Estacao": "IBICUÍ",
+    "Codigo": "2244148",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23730",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Criciúma",
+    "Uf": "SC",
+    "Estacao": "IÇARA",
+    "Codigo": "2849022",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23514",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ilhota",
+    "Uf": "SC",
+    "Estacao": "ILHOTA-JUSANTE",
+    "Codigo": "2648001",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23534",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Imperatriz",
+    "Uf": "MA",
+    "Estacao": "IMPERATRIZ",
+    "Codigo": "",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23609",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rodeio",
+    "Uf": "SC",
+    "Estacao": "INDAIAL",
+    "Codigo": "2649005",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23553",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Balneário Camboriú",
+    "Uf": "SC",
+    "Estacao": "ITAJAÍ",
+    "Codigo": "2648008",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23509",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Camboriú",
+    "Uf": "SC",
+    "Estacao": "ITAJAÍ",
+    "Codigo": "2648008",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23513",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itajaí",
+    "Uf": "SC",
+    "Estacao": "ITAJAÍ",
+    "Codigo": "2648008",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23536",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Águas Vermelhas",
+    "Uf": "MG",
+    "Estacao": "ITAMARATI",
+    "Codigo": "1541010",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23652",
+    "TrMax": "60",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itaperuna",
+    "Uf": "RJ",
+    "Estacao": "ITAPERUNA",
+    "Codigo": "2141004",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22852",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ituporanga",
+    "Uf": "SC",
+    "Estacao": "ITUPORANGA",
+    "Codigo": "2749002",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23737",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jaguaruana",
+    "Uf": "CE",
+    "Estacao": "JAGUARUANA",
+    "Codigo": "",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23627",
+    "TrMax": "50",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Juazeiro",
+    "Uf": "BA",
+    "Estacao": "JUAZEIRO",
+    "Codigo": "940024",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22828",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Leoberto Leal",
+    "Uf": "SC",
+    "Estacao": "LEOBERTO LEAL",
+    "Codigo": "2749034",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23539",
+    "TrMax": "40",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Luiz Alves",
+    "Uf": "SC",
+    "Estacao": "LUIZ ALVES",
+    "Codigo": "2648002",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23542",
+    "TrMax": "100",
+    "Observacao": "operada pela EPAGRI"
+  },
+  {
+    "Municipio": "Mauá",
+    "Uf": "SP",
+    "Estacao": "MAUÁ",
+    "Codigo": "2346055",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23543",
+    "TrMax": "75",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Ribeirão Pires",
+    "Uf": "SP",
+    "Estacao": "MAUÁ",
+    "Codigo": "2346055",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23544",
+    "TrMax": "75",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Nova Veneza",
+    "Uf": "SC",
+    "Estacao": "MELEIRO",
+    "Codigo": "2849005",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23550",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Embu-Guaçu",
+    "Uf": "SP",
+    "Estacao": "MOMBACA",
+    "Codigo": "2346070",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23517",
+    "TrMax": "75",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Itapecerica da Serra",
+    "Uf": "SP",
+    "Estacao": "MOMBACA",
+    "Codigo": "2346070",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23532",
+    "TrMax": "75",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Morada Nova",
+    "Uf": "CE",
+    "Estacao": "MORADA NOVA",
+    "Codigo": "",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23628",
+    "TrMax": "50",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Presidente Getúlio",
+    "Uf": "SC",
+    "Estacao": "NOVA BREMEN DALBERGIA",
+    "Codigo": "2749005",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23551",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paracuru",
+    "Uf": "CE",
+    "Estacao": "PARACURU",
+    "Codigo": "",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23629",
+    "TrMax": "100",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Guararema",
+    "Uf": "SP",
+    "Estacao": "PARATEI",
+    "Codigo": "2346018",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23518",
+    "TrMax": "35",
+    "Observacao": "operada por FCTH / DAEE - SP"
+  },
+  {
+    "Municipio": "Cristal",
+    "Uf": "RS",
+    "Estacao": "PASSO DO MENDONÇA",
+    "Codigo": "3152011",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23739",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Navegantes",
+    "Uf": "SC",
+    "Estacao": "PIÇARRAS",
+    "Codigo": "2648019",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23546",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Palhoça",
+    "Uf": "SC",
+    "Estacao": "POÇO FUNDO",
+    "Codigo": "2748005",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17517",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ponte Alta",
+    "Uf": "SC",
+    "Estacao": "PONTE ALTA DO NORTE",
+    "Codigo": "2750010",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22869",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Campo Limpo Paulista",
+    "Uf": "SP",
+    "Estacao": "RIO ACIMA",
+    "Codigo": "2346015",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17565",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Quitandinha",
+    "Uf": "PR",
+    "Estacao": "RIO DA VÁRZEA DOS LIMA",
+    "Codigo": "2549003",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17519",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itapevi",
+    "Uf": "SP",
+    "Estacao": "ROSELÂNDIA",
+    "Codigo": "2346287",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23535",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Santo André",
+    "Uf": "SP",
+    "Estacao": "RUDGE RAMOS",
+    "Codigo": "2346056",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23549",
+    "TrMax": "60",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "São Bernardo do Campo",
+    "Uf": "SP",
+    "Estacao": "RUDGE RAMOS",
+    "Codigo": "2346056",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23558",
+    "TrMax": "60",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Alfredo Wagner",
+    "Uf": "SC",
+    "Estacao": "SALTINHO",
+    "Codigo": "2749037",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23507",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Cruz da Vitória",
+    "Uf": "BA",
+    "Estacao": "SANTA CRUZ DA VITÓRIA",
+    "Codigo": "1439044",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23647",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santana de Parnaíba",
+    "Uf": "SP",
+    "Estacao": "SANTANA DE PARNAÍBA",
+    "Codigo": "2346033",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23547",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Santarém",
+    "Uf": "PA",
+    "Estacao": "SANTARÉM",
+    "Codigo": "254000",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17458",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Luís",
+    "Uf": "MA",
+    "Estacao": "SÃO LUÍS",
+    "Codigo": "244007",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22829",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Taió",
+    "Uf": "SC",
+    "Estacao": "TAIÓ",
+    "Codigo": "2749003",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23555",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Araranguá",
+    "Uf": "SC",
+    "Estacao": "TAQUARUÇU",
+    "Codigo": "2849004",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23508",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Teodoro Sampaio",
+    "Uf": "BA",
+    "Estacao": "TEODORO SAMPAIO",
+    "Codigo": "1238051",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23648",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Timbó",
+    "Uf": "SC",
+    "Estacao": "TIMBÓ NOVO",
+    "Codigo": "2649004",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23556",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pedreiras",
+    "Uf": "MA",
+    "Estacao": "TRIZIDELA DO VALE",
+    "Codigo": "444005",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23608",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Trizidela do Vale",
+    "Uf": "MA",
+    "Estacao": "TRIZIDELA DO VALE",
+    "Codigo": "444005",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23607",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paracambi",
+    "Uf": "RJ",
+    "Estacao": "UEL - SANTA CECÍLIA TOMADA D’ÁGUA",
+    "Codigo": "2243205",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23718",
+    "TrMax": "100",
+    "Observacao": "LIGHT"
+  },
+  {
+    "Municipio": "Urubici",
+    "Uf": "SC",
+    "Estacao": "URUBICI",
+    "Codigo": "2849021",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22871",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Urussanga",
+    "Uf": "SC",
+    "Estacao": "URUSSANGA",
+    "Codigo": "2849011",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23557",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Nova Friburgo",
+    "Uf": "RJ",
+    "Estacao": "VARGEM ALTA",
+    "Codigo": "2242019",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17551",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Várzea Alegre",
+    "Uf": "CE",
+    "Estacao": "VÁRZEA ALEGRE",
+    "Codigo": "",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23630",
+    "TrMax": "60",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Jundiaí",
+    "Uf": "SP",
+    "Estacao": "VINHEDO",
+    "Codigo": "2346003",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23540",
+    "TrMax": "65",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Macaé",
+    "Uf": "RJ",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2013",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23729",
+    "TrMax": "100",
+    "Observacao": "Projeto de Chuvas Intensas RJ (2001)"
+  },
+  {
+    "Municipio": "Belo Horizonte",
+    "Uf": "MG",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23673",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Betim",
+    "Uf": "MG",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23672",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Contagem",
+    "Uf": "MG",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23669",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Diogo de Vasconcelos",
+    "Uf": "MG",
+    "Estacao": "ACAIACA - JUSANTE",
+    "Codigo": "2043009",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23665",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ewbank da Câmara",
+    "Uf": "MG",
+    "Estacao": "JUIZ DE FORA",
+    "Codigo": "2143056",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17531",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Governador Valadares",
+    "Uf": "MG",
+    "Estacao": "GOVERNADOR VALADARES",
+    "Codigo": "1841015",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17532",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ibirité",
+    "Uf": "MG",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23664",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Januária",
+    "Uf": "MG",
+    "Estacao": "JANUÁRIA",
+    "Codigo": "1544006",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17599",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Juiz de Fora",
+    "Uf": "MG",
+    "Estacao": "JUIZ DE FORA",
+    "Codigo": "2143056",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17596",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lagoa Grande",
+    "Uf": "MG",
+    "Estacao": "PONTE DA BR-040 - PRATA",
+    "Codigo": "1746006",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23663",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Manhumirim",
+    "Uf": "MG",
+    "Estacao": "CAPARAÓ",
+    "Codigo": "2041044",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23661",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Nova Lima",
+    "Uf": "MG",
+    "Estacao": "NOVA LIMA",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23657",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Periquito",
+    "Uf": "MG",
+    "Estacao": "NAQUE VELHO",
+    "Codigo": "1942032",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23655",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pirapora",
+    "Uf": "MG",
+    "Estacao": "PIRAPORA",
+    "Codigo": "1744025",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17597",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Sabará",
+    "Uf": "MG",
+    "Estacao": "SABARÁ",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23654",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Sabinópolis",
+    "Uf": "MG",
+    "Estacao": "FERROS",
+    "Codigo": "1943003",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17601",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Luzia",
+    "Uf": "MG",
+    "Estacao": "SANTA LUZIA",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23653",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Teófilo Otoni",
+    "Uf": "MG",
+    "Estacao": "TEÓFILO OTONI",
+    "Codigo": "1741012",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17602",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jaboatão dos Guararapes",
+    "Uf": "PE",
+    "Estacao": "AEROPORTO DE RECIFE",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17528",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Olinda",
+    "Uf": "PE",
+    "Estacao": "AEROPORTO DE RECIFE",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17526",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paulista",
+    "Uf": "PE",
+    "Estacao": "AEROPORTO DE RECIFE",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17525",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Recife",
+    "Uf": "PE",
+    "Estacao": "AEROPORTO DE RECIFE",
+    "Codigo": "",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17512",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Campos do Jordão",
+    "Uf": "SP",
+    "Estacao": "CAMPOS DO JORDÃO",
+    "Codigo": "2245167",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23564",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Diadema",
+    "Uf": "SP",
+    "Estacao": "OBSERVATÓRIO DO IAG",
+    "Codigo": "2346059",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23566",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Eldorado",
+    "Uf": "SP",
+    "Estacao": "ELDORADO",
+    "Codigo": "2448014",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23567",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Iguape",
+    "Uf": "SP",
+    "Estacao": "MOMUNA",
+    "Codigo": "2447033",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23568",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Pariquera-Açu",
+    "Uf": "SP",
+    "Estacao": "MOMUNA",
+    "Codigo": "2447033",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23572",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Praia Grande",
+    "Uf": "SP",
+    "Estacao": "VICENTE DE CARVALHO",
+    "Codigo": "2346089",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17581",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Luís do Paraitinga",
+    "Uf": "SP",
+    "Estacao": "CATUCABA",
+    "Codigo": "2345021",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23667",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Paulo",
+    "Uf": "SP",
+    "Estacao": "OBSERVATÓRIO DO IAG",
+    "Codigo": "2346059",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23576",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Ubatuba",
+    "Uf": "SP",
+    "Estacao": "UBATUBA",
+    "Codigo": "2345040",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23516",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Senhor do Bonfim",
+    "Uf": "BA",
+    "Estacao": "AÇUDE SOHÉM",
+    "Codigo": "1040027",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23651",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Peruíbe",
+    "Uf": "SP",
+    "Estacao": "ANA DIAS",
+    "Codigo": "2447014",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23573",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Anitápolis",
+    "Uf": "SC",
+    "Estacao": "ANITÁPOLIS",
+    "Codigo": "2749027",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23583",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Marechal Floriano",
+    "Uf": "ES",
+    "Estacao": "ARACE (FAZENDA MODELO)",
+    "Codigo": "2041020",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17441",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mantena",
+    "Uf": "MG",
+    "Estacao": "BARRA DE SÃO FRANCISCO",
+    "Codigo": "1840004",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23660",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santana do Araguaia",
+    "Uf": "PA",
+    "Estacao": "BARREIRA DO CAMPO",
+    "Codigo": "950001",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23624",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bauru",
+    "Uf": "SP",
+    "Estacao": "BAURU (PDV)",
+    "Codigo": "2249012",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23561",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Belém",
+    "Uf": "PA",
+    "Estacao": "BELÉM",
+    "Codigo": "148002",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23612",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Lages",
+    "Uf": "SC",
+    "Estacao": "BOCAINA DO SUL",
+    "Codigo": "2749035",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22867",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Campinas",
+    "Uf": "SP",
+    "Estacao": "CAMPINAS - IA",
+    "Codigo": "2247046",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23563",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Barbacena",
+    "Uf": "MG",
+    "Estacao": "CAMPOLIDE",
+    "Codigo": "2143005",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23674",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cunha",
+    "Uf": "SP",
+    "Estacao": "CAMPOS DE CUNHA",
+    "Codigo": "2244015",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23565",
+    "TrMax": "35",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Capitão Leônidas Marques",
+    "Uf": "PR",
+    "Estacao": "CAPITÃO LEONIDAS MARQUES",
+    "Codigo": "2553024",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23601",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Caruaru",
+    "Uf": "PE",
+    "Estacao": "CARUARU",
+    "Codigo": "835106",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23640",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Valença",
+    "Uf": "RJ",
+    "Estacao": "CONSERVATÓRIA",
+    "Codigo": "2243004",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23723",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Barra de Guabiraba",
+    "Uf": "PE",
+    "Estacao": "CÔRTES",
+    "Codigo": "835119",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23636",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Corupá",
+    "Uf": "SC",
+    "Estacao": "CORUPÁ",
+    "Codigo": "2649013",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23588",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Curitiba",
+    "Uf": "PR",
+    "Estacao": "CURITIBA",
+    "Codigo": "2549131",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23600",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Pinhais",
+    "Uf": "PR",
+    "Estacao": "CURITIBA",
+    "Codigo": "2549131",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23598",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Chalé",
+    "Uf": "MG",
+    "Estacao": "DORES DO MANHUMIRIM",
+    "Codigo": "2041008",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23670",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lajinha",
+    "Uf": "MG",
+    "Estacao": "DORES DO MANHUMIRIM",
+    "Codigo": "2041008",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22841",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jacupiranga",
+    "Uf": "SP",
+    "Estacao": "ELDORADO",
+    "Codigo": "2448014",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23570",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Esperantina",
+    "Uf": "PI",
+    "Estacao": "ESPERANTINA",
+    "Codigo": "342002",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22848",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cajati",
+    "Uf": "SP",
+    "Estacao": "FAXINAL",
+    "Codigo": "2448029",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23562",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Ouro Preto",
+    "Uf": "MG",
+    "Estacao": "FAZENDA ÁGUA LIMPA JUSANTE",
+    "Codigo": "2043056",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22843",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Barras",
+    "Uf": "PI",
+    "Estacao": "FAZENDA ALEGRIA",
+    "Codigo": "442005",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22846",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Camacan",
+    "Uf": "BA",
+    "Estacao": "FAZENDA NANCY",
+    "Codigo": "1539014",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23649",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Visconde do Rio Branco",
+    "Uf": "MG",
+    "Estacao": "FAZENDA UMBAÚBAS",
+    "Codigo": "2142004",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22083",
+    "TrMax": "95",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Manhuaçu",
+    "Uf": "MG",
+    "Estacao": "FAZENDA VARGEM ALEGRE",
+    "Codigo": "2041048",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17598",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São José dos Pinhais",
+    "Uf": "PR",
+    "Estacao": "FAZENDINHA",
+    "Codigo": "2549017",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23597",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Garuva",
+    "Uf": "SC",
+    "Estacao": "GARUVA",
+    "Codigo": "2648027",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23589",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Dom Pedrito",
+    "Uf": "RS",
+    "Estacao": "GRANJA UMBU",
+    "Codigo": "3054016",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23743",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Estrela",
+    "Uf": "RS",
+    "Estacao": "GUAPORÉ",
+    "Codigo": "2851044",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22862",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Abreu e Lima",
+    "Uf": "PE",
+    "Estacao": "IGARASSU",
+    "Codigo": "734011",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23634",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itaituba",
+    "Uf": "PA",
+    "Estacao": "ITAITUBA",
+    "Codigo": "455001",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17460",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Nova Viçosa",
+    "Uf": "BA",
+    "Estacao": "ITAMARAJU",
+    "Codigo": "1739005",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23650",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itapetininga",
+    "Uf": "SP",
+    "Estacao": "ITAPETININGA",
+    "Codigo": "2348028",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23569",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Carangola",
+    "Uf": "MG",
+    "Estacao": "JUSSARA",
+    "Codigo": "2142009",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22830",
+    "TrMax": "60",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Muriaé",
+    "Uf": "MG",
+    "Estacao": "JUSSARA",
+    "Codigo": "2142009",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23658",
+    "TrMax": "60",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Novo Cruzeiro",
+    "Uf": "MG",
+    "Estacao": "LADAINHA (EFBM)",
+    "Codigo": "1741006",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23656",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lavras da Mangabeira",
+    "Uf": "CE",
+    "Estacao": "LAVRAS DA MANGABEIRA",
+    "Codigo": "638007",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23631",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Fazenda Rio Grande",
+    "Uf": "PR",
+    "Estacao": "MANDIRITUBA",
+    "Codigo": "2549062",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23599",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Marabá",
+    "Uf": "PA",
+    "Estacao": "MARABÁ",
+    "Codigo": "549002",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23613",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Timóteo",
+    "Uf": "MG",
+    "Estacao": "MÁRIO DE CARVALHO",
+    "Codigo": "1942029",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22844",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Almirante Tamandaré",
+    "Uf": "PR",
+    "Estacao": "MONTANTE ATERRO SANITÁRIO (JURUQUI)",
+    "Codigo": "2549077",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23602",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Novo Hamburgo",
+    "Uf": "RS",
+    "Estacao": "MORUNGAVA",
+    "Codigo": "2950061",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23744",
+    "TrMax": "30",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mossoró",
+    "Uf": "RN",
+    "Estacao": "MOSSORÓ",
+    "Codigo": "537037",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17527",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mutum",
+    "Uf": "MG",
+    "Estacao": "MUTUM",
+    "Codigo": "1941019",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22842",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Caraí",
+    "Uf": "MG",
+    "Estacao": "PADRE PARAÍSO",
+    "Codigo": "1741013",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23671",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Palmares",
+    "Uf": "PE",
+    "Estacao": "PALMARES",
+    "Codigo": "835141",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23679",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Capão do Leão",
+    "Uf": "RS",
+    "Estacao": "PEDRO OSÓRIO",
+    "Codigo": "3152013",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23742",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cabo de Santo Agostinho",
+    "Uf": "PE",
+    "Estacao": "PIRAPAMA",
+    "Codigo": "835138",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23638",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ipojuca",
+    "Uf": "PE",
+    "Estacao": "PIRAPAMA",
+    "Codigo": "835138",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23678",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Joinville",
+    "Uf": "SC",
+    "Estacao": "PRIMEIRO SALTO DO CUBATÃO",
+    "Codigo": "2649060",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17514",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Registro",
+    "Uf": "SP",
+    "Estacao": "REGISTRO",
+    "Codigo": "2447026",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23574",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Igrejinha",
+    "Uf": "RS",
+    "Estacao": "RENANIA",
+    "Codigo": "2950026",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22864",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rio Branco",
+    "Uf": "AC",
+    "Estacao": "RIO BRANCO",
+    "Codigo": "967000",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22815",
+    "TrMax": "100",
+    "Observacao": " (INMET)"
+  },
+  {
+    "Municipio": "Rio do Campo",
+    "Uf": "SC",
+    "Estacao": "RIO DO CAMPO",
+    "Codigo": "2650014",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23592",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jaraguá do Sul",
+    "Uf": "SC",
+    "Estacao": "RIO JARAGUÁ",
+    "Codigo": "2649012",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23590",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mafra",
+    "Uf": "SC",
+    "Estacao": "RIO NEGRO",
+    "Codigo": "2649006",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23591",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "João Monlevade",
+    "Uf": "MG",
+    "Estacao": "RIO PIRACICABA",
+    "Codigo": "1943001",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22840",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rio Negrinho",
+    "Uf": "SC",
+    "Estacao": "RIO PRETO DO SUL",
+    "Codigo": "2649016",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23593",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Osasco",
+    "Uf": "SP",
+    "Estacao": "ROSELÂNDIA",
+    "Codigo": "2346287",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23571",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Rio Branco do Sul",
+    "Uf": "PR",
+    "Estacao": "SANTA CRUZ - TIGRE",
+    "Codigo": "2549054",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17511",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São José dos Campos",
+    "Uf": "SP",
+    "Estacao": "SANTA LUZIA",
+    "Codigo": "2345013",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23575",
+    "TrMax": "50",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Caratinga",
+    "Uf": "MG",
+    "Estacao": "SANTO ANTÔNIO DO MANHUAÇU",
+    "Codigo": "1941011",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17529",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Quipapá",
+    "Uf": "PE",
+    "Estacao": "SÃO BENEDITO DO SUL",
+    "Codigo": "835144",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23680",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ilhabela",
+    "Uf": "SP",
+    "Estacao": "SÃO FRANCISCO",
+    "Codigo": "2345057",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23577",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Camaragibe",
+    "Uf": "PE",
+    "Estacao": "SÃO LOURENÇO DA MATA II",
+    "Codigo": "835048",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23639",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Lourenço do Sul",
+    "Uf": "RS",
+    "Estacao": "SÃO LOURENÇO DO SUL",
+    "Codigo": "3151003",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23745",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ervália",
+    "Uf": "MG",
+    "Estacao": "SÃO MIGUEL DO ANTA",
+    "Codigo": "2042016",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17530",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Alto Feliz",
+    "Uf": "RS",
+    "Estacao": "SÃO VENDELINO",
+    "Codigo": "2951027",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23734",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paripueira",
+    "Uf": "AL",
+    "Estacao": "SAÚDE",
+    "Codigo": "935024",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23714",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rurópolis",
+    "Uf": "PA",
+    "Estacao": "SÍTIO SÃO PEDRO",
+    "Codigo": "354000",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23623",
+    "TrMax": "75",
+    "Observacao": "operda pela COHIDRO"
+  },
+  {
+    "Municipio": "Matias Barbosa",
+    "Uf": "MG",
+    "Estacao": "SOBRAJI",
+    "Codigo": "2143021",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23659",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Sumaré",
+    "Uf": "SP",
+    "Estacao": "SUMARÉ",
+    "Codigo": "2247214",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17588",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Teresina",
+    "Uf": "PI",
+    "Estacao": "TERESINA",
+    "Codigo": "542012",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22849",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jacinto Machado",
+    "Uf": "SC",
+    "Estacao": "TIMBE DO SUL",
+    "Codigo": "2849019",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17513",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Timbé do Sul",
+    "Uf": "SC",
+    "Estacao": "TIMBÉ DO SUL",
+    "Codigo": "2849019",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23594",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "União da Vitória",
+    "Uf": "PR",
+    "Estacao": "UNIÃO DA VITÓRIA",
+    "Codigo": "2651000",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23596",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Branquinha",
+    "Uf": "AL",
+    "Estacao": "UNIÃO DOS PALMARES",
+    "Codigo": "936113",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23713",
+    "TrMax": "50",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Cataguases",
+    "Uf": "MG",
+    "Estacao": "USINA MAURÍCIO",
+    "Codigo": "2142006",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22838",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vidal Ramos",
+    "Uf": "SC",
+    "Estacao": "VIDAL RAMOS",
+    "Codigo": "2749033",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23595",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Frei Inocêncio",
+    "Uf": "MG",
+    "Estacao": "VILA MATIAS - MONTANTE",
+    "Codigo": "1841001",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22839",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Além Paraíba",
+    "Uf": "MG",
+    "Estacao": "VOLTA GRANDE",
+    "Codigo": "2142008",
+    "Ano": "2014",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23675",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Almeirim",
+    "Uf": "PA",
+    "Estacao": "ALMEIRIM",
+    "Codigo": "152005",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17463",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Amontada",
+    "Uf": "CE",
+    "Estacao": "AMONTADA",
+    "Codigo": "339000",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23632",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mesquita",
+    "Uf": "RJ",
+    "Estacao": "ANCHIETA",
+    "Codigo": "",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23731",
+    "TrMax": "50",
+    "Observacao": "Alerta Rio"
+  },
+  {
+    "Municipio": "Alenquer",
+    "Uf": "PA",
+    "Estacao": "ARAPARI",
+    "Codigo": "154000",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23610",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Areal",
+    "Uf": "RJ",
+    "Estacao": "AREAL (GRANJA GABI)",
+    "Codigo": "2243013",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23715",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bacabal",
+    "Uf": "MA",
+    "Estacao": "BACABAL",
+    "Codigo": "",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23606",
+    "TrMax": "25",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Baião",
+    "Uf": "PA",
+    "Estacao": "BAIÃO",
+    "Codigo": "249003",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23611",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Boa Vista",
+    "Uf": "RR",
+    "Estacao": "BOA VISTA",
+    "Codigo": "8260000",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17592",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vitória do Mearim",
+    "Uf": "MA",
+    "Estacao": "BOA VISTA DO PINDARÉ",
+    "Codigo": "345012",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23604",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Coruripe",
+    "Uf": "AL",
+    "Estacao": "CAMAÇARI",
+    "Codigo": "1036062",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22821",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cardoso Moreira",
+    "Uf": "RJ",
+    "Estacao": "CARDOSO MOREIRA",
+    "Codigo": "2141003",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22851",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Caucaia",
+    "Uf": "CE",
+    "Estacao": "CAUCAIA",
+    "Codigo": "338009",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23633",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Grajaú",
+    "Uf": "MA",
+    "Estacao": "GRAJAÚ",
+    "Codigo": "546004",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23605",
+    "TrMax": "25",
+    "Observacao": "SUDENE"
+  },
+  {
+    "Municipio": "Eldorado do Sul",
+    "Uf": "RS",
+    "Estacao": "GUAÍBA COUNTRY CLUB",
+    "Codigo": "3051005",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23746",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Maceió",
+    "Uf": "AL",
+    "Estacao": "MACEIÓ",
+    "Codigo": "935005",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22825",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Iranduba",
+    "Uf": "AM",
+    "Estacao": "MANACAPURU",
+    "Codigo": "360001",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23584",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Manacapuru",
+    "Uf": "AM",
+    "Estacao": "MANACAPURU",
+    "Codigo": "360001",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23585",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Manaus",
+    "Uf": "AM",
+    "Estacao": "MANAUS",
+    "Codigo": "360000",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23586",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Manicoré",
+    "Uf": "AM",
+    "Estacao": "MANICORÉ",
+    "Codigo": "561000",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22826",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "São João do Araguaia",
+    "Uf": "PA",
+    "Estacao": "MARABÁ",
+    "Codigo": "549002",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17457",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Monte Alegre",
+    "Uf": "PA",
+    "Estacao": "MONTE ALEGRE",
+    "Codigo": "254002",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23614",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Morretes",
+    "Uf": "PR",
+    "Estacao": "MORRETES",
+    "Codigo": "2548000",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23603",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Óbidos",
+    "Uf": "PA",
+    "Estacao": "ÓBIDOS",
+    "Codigo": "155001",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23615",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Água Preta",
+    "Uf": "PE",
+    "Estacao": "PALMARES",
+    "Codigo": "835141",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23635",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Fortaleza",
+    "Uf": "CE",
+    "Estacao": "PICI",
+    "Codigo": "338001",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23644",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Escada",
+    "Uf": "PE",
+    "Estacao": "PIRAPAMA",
+    "Codigo": "835138",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23642",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bom Jesus do Itabapoana",
+    "Uf": "RJ",
+    "Estacao": "PONTE DO ITABAPOANA",
+    "Codigo": "2141014",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23717",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Porciúncula",
+    "Uf": "RJ",
+    "Estacao": "PORCIUNCULA",
+    "Codigo": "2042027",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22853",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Porto Alegre",
+    "Uf": "RS",
+    "Estacao": "PORTO ALEGRE",
+    "Codigo": "3051011",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/18700",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Prainha",
+    "Uf": "PA",
+    "Estacao": "PRAINHA",
+    "Codigo": "153000",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17459",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Candeias",
+    "Uf": "BA",
+    "Estacao": "SALVADOR - ONDINA",
+    "Codigo": "1338007",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23662",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Lauro de Freitas",
+    "Uf": "BA",
+    "Estacao": "SALVADOR - ONDINA",
+    "Codigo": "1338007",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23666",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Salvador",
+    "Uf": "BA",
+    "Estacao": "SALVADOR - ONDINA",
+    "Codigo": "1338007",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23676",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Aperibé",
+    "Uf": "RJ",
+    "Estacao": "SANTO ANTÔNIO DE PÁDUA",
+    "Codigo": "2142058",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23711",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Miracema",
+    "Uf": "RJ",
+    "Estacao": "SANTO ANTÔNIO DE PÁDUA",
+    "Codigo": "2142058",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23732",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santo Antônio de Pádua",
+    "Uf": "RJ",
+    "Estacao": "SANTO ANTÔNIO DE PÁDUA",
+    "Codigo": "2142058",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22823",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Montes Claros",
+    "Uf": "MG",
+    "Estacao": "SÃO JOÃO DA VEREDA",
+    "Codigo": "1644028",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22875",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paraty",
+    "Uf": "RJ",
+    "Estacao": "SÃO ROQUE",
+    "Codigo": "2344008",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17553",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Saudades",
+    "Uf": "SC",
+    "Estacao": "SAUDADES",
+    "Codigo": "2653007",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22870",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Sobral",
+    "Uf": "CE",
+    "Estacao": "SOBRAL",
+    "Codigo": "340045",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23645",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Sumidouro",
+    "Uf": "RJ",
+    "Estacao": "SUMIDOURO",
+    "Codigo": "2242029",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23724",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Tefé",
+    "Uf": "AM",
+    "Estacao": "TEFÉ",
+    "Codigo": "364000",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22827",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Uarini",
+    "Uf": "AM",
+    "Estacao": "TEFÉ",
+    "Codigo": "364000",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23587",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Tucuruí",
+    "Uf": "PA",
+    "Estacao": "TUCURUÍ",
+    "Codigo": "349000",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23625",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Engenheiro Paulo de Frontin",
+    "Uf": "RJ",
+    "Estacao": "UEL - SANTA CECÍLIA TOMADA D’ÁGUA",
+    "Codigo": "2243205",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23727",
+    "TrMax": "100",
+    "Observacao": "LIGHT"
+  },
+  {
+    "Municipio": "Barra do Piraí",
+    "Uf": "RJ",
+    "Estacao": "UEL - SANTA CECÍLIA TOMADA D’ÁGUA ",
+    "Codigo": "2243205",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23716",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Angra dos Reis",
+    "Uf": "RJ",
+    "Estacao": "VILA MAMBUCABA",
+    "Codigo": "2344016",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23738",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vitória de Santo Antão",
+    "Uf": "PE",
+    "Estacao": "VITÓRIA DE SANTO ANTÃO",
+    "Codigo": "835068",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23681",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Maria Madalena",
+    "Uf": "RJ",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2015",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23726",
+    "TrMax": "100",
+    "Observacao": "Projeto de Chuvas Intensas RJ (2001)"
+  },
+  {
+    "Municipio": "Brejetuba",
+    "Uf": "ES",
+    "Estacao": "AFONSO CLAÚDIO - MONTANTE",
+    "Codigo": "2041023",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17429",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cantagalo",
+    "Uf": "RJ",
+    "Estacao": "ALDEIA",
+    "Codigo": "2142022",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17533",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cordeiro",
+    "Uf": "RJ",
+    "Estacao": "ALDEIA",
+    "Codigo": "2142022",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17544",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Alto Rio Novo",
+    "Uf": "ES",
+    "Estacao": "ALTO RIO NOVO",
+    "Codigo": "1941012",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17419",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Apiaí",
+    "Uf": "SP",
+    "Estacao": "APIAÍ",
+    "Codigo": "2448013",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17566",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Gurupá",
+    "Uf": "PA",
+    "Estacao": "AREIAS",
+    "Codigo": "151002",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17464",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Atílio Vivacqua",
+    "Uf": "ES",
+    "Estacao": "ATÍLIO VIVACQUA",
+    "Codigo": "2041000",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17422",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Barra de São Francisco",
+    "Uf": "ES",
+    "Estacao": "BARRA DE SÃO FRANCISCO",
+    "Codigo": "1840004",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17423",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itapemirim",
+    "Uf": "ES",
+    "Estacao": "BARRA DO ITAPEMIRIM (DNOS)",
+    "Codigo": "2140000",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17439",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Miguel Pereira",
+    "Uf": "RJ",
+    "Estacao": "BARRA DO PIRAÍ",
+    "Codigo": "2243002",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17547",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paty do Alferes",
+    "Uf": "RJ",
+    "Estacao": "BARRA DO PIRAÍ",
+    "Codigo": "2243002",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17558",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vassouras",
+    "Uf": "RJ",
+    "Estacao": "BARRA DO PIRAÍ",
+    "Codigo": "2243002",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17541",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Iporanga",
+    "Uf": "SP",
+    "Estacao": "BARRA DOS PILÕES",
+    "Codigo": "2448015",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17573",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Capivari",
+    "Uf": "SP",
+    "Estacao": "CAPIVARI",
+    "Codigo": "2247110",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17538",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mombuca",
+    "Uf": "SP",
+    "Estacao": "CAPIVARI",
+    "Codigo": "2247110",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17584",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Carmo",
+    "Uf": "RJ",
+    "Estacao": "CARMO",
+    "Codigo": "2142053",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17536",
+    "TrMax": "100",
+    "Observacao": "OMM"
+  },
+  {
+    "Municipio": "Castelo",
+    "Uf": "ES",
+    "Estacao": "CASTELO",
+    "Codigo": "2041002",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17430",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cesário Lange",
+    "Uf": "SP",
+    "Estacao": "CESÁRIO LANGE",
+    "Codigo": "2347017",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17539",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Conchas",
+    "Uf": "SP",
+    "Estacao": "CONCHAS",
+    "Codigo": "2348003",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17535",
+    "TrMax": "35",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Nova Venécia",
+    "Uf": "ES",
+    "Estacao": "CÓRREGO DA BOA ESPERANÇA",
+    "Codigo": "1840019",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17442",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Águas Mornas",
+    "Uf": "SC",
+    "Estacao": "ETA CASAN-MONTANTE",
+    "Codigo": "2748004",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17467",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santo Amaro da Imperatriz",
+    "Uf": "SC",
+    "Estacao": "ETA CASAN-MONTANTE",
+    "Codigo": "2748004",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17522",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Forquilhinha",
+    "Uf": "SC",
+    "Estacao": "FORQUILHINHA",
+    "Codigo": "2849006",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17509",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itirapina",
+    "Uf": "SP",
+    "Estacao": "GRAUNA",
+    "Codigo": "2247015",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17587",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Divino de São Lourenço",
+    "Uf": "ES",
+    "Estacao": "IBITIRAMA",
+    "Codigo": "2041016",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17433",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ibiúna",
+    "Uf": "SP",
+    "Estacao": "IBIUNA",
+    "Codigo": "2347043",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17575",
+    "TrMax": "30",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ipeúna",
+    "Uf": "SP",
+    "Estacao": "IPEUNA",
+    "Codigo": "2247021",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17574",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São João de Meriti",
+    "Uf": "RJ",
+    "Estacao": "IRAJÁ",
+    "Codigo": "",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17549",
+    "TrMax": "60",
+    "Observacao": "Alerta Rio"
+  },
+  {
+    "Municipio": "Itanhaém-Estação ANA",
+    "Uf": "SP",
+    "Estacao": "ITANHAÉM",
+    "Codigo": "2446003",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17568",
+    "TrMax": "70",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itanhaém-Estação DAEE",
+    "Uf": "SP",
+    "Estacao": "ITANHAÉM",
+    "Codigo": "2446003",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17570",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cananéia",
+    "Uf": "SP",
+    "Estacao": "ITAPITANGUI",
+    "Codigo": "2447040",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17561",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itupeva",
+    "Uf": "SP",
+    "Estacao": "ITUPEVA",
+    "Codigo": "2347057",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17586",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ibatiba",
+    "Uf": "ES",
+    "Estacao": "IÚNA",
+    "Codigo": "2041013",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17436",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Iúna",
+    "Uf": "ES",
+    "Estacao": "IÚNA",
+    "Codigo": "2041013",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17440",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Porto Velho",
+    "Uf": "RO",
+    "Estacao": "JACIPARANÁ",
+    "Codigo": "964005",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17520",
+    "TrMax": "30",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lajedinho",
+    "Uf": "BA",
+    "Estacao": "LAJEDINHO",
+    "Codigo": "1240022",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23677",
+    "TrMax": "100",
+    "Observacao": "EMBASA"
+  },
+  {
+    "Municipio": "Conceição de Macabu",
+    "Uf": "RJ",
+    "Estacao": "MACABUZINHO",
+    "Codigo": "2241003",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23722",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rio das Flores",
+    "Uf": "RJ",
+    "Estacao": "MANUEL DUARTE",
+    "Codigo": "2243008",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17554",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Domingos Martins",
+    "Uf": "ES",
+    "Estacao": "MARECHAL FLORIANO (DNOS)",
+    "Codigo": "2040012",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17434",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Dores do Rio Preto",
+    "Uf": "ES",
+    "Estacao": "MARECHAL FLORIANO (DNOS)",
+    "Codigo": "2040012",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17435",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Meleiro",
+    "Uf": "SC",
+    "Estacao": "MELEIRO",
+    "Codigo": "2849005",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17516",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Monte Mor",
+    "Uf": "SP",
+    "Estacao": "MONTE MOR",
+    "Codigo": "2247058",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17583",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Monteiro Lobato",
+    "Uf": "SP",
+    "Estacao": "MONTEIRO LOBATO",
+    "Codigo": "2245054",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17579",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Três Rios",
+    "Uf": "RJ",
+    "Estacao": "MOURA BRASIL",
+    "Codigo": "2243015",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17542",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paraíba do Sul",
+    "Uf": "RJ",
+    "Estacao": "PARAÍBA DO SUL",
+    "Codigo": "2243003",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17552",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Boa Esperança",
+    "Uf": "ES",
+    "Estacao": "PATRIMÔNIO XV",
+    "Codigo": "1840016",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17424",
+    "TrMax": "95",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rancho Queimado",
+    "Uf": "SC",
+    "Estacao": "RANCHO QUEIMADO",
+    "Codigo": "2749020",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17518",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Porto Real",
+    "Uf": "RJ",
+    "Estacao": "RESENDE",
+    "Codigo": "2244092",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17555",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Quatis",
+    "Uf": "RJ",
+    "Estacao": "RIBEIRÃO DE SÃO JOAQUIM",
+    "Codigo": "2244034",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23725",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Petrópolis",
+    "Uf": "RJ",
+    "Estacao": "RIO DA CIDADE",
+    "Codigo": "2243011",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17557",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rio das Pedras",
+    "Uf": "SP",
+    "Estacao": "RIO DAS PEDRAS",
+    "Codigo": "2247044",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17582",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Saltinho",
+    "Uf": "SP",
+    "Estacao": "RIO DAS PEDRAS",
+    "Codigo": "2247044",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17580",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Tubarão",
+    "Uf": "SC",
+    "Estacao": "RIO DO POUSO",
+    "Codigo": "2849000",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17523",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Aurora",
+    "Uf": "SC",
+    "Estacao": "RIO DO SUL - NOVO",
+    "Codigo": "2749039",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17507",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rio do Sul",
+    "Uf": "SC",
+    "Estacao": "RIO DO SUL - NOVO",
+    "Codigo": "2749039",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17521",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Irupi",
+    "Uf": "ES",
+    "Estacao": "SANTA CRUZ - CAPARAÓ",
+    "Codigo": "2041017",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17437",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cordeirópolis",
+    "Uf": "SP",
+    "Estacao": "SANTA GERTRUDES",
+    "Codigo": "2247022",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17577",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Gertrudes",
+    "Uf": "SP",
+    "Estacao": "SANTA GERTRUDES",
+    "Codigo": "2247022",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17594",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Unaí",
+    "Uf": "MG",
+    "Estacao": "SANTO ANTÔNIO DO BOQUEIRÃO",
+    "Codigo": "1646003",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17603",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Francisco de Itabapoana",
+    "Uf": "RJ",
+    "Estacao": "SÃO FRANCISCO PAULA - CACIMBAS",
+    "Codigo": "2141001",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17550",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Comendador Levy Gasparian",
+    "Uf": "RJ",
+    "Estacao": "SOBRAJI",
+    "Codigo": "2143021",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17537",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Duas Barras",
+    "Uf": "RJ",
+    "Estacao": "SUMIDOURO",
+    "Codigo": "2242029",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17545",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itaocara",
+    "Uf": "RJ",
+    "Estacao": "TRÊS IRMÃOS",
+    "Codigo": "2141007",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17546",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Piraí",
+    "Uf": "RJ",
+    "Estacao": "UHE FONTES NOVA DESVIO VARZEA",
+    "Codigo": "2244097",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17556",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Americana",
+    "Uf": "SP",
+    "Estacao": "USINA ESTER",
+    "Codigo": "2247031",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17562",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Sebastião do Alto",
+    "Uf": "RJ",
+    "Estacao": "VISCONDE DE IMBE",
+    "Codigo": "2242017",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17548",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Trajano de Moraes",
+    "Uf": "RJ",
+    "Estacao": "VISCONDE DE IMBE",
+    "Codigo": "2242017",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17543",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pinheiral",
+    "Uf": "RJ",
+    "Estacao": "VOLTA REDONDA",
+    "Codigo": "2244041",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17559",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Volta Redonda",
+    "Uf": "RJ",
+    "Estacao": "VOLTA REDONDA",
+    "Codigo": "2244041",
+    "Ano": "2016",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/17540",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bertioga",
+    "Uf": "SP",
+    "Estacao": "USINA ITATINGA",
+    "Codigo": "2346066",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22115",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Caraguatatuba",
+    "Uf": "SP",
+    "Estacao": "CARAGUATATUBA",
+    "Codigo": "2345051",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22116",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mogi das Cruzes",
+    "Uf": "SP",
+    "Estacao": "FAZENDA SANTO ANGELO",
+    "Codigo": "2346049",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22132",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Salesópolis",
+    "Uf": "SP",
+    "Estacao": "PONTE NOVA",
+    "Codigo": "2345049",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22140",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Suzano",
+    "Uf": "SP",
+    "Estacao": "FAZENDA SANTO ANGELO",
+    "Codigo": "2346049",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22156",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Água Doce do Norte",
+    "Uf": "ES",
+    "Estacao": "ÁGUA DOCE",
+    "Codigo": "1840007",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22042",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Lourenço da Serra",
+    "Uf": "SP",
+    "Estacao": "ALDEINHA",
+    "Codigo": "2346071",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22152",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Venda Nova do Imigrante",
+    "Uf": "ES",
+    "Estacao": "ARACE (FAZENDA MODELO)",
+    "Codigo": "2041020",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22070",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Artur Nogueira",
+    "Uf": "SP",
+    "Estacao": "ARTUR NOGUEIRA",
+    "Codigo": "2247100",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22112",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Arujá",
+    "Uf": "SP",
+    "Estacao": "BAIRRO FAZENDA VELHA",
+    "Codigo": "2346025",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22113",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Barueri",
+    "Uf": "SP",
+    "Estacao": "BAIXO COTIA",
+    "Codigo": "2346002",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22114",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Carapicuíba",
+    "Uf": "SP",
+    "Estacao": "BAIXO COTIA",
+    "Codigo": "2346002",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22110",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jandira",
+    "Uf": "SP",
+    "Estacao": "BAIXO COTIA",
+    "Codigo": "2346002",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22148",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Benedito Novo",
+    "Uf": "SC",
+    "Estacao": "BENEDITO NOVO",
+    "Codigo": "2649003",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22093",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Biritiba-Mirim",
+    "Uf": "SP",
+    "Estacao": "BIRITIBA-MIRIM",
+    "Codigo": "2346101",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22127",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bom Jardim",
+    "Uf": "RJ",
+    "Estacao": "BOM JARDIM",
+    "Codigo": "2242021",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22088",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cachoeiro de Itapemirim",
+    "Uf": "ES",
+    "Estacao": "BURARAMA",
+    "Codigo": "2041021",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22054",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cotia",
+    "Uf": "SP",
+    "Estacao": "CACHOEIRA DA GRAÇA",
+    "Codigo": "2346052",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22124",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Embu das Artes",
+    "Uf": "SP",
+    "Estacao": "CACHOEIRA DA GRAÇA",
+    "Codigo": "2346052",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22122",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Vargem Grande Paulista",
+    "Uf": "SP",
+    "Estacao": "CACHOEIRA DA GRAÇA",
+    "Codigo": "2346052",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22162",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Francisco de Paula",
+    "Uf": "RS",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22092",
+    "TrMax": "200",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Corumbá",
+    "Uf": "MS",
+    "Estacao": "CORUMBÁ",
+    "Codigo": "1857000",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22085",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cariacica",
+    "Uf": "ES",
+    "Estacao": "DUAS BOCAS (DNOS)",
+    "Codigo": "2040014",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22055",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ecoporanga",
+    "Uf": "ES",
+    "Estacao": "ECOPORANGA",
+    "Codigo": "1840013",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22056",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Maria da Serra",
+    "Uf": "SP",
+    "Estacao": "FAZENDA DO BARREIRO RICO",
+    "Codigo": "2248025",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22151",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cabreúva",
+    "Uf": "SP",
+    "Estacao": "FAZENDA PINHAL",
+    "Codigo": "2347020",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22118",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Maracajá",
+    "Uf": "SC",
+    "Estacao": "FOZ DO MANUEL ALVES",
+    "Codigo": "2849024",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22097",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Franco da Rocha",
+    "Uf": "SP",
+    "Estacao": "FRANCO DA ROCHA (HOSP. JUQUERI)",
+    "Codigo": "2346021",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22119",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Fundão",
+    "Uf": "ES",
+    "Estacao": "FUNDÃO",
+    "Codigo": "1940007",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22057",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ibiraçu",
+    "Uf": "ES",
+    "Estacao": "FUNDÃO",
+    "Codigo": "1940007",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22059",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guaçuí",
+    "Uf": "ES",
+    "Estacao": "GUAÇUÍ",
+    "Codigo": "2041001",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22058",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ibitirama",
+    "Uf": "ES",
+    "Estacao": "IBITIRAMA",
+    "Codigo": "2041016",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22063",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Igaratá",
+    "Uf": "SP",
+    "Estacao": "IGARATA",
+    "Codigo": "2346344",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22121",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Imbituba",
+    "Uf": "SC",
+    "Estacao": "IMBITUBA",
+    "Codigo": "2848007",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22096",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Porto de Moz",
+    "Uf": "PA",
+    "Estacao": "ITAPÉUA DO PARÁ",
+    "Codigo": "252001",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22108",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jacareí",
+    "Uf": "SP",
+    "Estacao": "JACAREÍ",
+    "Codigo": "2345024",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22125",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vargem Alta",
+    "Uf": "ES",
+    "Estacao": "JACIGUA (DNOS)",
+    "Codigo": "2041010",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22069",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Juquitiba",
+    "Uf": "SP",
+    "Estacao": "JUQUITIBA",
+    "Codigo": "2347051",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22129",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Laranja da Terra",
+    "Uf": "ES",
+    "Estacao": "LARANJA DA TERRA",
+    "Codigo": "1941008",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22064",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mantenópolis",
+    "Uf": "ES",
+    "Estacao": "MANTENÓPOLIS",
+    "Codigo": "1841009",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22065",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Marechal Deodoro",
+    "Uf": "AL",
+    "Estacao": "MARECHAL DEODORO",
+    "Codigo": "935057",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22028",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mimoso do Sul",
+    "Uf": "ES",
+    "Estacao": "MIMOSO DO SUL",
+    "Codigo": "2141015",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22066",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Chapada do Norte",
+    "Uf": "MG",
+    "Estacao": "MINAS NOVAS",
+    "Codigo": "1742023",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22073",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Miranda",
+    "Uf": "MS",
+    "Estacao": "MIRANDA",
+    "Codigo": "2056001",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22087",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mongaguá",
+    "Uf": "SP",
+    "Estacao": "MONGAGUA",
+    "Codigo": "2446001",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22133",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ferraz de Vasconcelos",
+    "Uf": "SP",
+    "Estacao": "MONTE BELO",
+    "Codigo": "2346040",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22123",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Poá",
+    "Uf": "SP",
+    "Estacao": "MONTE BELO",
+    "Codigo": "2346040",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22139",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Murici",
+    "Uf": "AL",
+    "Estacao": "MURICI - PONTE",
+    "Codigo": "935012",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22029",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Apiúna",
+    "Uf": "SC",
+    "Estacao": "NEISSE CENTRAL",
+    "Codigo": "2749016",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22095",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ascurra",
+    "Uf": "SC",
+    "Estacao": "NEISSE CENTRAL",
+    "Codigo": "2749016",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22094",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Caxias do Sul",
+    "Uf": "RS",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/18173",
+    "TrMax": "200",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Oriximiná",
+    "Uf": "PA",
+    "Estacao": "ORIXIMINÁ",
+    "Codigo": "155000",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23622",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Laje do Muriaé",
+    "Uf": "RJ",
+    "Estacao": "PATROCÍNIO DO MURIAÉ",
+    "Codigo": "2142002",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22089",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Garopaba",
+    "Uf": "SC",
+    "Estacao": "PAULO LOPES",
+    "Codigo": "2748017",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23621",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Linhares",
+    "Uf": "ES",
+    "Estacao": "POVOAÇÃO",
+    "Codigo": "1939002",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22074",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rio Claro",
+    "Uf": "SP",
+    "Estacao": "RIO CLARO",
+    "Codigo": "2247020",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23578",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Rio Novo do Sul",
+    "Uf": "ES",
+    "Estacao": "RIO NOVO DO SUL",
+    "Codigo": "2040013",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22068",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Alegre",
+    "Uf": "ES",
+    "Estacao": "RIVE",
+    "Codigo": "2041003",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22051",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Branca",
+    "Uf": "SP",
+    "Estacao": "SANTA BRANCA",
+    "Codigo": "2345071",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22149",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Isabel",
+    "Uf": "SP",
+    "Estacao": "SANTA ISABEL",
+    "Codigo": "2346019",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22150",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Leopoldina",
+    "Uf": "ES",
+    "Estacao": "SANTA LEOPOLDINA",
+    "Codigo": "2040010",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22067",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cajamar",
+    "Uf": "SP",
+    "Estacao": "SANTANA DE PARNAIBA",
+    "Codigo": "2346033",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22117",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pirapora do Bom Jesus",
+    "Uf": "SP",
+    "Estacao": "SANTANA DE PARNAIBA",
+    "Codigo": "2346033",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22138",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Laranjal do Jari",
+    "Uf": "AP",
+    "Estacao": "SÃO FRANCISCO",
+    "Codigo": "52000",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22040",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Macapá",
+    "Uf": "AP",
+    "Estacao": "SÃO FRANCISCO",
+    "Codigo": "52000",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22041",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Sebastião",
+    "Uf": "SP",
+    "Estacao": "SÃO FRANCISCO",
+    "Codigo": "2345057",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22155",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bom Jesus do Norte",
+    "Uf": "ES",
+    "Estacao": "SÃO JOSÉ DO CALÇADO",
+    "Codigo": "2141016",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22053",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Vendelino",
+    "Uf": "RS",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22086",
+    "TrMax": "200",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mendes",
+    "Uf": "RJ",
+    "Estacao": "UEL SANTA CECÍLIA BARRAMENTO",
+    "Codigo": "2243205",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22090",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "União dos Palmares",
+    "Uf": "AL",
+    "Estacao": "UNIÃO DOS PALMARES",
+    "Codigo": "936113",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22039",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vila Velha",
+    "Uf": "ES",
+    "Estacao": "VITÓRIA",
+    "Codigo": "2040035",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22071",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vitória",
+    "Uf": "ES",
+    "Estacao": "VITÓRIA",
+    "Codigo": "2040035",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22072",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Sebastião do Caí",
+    "Uf": "RS",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2017",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22098",
+    "TrMax": "200",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cordilheira Alta",
+    "Uf": "SC",
+    "Estacao": "CHAPECÓ",
+    "Codigo": "2752016",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21130",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guatambú",
+    "Uf": "SC",
+    "Estacao": "CHAPECÓ",
+    "Codigo": "2752016",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20989",
+    "TrMax": "Outro Autor",
+    "Observacao": "elaboração da equação IDF foi de 1976 a 2005"
+  },
+  {
+    "Municipio": "Natividade da Serra",
+    "Uf": "SP",
+    "Estacao": "ALTO DA SERRA",
+    "Codigo": "2345176",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21139",
+    "TrMax": "Outro Autor",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Caçador",
+    "Uf": "SC",
+    "Estacao": "CAÇADOR",
+    "Codigo": "",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21083",
+    "TrMax": "Outro Autor",
+    "Observacao": "elaboração da equação IDF foi de 1988 a 2005"
+  },
+  {
+    "Municipio": "Abaeté",
+    "Uf": "MG",
+    "Estacao": "ABAETÉ",
+    "Codigo": "1945035",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20909",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Abelardo Luz",
+    "Uf": "SC",
+    "Estacao": "ABELARDO LUZ",
+    "Codigo": "2652000",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20854",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bom Jesus",
+    "Uf": "SC",
+    "Estacao": "ABELARDO LUZ",
+    "Codigo": "2652000",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21129",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Águia Branca",
+    "Uf": "ES",
+    "Estacao": "ÁGUIA BRANCA",
+    "Codigo": "1840000",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20801",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paraibuna",
+    "Uf": "SP",
+    "Estacao": "ALFERES",
+    "Codigo": "2345034",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20870",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Arcos",
+    "Uf": "MG",
+    "Estacao": "ARCOS (COPASA)",
+    "Codigo": "2045010",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20908",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Engenheiro Coelho",
+    "Uf": "SP",
+    "Estacao": "ARTUR NOGUEIRA",
+    "Codigo": "2247100",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21137",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Hortolândia",
+    "Uf": "SP",
+    "Estacao": "BAIRRO PAVIOLI",
+    "Codigo": "2247050",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20804",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bambuí",
+    "Uf": "MG",
+    "Estacao": "BAMBUÍ",
+    "Codigo": "2045001",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20907",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Arapeí",
+    "Uf": "SP",
+    "Estacao": "BANANAL",
+    "Codigo": "2244133",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23580",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bananal",
+    "Uf": "SP",
+    "Estacao": "BANANAL",
+    "Codigo": "2244133",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20889",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vila Valério",
+    "Uf": "ES",
+    "Estacao": "BARRA DE SÃO GABRIEL",
+    "Codigo": "1940016",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20857",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Marataízes",
+    "Uf": "ES",
+    "Estacao": "BARRA DO ITAPEMIRIM (DNOS)",
+    "Codigo": "2140000",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21080",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bento Gonçalves",
+    "Uf": "RS",
+    "Estacao": "BENTO GONÇALVES",
+    "Codigo": "2951003",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20842",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Aparecida",
+    "Uf": "SP",
+    "Estacao": "BONFIM",
+    "Codigo": "2245053",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23579",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Roseira",
+    "Uf": "SP",
+    "Estacao": "BONFIM",
+    "Codigo": "2245053",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20886",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Arvoredo",
+    "Uf": "SC",
+    "Estacao": "BONITO",
+    "Codigo": "2652001",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21125",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lajeado Grande",
+    "Uf": "SC",
+    "Estacao": "BONITO",
+    "Codigo": "2652001",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21123",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Xanxerê",
+    "Uf": "SC",
+    "Estacao": "BONITO",
+    "Codigo": "2652001",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20789",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Caeté",
+    "Uf": "MG",
+    "Estacao": "CAETÉ",
+    "Codigo": "1943010",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20855",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Calmon",
+    "Uf": "SC",
+    "Estacao": "CALMON",
+    "Codigo": "2651044",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20891",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Concórdia",
+    "Uf": "SC",
+    "Estacao": "CONCORDIA",
+    "Codigo": "2752005",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20853",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Presidente Castello Branco",
+    "Uf": "SC",
+    "Estacao": "CONCORDIA",
+    "Codigo": "2752005",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21136",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cruzeiro",
+    "Uf": "SP",
+    "Estacao": "CRUZEIRO",
+    "Codigo": "2244004",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20856",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lavrinhas",
+    "Uf": "SP",
+    "Estacao": "CRUZEIRO",
+    "Codigo": "2244004",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21124",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Piquete",
+    "Uf": "SP",
+    "Estacao": "CRUZEIRO",
+    "Codigo": "2244004",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21126",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lagoinha",
+    "Uf": "SP",
+    "Estacao": "FAXINAL",
+    "Codigo": "2345006",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20883",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Passa Tempo",
+    "Uf": "MG",
+    "Estacao": "FAZENDA CAMPO GRANDE",
+    "Codigo": "2044009",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20895",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santo Antônio de Posse",
+    "Uf": "SP",
+    "Estacao": "FAZENDA CHAPADÃO",
+    "Codigo": "2246020",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20885",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Holambra",
+    "Uf": "SP",
+    "Estacao": "FAZENDA HOLAMBRA",
+    "Codigo": "2247028",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20803",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cachoeira Paulista",
+    "Uf": "SP",
+    "Estacao": "FAZENDA SANTA CLARA (EX BOCAINA)",
+    "Codigo": "2244010",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21142",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Gonçalo do Abaeté",
+    "Uf": "MG",
+    "Estacao": "FAZENDA SÃO FÉLIX",
+    "Codigo": "1845002",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20892",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Goiânia",
+    "Uf": "GO",
+    "Estacao": "GOIÂNIA",
+    "Codigo": "1649013",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20802",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Irani",
+    "Uf": "SC",
+    "Estacao": "IRANI",
+    "Codigo": "2751011",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20848",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paial",
+    "Uf": "SC",
+    "Estacao": "ITATIBA DO SUL",
+    "Codigo": "2752017",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23616",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Seara",
+    "Uf": "SC",
+    "Estacao": "ITATIBA DO SUL",
+    "Codigo": "2752017",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20791",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jaguariúna",
+    "Uf": "SP",
+    "Estacao": "JAGUARIUNA",
+    "Codigo": "2247055",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20888",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jambeiro",
+    "Uf": "SP",
+    "Estacao": "JAMBEIRO",
+    "Codigo": "2345022",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20806",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Catanduvas",
+    "Uf": "SC",
+    "Estacao": "JOAÇABA",
+    "Codigo": "2751004",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23617",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jaborá",
+    "Uf": "SC",
+    "Estacao": "JOAÇABA",
+    "Codigo": "2751004",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21141",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Joaçaba",
+    "Uf": "SC",
+    "Estacao": "JOAÇABA",
+    "Codigo": "2751004",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21148",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Luzerna",
+    "Uf": "SC",
+    "Estacao": "JOAÇABA",
+    "Codigo": "2751004",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21149",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lagoa da Prata",
+    "Uf": "MG",
+    "Estacao": "LAGOA DA PRATA",
+    "Codigo": "2045011",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20894",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Tiros",
+    "Uf": "MG",
+    "Estacao": "LAGOA DO GOUVÉIA",
+    "Codigo": "1845004",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20897",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itapecerica",
+    "Uf": "MG",
+    "Estacao": "LAMOUNIER",
+    "Codigo": "2045005",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20905",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Canas",
+    "Uf": "SP",
+    "Estacao": "LORENA",
+    "Codigo": "2245020",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21138",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lorena",
+    "Uf": "SP",
+    "Estacao": "LORENA",
+    "Codigo": "2245020",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21145",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ipuaçu",
+    "Uf": "SC",
+    "Estacao": "MARATA",
+    "Codigo": "2652002",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20846",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Morungaba",
+    "Uf": "SP",
+    "Estacao": "MORUNGABA",
+    "Codigo": "2246034",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20887",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Brunópolis",
+    "Uf": "SC",
+    "Estacao": "PASSO MAROMBAS",
+    "Codigo": "2750009",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21127",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Curitibanos",
+    "Uf": "SC",
+    "Estacao": "PASSO MAROMBAS",
+    "Codigo": "2750009",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20859",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Frei Rogério",
+    "Uf": "SC",
+    "Estacao": "PASSO MAROMBAS",
+    "Codigo": "2750009",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21131",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pedreira",
+    "Uf": "SP",
+    "Estacao": "PEDREIRA",
+    "Codigo": "2246028",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20871",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ponte Alta do Norte",
+    "Uf": "SC",
+    "Estacao": "PONTE ALTA DO NORTE",
+    "Codigo": "2750010",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21150",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Cecília",
+    "Uf": "SC",
+    "Estacao": "PONTE ALTA DO NORTE",
+    "Codigo": "2750010",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23618",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paraopeba",
+    "Uf": "MG",
+    "Estacao": "PONTE DA TAQUARA",
+    "Codigo": "1944031",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20904",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Cristovão do Sul",
+    "Uf": "SC",
+    "Estacao": "PONTE DO RIO ANTINHAS",
+    "Codigo": "2750012",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20799",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Flor do Sertão",
+    "Uf": "SC",
+    "Estacao": "PONTE DO SARGENTO",
+    "Codigo": "2653004",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20890",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jaguaré",
+    "Uf": "ES",
+    "Estacao": "PONTE NOVA (BR-101)",
+    "Codigo": "1840008",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21132",
+    "TrMax": "60",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Sooretama",
+    "Uf": "ES",
+    "Estacao": "PONTE NOVA (BR-101)",
+    "Codigo": "1840008",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21128",
+    "TrMax": "60",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Areias",
+    "Uf": "SP",
+    "Estacao": "QUELUZ",
+    "Codigo": "2244001",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23581",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Queluz",
+    "Uf": "SP",
+    "Estacao": "QUELUZ",
+    "Codigo": "2244001",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20858",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Redenção da Serra",
+    "Uf": "SP",
+    "Estacao": "REDENÇÃO DA SERRA",
+    "Codigo": "2345023",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20860",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Canoinhas",
+    "Uf": "SC",
+    "Estacao": "SALTO CANOINHAS",
+    "Codigo": "2650000",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20896",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santo Antônio do Monte",
+    "Uf": "MG",
+    "Estacao": "SANTO ANTÔNIO DO MONTE",
+    "Codigo": "2045013",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20893",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São José do Barreiro",
+    "Uf": "SP",
+    "Estacao": "SÃO JOSÉ DO BARREIRO",
+    "Codigo": "2244100",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20884",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guaraciaba",
+    "Uf": "SC",
+    "Estacao": "SÃO JOSÉ DO CEDRO",
+    "Codigo": "2653005",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23619",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São José do Cedro",
+    "Uf": "SC",
+    "Estacao": "SÃO JOSÉ DO CEDRO",
+    "Codigo": "2653005",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20792",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São José do Cerrito",
+    "Uf": "SC",
+    "Estacao": "SÃO JOSÉ DO CERRITO",
+    "Codigo": "2750020",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20798",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Lourenço do Oeste",
+    "Uf": "SC",
+    "Estacao": "SÃO LOURENÇO DO OESTE",
+    "Codigo": "2652031",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20797",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Caxambu do Sul",
+    "Uf": "SC",
+    "Estacao": "SAUDADES",
+    "Codigo": "2653007",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20992",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Nova Itaberaba",
+    "Uf": "SC",
+    "Estacao": "SAUDADES",
+    "Codigo": "2653007",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23620",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Planalto Alegre",
+    "Uf": "SC",
+    "Estacao": "SAUDADES",
+    "Codigo": "2653007",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21081",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Silveiras",
+    "Uf": "SP",
+    "Estacao": "SILVEIRAS",
+    "Codigo": "2244007",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20872",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cosmópolis",
+    "Uf": "SP",
+    "Estacao": "USINA ESTER",
+    "Codigo": "2247031",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21140",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Nova Odessa",
+    "Uf": "SP",
+    "Estacao": "USINA ESTER",
+    "Codigo": "2247031",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21144",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Paulínia",
+    "Uf": "SP",
+    "Estacao": "USINA ESTER",
+    "Codigo": "2247031",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21143",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Barcarena",
+    "Uf": "PA",
+    "Estacao": "VILA DO CONDE",
+    "Codigo": "148011",
+    "Ano": "2018",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/20851",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Anita Garibaldi",
+    "Uf": "SC",
+    "Estacao": "ANITA GARIBALDI",
+    "Codigo": "2751001",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22866",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Valinhos",
+    "Uf": "SP",
+    "Estacao": "CAMPINAS - IA",
+    "Codigo": "2247046",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22159",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vinhedo",
+    "Uf": "SP",
+    "Estacao": "CAMPINAS - IA",
+    "Codigo": "2247046",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22164",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Votorantim",
+    "Uf": "SP",
+    "Estacao": "EDEN",
+    "Codigo": "2347028",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22165",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jarinu",
+    "Uf": "SP",
+    "Estacao": "FAZENDA PRIMAVERA",
+    "Codigo": "2346329",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22128",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Bárbara d' Oeste",
+    "Uf": "SP",
+    "Estacao": "FAZENDA SÃO PEDRO",
+    "Codigo": "2247039",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22144",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vazante",
+    "Uf": "MG",
+    "Estacao": "GUARDA-MOR",
+    "Codigo": "1747005",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22084",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Indaiatuba",
+    "Uf": "SP",
+    "Estacao": "INDAIATUBA",
+    "Codigo": "2347007",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22126",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Louveira",
+    "Uf": "SP",
+    "Estacao": "JUNDIAÍ",
+    "Codigo": "2346097",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22130",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Várzea Paulista",
+    "Uf": "SP",
+    "Estacao": "JUNDIAÍ",
+    "Codigo": "2346097",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22163",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lebon Régis",
+    "Uf": "SC",
+    "Estacao": "LEBON RÉGIS",
+    "Codigo": "2650019",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22868",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Alumínio",
+    "Uf": "SP",
+    "Estacao": "MAIRINQUE",
+    "Codigo": "2347038",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22109",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mairinque",
+    "Uf": "SP",
+    "Estacao": "MAIRINQUE",
+    "Codigo": "2347038",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22131",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Roque",
+    "Uf": "SP",
+    "Estacao": "MAIRINQUE",
+    "Codigo": "2347038",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22154",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pedra Bela",
+    "Uf": "SP",
+    "Estacao": "PEDRA BELA",
+    "Codigo": "2246095",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22134",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Piedade",
+    "Uf": "SP",
+    "Estacao": "PIEDADE",
+    "Codigo": "2347047",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22135",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pinhalzinho",
+    "Uf": "SP",
+    "Estacao": "PINHALZINHO",
+    "Codigo": "2246025",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22137",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Tuiuti",
+    "Uf": "SP",
+    "Estacao": "PINHALZINHO",
+    "Codigo": "2246025",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22158",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Irineópolis",
+    "Uf": "SC",
+    "Estacao": "PINHEIROS",
+    "Codigo": "2650018",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23668",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Barra Bonita",
+    "Uf": "SC",
+    "Estacao": "PONTE DO SARGENTO",
+    "Codigo": "2653004",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21082",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Romelândia",
+    "Uf": "SC",
+    "Estacao": "PONTE DO SARGENTO",
+    "Codigo": "2653004",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21012",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Salto de Pirapora",
+    "Uf": "SP",
+    "Estacao": "SALTO DE PIRAPORA",
+    "Codigo": "2347060",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22141",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Sarapuí",
+    "Uf": "SP",
+    "Estacao": "SANTA CRUZ DOS MOTAS",
+    "Codigo": "2347149",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22160",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Araçariguama",
+    "Uf": "SP",
+    "Estacao": "SANTANA DE PARNAIBA",
+    "Codigo": "2346033",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22111",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Miguel Arcanjo",
+    "Uf": "SP",
+    "Estacao": "SÃO MIGUEL ARCANJO",
+    "Codigo": "2347050",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22153",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Tapiraí",
+    "Uf": "SP",
+    "Estacao": "TAPIRAÍ",
+    "Codigo": "2347053",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22157",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pilar do Sul",
+    "Uf": "SP",
+    "Estacao": "USINA BATISTA",
+    "Codigo": "2347049",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22136",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Vargem",
+    "Uf": "SP",
+    "Estacao": "VARGEM (US. FLORES - CPFL)",
+    "Codigo": "2246035",
+    "Ano": "2019",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22161",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Piracicaba",
+    "Uf": "SP",
+    "Estacao": "PIRACICABA (SEMAE)",
+    "Codigo": "2247094",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23582",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Mateus Leme/Alto da Boa Vista",
+    "Uf": "MG",
+    "Estacao": "ALTO DA BOA VISTA",
+    "Codigo": "2044021",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21957",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Analândia",
+    "Uf": "SP",
+    "Estacao": "ANALÂNDIA",
+    "Codigo": "2247004",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21946",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Barão de Grajaú",
+    "Uf": "MA",
+    "Estacao": "BARÃO DE GRAJAÚ",
+    "Codigo": "643013",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21932",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Alambari",
+    "Uf": "SP",
+    "Estacao": "CAMPO DO PAIOL",
+    "Codigo": "2348018",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21945",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rafard",
+    "Uf": "SP",
+    "Estacao": "CAPIVARI",
+    "Codigo": "2247110",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22368",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Codó",
+    "Uf": "MA",
+    "Estacao": "CODÓ",
+    "Codigo": "443006",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21933",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Leme",
+    "Uf": "SP",
+    "Estacao": "CRESCIUMAL",
+    "Codigo": "2247005",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21951",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Elias Fausto",
+    "Uf": "SP",
+    "Estacao": "ELIAS FAUSTO",
+    "Codigo": "2347004",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21949",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Rio Largo",
+    "Uf": "AL",
+    "Estacao": "FAZENDA BOA FORTUNA",
+    "Codigo": "935056",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21930",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itaúna",
+    "Uf": "MG",
+    "Estacao": "FAZENDA LARANJEIRAS - JUSANTE",
+    "Codigo": "2044041",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21956",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Araras",
+    "Uf": "SP",
+    "Estacao": "FAZENDA SANTANA (FAZ. SÃO BENTO)",
+    "Codigo": "2247011",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21947",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Conchal",
+    "Uf": "SP",
+    "Estacao": "FAZENDA SANTANA (FAZ. SÃO BENTO)",
+    "Codigo": "2247011",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22371",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Tatuí",
+    "Uf": "SP",
+    "Estacao": "FAZENDA SÃO MATEUS",
+    "Codigo": "2347058",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21954",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jequitibá",
+    "Uf": "MG",
+    "Estacao": "FAZENDA VARGEM BONITA",
+    "Codigo": "1944024",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21935",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guarani",
+    "Uf": "MG",
+    "Estacao": "GUARANI",
+    "Codigo": "2143001",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21934",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Boituva",
+    "Uf": "SP",
+    "Estacao": "IPERO",
+    "Codigo": "2347025",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21948",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Charqueada",
+    "Uf": "SP",
+    "Estacao": "IPEUNA",
+    "Codigo": "2247021",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22367",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Juatuba",
+    "Uf": "MG",
+    "Estacao": "JUATUBA",
+    "Codigo": "1944027",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21972",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Laranjal Paulista",
+    "Uf": "SP",
+    "Estacao": "LARANJAL PAULISTA",
+    "Codigo": "2347005",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21950",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Luzilândia",
+    "Uf": "PI",
+    "Estacao": "LUZILÂNDIA (PORTO ALEGRE)",
+    "Codigo": "342004",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21939",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Oeiras",
+    "Uf": "PI",
+    "Estacao": "OEIRAS",
+    "Codigo": "",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21940",
+    "TrMax": "65",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Borja",
+    "Uf": "RS",
+    "Estacao": "PASSO SÃO BORJA",
+    "Codigo": "2856006",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21943",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Porto Feliz",
+    "Uf": "SP",
+    "Estacao": "PORTO FELIZ",
+    "Codigo": "2347014",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21952",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Porto Lucena",
+    "Uf": "RS",
+    "Estacao": "PORTO LUCENA",
+    "Codigo": "2755001",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21942",
+    "TrMax": "1015",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rio Novo",
+    "Uf": "MG",
+    "Estacao": "RIO NOVO",
+    "Codigo": "2143018",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21936",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Salto",
+    "Uf": "SP",
+    "Estacao": "SALTO",
+    "Codigo": "2347145",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21953",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Iracemápolis",
+    "Uf": "SP",
+    "Estacao": "SANTA GERTRUDES",
+    "Codigo": "2247022",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22370",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santana do Mundaú",
+    "Uf": "AL",
+    "Estacao": "SANTANA DO MUNDAÚ",
+    "Codigo": "936114",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21931",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santo Hipólito",
+    "Uf": "MG",
+    "Estacao": "SANTO HIPÓLITO",
+    "Codigo": "1844001",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21938",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mateus Leme/Serra Azul",
+    "Uf": "MG",
+    "Estacao": "SERRA AZUL",
+    "Codigo": "2044054",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21958",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cerquilho",
+    "Uf": "SP",
+    "Estacao": "TIETÊ",
+    "Codigo": "2347056",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22372",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jumirim",
+    "Uf": "SP",
+    "Estacao": "TIETÊ",
+    "Codigo": "2347056",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22369",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Tietê",
+    "Uf": "SP",
+    "Estacao": "TIETÊ",
+    "Codigo": "2347056",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21955",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Uruguaiana",
+    "Uf": "RS",
+    "Estacao": "URUGUAIANA",
+    "Codigo": "2957001",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21944",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Xapuri",
+    "Uf": "AC",
+    "Estacao": "XAPURI",
+    "Codigo": "1068000",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21929",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Caxias do Sul",
+    "Uf": "RS",
+    "Estacao": "NOVA PALMIRA",
+    "Codigo": "2951022",
+    "Ano": "2020",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/21941",
+    "TrMax": "30",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Mariana",
+    "Uf": "MG",
+    "Estacao": "ACAIACA - JUSANTE",
+    "Codigo": "2043009",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22409",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bofete",
+    "Uf": "SP",
+    "Estacao": "BOFETE",
+    "Codigo": "2348005",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22416",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Caconde",
+    "Uf": "SP",
+    "Estacao": "CACONDE",
+    "Codigo": "2146007",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22417",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lagoa da Confusão",
+    "Uf": "TO",
+    "Estacao": "DUERE",
+    "Codigo": "1149000",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22426",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Júlio Mesquita",
+    "Uf": "SP",
+    "Estacao": "FAZENDA CHANTEBLED",
+    "Codigo": "2149030",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22423",
+    "TrMax": "30",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Aparecida de Goiânia",
+    "Uf": "GO",
+    "Estacao": "GOIÂNIA",
+    "Codigo": "1649013",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22433",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guareí",
+    "Uf": "SP",
+    "Estacao": "GUAREI",
+    "Codigo": "2348014",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22419",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Iperó",
+    "Uf": "SP",
+    "Estacao": "IPERO",
+    "Codigo": "2347025",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22420",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itapira",
+    "Uf": "SP",
+    "Estacao": "ITAPIRA",
+    "Codigo": "2246013",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22421",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Miracema do Tocantins",
+    "Uf": "TO",
+    "Estacao": "MIRACEMA DO TOCANTINS",
+    "Codigo": "948000",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22427",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Tereza do Tocantins",
+    "Uf": "TO",
+    "Estacao": "NOVO ACORDO",
+    "Codigo": "1047001",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22432",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Olímpia",
+    "Uf": "SP",
+    "Estacao": "OLÍMPIA",
+    "Codigo": "2048047",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22424",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Joaquim Nabuco",
+    "Uf": "PE",
+    "Estacao": "PALMARES",
+    "Codigo": "835141",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22411",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Xexéu",
+    "Uf": "PE",
+    "Estacao": "PALMARES",
+    "Codigo": "835141",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22413",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pouso Alegre",
+    "Uf": "MG",
+    "Estacao": "PONTE DO RODRIGUES",
+    "Codigo": "2245086",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22410",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Rifaina",
+    "Uf": "SP",
+    "Estacao": "RIFAINA",
+    "Codigo": "2047005",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22425",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Araçoiaba da Serra",
+    "Uf": "SP",
+    "Estacao": "SALTO DE PIRAPORA",
+    "Codigo": "2347060",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22415",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pirajuí",
+    "Uf": "SP",
+    "Estacao": "SÃO FRANCISCO DA CORREDEIRA",
+    "Codigo": "2249005",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22422",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Lourenço da Mata",
+    "Uf": "PE",
+    "Estacao": "SÃO LOURENÇO DA MATA II",
+    "Codigo": "835048",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22412",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Divinolândia",
+    "Uf": "SP",
+    "Estacao": "SÃO SEBASTIÃO DA GRAMA",
+    "Codigo": "2146010",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22418",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Capivari de Baixo",
+    "Uf": "SC",
+    "Estacao": "TUBARÃO",
+    "Codigo": "2849027",
+    "Ano": "2021",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/22414",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Brumadinho",
+    "Uf": "MG",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23239",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Mário Campos",
+    "Uf": "MG",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23238",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Pedro Leopoldo",
+    "Uf": "MG",
+    "Estacao": "PEDRO LEOPOLDO",
+    "Codigo": "1944009",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23388",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Sarzedo",
+    "Uf": "MG",
+    "Estacao": "",
+    "Codigo": "",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23240",
+    "TrMax": "Outro Autor",
+    "Observacao": "Equação regional da RMBH"
+  },
+  {
+    "Municipio": "Altinópolis",
+    "Uf": "SP",
+    "Estacao": "ALTINÓPOLIS",
+    "Codigo": "2147001",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23257",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Alvorada",
+    "Uf": "TO",
+    "Estacao": "ALVORADA",
+    "Codigo": "1249000",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23228",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Campo Belo do Sul",
+    "Uf": "SC",
+    "Estacao": "ANITA GARIBALDI",
+    "Codigo": "2751001",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23253",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Brasília",
+    "Uf": "DF",
+    "Estacao": "BRASÍLIA",
+    "Codigo": "1547004",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23227",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Igarapava",
+    "Uf": "SP",
+    "Estacao": "CANINDÉ",
+    "Codigo": "2047007",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23258",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Castanhal ",
+    "Uf": "PA",
+    "Estacao": "CASTANHAL",
+    "Codigo": "147007",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23243",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cristais Paulista",
+    "Uf": "SP",
+    "Estacao": "CRISTAIS PAULISTA",
+    "Codigo": "2047060",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23328",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cruzeiro do Sul ",
+    "Uf": "AC",
+    "Estacao": "CRUZEIRO DO SUL",
+    "Codigo": "772000",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23219",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Campo Grande",
+    "Uf": "MS",
+    "Estacao": "DNOS - 8.DRS",
+    "Codigo": "2054014",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23241",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ribeirão Bonito",
+    "Uf": "SP",
+    "Estacao": "DOURADO",
+    "Codigo": "2248009",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23262",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Trabiju",
+    "Uf": "SP",
+    "Estacao": "DOURADO",
+    "Codigo": "2248009",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23266",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Aliança do Tocantins",
+    "Uf": "TO",
+    "Estacao": "DUERE",
+    "Codigo": "1149000",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23267",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Parauapebas",
+    "Uf": "PA",
+    "Estacao": "ELDORADO",
+    "Codigo": "649002",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23244",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Bicas",
+    "Uf": "MG",
+    "Estacao": "ESTEVÃO PINTO",
+    "Codigo": "2143013",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23224",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guarará",
+    "Uf": "MG",
+    "Estacao": "ESTEVÃO PINTO",
+    "Codigo": "2143013",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23231",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Altos",
+    "Uf": "PI",
+    "Estacao": "FAZENDA ALEGRIA",
+    "Codigo": "442005",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23249",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Canaã dos Carajás",
+    "Uf": "PA",
+    "Estacao": "FAZENDA SANTA ELISA",
+    "Codigo": "649001",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23242",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jeriquara",
+    "Uf": "SP",
+    "Estacao": "FAZENDA VISTA LINDA",
+    "Codigo": "2047100",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23259",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Formoso do Araguaia ",
+    "Uf": "TO",
+    "Estacao": "FORMOSO DO ARAGUAIA",
+    "Codigo": "1149001",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23229",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Gurupi",
+    "Uf": "TO",
+    "Estacao": "FORMOSO DO ARAGUAIA",
+    "Codigo": "1149001",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23230",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itamaraju",
+    "Uf": "BA",
+    "Estacao": "ITAMARAJU",
+    "Codigo": "1739005",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23222",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Jucati",
+    "Uf": "PE",
+    "Estacao": "JUCATI (PINDORAMA)",
+    "Codigo": "836020",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23256",
+    "TrMax": "100",
+    "Observacao": "SUDENE, APAC"
+  },
+  {
+    "Municipio": "Jupi",
+    "Uf": "PE",
+    "Estacao": "JUCATI (PINDORAMA)",
+    "Codigo": "836020",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23247",
+    "TrMax": "100",
+    "Observacao": "SUDENE, APAC"
+  },
+  {
+    "Municipio": "Juquiá",
+    "Uf": "SP",
+    "Estacao": "JUQUIÁ",
+    "Codigo": "2447046",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23260",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Calçado",
+    "Uf": "PE",
+    "Estacao": "LAJEDO",
+    "Codigo": "",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23246",
+    "TrMax": "100",
+    "Observacao": "APAC"
+  },
+  {
+    "Municipio": "Lajedo",
+    "Uf": "PE",
+    "Estacao": "LAJEDO",
+    "Codigo": "",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23248",
+    "TrMax": "100",
+    "Observacao": "APAC"
+  },
+  {
+    "Municipio": "Maranguape",
+    "Uf": "CE",
+    "Estacao": "MARANGUAPE",
+    "Codigo": "338016",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23225",
+    "TrMax": "100",
+    "Observacao": "FUNCEME"
+  },
+  {
+    "Municipio": "Luisburgo",
+    "Uf": "MG",
+    "Estacao": "MATIPÓ",
+    "Codigo": "2042017",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23233",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São João do Manhuaçu",
+    "Uf": "MG",
+    "Estacao": "MATIPÓ",
+    "Codigo": "2042017",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23234",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Gravataí",
+    "Uf": "RS",
+    "Estacao": "MORUNGAVA",
+    "Codigo": "2950061",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23252",
+    "TrMax": "30",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lauro Müller",
+    "Uf": "SC",
+    "Estacao": "ORLEANS - MONTANTE",
+    "Codigo": "2849001",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23254",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Orleans",
+    "Uf": "SC",
+    "Estacao": "ORLEANS - MONTANTE",
+    "Codigo": "2849001",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23255",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Palmácia",
+    "Uf": "CE",
+    "Estacao": "PALMACIA",
+    "Codigo": "438114",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23226",
+    "TrMax": "100",
+    "Observacao": "FUNCEME"
+  },
+  {
+    "Municipio": "Miracatu",
+    "Uf": "SP",
+    "Estacao": "PEDRO BARROS",
+    "Codigo": "2447043",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23261",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ferreira Gomes",
+    "Uf": "AP",
+    "Estacao": "PORTO ARIRI",
+    "Codigo": "8051010",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23220",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Tucumã ",
+    "Uf": "PA",
+    "Estacao": "PROJETO TUCUMÃ",
+    "Codigo": "651002",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23245",
+    "TrMax": "50",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ribas do Rio Pardo",
+    "Uf": "MS",
+    "Estacao": "RIBAS DO RIO PARDO",
+    "Codigo": "2053000",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23329",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santo Antônio da Alegria",
+    "Uf": "SP",
+    "Estacao": "SANTO ANTÔNIO DA ALEGRIA",
+    "Codigo": "2147003",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23265",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Cachoeirinha",
+    "Uf": "RS",
+    "Estacao": "SAPUCAIA DO SUL",
+    "Codigo": "2951028",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23250",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pedra Branca do Amapari",
+    "Uf": "AP",
+    "Estacao": "SERRA DO NAVIO",
+    "Codigo": "8052000",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23221",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Serro",
+    "Uf": "MG",
+    "Estacao": "SERRO",
+    "Codigo": "1843011",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23387",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Lavras",
+    "Uf": "MG",
+    "Estacao": "USINA COURO DO CERVO",
+    "Codigo": "2145007",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23232",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Cairu",
+    "Uf": "BA",
+    "Estacao": "VALENÇA",
+    "Codigo": "1339038",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23389",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Brasiléia",
+    "Uf": "AC",
+    "Estacao": "XAPURI",
+    "Codigo": "1068000",
+    "Ano": "2022",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/23216",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Itararé",
+    "Uf": "SP",
+    "Estacao": "ITARARÉ",
+    "Codigo": "2449002",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24515",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "São Simão",
+    "Uf": "SP",
+    "Estacao": "SÃO SIMÃO",
+    "Codigo": "2147049",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24563",
+    "TrMax": "Outro Autor",
+    "Observacao": "OMM"
+  },
+  {
+    "Municipio": "Serrana",
+    "Uf": "SP",
+    "Estacao": "SERRANA",
+    "Codigo": "2147007",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24590",
+    "TrMax": "Outro Autor",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Birigui",
+    "Uf": "SP",
+    "Estacao": "BIRIGUI",
+    "Codigo": "2150015",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24512",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Ribeirão Preto",
+    "Uf": "SP",
+    "Estacao": "CLUBE DE REGATAS",
+    "Codigo": "2147004",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24527",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Cravinhos",
+    "Uf": "SP",
+    "Estacao": "CRAVINHOS",
+    "Codigo": "2147014",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24574",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Pontal",
+    "Uf": "SP",
+    "Estacao": "DESENGANO",
+    "Codigo": "2048033",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24586",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Araçatuba",
+    "Uf": "SP",
+    "Estacao": "DESTIVALE",
+    "Codigo": "2150001",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24508",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Luís Antônio",
+    "Uf": "SP",
+    "Estacao": "FAZENDA CAPÃO DA CRUZ",
+    "Codigo": "2147016",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24581",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Sales Oliveira",
+    "Uf": "SP",
+    "Estacao": "FAZENDA CONQUISTA",
+    "Codigo": "2047027",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24528",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Dumont",
+    "Uf": "SP",
+    "Estacao": "FAZENDA RESFRIADO",
+    "Codigo": "2147013",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24575",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Ourinhos",
+    "Uf": "SP",
+    "Estacao": "FAZENDA SANTA LÚCIA",
+    "Codigo": "2249058",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24519",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Guararapes",
+    "Uf": "SP",
+    "Estacao": "GUARARAPES",
+    "Codigo": "2150013",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24514",
+    "TrMax": "50",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Guariba",
+    "Uf": "SP",
+    "Estacao": "GUARIBA",
+    "Codigo": "2148021",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24576",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Jardinópolis",
+    "Uf": "SP",
+    "Estacao": "JARDINÓPOLIS",
+    "Codigo": "2147092",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24580",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "João Pessoa",
+    "Uf": "PB",
+    "Estacao": "JOÃO PESSOA",
+    "Codigo": "734006",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24619",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Monte Alegre do Sul",
+    "Uf": "SP",
+    "Estacao": "MONTE ALEGRE DO SUL",
+    "Codigo": "2246022",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24518",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Monte Alto",
+    "Uf": "SP",
+    "Estacao": "MONTE ALTO",
+    "Codigo": "2148016",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24582",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Morro Agudo",
+    "Uf": "SP",
+    "Estacao": "MORRO AGUDO",
+    "Codigo": "2048023",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24583",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Nuporanga",
+    "Uf": "SP",
+    "Estacao": "NUPORANGA - FUMEST",
+    "Codigo": "2047103",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24584",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Orlândia",
+    "Uf": "SP",
+    "Estacao": "ORLÂNDIA",
+    "Codigo": "2047025",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24585",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Pereiras",
+    "Uf": "SP",
+    "Estacao": "PEREIRAS",
+    "Codigo": "2347006",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24525",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Pitangueiras",
+    "Uf": "SP",
+    "Estacao": "PITANGUEIRAS",
+    "Codigo": "2148001",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24564",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Mococa",
+    "Uf": "SP",
+    "Estacao": "PONTE DO CANOAS",
+    "Codigo": "2146001",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24517",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guatapará",
+    "Uf": "SP",
+    "Estacao": "PONTE GUATAPARA",
+    "Codigo": "2148028",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24577",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Porangaba",
+    "Uf": "SP",
+    "Estacao": "PORANGABA",
+    "Codigo": "2348010",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24562",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Quadra",
+    "Uf": "SP",
+    "Estacao": "PORANGABA",
+    "Codigo": "2348010",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24526",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Pradópolis",
+    "Uf": "SP",
+    "Estacao": "PRADÓPOLIS",
+    "Codigo": "2148020",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24520",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Ji-Paraná",
+    "Uf": "RO",
+    "Estacao": "RONDOMINAS (BARROCAS)",
+    "Codigo": "1061003",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24618 ",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ouro Preto do Oeste",
+    "Uf": "RO",
+    "Estacao": "RONDOMINAS (BARROCAS)",
+    "Codigo": "1061003",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24612",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Rita do Passa Quatro",
+    "Uf": "SP",
+    "Estacao": "SANTA RITA DO PASSA QUATRO - FUMEST",
+    "Codigo": "2147154",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24529",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Serra Negra",
+    "Uf": "SP",
+    "Estacao": "SERRA NEGRA",
+    "Codigo": "2246019",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24530",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Tambaú",
+    "Uf": "SP",
+    "Estacao": "SÍTIO SANTA FÉ (ex. Fazenda Vista Alegre",
+    "Codigo": "2147035",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24532",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Taiúva",
+    "Uf": "SP",
+    "Estacao": "TAIUVA",
+    "Codigo": "2148122",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24531",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Taquaral",
+    "Uf": "SP",
+    "Estacao": "TAIUVA",
+    "Codigo": "2148122",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24533",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Timburi",
+    "Uf": "SP",
+    "Estacao": "TIMBURI",
+    "Codigo": "2349010",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24507",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Cruz da Esperança",
+    "Uf": "SP",
+    "Estacao": "UHE MARIMBONDO FAZENDA CORREDEIRA",
+    "Codigo": "2147011",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24587",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Serra Azul",
+    "Uf": "SP",
+    "Estacao": "UHE MARIMBONDO FAZENDA CORREDEIRA",
+    "Codigo": "2147011",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24589",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Santa Rosa de Viterbo",
+    "Uf": "SP",
+    "Estacao": "USINA AMÁLIA",
+    "Codigo": "2147123",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24588",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Barrinha",
+    "Uf": "SP",
+    "Estacao": "USINA SÃO FRANCISCO",
+    "Codigo": "2148007",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24573",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Viçosa",
+    "Uf": "MG",
+    "Estacao": "VIÇOSA",
+    "Codigo": "2042024",
+    "Ano": "2023",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24620",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Goiana ",
+    "Uf": "PE",
+    "Estacao": "ALHANDRA",
+    "Codigo": "734008",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25197",
+    "TrMax": "100",
+    "Observacao": "AESA/PB"
+  },
+  {
+    "Municipio": "Barra do chapéu ",
+    "Uf": "SP",
+    "Estacao": "APIAÍ",
+    "Codigo": "2448013",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25193",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Barra do Turvo ",
+    "Uf": "SP",
+    "Estacao": "BARRA DO TURVO",
+    "Codigo": "2448026",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25194",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Cametá ",
+    "Uf": "PA",
+    "Estacao": "CAMETÁ",
+    "Codigo": "249001",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25196",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Caxambu ",
+    "Uf": "MG",
+    "Estacao": "CAXAMBU",
+    "Codigo": "2144003",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25335",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São José de Mipibu ",
+    "Uf": "RN",
+    "Estacao": "ENGENHO OLHO D'ÁGUA",
+    "Codigo": "635013",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25188",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ribeira ",
+    "Uf": "SP",
+    "Estacao": "FAZENDA BOA VISTA (CRICIUMA)",
+    "Codigo": "2448037",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25211",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Bom Jesus das Selvas ",
+    "Uf": "MA",
+    "Estacao": "FAZENDA PEDREIRAS",
+    "Codigo": "446001",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25195",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Feira de Santana ",
+    "Uf": "BA",
+    "Estacao": "FEIRA DE SANTANA",
+    "Codigo": "1238027",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25372",
+    "TrMax": "75",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Santa Bárbara ",
+    "Uf": "BA",
+    "Estacao": "FEIRA DE SANTANA",
+    "Codigo": "1238027",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25435",
+    "TrMax": "75",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Tanquinho ",
+    "Uf": "BA",
+    "Estacao": "FEIRA DE SANTANA",
+    "Codigo": "1238027",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25434",
+    "TrMax": "75",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Içara",
+    "Uf": "SC",
+    "Estacao": "IÇARA",
+    "Codigo": "2849022",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25199",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ilha Comprida ",
+    "Uf": "SP",
+    "Estacao": "IGUAPE",
+    "Codigo": "2447037",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25200",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Itapirapuã Paulista ",
+    "Uf": "SP",
+    "Estacao": "ITAPIRAPUA",
+    "Codigo": "2449016",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25202",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Jaguaruna ",
+    "Uf": "SC",
+    "Estacao": "JAGUARUNA",
+    "Codigo": "2849020",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24947",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Laguna ",
+    "Uf": "SC",
+    "Estacao": "JAGUARUNA",
+    "Codigo": "2849020",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25203",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Sangão ",
+    "Uf": "SC",
+    "Estacao": "JAGUARUNA",
+    "Codigo": "2849020",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25212",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Conde ",
+    "Uf": "PB",
+    "Estacao": "JOÃO PESSOA",
+    "Codigo": "734006",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25336",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Cabedelo",
+    "Uf": "PB",
+    "Estacao": "JOÃO PESSOA",
+    "Codigo": "734006",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25458",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Trairão ",
+    "Uf": "PA",
+    "Estacao": "KM 1385 BR-163",
+    "Codigo": "455003",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25271",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Iranduba ",
+    "Uf": "AM",
+    "Estacao": "MANACAPURU",
+    "Codigo": "360001",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25201",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ibirama ",
+    "Uf": "SC",
+    "Estacao": "NOVA BREMEN DALBERGIA",
+    "Codigo": "2749005",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25198",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Arapiraca",
+    "Uf": "AL",
+    "Estacao": "PALMEIRA DOS ÍNDIOS",
+    "Codigo": "936035",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25191",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Parnamirim ",
+    "Uf": "RN",
+    "Estacao": "PARNAMIRIM",
+    "Codigo": "535049",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25204",
+    "TrMax": "100",
+    "Observacao": "EMPARN"
+  },
+  {
+    "Municipio": "Pirassununga ",
+    "Uf": "SP",
+    "Estacao": "PIRASSUNUNGA",
+    "Codigo": "2147117",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/24907",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Santa Cruz da Conceição ",
+    "Uf": "SP",
+    "Estacao": "PIRASSUNUNGA",
+    "Codigo": "2147117",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25213",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Araquari ",
+    "Uf": "SC",
+    "Estacao": "PONTE SC-301",
+    "Codigo": "2648028",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25025",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "São Francisco do Sul ",
+    "Uf": "SC",
+    "Estacao": "PONTE SC-301",
+    "Codigo": "2648028",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25273",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Sete Barras ",
+    "Uf": "SP",
+    "Estacao": "RIBEIRÃO DA SERRA",
+    "Codigo": "2447012",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25215",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "São Joao da Boa Vista ",
+    "Uf": "SP",
+    "Estacao": "SÃO JOÃO DA BOA VISTA",
+    "Codigo": "2146014",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25214",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Soledade de Minas ",
+    "Uf": "MG",
+    "Estacao": "SÃO LOURENÇO",
+    "Codigo": "2245107",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25301",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Alcântara ",
+    "Uf": "MA",
+    "Estacao": "SÃO LUÍS",
+    "Codigo": "244006",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25190",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "São Sebastião do Passe ",
+    "Uf": "BA",
+    "Estacao": "TEODORO SAMPAIO",
+    "Codigo": "1238051",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25436",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Teodoro Sampaio ",
+    "Uf": "BA",
+    "Estacao": "TEODORO SAMPAIO",
+    "Codigo": "1238051",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25371",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Teodoro Sampaio ",
+    "Uf": "BA",
+    "Estacao": "TEODORO SAMPAIO",
+    "Codigo": "1238051",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25272",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Passo de Torres ",
+    "Uf": "SC",
+    "Estacao": "TORRES",
+    "Codigo": "2949002",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25210",
+    "TrMax": "100",
+    "Observacao": "INMET"
+  },
+  {
+    "Municipio": "Vargem Grande do Sul ",
+    "Uf": "SP",
+    "Estacao": "VARGEM GRANDE DO SUL",
+    "Codigo": "2146011",
+    "Ano": "2024",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25216",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Arenápolis",
+    "Uf": "MT",
+    "Estacao": "ARENÁPOLIS (CANAÃ)",
+    "Codigo": "1456001",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br//handle/doc/25857",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Artur Nogueira",
+    "Uf": "SP",
+    "Estacao": "ARTUR NOGUEIRA",
+    "Codigo": "2247100",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25686",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Aruanã",
+    "Uf": "GO",
+    "Estacao": "ARUANÃ",
+    "Codigo": "1451000",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br//handle/doc/25810",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Aramina",
+    "Uf": "SP",
+    "Estacao": "CANINDÉ",
+    "Codigo": "2047007",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25684",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Miguelópolis",
+    "Uf": "SP",
+    "Estacao": "CANINDÉ",
+    "Codigo": "2047007",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25701",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": " Irituia",
+    "Uf": "PA",
+    "Estacao": "COLÔNIA SANTO ANTÔNIO",
+    "Codigo": "147011",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25722",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guaíra",
+    "Uf": "SP",
+    "Estacao": "FAZENDA BREJINHO DAS ANTAS",
+    "Codigo": "2048006",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25692",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Chapada dos Guimarães",
+    "Uf": "MT",
+    "Estacao": "FAZENDA ESTIVA PR3",
+    "Codigo": "1555008",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25725",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Buritizal",
+    "Uf": "SP",
+    "Estacao": "FAZENDA VISTA LINDA",
+    "Codigo": "2047100",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25685",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Piritiba",
+    "Uf": "BA",
+    "Estacao": "FRANÇA",
+    "Codigo": "1140010",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br//handle/doc/25807",
+    "TrMax": "75",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Frutal",
+    "Uf": "MG",
+    "Estacao": "FRUTAL",
+    "Codigo": "2048102",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25688",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Guará",
+    "Uf": "SP",
+    "Estacao": "GUARÁ",
+    "Codigo": "2047068",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25693",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Ipuã",
+    "Uf": "SP",
+    "Estacao": "IPUÃ",
+    "Codigo": "2048009",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25691",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Itapeva",
+    "Uf": "SP",
+    "Estacao": "ITAPEVA",
+    "Codigo": "2348031",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25726",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Itapipoca",
+    "Uf": "CE",
+    "Estacao": "ITAPIPOCA",
+    "Codigo": "339084",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25687",
+    "TrMax": "100",
+    "Observacao": "FUNCEME"
+  },
+  {
+    "Municipio": "Itirapuã",
+    "Uf": "SP",
+    "Estacao": "ITIRAPUÃ",
+    "Codigo": "2047020",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25694",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Patrocinio Paulista",
+    "Uf": "SP",
+    "Estacao": "ITIRAPUÃ",
+    "Codigo": "2047020",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25702",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Ituverava",
+    "Uf": "SP",
+    "Estacao": "ITUVERAVA",
+    "Codigo": "2047067",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25700",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Luciara",
+    "Uf": "MT",
+    "Estacao": "LUCIARA",
+    "Codigo": "1050000",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25689",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Ascurra",
+    "Uf": "SC",
+    "Estacao": "NEISSE CENTRAL",
+    "Codigo": "2749016",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br//handle/doc/25809",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Nossa Senhora do Livramento ",
+    "Uf": "MT",
+    "Estacao": "NOSSA SENHORA DO LIVRAMENTEO – BOSQUE F. BARROS",
+    "Codigo": "1556001",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25728",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Pontes e Lacerda",
+    "Uf": "MT",
+    "Estacao": "PONTES E LACERDA",
+    "Codigo": "1559000",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br//handle/doc/25859",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Porto Alegre",
+    "Uf": "RS",
+    "Estacao": "PORTO ALEGRE - JARDIM BOTÂNICO",
+    "Codigo": "3051011",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25625",
+    "TrMax": "100",
+    "Observacao": "OMM/INMET"
+  },
+  {
+    "Municipio": "Nobres",
+    "Uf": "MT",
+    "Estacao": "QUEBÓ",
+    "Codigo": "1456004",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br//handle/doc/25858",
+    "TrMax": "100",
+    "Observacao": " FURNAS"
+  },
+  {
+    "Municipio": "Ribeirão Corrente",
+    "Uf": "SP",
+    "Estacao": "RIBEIRÃO CORRENTE",
+    "Codigo": "2047059",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25727",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "São Joaquim da Barra",
+    "Uf": "SP",
+    "Estacao": "SÃO JOAQUIM DA BARRA",
+    "Codigo": "2047019",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25699",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Restinga",
+    "Uf": "SP",
+    "Estacao": "SÃO JOSÉ DA BELA VISTA",
+    "Codigo": "2047058",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25681",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "São José da Bela Vista",
+    "Uf": "SP",
+    "Estacao": "SÃO JOSÉ DA BELA VISTA",
+    "Codigo": "2047058",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25698",
+    "TrMax": "100",
+    "Observacao": "DAEE"
+  },
+  {
+    "Municipio": "Várzea Grande",
+    "Uf": "MT",
+    "Estacao": "SECO (FAZENDA SECO)",
+    "Codigo": "1556006",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br/handle/doc/25683",
+    "TrMax": "100",
+    "Observacao": ""
+  },
+  {
+    "Municipio": "Uruburetama",
+    "Uf": "CE",
+    "Estacao": "URUBURETAMA",
+    "Codigo": "339034",
+    "Ano": "2025",
+    "Url": "https://rigeo.sgb.gov.br//handle/doc/25860",
+    "TrMax": "100",
+    "Observacao": "FUNCEME"
+  }
+]

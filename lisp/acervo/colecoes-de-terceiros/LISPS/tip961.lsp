@@ -1,0 +1,27 @@
+; TIP961.LSP: DCL.LSP   Dimensioning Adjoining Circles   
+;                          (c)1994, Robert Trombley
+
+(DEFUN C:DCL()
+   (SETQ L (* (GETVAR "DIMEXO") (GETVAR "DIMSCALE"))
+      L1 (ENTGET (CAR (ENTSEL "Select Line 1: ")))
+      L2 (ENTGET (CAR (ENTSEL "Select Line 2: ")))
+      S1 (CDR (ASSOC 10 L1))
+      E1 (CDR (ASSOC 11 L1))
+      S2 (CDR (ASSOC 10 L2))
+      E2 (CDR (ASSOC 11 L2))
+   )
+   (IF (< (DISTANCE S1 S2) (DISTANCE E1 S2))
+      (SETQ X1 S1)
+      (SETQ X1 E1)
+   )
+   (IF (< (DISTANCE S2 S1) (DISTANCE E2 S1))
+      (SETQ X2 S2)
+      (SETQ X2 E2)
+   )
+   (SETQ A (ANGLE X1 X2)
+      P1 (POLAR X1 A L)
+      P2 (POLAR X2 (- A PI) L)
+   )
+   (COMMAND "LINE" P1 P2 "")
+   (PRINC)
+); end dcl.lsp

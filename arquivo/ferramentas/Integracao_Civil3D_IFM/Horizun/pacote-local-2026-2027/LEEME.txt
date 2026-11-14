@@ -1,0 +1,7 @@
+Horizun Civil 3D MCP 0.9.2 (release edition)
+
+1. Close every Civil 3D window (save your drawings first).
+2. In this folder run:   powershell -ExecutionPolicy Bypass -File .\install.ps1 -RegisterClaudeDesktop -RegisterTrustedPath
+3. Restart Claude Desktop and open Civil 3D. The "Horizun Hub" ribbon tab shows the bridge state.
+
+Nothing is compiled on this machine. Every installed file is checked against this package (SHA-256).

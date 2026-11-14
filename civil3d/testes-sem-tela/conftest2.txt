@@ -1,0 +1,8 @@
+DELTA +0.150: area 37749.0 m2; dentro 0.000 %, acima 100.000 %, abaixo 0.000 %; media 0.15000 dp 0.00000 emq 0.15000; max 0.1500 min 0.1500; vol acima 5662.93 abaixo 0.00 (esperado 5662.35 pela area da malha) -> Não conforme; criticos 20
+   faixa Acima do projeto (cortar): 0,10 a 0,20 m: 37749.0 m2
+   P1 desvio 0.1500 proj 757.618 obra 757.768
+DELTA -0.030: area 37749.0 m2; dentro 100.000 %, acima 0.000 %, abaixo 0.000 %; media -0.03000 dp 0.00000 emq 0.03000; max -0.0300 min -0.0300; vol acima 0.00 abaixo 1132.59 (esperado 1132.47 pela area da malha) -> Conforme; criticos 0
+   faixa Dentro da tolerância (-0,05 a +0,05 m): 37749.0 m2
+DELTA -0.300: area 37749.0 m2; dentro 0.000 %, acima 0.000 %, abaixo 100.000 %; media -0.30000 dp 0.00000 emq 0.30000; max -0.3000 min -0.3000; vol acima 0.00 abaixo 11325.87 (esperado 11324.70 pela area da malha) -> Não conforme; criticos 20
+   faixa Abaixo do projeto (aterrar): mais de 0,20 m: 37749.0 m2
+   P1 desvio -0.3000 proj 757.618 obra 757.318

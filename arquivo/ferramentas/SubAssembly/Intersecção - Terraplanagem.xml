@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- An assembly set is a collection of assemblies that can be applied to corridor regions based on type-->
+	<AssemblySet>
+		<AssemblySetType Name="SimpleHoldMainRoadCrown">
+			<RegionTypes>
+				<MainRoadTypicalSection DisplayName="Primary Road Full Section" AssemblyName="Primary Road Full Section" AssemblyPath="P:\Padrao_Geral\SubAssembly\Primary Road Full Section.dwg"/>
+				<SideRoadTypicalSection DisplayName="Secondary Road Full Section" AssemblyName="Secondary Road Full Section" AssemblyPath="P:\Padrao_Geral\SubAssembly\Secondary Road Full Section.dwg"/>
+				<ThroughRoad DisplayName="Primary Road - Through Pavement" AssemblyName="Primary Road - Through Intersection" AssemblyPath="P:\Padrao_Geral\SubAssembly\Primary Road - Through Intersection.dwg"/>
+				<CurbReturnSection DisplayName="Curb Return Fillets" AssemblyName="Curb Return Fillets" AssemblyPath="P:\Padrao_Geral\SubAssembly\Curb Return Fillets.dwg"/>
+				<SideRoadHalfSectionDayLightLeft DisplayName="Secondary Road Half Section - Daylight Left" AssemblyName="Secondary Road Half Section - Daylight Left" AssemblyPath="P:\Padrao_Geral\SubAssembly\Secondary Road Half Section - Daylight Left.dwg"/>
+				<SideRoadHalfSectionDayLightRight DisplayName="Secondary Road Half Section - Daylight Right" AssemblyName="Secondary Road Half Section - Daylight Right" AssemblyPath="P:\Padrao_Geral\SubAssembly\Secondary Road Half Section - Daylight Right.dwg"/>
+				<MainRoadFullSectionDayLightLeft DisplayName="Primary Road Part Section – Daylight Left" AssemblyName="Primary Road Part Section - Daylight Left" AssemblyPath="P:\Padrao_Geral\SubAssembly\Primary Road Part Section - Daylight Left.dwg"/>
+				<MainRoadFullSectionDayLightRight DisplayName="Primary Road Part Section – Daylight Right" AssemblyName="Primary Road Part Section - Daylight Right" AssemblyPath="P:\Padrao_Geral\SubAssembly\Primary Road Part Section - Daylight Right.dwg"/>
+			</RegionTypes>
+		</AssemblySetType>
+		<AssemblySetType Name="SimpleHoldAllRoadCrown">
+			<RegionTypes>
+				<MainRoadTypicalSection DisplayName="Primary Road Full Section" AssemblyName="Primary Road Full Section" AssemblyPath="P:\Padrao_Geral\SubAssembly\Primary Road Full Section.dwg"/>
+				<SideRoadTypicalSection DisplayName="Secondary Road Full Section" AssemblyName="Secondary Road Full Section" AssemblyPath="P:\Padrao_Geral\SubAssembly\Secondary Road Full Section.dwg"/>
+				<CurbReturnSection DisplayName="Curb Return Fillets" AssemblyName="Curb Return Fillets" AssemblyPath="P:\Padrao_Geral\SubAssembly\Curb Return Fillets.dwg"/>
+				<MainRoadHalfSectionDayLightLeft DisplayName="Primary Road Half Section – Daylight Left" AssemblyName="Primary Road Half Section - Daylight Left" AssemblyPath="P:\Padrao_Geral\SubAssembly\Primary Road Half Section - Daylight Left.dwg"/>
+				<MainRoadHalfSectionDayLightRight DisplayName="Primary Road Half Section – Daylight Right" AssemblyName="Primary Road Half Section - Daylight Right" AssemblyPath="P:\Padrao_Geral\SubAssembly\Primary Road Half Section - Daylight Right.dwg"/>
+				<SideRoadHalfSectionDayLightLeft DisplayName="Secondary Road Half Section - Daylight Left" AssemblyName="Secondary Road Half Section - Daylight Left" AssemblyPath="P:\Padrao_Geral\SubAssembly\Secondary Road Half Section - Daylight Left.dwg"/>
+				<SideRoadHalfSectionDayLightRight DisplayName="Secondary Road Half Section - Daylight Right" AssemblyName="Secondary Road Half Section - Daylight Right" AssemblyPath="P:\Padrao_Geral\SubAssembly\Secondary Road Half Section - Daylight Right.dwg"/>
+			</RegionTypes>
+		</AssemblySetType>
+		<AssemblySetType Name="TIntersectionHoldMainRoadCrown">
+			<RegionTypes>
+				<MainRoadTypicalSection DisplayName="Primary Road Full Section" AssemblyName="Primary Road Full Section" AssemblyPath="P:\Padrao_Geral\SubAssembly\Primary Road Full Section.dwg"/>
+				<SideRoadTypicalSection DisplayName="Secondary Road Full Section" AssemblyName="Secondary Road Full Section" AssemblyPath="P:\Padrao_Geral\SubAssembly\Secondary Road Full Section.dwg"/>
+				<CurbReturnSection DisplayName="Curb Return Fillets" AssemblyName="Curb Return Fillets" AssemblyPath="P:\Padrao_Geral\SubAssembly\Curb Return Fillets.dwg"/>
+				<SideRoadHalfSectionDayLightLeft DisplayName="Secondary Road Half Section - Daylight Left" AssemblyName="Secondary Road Half Section - Daylight Left" AssemblyPath="P:\Padrao_Geral\SubAssembly\Secondary Road Half Section - Daylight Left.dwg"/>
+				<SideRoadHalfSectionDayLightRight DisplayName="Secondary Road Half Section - Daylight Right" AssemblyName="Secondary Road Half Section - Daylight Right" AssemblyPath="P:\Padrao_Geral\SubAssembly\Secondary Road Half Section - Daylight Right.dwg"/>
+				<MainRoadFullSectionDayLightLeft DisplayName="Primary Road Part Section – Daylight Left" AssemblyName="Primary Road Part Section - Daylight Left" AssemblyPath="P:\Padrao_Geral\SubAssembly\Primary Road Part Section - Daylight Left.dwg"/>
+				<MainRoadFullSectionDayLightRight DisplayName="Primary Road Part Section – Daylight Right" AssemblyName="Primary Road Part Section - Daylight Right" AssemblyPath="P:\Padrao_Geral\SubAssembly\Primary Road Part Section - Daylight Right.dwg"/>
+			</RegionTypes>
+		</AssemblySetType>
+		<AssemblySetType Name="TIntersectionHoldAllRoadCrown">
+			<RegionTypes>
+				<MainRoadTypicalSection DisplayName="Primary Road Full Section" AssemblyName="ACESSO" AssemblyPath="P:\Padrao_Geral\SubAssembly\ACESSO.dwg"/>
+				<SideRoadTypicalSection DisplayName="Secondary Road Full Section" AssemblyName="ACESSO" AssemblyPath="P:\Padrao_Geral\SubAssembly\ACESSO.dwg"/>
+				<CurbReturnSection DisplayName="Curb Return Fillets" AssemblyName="CURB" AssemblyPath="P:\Padrao_Geral\SubAssembly\CURB.dwg"/>
+				<MainRoadHalfSectionDayLightLeft DisplayName="Primary Road Half Section – Daylight Left" AssemblyName="LADO ESQUERDO" AssemblyPath="P:\Padrao_Geral\SubAssembly\LADO ESQUERDO.dwg"/>
+				<MainRoadHalfSectionDayLightRight DisplayName="Primary Road Half Section – Daylight Right" AssemblyName="LADO DIREITO" AssemblyPath="P:\Padrao_Geral\SubAssembly\LADO DIREITO.dwg"/>
+				<SideRoadHalfSectionDayLightLeft DisplayName="Secondary Road Half Section - Daylight Left" AssemblyName="LADO ESQUERDO" AssemblyPath="P:\Padrao_Geral\SubAssembly\LADO ESQUERDO.dwg"/>
+				<SideRoadHalfSectionDayLightRight DisplayName="Secondary Road Half Section - Daylight Right" AssemblyName="LADO DIREITO" AssemblyPath="P:\Padrao_Geral\SubAssembly\LADO DIREITO.dwg"/>
+			</RegionTypes>
+		</AssemblySetType>
+	</AssemblySet>

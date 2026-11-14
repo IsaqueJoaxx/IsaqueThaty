@@ -1,0 +1,13 @@
+(DEFUN C:skip(/ osm lin jp a1 a2 p1 p2)(setvar"cmdecho" 0)
+(setq osm(getvar"osmode"))
+(SETVAR"OSMODE"512)
+(SETq LIN (ENTSEL"\nSelect line to make jump with: "))
+(setvar"osmode"32)
+(setq jp(getpoint"\nSelect intersection: "))
+(setq a1(angle jp (nth 0 (cdr lin))))
+(setq a2(angle (nth 0 (cdr lin)) jp))
+(command"break" (setq p1(polar jp a1 (* 0.125 (getvar"dimscale"))))
+                              (setq p2(polar jp a2 (* 0.125(getvar"dimscale")))))
+(setvar"osmode" osm)
+(prin1))
+

@@ -1,0 +1,14 @@
+{
+  "dwg_header": "AC1032",
+  "dwg_bytes": 22569,
+  "area_total_m2": 14.9,
+  "volumes_m3": {
+    "subbase": 19180,
+    "base": 20020,
+    "reforco": 65100,
+    "total": 104300
+  },
+  "referencia_largura": "TOP 13.40 m conforme modelo existente",
+  "ordem": "sub-base azul, base laranja, reforco cinza",
+  "limite": "Secao-tipo e tabela parametrica; nao atualiza secoes nativas do alinhamento."
+}

@@ -1,0 +1,1175 @@
+=== 18 eixos considerados ===
+   RUA DAMA DA NOITE             est 0.00 a 966.11   greide: VERTICAL-RUA DAMA DA NOITE
+   ALINHAMENTO -2                est 0.00 a 134.77   greide: VERTICAL-ALINHAMENTO -2
+   ALINHAMENTO -1                est 0.00 a 72.61   greide: VERTICAL-ALINHAMENTO -1
+   ALINHAMENTO - 8               est 0.00 a 67.70   greide: VERTICAL-ALINHAMENTO - 8
+   ALINHAMENTO - 7               est 0.00 a 96.52   greide: VERTICAL-ALINHAMENTO - 7
+   ALINHAMENTO - 6               est 0.00 a 125.63   greide: VERTICAL-ALINHAMENTO - 6
+   ALINHAMENTO - 5               est 0.00 a 148.08   greide: VERTICAL-ALINHAMENTO - 5
+   ALINHAMENTO - 4               est 0.00 a 161.32   greide: VERTICAL-ALINHAMENTO - 4
+   ALINHAMENTO - 3               est 0.00 a 173.97   greide: VERTICAL-ALINHAMENTO - 3
+   ALINHAMENTO - 3 (1)           est 0.00 a 173.97   greide: VERTICAL-ALINHAMENTO - 3
+   ALINHAMENTO - 4 (1)           est 0.00 a 161.32   greide: VERTICAL-ALINHAMENTO - 4
+   ALINHAMENTO - 5 (1)           est 0.00 a 148.08   greide: VERTICAL-ALINHAMENTO - 5
+   ALINHAMENTO - 6 (1)           est 0.00 a 125.63   greide: VERTICAL-ALINHAMENTO - 6
+   ALINHAMENTO - 7 (1)           est 0.00 a 96.52   greide: VERTICAL-ALINHAMENTO - 7
+   ALINHAMENTO - 8 (1)           est 0.00 a 67.70   greide: VERTICAL-ALINHAMENTO - 8
+   ALINHAMENTO -1 (1)            est 0.00 a 72.61   greide: VERTICAL-ALINHAMENTO -1
+   ALINHAMENTO -2 (1)            est 0.00 a 134.77   greide: VERTICAL-ALINHAMENTO -2
+   RUA DAMA DA NOITE (1)         est 0.00 a 966.11   greide: VERTICAL-RUA DAMA DA NOITE
+
+=== 88 esquina(s) detectada(s) ===
+
+--- ESQUINA 1 ---
+   RUA DAMA DA NOITE  @ est 195.855
+   ALINHAMENTO -2  @ est 0.000
+   ponto: 601858.029 , 7833040.898
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO -2: depois
+   cota eixo RUA DAMA DA NOITE = 823.542  ->  borda = 823.457
+   cota eixo ALINHAMENTO -2 = 823.542  ->  borda = 823.457
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO -2(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO -2(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 2 ---
+   RUA DAMA DA NOITE  @ est 142.579
+   ALINHAMENTO -1  @ est 0.000
+   ponto: 601859.812 , 7832987.693
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO -1: depois
+   cota eixo RUA DAMA DA NOITE = 822.660  ->  borda = 822.575
+   cota eixo ALINHAMENTO -1 = 822.373  ->  borda = 822.288
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO -1(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO -1(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 3 ---
+   RUA DAMA DA NOITE  @ est 520.516
+   ALINHAMENTO - 8  @ est 0.000
+   ponto: 601944.890 , 7833350.437
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 8: depois
+   cota eixo RUA DAMA DA NOITE = 816.557  ->  borda = 816.472
+   cota eixo ALINHAMENTO - 8 = 816.400  ->  borda = 816.315
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 8(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 8(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 4 ---
+   RUA DAMA DA NOITE  @ est 668.408
+   ALINHAMENTO - 8  @ est 67.698
+   ponto: 602011.968 , 7833341.295
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 8: antes
+   cota eixo RUA DAMA DA NOITE = 808.586  ->  borda = 808.501
+   cota eixo ALINHAMENTO - 8 = 808.506  ->  borda = 808.422
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 8(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 8(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 5 ---
+   RUA DAMA DA NOITE  @ est 465.649
+   ALINHAMENTO - 7  @ est 0.000
+   ponto: 601921.539 , 7833300.787
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 7: depois
+   cota eixo RUA DAMA DA NOITE = 819.055  ->  borda = 818.971
+   cota eixo ALINHAMENTO - 7 = 818.996  ->  borda = 818.911
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 7(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 7(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 6 ---
+   RUA DAMA DA NOITE  @ est 722.909
+   ALINHAMENTO - 7  @ est 96.512
+   ponto: 602017.066 , 7833287.034
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 7: antes
+   cota eixo RUA DAMA DA NOITE = 808.854  ->  borda = 808.769
+   cota eixo ALINHAMENTO - 7 = 808.852  ->  borda = 808.768
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 7(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 7(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 7 ---
+   RUA DAMA DA NOITE  @ est 409.444
+   ALINHAMENTO - 6  @ est 0.000
+   ponto: 601897.658 , 7833249.910
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 6: depois
+   cota eixo RUA DAMA DA NOITE = 821.267  ->  borda = 821.183
+   cota eixo ALINHAMENTO - 6 = 821.474  ->  borda = 821.389
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 6(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 6(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 8 ---
+   RUA DAMA DA NOITE  @ est 776.847
+   ALINHAMENTO - 6  @ est 125.627
+   ponto: 602022.187 , 7833233.340
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 6: antes
+   cota eixo RUA DAMA DA NOITE = 808.840  ->  borda = 808.755
+   cota eixo ALINHAMENTO - 6 = 809.221  ->  borda = 809.136
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 6(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 6(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 9 ---
+   RUA DAMA DA NOITE  @ est 354.607
+   ALINHAMENTO - 5  @ est 0.000
+   ponto: 601880.290 , 7833198.023
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 5: depois
+   cota eixo RUA DAMA DA NOITE = 823.096  ->  borda = 823.011
+   cota eixo ALINHAMENTO - 5 = 823.096  ->  borda = 823.011
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 5(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 5(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 10 ---
+   RUA DAMA DA NOITE  @ est 830.296
+   ALINHAMENTO - 5  @ est 148.077
+   ponto: 602027.283 , 7833180.135
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 5: antes
+   cota eixo RUA DAMA DA NOITE = 808.826  ->  borda = 808.741
+   cota eixo ALINHAMENTO - 5 = 809.201  ->  borda = 809.116
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 5(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 5(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 11 ---
+   RUA DAMA DA NOITE  @ est 301.889
+   ALINHAMENTO - 4  @ est 0.000
+   ponto: 601871.858 , 7833145.992
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 4: depois
+   cota eixo RUA DAMA DA NOITE = 823.580  ->  borda = 823.495
+   cota eixo ALINHAMENTO - 4 = 823.714  ->  borda = 823.629
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 4(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 4(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 12 ---
+   RUA DAMA DA NOITE  @ est 884.426
+   ALINHAMENTO - 4  @ est 161.322
+   ponto: 602031.963 , 7833126.211
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 4: antes
+   cota eixo RUA DAMA DA NOITE = 808.812  ->  borda = 808.727
+   cota eixo ALINHAMENTO - 4 = 808.703  ->  borda = 808.618
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 4(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 4(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 13 ---
+   RUA DAMA DA NOITE  @ est 248.813
+   ALINHAMENTO - 3  @ est 0.000
+   ponto: 601864.351 , 7833093.451
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 3: depois
+   cota eixo RUA DAMA DA NOITE = 824.067  ->  borda = 823.982
+   cota eixo ALINHAMENTO - 3 = 824.067  ->  borda = 823.982
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 3(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 3(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 14 ---
+   RUA DAMA DA NOITE  @ est 938.676
+   ALINHAMENTO - 3  @ est 173.973
+   ponto: 602037.021 , 7833072.197
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 3: antes
+   cota eixo RUA DAMA DA NOITE = 808.798  ->  borda = 808.713
+   cota eixo ALINHAMENTO - 3 = 808.761  ->  borda = 808.676
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 3(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 3(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 15 ---
+   RUA DAMA DA NOITE  @ est 248.813
+   ALINHAMENTO - 3 (1)  @ est 0.000
+   ponto: 601864.351 , 7833093.451
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 3 (1): depois
+   cota eixo RUA DAMA DA NOITE = 824.067  ->  borda = 823.982
+   cota eixo ALINHAMENTO - 3 (1) = 824.067  ->  borda = 823.982
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 3 (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 3 (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 16 ---
+   RUA DAMA DA NOITE  @ est 938.676
+   ALINHAMENTO - 3 (1)  @ est 173.973
+   ponto: 602037.021 , 7833072.197
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 3 (1): antes
+   cota eixo RUA DAMA DA NOITE = 808.798  ->  borda = 808.713
+   cota eixo ALINHAMENTO - 3 (1) = 808.761  ->  borda = 808.676
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 3 (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 3 (1)(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 17 ---
+   RUA DAMA DA NOITE  @ est 301.889
+   ALINHAMENTO - 4 (1)  @ est 0.000
+   ponto: 601871.858 , 7833145.992
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 4 (1): depois
+   cota eixo RUA DAMA DA NOITE = 823.580  ->  borda = 823.495
+   cota eixo ALINHAMENTO - 4 (1) = 823.714  ->  borda = 823.629
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 4 (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 4 (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 18 ---
+   RUA DAMA DA NOITE  @ est 884.426
+   ALINHAMENTO - 4 (1)  @ est 161.322
+   ponto: 602031.963 , 7833126.211
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 4 (1): antes
+   cota eixo RUA DAMA DA NOITE = 808.812  ->  borda = 808.727
+   cota eixo ALINHAMENTO - 4 (1) = 808.703  ->  borda = 808.618
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 4 (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 4 (1)(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 19 ---
+   RUA DAMA DA NOITE  @ est 354.607
+   ALINHAMENTO - 5 (1)  @ est 0.000
+   ponto: 601880.290 , 7833198.023
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 5 (1): depois
+   cota eixo RUA DAMA DA NOITE = 823.096  ->  borda = 823.011
+   cota eixo ALINHAMENTO - 5 (1) = 823.096  ->  borda = 823.011
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 5 (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 5 (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 20 ---
+   RUA DAMA DA NOITE  @ est 830.296
+   ALINHAMENTO - 5 (1)  @ est 148.077
+   ponto: 602027.283 , 7833180.135
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 5 (1): antes
+   cota eixo RUA DAMA DA NOITE = 808.826  ->  borda = 808.741
+   cota eixo ALINHAMENTO - 5 (1) = 809.201  ->  borda = 809.116
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 5 (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 5 (1)(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 21 ---
+   RUA DAMA DA NOITE  @ est 409.444
+   ALINHAMENTO - 6 (1)  @ est 0.000
+   ponto: 601897.658 , 7833249.910
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 6 (1): depois
+   cota eixo RUA DAMA DA NOITE = 821.267  ->  borda = 821.183
+   cota eixo ALINHAMENTO - 6 (1) = 821.474  ->  borda = 821.389
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 6 (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 6 (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 22 ---
+   RUA DAMA DA NOITE  @ est 776.847
+   ALINHAMENTO - 6 (1)  @ est 125.627
+   ponto: 602022.187 , 7833233.340
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 6 (1): antes
+   cota eixo RUA DAMA DA NOITE = 808.840  ->  borda = 808.755
+   cota eixo ALINHAMENTO - 6 (1) = 809.221  ->  borda = 809.136
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 6 (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 6 (1)(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 23 ---
+   RUA DAMA DA NOITE  @ est 465.649
+   ALINHAMENTO - 7 (1)  @ est 0.000
+   ponto: 601921.539 , 7833300.787
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 7 (1): depois
+   cota eixo RUA DAMA DA NOITE = 819.055  ->  borda = 818.971
+   cota eixo ALINHAMENTO - 7 (1) = 818.996  ->  borda = 818.911
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 7 (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 7 (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 24 ---
+   RUA DAMA DA NOITE  @ est 722.909
+   ALINHAMENTO - 7 (1)  @ est 96.512
+   ponto: 602017.066 , 7833287.034
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 7 (1): antes
+   cota eixo RUA DAMA DA NOITE = 808.854  ->  borda = 808.769
+   cota eixo ALINHAMENTO - 7 (1) = 808.852  ->  borda = 808.768
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 7 (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 7 (1)(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 25 ---
+   RUA DAMA DA NOITE  @ est 520.516
+   ALINHAMENTO - 8 (1)  @ est 0.000
+   ponto: 601944.890 , 7833350.437
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 8 (1): depois
+   cota eixo RUA DAMA DA NOITE = 816.557  ->  borda = 816.472
+   cota eixo ALINHAMENTO - 8 (1) = 816.400  ->  borda = 816.315
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 8 (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 8 (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 26 ---
+   RUA DAMA DA NOITE  @ est 668.408
+   ALINHAMENTO - 8 (1)  @ est 67.698
+   ponto: 602011.968 , 7833341.295
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO - 8 (1): antes
+   cota eixo RUA DAMA DA NOITE = 808.586  ->  borda = 808.501
+   cota eixo ALINHAMENTO - 8 (1) = 808.506  ->  borda = 808.422
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO - 8 (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO - 8 (1)(antes)   offIn=+4.2407 offOut=-4.2407
+
+--- ESQUINA 27 ---
+   RUA DAMA DA NOITE  @ est 142.579
+   ALINHAMENTO -1 (1)  @ est 0.000
+   ponto: 601859.812 , 7832987.693
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO -1 (1): depois
+   cota eixo RUA DAMA DA NOITE = 822.660  ->  borda = 822.575
+   cota eixo ALINHAMENTO -1 (1) = 822.373  ->  borda = 822.288
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO -1 (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO -1 (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 28 ---
+   RUA DAMA DA NOITE  @ est 195.855
+   ALINHAMENTO -2 (1)  @ est 0.000
+   ponto: 601858.029 , 7833040.898
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de ALINHAMENTO -2 (1): depois
+   cota eixo RUA DAMA DA NOITE = 823.542  ->  borda = 823.457
+   cota eixo ALINHAMENTO -2 (1) = 823.542  ->  borda = 823.457
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x ALINHAMENTO -2 (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x ALINHAMENTO -2 (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 29 ---
+   RUA DAMA DA NOITE  @ est 127.515
+   RUA DAMA DA NOITE (1)  @ est 127.515
+   ponto: 601861.134 , 7832972.687
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 822.392  ->  borda = 822.308
+   cota eixo RUA DAMA DA NOITE (1) = 822.392  ->  borda = 822.308
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 30 ---
+   RUA DAMA DA NOITE  @ est 148.590
+   RUA DAMA DA NOITE (1)  @ est 148.590
+   ponto: 601859.284 , 7832993.681
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 822.760  ->  borda = 822.675
+   cota eixo RUA DAMA DA NOITE (1) = 822.760  ->  borda = 822.675
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 31 ---
+   RUA DAMA DA NOITE  @ est 187.031
+   RUA DAMA DA NOITE (1)  @ est 187.031
+   ponto: 601857.595 , 7833032.085
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 823.396  ->  borda = 823.311
+   cota eixo RUA DAMA DA NOITE (1) = 823.396  ->  borda = 823.311
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 32 ---
+   RUA DAMA DA NOITE  @ est 204.260
+   RUA DAMA DA NOITE (1)  @ est 204.260
+   ponto: 601858.441 , 7833049.293
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 823.625  ->  borda = 823.540
+   cota eixo RUA DAMA DA NOITE (1) = 823.625  ->  borda = 823.540
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 33 ---
+   RUA DAMA DA NOITE  @ est 239.934
+   RUA DAMA DA NOITE (1)  @ est 239.934
+   ponto: 601863.293 , 7833084.635
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 823.979  ->  borda = 823.894
+   cota eixo RUA DAMA DA NOITE (1) = 823.979  ->  borda = 823.894
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 34 ---
+   RUA DAMA DA NOITE  @ est 254.819
+   RUA DAMA DA NOITE (1)  @ est 254.819
+   ponto: 601865.066 , 7833099.414
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 824.012  ->  borda = 823.927
+   cota eixo RUA DAMA DA NOITE (1) = 824.012  ->  borda = 823.927
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 35 ---
+   RUA DAMA DA NOITE  @ est 293.019
+   RUA DAMA DA NOITE (1)  @ est 293.019
+   ponto: 601870.545 , 7833137.220
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 823.661  ->  borda = 823.577
+   cota eixo RUA DAMA DA NOITE (1) = 823.661  ->  borda = 823.577
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 36 ---
+   RUA DAMA DA NOITE  @ est 310.253
+   RUA DAMA DA NOITE (1)  @ est 310.253
+   ponto: 601873.095 , 7833154.264
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 823.503  ->  borda = 823.418
+   cota eixo RUA DAMA DA NOITE (1) = 823.503  ->  borda = 823.418
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 37 ---
+   RUA DAMA DA NOITE  @ est 345.773
+   RUA DAMA DA NOITE (1)  @ est 345.773
+   ponto: 601878.549 , 7833189.363
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 823.177  ->  borda = 823.092
+   cota eixo RUA DAMA DA NOITE (1) = 823.177  ->  borda = 823.092
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 38 ---
+   RUA DAMA DA NOITE  @ est 364.924
+   RUA DAMA DA NOITE (1)  @ est 364.924
+   ponto: 601882.324 , 7833208.138
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 822.752  ->  borda = 822.667
+   cota eixo RUA DAMA DA NOITE (1) = 822.752  ->  borda = 822.667
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 39 ---
+   RUA DAMA DA NOITE  @ est 402.038
+   RUA DAMA DA NOITE (1)  @ est 402.038
+   ponto: 601894.619 , 7833243.156
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 821.514  ->  borda = 821.430
+   cota eixo RUA DAMA DA NOITE (1) = 821.514  ->  borda = 821.430
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 40 ---
+   RUA DAMA DA NOITE  @ est 418.171
+   RUA DAMA DA NOITE (1)  @ est 418.171
+   ponto: 601901.239 , 7833257.868
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 820.976  ->  borda = 820.892
+   cota eixo RUA DAMA DA NOITE (1) = 820.976  ->  borda = 820.892
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 41 ---
+   RUA DAMA DA NOITE  @ est 459.637
+   RUA DAMA DA NOITE (1)  @ est 459.637
+   ponto: 601918.981 , 7833295.347
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 819.329  ->  borda = 819.244
+   cota eixo RUA DAMA DA NOITE (1) = 819.329  ->  borda = 819.244
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 42 ---
+   RUA DAMA DA NOITE  @ est 472.835
+   RUA DAMA DA NOITE (1)  @ est 472.835
+   ponto: 601924.597 , 7833307.290
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 818.728  ->  borda = 818.643
+   cota eixo RUA DAMA DA NOITE (1) = 818.728  ->  borda = 818.643
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 43 ---
+   RUA DAMA DA NOITE  @ est 513.822
+   RUA DAMA DA NOITE (1)  @ est 513.822
+   ponto: 601942.034 , 7833344.384
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 816.862  ->  borda = 816.777
+   cota eixo RUA DAMA DA NOITE (1) = 816.862  ->  borda = 816.777
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 44 ---
+   RUA DAMA DA NOITE  @ est 527.776
+   RUA DAMA DA NOITE (1)  @ est 527.776
+   ponto: 601947.988 , 7833357.003
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 816.227  ->  borda = 816.142
+   cota eixo RUA DAMA DA NOITE (1) = 816.227  ->  borda = 816.142
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 45 ---
+   RUA DAMA DA NOITE  @ est 563.756
+   RUA DAMA DA NOITE (1)  @ est 563.756
+   ponto: 601962.640 , 7833389.865
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 814.677  ->  borda = 814.592
+   cota eixo RUA DAMA DA NOITE (1) = 814.677  ->  borda = 814.592
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 46 ---
+   RUA DAMA DA NOITE  @ est 571.422
+   RUA DAMA DA NOITE (1)  @ est 571.422
+   ponto: 601966.193 , 7833396.658
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 814.166  ->  borda = 814.081
+   cota eixo RUA DAMA DA NOITE (1) = 814.166  ->  borda = 814.081
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 47 ---
+   RUA DAMA DA NOITE  @ est 580.559
+   RUA DAMA DA NOITE (1)  @ est 580.559
+   ponto: 601973.834 , 7833400.586
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 813.363  ->  borda = 813.278
+   cota eixo RUA DAMA DA NOITE (1) = 813.363  ->  borda = 813.278
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 48 ---
+   RUA DAMA DA NOITE  @ est 610.379
+   RUA DAMA DA NOITE (1)  @ est 610.379
+   ponto: 602003.461 , 7833397.191
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 809.956  ->  borda = 809.871
+   cota eixo RUA DAMA DA NOITE (1) = 809.956  ->  borda = 809.871
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 49 ---
+   RUA DAMA DA NOITE  @ est 617.185
+   RUA DAMA DA NOITE (1)  @ est 617.185
+   ponto: 602007.768 , 7833392.345
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 809.399  ->  borda = 809.314
+   cota eixo RUA DAMA DA NOITE (1) = 809.399  ->  borda = 809.314
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 50 ---
+   RUA DAMA DA NOITE  @ est 620.566
+   RUA DAMA DA NOITE (1)  @ est 620.566
+   ponto: 602008.029 , 7833388.974
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 809.171  ->  borda = 809.086
+   cota eixo RUA DAMA DA NOITE (1) = 809.171  ->  borda = 809.086
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 51 ---
+   RUA DAMA DA NOITE  @ est 655.445
+   RUA DAMA DA NOITE (1)  @ est 655.445
+   ponto: 602010.929 , 7833354.216
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 808.522  ->  borda = 808.437
+   cota eixo RUA DAMA DA NOITE (1) = 808.522  ->  borda = 808.437
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 52 ---
+   RUA DAMA DA NOITE  @ est 676.233
+   RUA DAMA DA NOITE (1)  @ est 676.233
+   ponto: 602012.596 , 7833333.495
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 808.624  ->  borda = 808.540
+   cota eixo RUA DAMA DA NOITE (1) = 808.624  ->  borda = 808.540
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 53 ---
+   RUA DAMA DA NOITE  @ est 768.074
+   RUA DAMA DA NOITE (1)  @ est 768.074
+   ponto: 602021.391 , 7833242.076
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 808.842  ->  borda = 808.757
+   cota eixo RUA DAMA DA NOITE (1) = 808.842  ->  borda = 808.757
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 54 ---
+   RUA DAMA DA NOITE  @ est 784.597
+   RUA DAMA DA NOITE (1)  @ est 784.597
+   ponto: 602022.891 , 7833225.621
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 808.838  ->  borda = 808.753
+   cota eixo RUA DAMA DA NOITE (1) = 808.838  ->  borda = 808.753
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 55 ---
+   RUA DAMA DA NOITE  @ est 821.069
+   RUA DAMA DA NOITE (1)  @ est 821.069
+   ponto: 602026.273 , 7833189.306
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 808.828  ->  borda = 808.744
+   cota eixo RUA DAMA DA NOITE (1) = 808.828  ->  borda = 808.744
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 56 ---
+   RUA DAMA DA NOITE  @ est 838.475
+   RUA DAMA DA NOITE (1)  @ est 838.475
+   ponto: 602028.178 , 7833172.005
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 808.824  ->  borda = 808.739
+   cota eixo RUA DAMA DA NOITE (1) = 808.824  ->  borda = 808.739
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 57 ---
+   RUA DAMA DA NOITE  @ est 875.275
+   RUA DAMA DA NOITE (1)  @ est 875.275
+   ponto: 602031.116 , 7833135.323
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 808.814  ->  borda = 808.729
+   cota eixo RUA DAMA DA NOITE (1) = 808.814  ->  borda = 808.729
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 58 ---
+   RUA DAMA DA NOITE  @ est 892.662
+   RUA DAMA DA NOITE (1)  @ est 892.662
+   ponto: 602032.725 , 7833118.010
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 808.810  ->  borda = 808.725
+   cota eixo RUA DAMA DA NOITE (1) = 808.810  ->  borda = 808.725
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 59 ---
+   RUA DAMA DA NOITE  @ est 929.306
+   RUA DAMA DA NOITE (1)  @ est 929.306
+   ponto: 602036.110 , 7833081.523
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 808.800  ->  borda = 808.715
+   cota eixo RUA DAMA DA NOITE (1) = 808.800  ->  borda = 808.715
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 60 ---
+   RUA DAMA DA NOITE  @ est 947.023
+   RUA DAMA DA NOITE (1)  @ est 947.023
+   ponto: 602037.833 , 7833063.890
+   ramos de RUA DAMA DA NOITE: antes, depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo RUA DAMA DA NOITE = 808.796  ->  borda = 808.711
+   cota eixo RUA DAMA DA NOITE (1) = 808.796  ->  borda = 808.711
+   -> 4 concordancia(s) R=2.00, offset 4.2407:
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        RUA DAMA DA NOITE(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 61 ---
+   ALINHAMENTO -2  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 195.855
+   ponto: 601858.029 , 7833040.898
+   ramos de ALINHAMENTO -2: depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO -2 = 823.542  ->  borda = 823.457
+   cota eixo RUA DAMA DA NOITE (1) = 823.542  ->  borda = 823.457
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO -2(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO -2(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 62 ---
+   ALINHAMENTO -1  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 142.579
+   ponto: 601859.812 , 7832987.693
+   ramos de ALINHAMENTO -1: depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO -1 = 822.373  ->  borda = 822.288
+   cota eixo RUA DAMA DA NOITE (1) = 822.660  ->  borda = 822.575
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO -1(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO -1(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 63 ---
+   ALINHAMENTO - 8  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 520.516
+   ponto: 601944.890 , 7833350.437
+   ramos de ALINHAMENTO - 8: depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 8 = 816.400  ->  borda = 816.315
+   cota eixo RUA DAMA DA NOITE (1) = 816.557  ->  borda = 816.472
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 8(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 8(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 64 ---
+   ALINHAMENTO - 8  @ est 67.698
+   RUA DAMA DA NOITE (1)  @ est 668.408
+   ponto: 602011.968 , 7833341.295
+   ramos de ALINHAMENTO - 8: antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 8 = 808.506  ->  borda = 808.422
+   cota eixo RUA DAMA DA NOITE (1) = 808.586  ->  borda = 808.501
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 8(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 8(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 65 ---
+   ALINHAMENTO - 7  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 465.649
+   ponto: 601921.539 , 7833300.787
+   ramos de ALINHAMENTO - 7: depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 7 = 818.996  ->  borda = 818.911
+   cota eixo RUA DAMA DA NOITE (1) = 819.055  ->  borda = 818.971
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 7(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 7(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 66 ---
+   ALINHAMENTO - 7  @ est 96.512
+   RUA DAMA DA NOITE (1)  @ est 722.909
+   ponto: 602017.066 , 7833287.034
+   ramos de ALINHAMENTO - 7: antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 7 = 808.852  ->  borda = 808.768
+   cota eixo RUA DAMA DA NOITE (1) = 808.854  ->  borda = 808.769
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 7(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 7(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 67 ---
+   ALINHAMENTO - 6  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 409.444
+   ponto: 601897.658 , 7833249.910
+   ramos de ALINHAMENTO - 6: depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 6 = 821.474  ->  borda = 821.389
+   cota eixo RUA DAMA DA NOITE (1) = 821.267  ->  borda = 821.183
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 6(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 6(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 68 ---
+   ALINHAMENTO - 6  @ est 125.627
+   RUA DAMA DA NOITE (1)  @ est 776.847
+   ponto: 602022.187 , 7833233.340
+   ramos de ALINHAMENTO - 6: antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 6 = 809.221  ->  borda = 809.136
+   cota eixo RUA DAMA DA NOITE (1) = 808.840  ->  borda = 808.755
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 6(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 6(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 69 ---
+   ALINHAMENTO - 5  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 354.607
+   ponto: 601880.290 , 7833198.023
+   ramos de ALINHAMENTO - 5: depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 5 = 823.096  ->  borda = 823.011
+   cota eixo RUA DAMA DA NOITE (1) = 823.096  ->  borda = 823.011
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 5(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 5(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 70 ---
+   ALINHAMENTO - 5  @ est 148.077
+   RUA DAMA DA NOITE (1)  @ est 830.296
+   ponto: 602027.283 , 7833180.135
+   ramos de ALINHAMENTO - 5: antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 5 = 809.201  ->  borda = 809.116
+   cota eixo RUA DAMA DA NOITE (1) = 808.826  ->  borda = 808.741
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 5(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 5(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 71 ---
+   ALINHAMENTO - 4  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 301.889
+   ponto: 601871.858 , 7833145.992
+   ramos de ALINHAMENTO - 4: depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 4 = 823.714  ->  borda = 823.629
+   cota eixo RUA DAMA DA NOITE (1) = 823.580  ->  borda = 823.495
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 4(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 4(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 72 ---
+   ALINHAMENTO - 4  @ est 161.322
+   RUA DAMA DA NOITE (1)  @ est 884.426
+   ponto: 602031.963 , 7833126.211
+   ramos de ALINHAMENTO - 4: antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 4 = 808.703  ->  borda = 808.618
+   cota eixo RUA DAMA DA NOITE (1) = 808.812  ->  borda = 808.727
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 4(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 4(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 73 ---
+   ALINHAMENTO - 3  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 248.813
+   ponto: 601864.351 , 7833093.451
+   ramos de ALINHAMENTO - 3: depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 3 = 824.067  ->  borda = 823.982
+   cota eixo RUA DAMA DA NOITE (1) = 824.067  ->  borda = 823.982
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 3(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 3(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 74 ---
+   ALINHAMENTO - 3  @ est 173.973
+   RUA DAMA DA NOITE (1)  @ est 938.676
+   ponto: 602037.021 , 7833072.197
+   ramos de ALINHAMENTO - 3: antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 3 = 808.761  ->  borda = 808.676
+   cota eixo RUA DAMA DA NOITE (1) = 808.798  ->  borda = 808.713
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 3(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 3(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 75 ---
+   ALINHAMENTO - 3 (1)  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 248.813
+   ponto: 601864.351 , 7833093.451
+   ramos de ALINHAMENTO - 3 (1): depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 3 (1) = 824.067  ->  borda = 823.982
+   cota eixo RUA DAMA DA NOITE (1) = 824.067  ->  borda = 823.982
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 3 (1)(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 3 (1)(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 76 ---
+   ALINHAMENTO - 3 (1)  @ est 173.973
+   RUA DAMA DA NOITE (1)  @ est 938.676
+   ponto: 602037.021 , 7833072.197
+   ramos de ALINHAMENTO - 3 (1): antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 3 (1) = 808.761  ->  borda = 808.676
+   cota eixo RUA DAMA DA NOITE (1) = 808.798  ->  borda = 808.713
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 3 (1)(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 3 (1)(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 77 ---
+   ALINHAMENTO - 4 (1)  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 301.889
+   ponto: 601871.858 , 7833145.992
+   ramos de ALINHAMENTO - 4 (1): depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 4 (1) = 823.714  ->  borda = 823.629
+   cota eixo RUA DAMA DA NOITE (1) = 823.580  ->  borda = 823.495
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 4 (1)(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 4 (1)(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 78 ---
+   ALINHAMENTO - 4 (1)  @ est 161.322
+   RUA DAMA DA NOITE (1)  @ est 884.426
+   ponto: 602031.963 , 7833126.211
+   ramos de ALINHAMENTO - 4 (1): antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 4 (1) = 808.703  ->  borda = 808.618
+   cota eixo RUA DAMA DA NOITE (1) = 808.812  ->  borda = 808.727
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 4 (1)(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 4 (1)(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 79 ---
+   ALINHAMENTO - 5 (1)  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 354.607
+   ponto: 601880.290 , 7833198.023
+   ramos de ALINHAMENTO - 5 (1): depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 5 (1) = 823.096  ->  borda = 823.011
+   cota eixo RUA DAMA DA NOITE (1) = 823.096  ->  borda = 823.011
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 5 (1)(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 5 (1)(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 80 ---
+   ALINHAMENTO - 5 (1)  @ est 148.077
+   RUA DAMA DA NOITE (1)  @ est 830.296
+   ponto: 602027.283 , 7833180.135
+   ramos de ALINHAMENTO - 5 (1): antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 5 (1) = 809.201  ->  borda = 809.116
+   cota eixo RUA DAMA DA NOITE (1) = 808.826  ->  borda = 808.741
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 5 (1)(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 5 (1)(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 81 ---
+   ALINHAMENTO - 6 (1)  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 409.444
+   ponto: 601897.658 , 7833249.910
+   ramos de ALINHAMENTO - 6 (1): depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 6 (1) = 821.474  ->  borda = 821.389
+   cota eixo RUA DAMA DA NOITE (1) = 821.267  ->  borda = 821.183
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 6 (1)(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 6 (1)(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 82 ---
+   ALINHAMENTO - 6 (1)  @ est 125.627
+   RUA DAMA DA NOITE (1)  @ est 776.847
+   ponto: 602022.187 , 7833233.340
+   ramos de ALINHAMENTO - 6 (1): antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 6 (1) = 809.221  ->  borda = 809.136
+   cota eixo RUA DAMA DA NOITE (1) = 808.840  ->  borda = 808.755
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 6 (1)(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 6 (1)(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 83 ---
+   ALINHAMENTO - 7 (1)  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 465.649
+   ponto: 601921.539 , 7833300.787
+   ramos de ALINHAMENTO - 7 (1): depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 7 (1) = 818.996  ->  borda = 818.911
+   cota eixo RUA DAMA DA NOITE (1) = 819.055  ->  borda = 818.971
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 7 (1)(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 7 (1)(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 84 ---
+   ALINHAMENTO - 7 (1)  @ est 96.512
+   RUA DAMA DA NOITE (1)  @ est 722.909
+   ponto: 602017.066 , 7833287.034
+   ramos de ALINHAMENTO - 7 (1): antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 7 (1) = 808.852  ->  borda = 808.768
+   cota eixo RUA DAMA DA NOITE (1) = 808.854  ->  borda = 808.769
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 7 (1)(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 7 (1)(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 85 ---
+   ALINHAMENTO - 8 (1)  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 520.516
+   ponto: 601944.890 , 7833350.437
+   ramos de ALINHAMENTO - 8 (1): depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 8 (1) = 816.400  ->  borda = 816.315
+   cota eixo RUA DAMA DA NOITE (1) = 816.557  ->  borda = 816.472
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 8 (1)(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO - 8 (1)(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 86 ---
+   ALINHAMENTO - 8 (1)  @ est 67.698
+   RUA DAMA DA NOITE (1)  @ est 668.408
+   ponto: 602011.968 , 7833341.295
+   ramos de ALINHAMENTO - 8 (1): antes
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO - 8 (1) = 808.506  ->  borda = 808.422
+   cota eixo RUA DAMA DA NOITE (1) = 808.586  ->  borda = 808.501
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO - 8 (1)(antes) x RUA DAMA DA NOITE (1)(antes)   offIn=-4.2407 offOut=-4.2407
+        ALINHAMENTO - 8 (1)(antes) x RUA DAMA DA NOITE (1)(depois)   offIn=-4.2407 offOut=+4.2407
+
+--- ESQUINA 87 ---
+   ALINHAMENTO -1 (1)  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 142.579
+   ponto: 601859.812 , 7832987.693
+   ramos de ALINHAMENTO -1 (1): depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO -1 (1) = 822.373  ->  borda = 822.288
+   cota eixo RUA DAMA DA NOITE (1) = 822.660  ->  borda = 822.575
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO -1 (1)(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO -1 (1)(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+--- ESQUINA 88 ---
+   ALINHAMENTO -2 (1)  @ est 0.000
+   RUA DAMA DA NOITE (1)  @ est 195.855
+   ponto: 601858.029 , 7833040.898
+   ramos de ALINHAMENTO -2 (1): depois
+   ramos de RUA DAMA DA NOITE (1): antes, depois
+   cota eixo ALINHAMENTO -2 (1) = 823.542  ->  borda = 823.457
+   cota eixo RUA DAMA DA NOITE (1) = 823.542  ->  borda = 823.457
+   -> 2 concordancia(s) R=2.00, offset 4.2407:
+        ALINHAMENTO -2 (1)(depois) x RUA DAMA DA NOITE (1)(antes)   offIn=+4.2407 offOut=-4.2407
+        ALINHAMENTO -2 (1)(depois) x RUA DAMA DA NOITE (1)(depois)   offIn=+4.2407 offOut=+4.2407
+
+=== TOTAL: 240 concordancias seriam criadas ===
+
+##### API: Profile (metodos static / add) #####
+  Void AddContext(ObjectContext context)
+  Void AddSubentityPaths(FullSubentityPath[] subPaths)
+  Void add_Cancelled(EventHandler A_0)
+  Void add_Copied(ObjectEventHandler A_0)
+  Void add_Erased(ObjectErasedEventHandler A_0)
+  Void add_Goodbye(EventHandler A_0)
+  Void add_Modified(EventHandler A_0)
+  Void add_ModifiedXData(EventHandler A_0)
+  Void add_ModifyUndone(EventHandler A_0)
+  Void add_ObjectClosed(ObjectClosedEventHandler A_0)
+  Void add_OpenedForModify(EventHandler A_0)
+  Void add_Reappended(EventHandler A_0)
+  Void add_SubObjectModified(ObjectEventHandler A_0)
+  Void add_Unappended(EventHandler A_0)
+  static ObjectId CreateByLayout(String profileName, CivilDocument document, String alignmentName, String layerName, String styleName, String labelSetName)
+  static ObjectId CreateByLayout(String profileName, ObjectId alignmentId, ObjectId layerId, ObjectId styleId, ObjectId labelSetId)
+  static ObjectId CreateFromFeatureLine(String profileName, CorridorFeatureLine corridorFeatureLine, ObjectId alignmentId, ObjectId layerId, ObjectId styleId, ObjectId labelSetId)
+  static ObjectId CreateFromSurface(String profileName, CivilDocument document, String alignmentName, String surfaceName, String layerName, String styleName, String labelSetName)
+  static ObjectId CreateFromSurface(String profileName, CivilDocument document, String alignmentName, String surfaceName, String layerName, String styleName, String labelSetName, Double offset, Double sampleStart, Double sampleEnd)
+  static ObjectId CreateFromSurface(String profileName, ObjectId alignmentId, ObjectId surfaceId, ObjectId layerId, ObjectId styleId, ObjectId labelSetId)
+  static ObjectId CreateFromSurface(String profileName, ObjectId alignmentId, ObjectId surfaceId, ObjectId layerId, ObjectId styleId, ObjectId labelSetId, Double offset, Double sampleStart, Double sampleEnd)
+  static ObjectId CreateStaticFGFromProfile(String profileName, CivilDocument document, String srcProfileName, String layerName, String styleName, String labelSetName)
+  static ObjectId CreateStaticFGFromProfile(String profileName, ObjectId profileId, ObjectId layerId, ObjectId styleId, ObjectId labelSetId)
+
+##### API: ProfilePVICollection #####
+  ProfilePVI AddPVI(Double station, Double elevation)
+  ProfilePVI AddPVIArc(Double station, Double elevation, Double radius)
+  ProfilePVI AddPVIAsymParabola(Double station, Double elevation, Double tangentLen1, Double tangentLen2)
+  ProfilePVI AddPVISymParabola(Double station, Double elevation, Double curveLength)
+  ProfilePVI GetPVIAt(Double station, Double elevation)

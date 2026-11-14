@@ -1,0 +1,7 @@
+(princ "\n----- by RJRENGENHARIA  -----  http://rjrengenharia.com.br/  -----" )
+(princ "\n----- rjrengenharia.com.br -- rubinhoengenheiro@yahoo.com.br -----" )
+(princ "\n----- Digite \"MELEV para Iniciar Comando...\"")
+(defun c:MELEV () 
+(setq LINH (entsel "\nSelecione a POLYLINHA...:")) 
+(COMMAND "CHANGE" LINH "" "P" "E" PAUSE "")
+)

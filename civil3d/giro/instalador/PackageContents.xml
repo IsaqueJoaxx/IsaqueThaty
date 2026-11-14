@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage SchemaVersion="1.0" Name="PROJETA Giro" AppVersion="1.0.0"
+    Description="PROJETA - Giro de Veiculos: caminho de varredura, gabaritos DNIT, verificacao de conflitos e animacao"
+    Author="Isaque" ProductCode="{DF3898E4-93E9-441B-8AF0-7DCC915EC8CF}" UpgradeCode="{8108BB46-AC40-48B2-8917-590199F9030A}">
+  <CompanyDetails Name="PROJETA" />
+  <Components Description="PROJETA Giro para Civil 3D 2026 (.NET 8)">
+    <RuntimeRequirements OS="Win64" Platform="AutoCAD*" SeriesMin="R25.1" SeriesMax="R25.1" />
+    <ComponentEntry AppName="PROJETA_GIRO" ModuleName="./Contents/2026/Projeta.Giro.dll" AppDescription="PROJETA Giro 2026"
+        LoadOnAutoCADStartup="True" AppType=".NET" />
+  </Components>
+  <Components Description="PROJETA Giro para Civil 3D 2027 (.NET 10)">
+    <RuntimeRequirements OS="Win64" Platform="AutoCAD*" SeriesMin="R26.0" SeriesMax="R26.0" />
+    <ComponentEntry AppName="PROJETA_GIRO" ModuleName="./Contents/2027/Projeta.Giro.dll" AppDescription="PROJETA Giro 2027"
+        LoadOnAutoCADStartup="True" AppType=".NET" />
+  </Components>
+</ApplicationPackage>

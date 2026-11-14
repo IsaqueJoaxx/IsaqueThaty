@@ -1,0 +1,580 @@
+{
+  "Uuid": "f713b131-8d0c-4769-a864-7427ee083078",
+  "IsCustomNode": false,
+  "Description": "Greide colado na pista existente, greide de projeto +0,22 m, corredor 11,00 m a -2% e superficie do corredor.",
+  "Name": "GreideColado_CorredorRecap",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Description": "Selection between a true and false.",
+      "Id": "d6638906ca3c4586b86dba78ca0794bd",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "4f2123a46dbd4f75b4bf36275351e9df",
+          "Name": "",
+          "Description": "bool",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "tudo",
+      "Description": "Creates a string.",
+      "Id": "fbca9861f8ff475ab49a63e47fef8d1d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "4a89ba9e6c6d40ec94483e662e7f03ad",
+          "Name": "",
+          "Description": "str",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "BR-222",
+      "Description": "Creates a string.",
+      "Id": "e9a249cfc7d04500a7286cf4f2bf3903",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "88b427ef13844903836ee41eb405e8d8",
+          "Name": "",
+          "Description": "str",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "",
+      "Description": "Creates a string.",
+      "Id": "7c0a0ac125df4f28a54efb055704fc11",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "0807aac2d734470ebd7ef30056ed8f3d",
+          "Name": "",
+          "Description": "str",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "",
+      "Description": "Creates a string.",
+      "Id": "6f0b4180f9f3416895e8de80a1c65ab2",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ac19c2ee0b9e42a9a4b010b38f7b216d",
+          "Name": "",
+          "Description": "str",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "",
+      "Description": "Creates a string.",
+      "Id": "02915a8669f2495d82bf4fdab7eec855",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "78112b1f49944e69bb6ce5fc6d6fc240",
+          "Name": "",
+          "Description": "str",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "",
+      "Description": "Creates a string.",
+      "Id": "429095038181457d8a5dad659c29f300",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5eaa2648bf2b406abf67359642596d97",
+          "Name": "",
+          "Description": "str",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "InputValue": 0.01,
+      "Description": "Creates a number.",
+      "Id": "1af0b88235a440c1b6c721864d18432e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "0b0a5c760db94e08ad69d94858f29744",
+          "Name": "",
+          "Description": "num",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "InputValue": 2.0,
+      "Description": "Creates a number.",
+      "Id": "893b9cfa80b240d3a1ecbb0218f5a32a",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3611605f89c14a4ea5fa0d08d386dd06",
+          "Name": "",
+          "Description": "num",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleInput, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "InputValue": 0.22,
+      "Description": "Creates a number.",
+      "Id": "9d8736108f294c84958058b42944968d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d628a0c2aba4418481021c5437b9c5d2",
+          "Name": "",
+          "Description": "num",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# -*- coding: utf-8 -*-\r\n# =====================================================================\r\n#  GREIDE COLADO + CORREDOR DE RECAPEAMENTO\r\n#  Civil 3D 2026/2027 - Dynamo (PythonNet3)\r\n#\r\n#  O que faz, na ordem:\r\n#   1. Amostra a superficie da pista existente no eixo do alinhamento\r\n#      e gera o GREIDE COLADO (desvio maximo no eixo = TOLERANCIA).\r\n#   2. Gera o GREIDE DE PROJETO = greide colado + ALTURA (0,22 m):\r\n#      mesmos PVIs e curvas, cotas + 0,22 -> paralelo exato.\r\n#   3. Cria o corredor sobre o greide de projeto com a MONTAGEM\r\n#      informada (11,00 m = 3,50 faixa + 2,00 acostamento por lado,\r\n#      -2%), frequencia 1,00 m, e a superficie do corredor\r\n#      (links Top, correcao de saliencia = links superiores,\r\n#      limite = extensao do corredor).\r\n#   4. Troca o perfil \"projeto\" da faixa de cotas do grafico do\r\n#      perfil para o greide de projeto.\r\n#\r\n#  Entradas (nos do Dynamo):\r\n#   IN[0] RODAR           False = so diagnostico (NAO altera o desenho)\r\n#   IN[1] MODO            \"tudo\" | \"greide\" | \"corredor\"\r\n#   IN[2] ALINHAMENTO     ex.: BR-222\r\n#   IN[3] SUPERFICIE      superficie da pista existente\r\n#   IN[4] MONTAGEM        montagem de 11,00 m\r\n#   IN[5] ESTACA INICIAL  14078 | 14078+10 | 281+560 (km) | vazio = auto\r\n#   IN[6] ESTACA FINAL    idem (o formato e deduzido pela faixa do eixo)\r\n#   IN[7] TOLERANCIA (m)  desvio maximo greide x pista no eixo (0,01)\r\n#   IN[8] PASSO (m)       amostragem da superficie no eixo (2)\r\n#   IN[9] ALTURA (m)      greide de projeto acima do colado (0,22)\r\n#\r\n#  Nada e apagado. Se ja existir greide/corredor com o mesmo nome,\r\n#  ele e reutilizado (apague ou renomeie para gerar de novo).\r\n#  Nas curvas horizontais a declividade vem da SUPERELEVACAO do\r\n#  alinhamento: sem superelevacao calculada, as curvas ficam a -2%.\r\n#  Cada etapa roda numa transacao propria: se der erro, a etapa e\r\n#  desfeita e nada dela fica no desenho.\r\n# =====================================================================\r\n\r\n# === ALGORITMO INICIO ===\r\nimport math\r\nimport bisect\r\n\r\nESTACA_M = 20.0\r\n\r\n\r\ndef fmt(v, n=3):\r\n    return ((\"%%.%df\" % n) % v).replace(\".\", \",\")\r\n\r\n\r\ndef estaca_txt(sta):\r\n    n = int(math.floor(sta / ESTACA_M + 1e-9))\r\n    r = sta - n * ESTACA_M\r\n    if r < 0.0:\r\n        r = 0.0\r\n    return \"%d+%s\" % (n, fmt(r, 2))\r\n\r\n\r\ndef km_txt(sta):\r\n    km = int(math.floor(sta / 1000.0 + 1e-9))\r\n    return \"km %d+%s\" % (km, fmt(sta - km * 1000.0, 2))\r\n\r\n\r\ndef interpretar_estaca(txt, s0, s1):\r\n    \"\"\"Aceita estaca de 20 m (14078, 14078+10), km+m (281+560) ou\r\n    estacao em metros (281560). Escolhe a leitura que cai dentro do\r\n    alinhamento [s0, s1]. Retorna (estacao_m, descricao) ou (None, msg).\"\"\"\r\n    t = str(txt).strip().replace(\" \", \"\").replace(\",\", \".\")\r\n    if t == \"\":\r\n        return None, \"vazio\"\r\n    try:\r\n        if \"+\" in t:\r\n            a, b = t.split(\"+\", 1)\r\n            a, b = float(a), float(b)\r\n            cands = [(\"estaca de 20 m\", a * ESTACA_M + b), (\"km+m\", a * 1000.0 + b)]\r\n        else:\r\n            v = float(t)\r\n            cands = [(\"estaca de 20 m\", v * ESTACA_M), (\"estacao em metros\", v)]\r\n    except Exception:\r\n        return None, \"'%s' nao e uma estaca valida\" % txt\r\n    for nome, s in cands:\r\n        if s0 - 0.001 <= s <= s1 + 0.001:\r\n            return s, nome\r\n    return None, \"'%s' fica fora do alinhamento em qualquer leitura\" % txt\r\n\r\n\r\ndef simplificar(pts, tol):\r\n    \"\"\"Douglas-Peucker com desvio VERTICAL. pts = [(estacao, cota)].\r\n    Os PVIs escolhidos sao pontos reais da pista (amostras).\"\"\"\r\n    n = len(pts)\r\n    if n <= 2:\r\n        return list(pts)\r\n    manter = [False] * n\r\n    manter[0] = manter[-1] = True\r\n    pilha = [(0, n - 1)]\r\n    while pilha:\r\n        i, j = pilha.pop()\r\n        if j <= i + 1:\r\n            continue\r\n        si, zi = pts[i]\r\n        sj, zj = pts[j]\r\n        g = (zj - zi) / (sj - si)\r\n        dmax = -1.0\r\n        kmax = -1\r\n        for k in range(i + 1, j):\r\n            s, z = pts[k]\r\n            d = abs(z - (zi + g * (s - si)))\r\n            if d > dmax:\r\n                dmax, kmax = d, k\r\n        if dmax > tol:\r\n            manter[kmax] = True\r\n            pilha.append((i, kmax))\r\n            pilha.append((kmax, j))\r\n    return [pts[k] for k in range(n) if manter[k]]\r\n\r\n\r\ndef _cota_parabola(s, sk, zk, L, g1, g2):\r\n    x = s - (sk - L / 2.0)\r\n    return zk - g1 * L / 2.0 + g1 * x + (g2 - g1) / (2.0 * L) * x * x\r\n\r\n\r\ndef curvas_verticais(pvis, amostras, tol, l_min):\r\n    \"\"\"Parabola simetrica em cada PVI interno, com o maior comprimento\r\n    que mantem todas as amostras dentro da tolerancia e nao invade as\r\n    curvas vizinhas. Retorna [(indice_pvi, L, g1, g2)].\"\"\"\r\n    sts = [a[0] for a in amostras]\r\n    res = []\r\n    for k in range(1, len(pvis) - 1):\r\n        s0, z0 = pvis[k - 1]\r\n        sk, zk = pvis[k]\r\n        s2, z2 = pvis[k + 1]\r\n        t1 = sk - s0\r\n        t2 = s2 - sk\r\n        g1 = (zk - z0) / t1\r\n        g2 = (z2 - zk) / t2\r\n        A = abs(g2 - g1)\r\n        if A < 1e-6:\r\n            continue\r\n        L = min(8.0 * tol / A, 0.95 * t1, 0.95 * t2)\r\n        aceito = None\r\n        while L >= l_min:\r\n            L = math.floor(L * 10.0) / 10.0\r\n            if L < l_min:\r\n                break\r\n            lo = bisect.bisect_left(sts, sk - L / 2.0)\r\n            hi = bisect.bisect_right(sts, sk + L / 2.0)\r\n            ok = True\r\n            for j in range(lo, hi):\r\n                s, z = amostras[j]\r\n                if abs(_cota_parabola(s, sk, zk, L, g1, g2) - z) > tol:\r\n                    ok = False\r\n                    break\r\n            if ok:\r\n                aceito = L\r\n                break\r\n            L = L * 0.5\r\n        if aceito is not None:\r\n            res.append((k, aceito, g1, g2))\r\n    return res\r\n\r\n\r\nclass GreideSimulado(object):\r\n    \"\"\"Cota do greide (tangentes + parabolas) sem tocar no desenho.\"\"\"\r\n\r\n    def __init__(self, pvis, curvas):\r\n        self.pvis = pvis\r\n        self.sts = [p[0] for p in pvis]\r\n        self.cmap = dict((k, (L, g1, g2)) for (k, L, g1, g2) in curvas)\r\n\r\n    def cota(self, s):\r\n        n = len(self.pvis)\r\n        i = bisect.bisect_right(self.sts, s) - 1\r\n        i = max(0, min(i, n - 2))\r\n        for k in (i, i + 1):\r\n            c = self.cmap.get(k)\r\n            if c:\r\n                L, g1, g2 = c\r\n                sk, zk = self.pvis[k]\r\n                if sk - L / 2.0 <= s <= sk + L / 2.0:\r\n                    return _cota_parabola(s, sk, zk, L, g1, g2)\r\n        s0, z0 = self.pvis[i]\r\n        s1, z1 = self.pvis[i + 1]\r\n        return z0 + (z1 - z0) / (s1 - s0) * (s - s0)\r\n\r\n\r\ndef estatisticas(amostras, greide, tol):\r\n    dmax = 0.0\r\n    smax = None\r\n    soma = 0.0\r\n    fora = 0\r\n    for s, z in amostras:\r\n        d = greide.cota(s) - z\r\n        soma += abs(d)\r\n        if abs(d) > tol + 1e-9:\r\n            fora += 1\r\n        if abs(d) > abs(dmax):\r\n            dmax, smax = d, s\r\n    return dmax, smax, soma / max(1, len(amostras)), fora\r\n# === ALGORITMO FIM ===\r\n\r\n\r\n# ============================ CIVIL 3D ================================\r\nimport os\r\nimport traceback\r\nimport clr\r\n\r\nclr.AddReference(\"AcMgd\")\r\nclr.AddReference(\"AcCoreMgd\")\r\nclr.AddReference(\"AcDbMgd\")\r\nclr.AddReference(\"AecBaseMgd\")\r\nclr.AddReference(\"AecPropDataMgd\")\r\nclr.AddReference(\"AeccDbMgd\")\r\n\r\nfrom Autodesk.AutoCAD.ApplicationServices import Application\r\nfrom Autodesk.AutoCAD.DatabaseServices import OpenMode, ObjectId\r\nfrom Autodesk.AutoCAD.Geometry import Point2d\r\nfrom Autodesk.Civil.ApplicationServices import CivilApplication\r\nimport Autodesk.Civil as CIVIL\r\nimport Autodesk.Civil.DatabaseServices as C3D\r\n\r\n\r\ndef _entrada(i, padrao):\r\n    try:\r\n        v = IN[i]\r\n    except Exception:\r\n        return padrao\r\n    if v is None:\r\n        return padrao\r\n    if isinstance(v, str) and v.strip() == \"\":\r\n        return padrao\r\n    return v\r\n\r\n\r\nRODAR = bool(_entrada(0, False))\r\nMODO = str(_entrada(1, \"tudo\")).strip().lower()\r\nALINH = str(_entrada(2, \"BR-222\")).strip()\r\nSUPERF = str(_entrada(3, \"\")).strip()\r\nMONTAGEM = str(_entrada(4, \"\")).strip()\r\nEST_INI = str(_entrada(5, \"\")).strip()\r\nEST_FIM = str(_entrada(6, \"\")).strip()\r\nTOL = float(_entrada(7, 0.01))\r\nPASSO = float(_entrada(8, 2.0))\r\nALTURA = float(_entrada(9, 0.22))\r\n\r\n# ---- ajustes finos -------------------------------------------------\r\nCURVAS = True             # concordancias verticais limitadas pela TOLERANCIA\r\nL_MIN_CURVA = 2.0         # m - curvas menores que isso sao omitidas\r\nFREQUENCIA = 1.0          # m - frequencia do corredor\r\nESTILO_SUP = \"TRI_PTO_BRD\"\r\nATUALIZAR_FAIXA = True    # faixa COTAS TERRENO/PROJETO -> greide de projeto\r\nNOME_COLADO = \"GREIDE-COLADO-\" + ALINH\r\nNOME_PROJ = \"GREIDE-PROJ-\" + ALINH\r\nNOME_CORREDOR = ALINH + \"-RECAP\"\r\nNOME_SUP_COR = \"SUP-\" + ALINH + \"-RECAP\"\r\n\r\nREL = []\r\n\r\n\r\ndef log(*partes):\r\n    REL.append(\" \".join([str(p) for p in partes]))\r\n\r\n\r\ndef erro_curto(e):\r\n    tb = traceback.format_exc().strip().splitlines()\r\n    return \"%s | %s\" % (e, \" / \".join(tb[-3:]))\r\n\r\n\r\ndef enum(tipo, membro):\r\n    for ns in (C3D, CIVIL):\r\n        try:\r\n            return getattr(getattr(ns, tipo), membro)\r\n        except Exception:\r\n            pass\r\n    raise Exception(\"enum %s.%s nao encontrado\" % (tipo, membro))\r\n\r\n\r\ndef abrir(t, oid, escrita=False):\r\n    return t.GetObject(oid, OpenMode.ForWrite if escrita else OpenMode.ForRead)\r\n\r\n\r\ndef achar(t, ids, nome, parcial=False):\r\n    \"\"\"Nome exato (sem diferenciar maiusculas). Com parcial=True, aceita\r\n    tambem um trecho do nome, desde que so um objeto combine.\"\"\"\r\n    alvo = nome.strip().upper()\r\n    parecidos = []\r\n    for oid in ids:\r\n        try:\r\n            o = abrir(t, oid)\r\n            n = str(o.Name).strip().upper()\r\n            if n == alvo:\r\n                return o\r\n            if parcial and alvo and alvo in n:\r\n                parecidos.append(o)\r\n        except Exception:\r\n            pass\r\n    if len(parecidos) == 1:\r\n        log(\"  ('%s' entendido como '%s')\" % (nome, parecidos[0].Name))\r\n        return parecidos[0]\r\n    return None\r\n\r\n\r\ndef listar(t, ids, limite=40):\r\n    out = []\r\n    for oid in ids:\r\n        try:\r\n            out.append(str(abrir(t, oid).Name))\r\n        except Exception:\r\n            pass\r\n    if len(out) > limite:\r\n        return out[:limite] + [\"... (+%d)\" % (len(out) - limite)]\r\n    return out\r\n\r\n\r\ndef xy(al, sta, off=0.0):\r\n    r = al.PointLocation(float(sta), float(off), 0.0, 0.0)\r\n    if isinstance(r, tuple):\r\n        nums = [v for v in r if isinstance(v, float)]\r\n        if len(nums) >= 2:\r\n            return nums[-2], nums[-1]\r\n    raise Exception(\"PointLocation: retorno inesperado %r\" % (r,))\r\n\r\n\r\ndef extensao(sup):\r\n    try:\r\n        e = sup.GeometricExtents\r\n        return (e.MinPoint.X, e.MinPoint.Y, e.MaxPoint.X, e.MaxPoint.Y)\r\n    except Exception:\r\n        return None\r\n\r\n\r\ndef cota_sup(sup, ext, x, y):\r\n    if ext is not None and not (ext[0] <= x <= ext[2] and ext[1] <= y <= ext[3]):\r\n        return None\r\n    try:\r\n        z = float(sup.FindElevationAtXY(x, y))\r\n    except Exception:\r\n        return None\r\n    if math.isnan(z) or abs(z) > 1.0e6:\r\n        return None\r\n    return z\r\n\r\n\r\ndef cota_no_eixo(al, sup, ext, sta, off=0.0):\r\n    try:\r\n        x, y = xy(al, sta, off)\r\n    except Exception:\r\n        return None\r\n    return cota_sup(sup, ext, x, y)\r\n\r\n\r\ndef trechos_cobertos(al, sup, ext):\r\n    s0 = al.StartingStation\r\n    s1 = al.EndingStation\r\n    n = int(math.floor((s1 - s0) / ESTACA_M))\r\n    trechos = []\r\n    atual = None\r\n    for i in range(n + 1):\r\n        s = s0 + i * ESTACA_M\r\n        if cota_no_eixo(al, sup, ext, s) is not None:\r\n            if atual is None:\r\n                atual = [s, s]\r\n            else:\r\n                atual[1] = s\r\n        elif atual is not None:\r\n            trechos.append(atual)\r\n            atual = None\r\n    if atual is not None:\r\n        trechos.append(atual)\r\n    return trechos\r\n\r\n\r\ndef estender_pontas(al, sup, ext, a, b):\r\n    s = a\r\n    for i in range(1, int(ESTACA_M) + 1):\r\n        c = a - i\r\n        if c < al.StartingStation or cota_no_eixo(al, sup, ext, c) is None:\r\n            break\r\n        s = c\r\n    a2 = s\r\n    s = b\r\n    for i in range(1, int(ESTACA_M) + 1):\r\n        c = b + i\r\n        if c > al.EndingStation or cota_no_eixo(al, sup, ext, c) is None:\r\n            break\r\n        s = c\r\n    return a2, s\r\n\r\n\r\ndef amostrar(al, sup, ext, a, b, passo):\r\n    estacoes = [a]\r\n    k = int(math.floor(a / passo)) + 1\r\n    while k * passo < b - 0.01:\r\n        if k * passo > a + 0.01:\r\n            estacoes.append(k * passo)\r\n        k += 1\r\n    estacoes.append(b)\r\n    pts = []\r\n    falhas = []\r\n    for s in estacoes:\r\n        z = cota_no_eixo(al, sup, ext, s)\r\n        if z is None:\r\n            falhas.append(s)\r\n        else:\r\n            pts.append((s, z))\r\n    return pts, falhas\r\n\r\n\r\ndef info_super(al):\r\n    try:\r\n        curvas = al.SuperelevationCurves\r\n        try:\r\n            n = int(curvas.Count)\r\n        except Exception:\r\n            n = len(curvas)\r\n    except Exception:\r\n        return \"nao foi possivel ler\"\r\n    if n == 0:\r\n        return \"NENHUMA calculada -> nas curvas o corredor fica a -2% ate voce calcular\"\r\n    return \"%d curva(s) com superelevacao -> o corredor segue a superelevacao nelas\" % n\r\n\r\n\r\ndef gravar_csv(pvis, curvas):\r\n    try:\r\n        pasta = os.path.join(os.path.expanduser(\"~\"), \"Documents\")\r\n        if not os.path.isdir(pasta):\r\n            pasta = os.path.expanduser(\"~\")\r\n        seguro = \"\".join(c if (c.isalnum() or c in \"-_\") else \"_\" for c in ALINH)\r\n        cam = os.path.join(pasta, \"greide_colado_%s.csv\" % seguro)\r\n        cmap = dict((k, L) for (k, L, g1, g2) in curvas)\r\n        f = open(cam, \"w\", encoding=\"utf-8-sig\")\r\n        try:\r\n            f.write(\"PVI;ESTACA;ESTACAO (m);COTA COLADO;COTA PROJETO (+%s);RAMPA SEGUINTE (%%);CURVA L (m)\\n\" % fmt(ALTURA, 2))\r\n            for i, (s, z) in enumerate(pvis):\r\n                rampa = \"\"\r\n                if i < len(pvis) - 1:\r\n                    rampa = fmt((pvis[i + 1][1] - z) / (pvis[i + 1][0] - s) * 100.0, 3)\r\n                f.write(\"%d;%s;%s;%s;%s;%s;%s\\n\" % (\r\n                    i + 1, estaca_txt(s), fmt(s, 3), fmt(z, 3), fmt(z + ALTURA, 3),\r\n                    rampa, fmt(cmap[i], 1) if i in cmap else \"\"))\r\n        finally:\r\n            f.close()\r\n        return cam\r\n    except Exception as e:\r\n        return \"nao gravado (%s)\" % e\r\n\r\n\r\ndef resumo_montagem(t, asm):\r\n    linhas = []\r\n    chaves_uteis = (\"width\", \"slope\", \"side\", \"super\", \"largura\", \"pendente\", \"lado\")\r\n    try:\r\n        for g in asm.Groups:\r\n            grp = abrir(t, g) if isinstance(g, ObjectId) else g\r\n            for sid in grp.GetSubassemblyIds():\r\n                sa = abrir(t, sid)\r\n                itens = []\r\n                for col in (sa.ParamsDouble, sa.ParamsLong, sa.ParamsString):\r\n                    for prm in col:\r\n                        chave = str(getattr(prm, \"Key\", getattr(prm, \"DisplayName\", \"?\")))\r\n                        if any(w in chave.lower() for w in chaves_uteis):\r\n                            itens.append(\"%s=%s\" % (chave, prm.Value))\r\n                linhas.append(\"    - %s: %s\" % (sa.Name, \"; \".join(itens[:8])))\r\n    except Exception as e:\r\n        linhas.append(\"    (nao consegui ler as subassemblies: %s)\" % e)\r\n    return linhas\r\n\r\n\r\n# ------------------------------ ETAPAS -------------------------------\r\n\r\ndef planejar(t, civdoc):\r\n    plano = {\"al\": None, \"sup\": None, \"asm\": None, \"pvis\": None}\r\n    al = achar(t, civdoc.GetAlignmentIds(), ALINH, True)\r\n    if al is None:\r\n        log(\"Alinhamento '%s' nao encontrado. Existentes: %s\" % (ALINH, \", \".join(listar(t, civdoc.GetAlignmentIds()))))\r\n        return None\r\n    plano[\"al\"] = al.ObjectId\r\n    log(\"Alinhamento: %s (estaca %s a %s = %s a %s)\" % (\r\n        al.Name, estaca_txt(al.StartingStation), estaca_txt(al.EndingStation),\r\n        km_txt(al.StartingStation), km_txt(al.EndingStation)))\r\n    log(\"Superelevacao: \" + info_super(al))\r\n    log(\"Perfis do alinhamento: \" + (\", \".join(listar(t, al.GetProfileIds())) or \"(nenhum)\"))\r\n\r\n    sup = None\r\n    if SUPERF:\r\n        sup = achar(t, civdoc.GetSurfaceIds(), SUPERF, True)\r\n        if sup is None:\r\n            log(\"Superficie '%s' nao encontrada. Existentes: %s\" % (SUPERF, \", \".join(listar(t, civdoc.GetSurfaceIds()))))\r\n            return None\r\n        plano[\"sup\"] = sup.ObjectId\r\n\r\n    if MODO in (\"tudo\", \"greide\"):\r\n        if sup is None:\r\n            log(\"Informe SUPERFICIE (pista existente). Superficies no desenho: \" + \", \".join(listar(t, civdoc.GetSurfaceIds())))\r\n            return None\r\n        ext = extensao(sup)\r\n        a = b = None\r\n        for rotulo, txt in ((\"ESTACA INICIAL\", EST_INI), (\"ESTACA FINAL\", EST_FIM)):\r\n            if not txt:\r\n                continue\r\n            s, como = interpretar_estaca(txt, al.StartingStation, al.EndingStation)\r\n            if s is None:\r\n                log(\"%s: %s. Alinhamento vai de %s a %s.\" % (\r\n                    rotulo, como, estaca_txt(al.StartingStation), estaca_txt(al.EndingStation)))\r\n                return None\r\n            log(\"%s '%s' lida como %s -> estaca %s (%s)\" % (rotulo, txt, como, estaca_txt(s), km_txt(s)))\r\n            if rotulo == \"ESTACA INICIAL\":\r\n                a = s\r\n            else:\r\n                b = s\r\n        if a is not None and b is not None and b < a:\r\n            a, b = b, a\r\n        if a is None or b is None:\r\n            trechos = trechos_cobertos(al, sup, ext)\r\n            if not trechos:\r\n                log(\"A superficie '%s' nao cobre o eixo de %s.\" % (sup.Name, al.Name))\r\n                return None\r\n            log(\"Trechos do eixo sobre a superficie: \" + \"; \".join(\r\n                \"%s a %s\" % (estaca_txt(x), estaca_txt(y)) for x, y in trechos[:10]))\r\n            maior = max(trechos, key=lambda r: r[1] - r[0])\r\n            aa, bb = estender_pontas(al, sup, ext, maior[0], maior[1])\r\n            if a is None:\r\n                a = aa\r\n            if b is None:\r\n                b = bb\r\n        a = max(a, al.StartingStation)\r\n        b = min(b, al.EndingStation)\r\n        if b - a < 2 * PASSO:\r\n            log(\"Trecho curto demais: %s a %s.\" % (estaca_txt(a), estaca_txt(b)))\r\n            return None\r\n        amostras, falhas = amostrar(al, sup, ext, a, b, PASSO)\r\n        if falhas:\r\n            log(\"Atencao: %d ponto(s) do eixo fora da superficie foram ignorados (ex.: %s).\" % (\r\n                len(falhas), \", \".join(estaca_txt(s) for s in falhas[:5])))\r\n        if len(amostras) < 3:\r\n            log(\"Amostras insuficientes no trecho.\")\r\n            return None\r\n        a, b = amostras[0][0], amostras[-1][0]\r\n        pvis = simplificar(amostras, TOL)\r\n        curvas = curvas_verticais(pvis, amostras, TOL, L_MIN_CURVA) if CURVAS else []\r\n        dmax, smax, dmed, fora = estatisticas(amostras, GreideSimulado(pvis, curvas), TOL)\r\n        log(\"\")\r\n        log(\"GREIDE COLADO (simulado): estaca %s a %s (%s a %s) = %s m\" % (\r\n            estaca_txt(a), estaca_txt(b), km_txt(a), km_txt(b), fmt(b - a, 2)))\r\n        log(\"  %d amostras a cada %s m | tolerancia %s m\" % (len(amostras), fmt(PASSO, 1), fmt(TOL, 3)))\r\n        log(\"  %d PVIs | %d concordancias verticais\" % (len(pvis), len(curvas)))\r\n        log(\"  desvio maximo %s m em %s | desvio medio %s m | %d amostra(s) acima da tolerancia\" % (\r\n            fmt(dmax, 3), estaca_txt(smax) if smax is not None else \"-\", fmt(dmed, 4), fora))\r\n        log(\"  greide de projeto = colado + %s m (paralelo)\" % fmt(ALTURA, 2))\r\n        log(\"  Tabela completa de PVIs: \" + gravar_csv(pvis, curvas))\r\n        cmap = dict((k, L) for (k, L, g1, g2) in curvas)\r\n        log(\"  Primeiros PVIs (estaca | cota colado | cota projeto | curva):\")\r\n        for i, (s, z) in enumerate(pvis[:20]):\r\n            log(\"   %3d  %s  %s  %s  %s\" % (i + 1, estaca_txt(s), fmt(z, 3), fmt(z + ALTURA, 3),\r\n                                        (\"L=%s\" % fmt(cmap[i], 1)) if i in cmap else \"\"))\r\n        if len(pvis) > 20:\r\n            log(\"   ... (+%d no CSV)\" % (len(pvis) - 20))\r\n        plano.update(pvis=pvis, curvas=curvas, amostras=amostras)\r\n\r\n    if MODO in (\"tudo\", \"corredor\"):\r\n        log(\"\")\r\n        if not MONTAGEM:\r\n            log(\"Informe MONTAGEM. Montagens no desenho: \" + (\", \".join(listar(t, civdoc.AssemblyCollection)) or \"(nenhuma)\"))\r\n        else:\r\n            asm = achar(t, civdoc.AssemblyCollection, MONTAGEM, True)\r\n            if asm is None:\r\n                log(\"Montagem '%s' nao encontrada. Existentes: %s\" % (\r\n                    MONTAGEM, \", \".join(listar(t, civdoc.AssemblyCollection)) or \"(nenhuma)\"))\r\n            else:\r\n                plano[\"asm\"] = asm.ObjectId\r\n                log(\"Montagem '%s' (confira larguras 3,50 + 2,00 e pendentes -2%%):\" % asm.Name)\r\n                for linha in resumo_montagem(t, asm):\r\n                    log(linha)\r\n        log(\"Corredores existentes: \" + (\", \".join(listar(t, civdoc.CorridorCollection)) or \"(nenhum)\"))\r\n    return plano\r\n\r\n\r\ndef estilos_perfil(t, civdoc, al):\r\n    layer = al.LayerId\r\n    estilo = None\r\n    try:\r\n        fg = enum(\"ProfileType\", \"FG\")\r\n        for pid in al.GetProfileIds():\r\n            p = abrir(t, pid)\r\n            if p.ProfileType == fg:\r\n                estilo = p.StyleId\r\n                layer = p.LayerId\r\n                break\r\n    except Exception:\r\n        pass\r\n    if estilo is None:\r\n        estilo = civdoc.Styles.ProfileStyles[0]\r\n    try:\r\n        rot = civdoc.Styles.LabelSetStyles.ProfileLabelSetStyles[0]\r\n    except Exception:\r\n        rot = ObjectId.Null\r\n    return layer, estilo, rot\r\n\r\n\r\ndef criar_perfil(t, civdoc, al, nome, pvis, curvas, dz):\r\n    existente = achar(t, al.GetProfileIds(), nome)\r\n    if existente is not None:\r\n        log(\"  '%s' ja existe -> reutilizado (apague ou renomeie para gerar de novo).\" % nome)\r\n        return existente\r\n    layer, estilo, rot = estilos_perfil(t, civdoc, al)\r\n    pid = C3D.Profile.CreateByLayout(nome, al.ObjectId, layer, estilo, rot)\r\n    p = abrir(t, pid, True)\r\n    tangentes = []\r\n    for i in range(len(pvis) - 1):\r\n        pa = Point2d(pvis[i][0], pvis[i][1] + dz)\r\n        pb = Point2d(pvis[i + 1][0], pvis[i + 1][1] + dz)\r\n        tangentes.append(p.Entities.AddFixedTangent(pa, pb))\r\n    crista = enum(\"VerticalCurveType\", \"Crest\")\r\n    sag = enum(\"VerticalCurveType\", \"Sag\")\r\n    ok = 0\r\n    falhas = 0\r\n    ultimo = \"\"\r\n    for (k, L, g1, g2) in curvas:\r\n        try:\r\n            p.Entities.AddFreeSymmetricParabolaByLength(\r\n                tangentes[k - 1].EntityId, tangentes[k].EntityId,\r\n                crista if g2 < g1 else sag, float(L), True)\r\n            ok += 1\r\n        except Exception as e:\r\n            falhas += 1\r\n            ultimo = str(e)\r\n    extra = (\" (%d curvas falharam: %s)\" % (falhas, ultimo)) if falhas else \"\"\r\n    log(\"  '%s' criado: %d PVIs, %d curvas%s.\" % (nome, len(pvis), ok, extra))\r\n    return p\r\n\r\n\r\ndef conferir_perfil(p, amostras, dz):\r\n    dmax = 0.0\r\n    smax = None\r\n    soma = 0.0\r\n    n = 0\r\n    for s, z in amostras:\r\n        try:\r\n            zp = p.ElevationAt(s)\r\n        except Exception:\r\n            continue\r\n        d = zp - (z + dz)\r\n        soma += abs(d)\r\n        n += 1\r\n        if abs(d) > abs(dmax):\r\n            dmax, smax = d, s\r\n    if n == 0:\r\n        return \"nao foi possivel conferir\"\r\n    return \"desvio max %s m em %s, medio %s m (%d pontos)\" % (\r\n        fmt(dmax, 3), estaca_txt(smax) if smax is not None else \"-\", fmt(soma / n, 4), n)\r\n\r\n\r\ndef etapa_greides(t, civdoc, plano):\r\n    log(\"\")\r\n    log(\"ETAPA GREIDES\")\r\n    al = abrir(t, plano[\"al\"])\r\n    p1 = criar_perfil(t, civdoc, al, NOME_COLADO, plano[\"pvis\"], plano[\"curvas\"], 0.0)\r\n    p2 = criar_perfil(t, civdoc, al, NOME_PROJ, plano[\"pvis\"], plano[\"curvas\"], ALTURA)\r\n    log(\"  Conferencia colado x pista existente: \" + conferir_perfil(p1, plano[\"amostras\"], 0.0))\r\n    log(\"  Conferencia projeto x (pista + %s): %s\" % (fmt(ALTURA, 2), conferir_perfil(p2, plano[\"amostras\"], ALTURA)))\r\n    return p2.ObjectId\r\n\r\n\r\ndef ajustar_frequencia(reg):\r\n    aas = reg.AppliedAssemblySetting\r\n    feitos = []\r\n    for nome in (\"FrequencyAlongTangents\", \"FrequencyAlongCurves\", \"FrequencyAlongSpirals\",\r\n                 \"FrequencyAlongProfileCurves\", \"FrequencyAlongTargetCurves\"):\r\n        try:\r\n            setattr(aas, nome, FREQUENCIA)\r\n            feitos.append(nome.replace(\"FrequencyAlong\", \"\"))\r\n        except Exception:\r\n            pass\r\n    try:\r\n        reg.AppliedAssemblySetting = aas\r\n    except Exception:\r\n        pass\r\n    try:\r\n        conf = fmt(reg.AppliedAssemblySetting.FrequencyAlongTangents, 2)\r\n    except Exception:\r\n        conf = \"?\"\r\n    log(\"  Frequencia %s m aplicada em: %s (tangentes agora = %s m)\" % (fmt(FREQUENCIA, 2), \", \".join(feitos), conf))\r\n\r\n\r\ndef criar_superficie_corredor(civdoc, cor):\r\n    for cs in cor.CorridorSurfaces:\r\n        if str(cs.Name).strip().upper() == NOME_SUP_COR.upper():\r\n            log(\"  Superficie '%s' ja existe no corredor -> mantida.\" % NOME_SUP_COR)\r\n            return cs\r\n    cs = None\r\n    try:\r\n        estilo = civdoc.Styles.SurfaceStyles[ESTILO_SUP]\r\n        cs = cor.CorridorSurfaces.Add(NOME_SUP_COR, estilo)\r\n    except Exception:\r\n        log(\"  (estilo '%s' nao aplicado; usando o padrao)\" % ESTILO_SUP)\r\n        cs = cor.CorridorSurfaces.Add(NOME_SUP_COR)\r\n    cs.AddLinkCode(\"Top\", True)\r\n    try:\r\n        cs.OverhangCorrection = enum(\"OverhangCorrectionType\", \"TopLinks\")\r\n    except Exception as e:\r\n        log(\"  (correcao de saliencia nao aplicada: %s)\" % e)\r\n    try:\r\n        cs.Boundaries.AddCorridorExtentsBoundary(\"EXTENSAO DO CORREDOR\")\r\n    except Exception as e:\r\n        log(\"  (limite pela extensao do corredor nao aplicado: %s)\" % e)\r\n    log(\"  Superficie '%s': links Top (como linha de ruptura), saliencia = links superiores.\" % NOME_SUP_COR)\r\n    return cs\r\n\r\n\r\ndef atualizar_faixas(t, al, prof):\r\n    fg = enum(\"ProfileType\", \"FG\")\r\n    trocas = 0\r\n    for pvid in al.GetProfileViewIds():\r\n        try:\r\n            pv = abrir(t, pvid, True)\r\n            itens = pv.Bands.GetBottomBandItems()\r\n            mudou = False\r\n            for it in itens:\r\n                try:\r\n                    p2 = it.Profile2Id\r\n                    if p2.IsNull or p2 == prof.ObjectId:\r\n                        continue\r\n                    if abrir(t, p2).ProfileType == fg:\r\n                        it.Profile2Id = prof.ObjectId\r\n                        mudou = True\r\n                except Exception:\r\n                    pass\r\n            if mudou:\r\n                pv.Bands.SetBottomBandItems(itens)\r\n                trocas += 1\r\n        except Exception as e:\r\n            log(\"  (faixa do grafico nao atualizada: %s)\" % e)\r\n    return trocas\r\n\r\n\r\ndef conferir_corredor(t, al, sup_id, cs, a, b):\r\n    try:\r\n        s_cor = abrir(t, cs.SurfaceId)\r\n        e_cor = extensao(s_cor)\r\n        sup = abrir(t, sup_id)\r\n        e_sup = extensao(sup)\r\n    except Exception as e:\r\n        log(\"  (conferencia da superficie do corredor nao disponivel: %s)\" % e)\r\n        return\r\n    n = max(1, min(80, int((b - a) // ESTACA_M)))\r\n    log(\"  Espessura = superficie do corredor - pista existente (%d secoes):\" % (n + 1))\r\n    lidos = 0\r\n    for off, nome in ((-5.45, \"bordo acost. E\"), (-3.5, \"bordo faixa E\"), (0.0, \"eixo\"),\r\n                      (3.5, \"bordo faixa D\"), (5.45, \"bordo acost. D\")):\r\n        difs = []\r\n        for i in range(n + 1):\r\n            s = a + (b - a) * i / float(n)\r\n            z0 = cota_no_eixo(al, sup, e_sup, s, off)\r\n            z1 = cota_no_eixo(al, s_cor, e_cor, s, off)\r\n            if z0 is not None and z1 is not None:\r\n                difs.append(z1 - z0)\r\n        if difs:\r\n            lidos += 1\r\n            log(\"   %-15s min %s | medio %s | max %s m\" % (\r\n                nome, fmt(min(difs), 3), fmt(sum(difs) / len(difs), 3), fmt(max(difs), 3)))\r\n        else:\r\n            log(\"   %-15s (sem leitura)\" % nome)\r\n    if lidos == 0:\r\n        log(\"  (superficie do corredor sem leitura - confira no desenho)\")\r\n        return\r\n    log(\"  Largura da superficie do corredor (inclui taludes, se a montagem tiver):\")\r\n    for frac in (0.25, 0.5, 0.75):\r\n        s = a + (b - a) * frac\r\n        lados = []\r\n        for sinal in (-1.0, 1.0):\r\n            ultimo = None\r\n            k = 1\r\n            while k <= 600:\r\n                off = sinal * k * 0.05\r\n                if cota_no_eixo(al, s_cor, e_cor, s, off) is None:\r\n                    break\r\n                ultimo = abs(off)\r\n                k += 1\r\n            lados.append(fmt(ultimo, 2) if ultimo is not None else \"?\")\r\n        log(\"   %s  E %s m | D %s m\" % (estaca_txt(s), lados[0], lados[1]))\r\n    log(\"  Pendentes transversais (faixa | acostamento), E = esquerda, D = direita:\")\r\n    for frac in (0.25, 0.5, 0.75):\r\n        s = a + (b - a) * frac\r\n        z = {}\r\n        for off in (-5.45, -3.5, 0.0, 3.5, 5.45):\r\n            z[off] = cota_no_eixo(al, s_cor, e_cor, s, off)\r\n        try:\r\n            e1 = (z[-3.5] - z[0.0]) / 3.5 * 100.0\r\n            e2 = (z[-5.45] - z[-3.5]) / 1.95 * 100.0\r\n            d1 = (z[3.5] - z[0.0]) / 3.5 * 100.0\r\n            d2 = (z[5.45] - z[3.5]) / 1.95 * 100.0\r\n            log(\"   %s  E %s%% | %s%%   D %s%% | %s%%\" % (estaca_txt(s), fmt(e1, 2), fmt(e2, 2), fmt(d1, 2), fmt(d2, 2)))\r\n        except Exception:\r\n            log(\"   %s  (sem leitura)\" % estaca_txt(s))\r\n\r\n\r\ndef etapa_corredor(t, civdoc, plano, prof_id):\r\n    log(\"\")\r\n    log(\"ETAPA CORREDOR\")\r\n    if plano[\"asm\"] is None:\r\n        log(\"  Corredor NAO criado: falta a montagem (veja acima).\")\r\n        return None\r\n    al = abrir(t, plano[\"al\"])\r\n    if prof_id is None:\r\n        prof = achar(t, al.GetProfileIds(), NOME_PROJ)\r\n        if prof is None:\r\n            log(\"  '%s' nao existe: rode antes com MODO = greide.\" % NOME_PROJ)\r\n            return None\r\n    else:\r\n        prof = abrir(t, prof_id)\r\n    a = prof.StartingStation\r\n    b = prof.EndingStation\r\n\r\n    existente = achar(t, civdoc.CorridorCollection, NOME_CORREDOR)\r\n    if existente is not None:\r\n        log(\"  Corredor '%s' ja existe -> mantido sem alteracoes.\" % NOME_CORREDOR)\r\n        return existente.ObjectId\r\n\r\n    cid = civdoc.CorridorCollection.Add(NOME_CORREDOR)\r\n    cor = abrir(t, cid, True)\r\n    bl = cor.Baselines.Add(\"BL-\" + al.Name, al.ObjectId, prof.ObjectId)\r\n    reg = bl.BaselineRegions.Add(\"RECAP\", plano[\"asm\"], float(a), float(b))\r\n    ajustar_frequencia(reg)\r\n    cs = criar_superficie_corredor(civdoc, cor)\r\n    cor.Rebuild()\r\n    log(\"  Corredor '%s' criado: %s a %s, greide '%s'.\" % (NOME_CORREDOR, estaca_txt(a), estaca_txt(b), prof.Name))\r\n    if ATUALIZAR_FAIXA:\r\n        try:\r\n            n = atualizar_faixas(t, al, prof)\r\n            log(\"  Faixa de cotas atualizada em %d grafico(s) do perfil.\" % n)\r\n        except Exception as e:\r\n            log(\"  (faixa nao atualizada: %s)\" % e)\r\n    if plano[\"sup\"] is not None:\r\n        conferir_corredor(t, al, plano[\"sup\"], cs, a, b)\r\n    return cid\r\n\r\n\r\ndef em_transacao(db, func, *args):\r\n    t = db.TransactionManager.StartTransaction()\r\n    try:\r\n        r = func(t, *args)\r\n        t.Commit()\r\n        return r\r\n    except Exception as e:\r\n        log(\"ERRO: \" + erro_curto(e))\r\n        log(\"  -> etapa desfeita, nada dela foi gravado.\")\r\n        try:\r\n            t.Abort()\r\n        except Exception:\r\n            pass\r\n        return None\r\n    finally:\r\n        t.Dispose()\r\n\r\n\r\ndef principal():\r\n    adoc = Application.DocumentManager.MdiActiveDocument\r\n    db = adoc.Database\r\n    civdoc = CivilApplication.ActiveDocument\r\n    log(\"GREIDE COLADO + CORREDOR RECAP | RODAR = %s | MODO = %s\" % (RODAR, MODO))\r\n    if MODO not in (\"tudo\", \"greide\", \"corredor\"):\r\n        log(\"MODO invalido: use tudo, greide ou corredor.\")\r\n        return\r\n    if not RODAR:\r\n        log(\"RODAR = False -> so diagnostico, o desenho NAO e alterado.\")\r\n    trava = adoc.LockDocument()\r\n    try:\r\n        plano = em_transacao(db, lambda t: planejar(t, civdoc))\r\n        if plano is None or not RODAR:\r\n            return\r\n        prof_id = None\r\n        if MODO in (\"tudo\", \"greide\"):\r\n            prof_id = em_transacao(db, lambda t: etapa_greides(t, civdoc, plano))\r\n            if prof_id is None:\r\n                return\r\n        if MODO in (\"tudo\", \"corredor\"):\r\n            em_transacao(db, lambda t: etapa_corredor(t, civdoc, plano, prof_id))\r\n        log(\"\")\r\n        log(\"Fim. Nas curvas, calcule a superelevacao do alinhamento e reconstrua o corredor.\")\r\n    finally:\r\n        trava.Dispose()\r\n\r\n\r\ntry:\r\n    principal()\r\nexcept Exception as e:\r\n    log(\"ERRO GERAL: \" + erro_curto(e))\r\n\r\nOUT = REL\r\n",
+      "Engine": "PythonNet3",
+      "VariableInputPorts": true,
+      "Id": "bc59796c0414494a94f4c4dd3b05231c",
+      "Inputs": [
+        {
+          "Id": "e0638c2d101b4688a6882dc4447dbf51",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9629631070224382bddfa137eb9771f9",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a5c06c4538f14475bc4dab0368e12ab5",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6a0ea3123f78430bbfffbbf7f1c354cb",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8ac4b6369c96498aab235695e17f9d44",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "68c1518ba376443aa71919c14c78df66",
+          "Name": "IN[5]",
+          "Description": "Input #5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "34a6bfdef6914da4addb513ef8cb8f4b",
+          "Name": "IN[6]",
+          "Description": "Input #6",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "35998c4e9a144e2dbadd724348eab855",
+          "Name": "IN[7]",
+          "Description": "Input #7",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d03fd3f6763f4781a36ddca5af37ddd9",
+          "Name": "IN[8]",
+          "Description": "Input #8",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c55118b55b5642c6b08820ba33164621",
+          "Name": "IN[9]",
+          "Description": "Input #9",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f1c25c65511044b1910beaf9780831bc",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "WatchWidth": 760.0,
+      "WatchHeight": 620.0,
+      "NodeType": "ExtensionNode",
+      "Id": "d44f893a45c3433499179506f4928ad7",
+      "Inputs": [
+        {
+          "Id": "f74d72f93df24c228dd2f77edc537317",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ef7909c01d614563a1a6d6a91d681d65",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "4f2123a46dbd4f75b4bf36275351e9df",
+      "End": "e0638c2d101b4688a6882dc4447dbf51",
+      "Id": "d70550c9eb98463c844f25a0323ecb8d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "4a89ba9e6c6d40ec94483e662e7f03ad",
+      "End": "9629631070224382bddfa137eb9771f9",
+      "Id": "5b1302b8585d4ff595a478a1455b61db",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "88b427ef13844903836ee41eb405e8d8",
+      "End": "a5c06c4538f14475bc4dab0368e12ab5",
+      "Id": "ac791dd651e941cfb1128a37b1501d35",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "0807aac2d734470ebd7ef30056ed8f3d",
+      "End": "6a0ea3123f78430bbfffbbf7f1c354cb",
+      "Id": "a50e80443e58406e8c8a4a1fa4ef056b",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "ac19c2ee0b9e42a9a4b010b38f7b216d",
+      "End": "8ac4b6369c96498aab235695e17f9d44",
+      "Id": "30bba286e1894b4fa22f94fc120d2585",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "78112b1f49944e69bb6ce5fc6d6fc240",
+      "End": "68c1518ba376443aa71919c14c78df66",
+      "Id": "50cf7a86a1fe4139af6fac3034c7e1d0",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "5eaa2648bf2b406abf67359642596d97",
+      "End": "34a6bfdef6914da4addb513ef8cb8f4b",
+      "Id": "bc78fc67028547caa77f6523750b3bdc",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "0b0a5c760db94e08ad69d94858f29744",
+      "End": "35998c4e9a144e2dbadd724348eab855",
+      "Id": "747a385575474e62a3a19b804a391e66",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "3611605f89c14a4ea5fa0d08d386dd06",
+      "End": "d03fd3f6763f4781a36ddca5af37ddd9",
+      "Id": "ecf3c735bd30497884bab999ca35285c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d628a0c2aba4418481021c5437b9c5d2",
+      "End": "c55118b55b5642c6b08820ba33164621",
+      "Id": "d5c92110bfb9452787dbdf4bddeec04f",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "f1c25c65511044b1910beaf9780831bc",
+      "End": "f74d72f93df24c228dd2f77edc537317",
+      "Id": "24f61d635fa84d5ba9e16b86b4301d09",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "4.0.0.0",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "RODAR (False = so diagnostico)",
+        "Id": "d6638906ca3c4586b86dba78ca0794bd",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 0.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "MODO (tudo | greide | corredor)",
+        "Id": "fbca9861f8ff475ab49a63e47fef8d1d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 110.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ALINHAMENTO",
+        "Id": "e9a249cfc7d04500a7286cf4f2bf3903",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 220.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "SUPERFICIE (pista existente)",
+        "Id": "7c0a0ac125df4f28a54efb055704fc11",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 330.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "MONTAGEM (11,00 m)",
+        "Id": "6f0b4180f9f3416895e8de80a1c65ab2",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 440.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ESTACA INICIAL (vazio = auto)",
+        "Id": "02915a8669f2495d82bf4fdab7eec855",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 550.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ESTACA FINAL (vazio = auto)",
+        "Id": "429095038181457d8a5dad659c29f300",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 660.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "TOLERANCIA (m)",
+        "Id": "1af0b88235a440c1b6c721864d18432e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 770.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "PASSO (m)",
+        "Id": "893b9cfa80b240d3a1ecbb0218f5a32a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 880.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ALTURA (m)",
+        "Id": "9d8736108f294c84958058b42944968d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 0.0,
+        "Y": 990.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Greide colado + corredor RECAP",
+        "Id": "bc59796c0414494a94f4c4dd3b05231c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 520.0,
+        "Y": 380.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "RELATORIO",
+        "Id": "d44f893a45c3433499179506f4928ad7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 900.0,
+        "Y": 150.0
+      }
+    ],
+    "Annotations": [],
+    "X": 60.0,
+    "Y": 40.0,
+    "Zoom": 0.75
+  }
+}

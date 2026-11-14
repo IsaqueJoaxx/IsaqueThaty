@@ -1,0 +1,28 @@
+# compilação e saída
+bin/
+obj/
+out/
+saida/
+.vs/
+*.user
+*.suo
+graphify-out/
+ErrorReports/
+*.antigo-*
+
+# Python / Node
+__pycache__/
+.venv/
+node_modules/
+point-top/runtime/
+point-top/Resultados/
+iri-rodoviario/build_env/
+iri-rodoviario/build/
+iri-rodoviario/dist/
+
+# arquivos de trabalho do AutoCAD e locais
+*.dwl
+*.dwl2
+*.bak
+*.sv$
+settings.local.json

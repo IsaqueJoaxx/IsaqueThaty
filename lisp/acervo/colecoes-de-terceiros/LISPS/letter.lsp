@@ -1,0 +1,48 @@
+; Routine to type in a text string and insert block letters.
+
+(defun C:LETTERING ()
+    (getdata)
+    (firstletter)
+    (continueletters)
+)
+
+(defun GETDATA ()
+   (graphscr)
+   (setq sd (getstring "Enter the directory with the text blocks <BLOCKS>: "))
+   (if (= sd "") (setq sd "BLOCKS"))
+   (TERPRI)
+   (setq r-d 57.29577951)
+   (setq point (getpoint "Show start of text: "))
+   (TERPRI)
+   (setq textangle (getangle point "Show rotation angle: "))
+   (setq insangle (* r-d textangle))
+   (setq space (getdist point "How far from 1st to 2nd letter?: "))
+   (setq text (getstring T "Enter text: "))
+)   
+
+(defun FIRSTLETTER ()
+   (setq i 1)
+   (setq blipmode (getvar "BLIPMODE"))
+   (setvar "BLIPMODE" 0) 
+   (setq letter (substr text i 1))
+   (setq blk (strcat "/" sd "/" letter))
+   (command "insert" blk point xs ys insangle)
+   (setq point2 (polar point textangle space))
+)
+
+(defun CONTINUELETTERS ()
+   (setq i (1+ i))
+   (setq point point2)
+   (setq point2 (polar point textangle space))
+   (setq letter (substr text i 1))
+   (setq blk (strcat "/" sd "/" letter))
+   (if (= letter " ")
+      (setq point (polar point2 textangle space))
+      (command "insert" blk point xs ys insangle)
+   )
+   (if (< i (strlen text)) (continueletters))
+   (setvar "BLIPMODE" blipmode)
+
+)
+
+

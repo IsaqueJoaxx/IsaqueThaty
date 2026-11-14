@@ -1,0 +1,188 @@
+{
+  "Uuid": "955de1a5-19f1-4f5f-be63-545ef7741cf9",
+  "IsCustomNode": false,
+  "Description": "Cria Point Groups no Civil 3D a partir da descricao dos pontos COGO",
+  "Name": "ClassificaPontos_PointGroups",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.BooleanSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "39e92443660642a9b19a23430f4f0576",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "06bd0e8a1961420a831b61caec08de2c",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Seleciona entre true e false."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# ============================================================\n# CLASSIFICA PONTOS - Dynamo para Civil 3D\n# Cria/atualiza Point Groups a partir da descricao bruta (Raw\n# Description) dos pontos COGO ja importados no desenho.\n# IN[0] = Boolean (True = executar)\n# ============================================================\nimport clr\nclr.AddReference('AcMgd')\nclr.AddReference('AcDbMgd')\nclr.AddReference('AeccDbMgd')\n\nfrom Autodesk.AutoCAD.ApplicationServices import Application\nfrom Autodesk.AutoCAD.DatabaseServices import OpenMode\nfrom Autodesk.Civil.ApplicationServices import CivilApplication\nfrom Autodesk.Civil.DatabaseServices import StandardPointGroupQuery\n\nexecutar = IN[0]\n\ndef limpa(nome):\n    invalidos = '<>/\\\\\":;?*|,=`'\n    s = ''.join('_' if c in invalidos else c for c in nome)\n    s = s.strip()\n    return s if s else 'SEM_CODIGO'\n\nresultado = []\n\nif not executar:\n    OUT = 'Mude o Boolean para True e rode o grafo (Run).'\nelse:\n    adoc = Application.DocumentManager.MdiActiveDocument\n    civdoc = CivilApplication.ActiveDocument\n    db = adoc.Database\n\n    with adoc.LockDocument():\n        t = db.TransactionManager.StartTransaction()\n        try:\n            # 1) varre todos os pontos COGO e agrupa por descricao\n            pontos = civdoc.CogoPoints\n            mapa = {}   # descricao -> lista de numeros de ponto\n            total = 0\n            for oid in pontos:\n                p = t.GetObject(oid, OpenMode.ForRead)\n                d = (p.RawDescription or '').strip().upper()\n                if not d:\n                    d = 'SEM_CODIGO'\n                mapa.setdefault(d, []).append(int(p.PointNumber))\n                total += 1\n\n            if total == 0:\n                resultado.append('Nenhum ponto COGO encontrado no desenho.')\n            else:\n                # 2) grupos ja existentes\n                grupos = civdoc.PointGroups\n                existentes = {}\n                for gid_ in grupos:\n                    g = t.GetObject(gid_, OpenMode.ForRead)\n                    existentes[g.Name.upper()] = gid_\n\n                # 3) cria/atualiza um grupo por descricao\n                for desc in sorted(mapa.keys()):\n                    nome = limpa(desc)\n                    q = StandardPointGroupQuery()\n                    if desc == 'SEM_CODIGO':\n                        # sem descricao: consulta por numero de ponto\n                        q.IncludeNumbers = ','.join(str(n) for n in sorted(mapa[desc]))\n                    else:\n                        q.IncludeRawDescriptions = desc\n\n                    if nome.upper() in existentes:\n                        g = t.GetObject(existentes[nome.upper()], OpenMode.ForWrite)\n                        g.SetQuery(q)\n                        try:\n                            g.Update()\n                        except:\n                            pass\n                        resultado.append('%s -> atualizado (%d pontos)' % (nome, len(mapa[desc])))\n                    else:\n                        novo = grupos.Add(nome)\n                        g = t.GetObject(novo, OpenMode.ForWrite)\n                        g.SetQuery(q)\n                        try:\n                            g.Update()\n                        except:\n                            pass\n                        resultado.append('%s -> criado (%d pontos)' % (nome, len(mapa[desc])))\n\n                resultado.append('---')\n                resultado.append('Total: %d pontos em %d grupos' % (total, len(mapa)))\n\n            t.Commit()\n        except Exception as e:\n            t.Abort()\n            resultado = ['ERRO: ' + str(e)]\n        finally:\n            t.Dispose()\n\n    OUT = resultado\n",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "48641d48be5e497a80a3106439bbc416",
+      "Inputs": [
+        {
+          "Id": "75d9ec60364f4b659206ced1022a7a73",
+          "Name": "IN[0]",
+          "Description": "Executar (Boolean)",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e9b0cdf8d1624207bbd4356eec838070",
+          "Name": "OUT",
+          "Description": "Resultado",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Executa um script Python incorporado."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "d7ac24f19ef54e71afd34abeb1b3952b",
+      "Inputs": [
+        {
+          "Id": "f40c4f8a03e24c90af17befea77e6390",
+          "Name": "",
+          "Description": "Node a inspecionar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8366d5a44f264f28b10c25dc50ce054f",
+          "Name": "",
+          "Description": "Conteudo do node",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualizar a saida do node."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "06bd0e8a1961420a831b61caec08de2c",
+      "End": "75d9ec60364f4b659206ced1022a7a73",
+      "Id": "31c31f94ee15460f8089b5b1b3555503",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "e9b0cdf8d1624207bbd4356eec838070",
+      "End": "f40c4f8a03e24c90af17befea77e6390",
+      "Id": "764c40e837b045c4a692c541816e199d",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.13",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.13.1.3891",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Visualizacao em segundo plano",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Name": "Executar",
+        "ShowGeometry": true,
+        "Id": "39e92443660642a9b19a23430f4f0576",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 100.0,
+        "Y": 250.0
+      },
+      {
+        "Name": "Classifica Pontos -> Point Groups",
+        "ShowGeometry": true,
+        "Id": "48641d48be5e497a80a3106439bbc416",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 420.0,
+        "Y": 250.0
+      },
+      {
+        "Name": "Resultado",
+        "ShowGeometry": true,
+        "Id": "d7ac24f19ef54e71afd34abeb1b3952b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": true,
+        "Excluded": false,
+        "X": 780.0,
+        "Y": 250.0
+      }
+    ],
+    "Annotations": [],
+    "X": 0.0,
+    "Y": 0.0,
+    "Zoom": 1.0
+  }
+}

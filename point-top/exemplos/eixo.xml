@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LandXML xmlns="http://www.landxml.org/schema/LandXML-1.2" version="1.2"><Units><Metric linearUnit="meter"/></Units><Alignments><Alignment name="Eixo sintético" length="200"><CoordGeom><Line length="100"><Start>7800000 500000</Start><End>7800000 500100</End></Line><Line length="100"><Start>7800000 500100</Start><End>7800080 500160</End></Line></CoordGeom></Alignment></Alignments></LandXML>

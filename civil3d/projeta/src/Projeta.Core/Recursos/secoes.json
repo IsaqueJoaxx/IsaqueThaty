@@ -1,0 +1,113 @@
+[
+  {
+    "id": "VALETA_TRAPEZOIDAL",
+    "nome": "Valeta trapezoidal revestida em concreto",
+    "categoria": "Valeta",
+    "descricao": "Origem no fundo, no eixo da valeta. Revestimento de espessura constante.",
+    "parametros": [
+      { "nome": "b", "padrao": 0.30, "descricao": "Largura do fundo" },
+      { "nome": "h", "padrao": 0.30, "descricao": "Altura útil" },
+      { "nome": "m", "padrao": 1.0, "unidade": "H:V", "descricao": "Talude interno" },
+      { "nome": "e", "padrao": 0.08, "descricao": "Espessura do revestimento" }
+    ],
+    "variaveis": [ { "nome": "k", "expr": "sqrt(1 + m*m)" } ],
+    "contornoHidraulico": [ { "x": "-b/2 - m*h", "y": "h" }, { "x": "-b/2", "y": 0 }, { "x": "b/2", "y": 0 }, { "x": "b/2 + m*h", "y": "h" } ],
+    "concreto": [
+      { "x": "-b/2 - m*h", "y": "h" }, { "x": "-b/2", "y": 0 }, { "x": "b/2", "y": 0 }, { "x": "b/2 + m*h", "y": "h" },
+      { "x": "b/2 + m*h + e*k", "y": "h" }, { "x": "b/2 + e*(k - m)", "y": "-e" },
+      { "x": "-b/2 - e*(k - m)", "y": "-e" }, { "x": "-b/2 - m*h - e*k", "y": "h" }
+    ],
+    "escavacao": [
+      { "x": "-b/2 - m*h - e*k - 0.10", "y": "h" }, { "x": "-b/2 - e*(k - m) - 0.10", "y": "-e" },
+      { "x": "b/2 + e*(k - m) + 0.10", "y": "-e" }, { "x": "b/2 + m*h + e*k + 0.10", "y": "h" }
+    ]
+  },
+  {
+    "id": "VALETA_TRIANGULAR",
+    "nome": "Valeta / sarjeta triangular de concreto",
+    "categoria": "Valeta",
+    "descricao": "Seção em V com taludes independentes. Origem no vértice inferior.",
+    "parametros": [
+      { "nome": "h", "padrao": 0.30, "descricao": "Profundidade" },
+      { "nome": "m1", "padrao": 2.0, "unidade": "H:V", "descricao": "Talude esquerdo" },
+      { "nome": "m2", "padrao": 2.0, "unidade": "H:V", "descricao": "Talude direito" },
+      { "nome": "e", "padrao": 0.08 }
+    ],
+    "variaveis": [ { "nome": "k1", "expr": "sqrt(1 + m1*m1)" }, { "nome": "k2", "expr": "sqrt(1 + m2*m2)" } ],
+    "contornoHidraulico": [ { "x": "-m1*h", "y": "h" }, { "x": 0, "y": 0 }, { "x": "m2*h", "y": "h" } ],
+    "concreto": [
+      { "x": "-m1*h", "y": "h" }, { "x": 0, "y": 0 }, { "x": "m2*h", "y": "h" },
+      { "x": "m2*h + e*k2", "y": "h" }, { "x": "e*(m1*k2 - m2*k1)/(m1 + m2)", "y": "-e*(k1 + k2)/(m1 + m2)" },
+      { "x": "-m1*h - e*k1", "y": "h" }
+    ]
+  },
+  {
+    "id": "CANALETA_RETANGULAR",
+    "nome": "Canaleta retangular de concreto (seção U)",
+    "categoria": "Canaleta",
+    "descricao": "Seção U aberta. Origem no fundo, no eixo.",
+    "parametros": [
+      { "nome": "b", "padrao": 0.40, "descricao": "Largura interna" },
+      { "nome": "h", "padrao": 0.40, "descricao": "Altura interna" },
+      { "nome": "e", "padrao": 0.10, "descricao": "Espessura das paredes e do fundo" }
+    ],
+    "contornoHidraulico": [ { "x": "-b/2", "y": "h" }, { "x": "-b/2", "y": 0 }, { "x": "b/2", "y": 0 }, { "x": "b/2", "y": "h" } ],
+    "concreto": [
+      { "x": "-b/2", "y": "h" }, { "x": "-b/2", "y": 0 }, { "x": "b/2", "y": 0 }, { "x": "b/2", "y": "h" },
+      { "x": "b/2 + e", "y": "h" }, { "x": "b/2 + e", "y": "-e" }, { "x": "-b/2 - e", "y": "-e" }, { "x": "-b/2 - e", "y": "h" }
+    ],
+    "escavacao": [ { "x": "-b/2 - e - 0.10", "y": "h" }, { "x": "-b/2 - e - 0.10", "y": "-e - 0.05" }, { "x": "b/2 + e + 0.10", "y": "-e - 0.05" }, { "x": "b/2 + e + 0.10", "y": "h" } ]
+  },
+  {
+    "id": "MEIA_CANA",
+    "nome": "Meia-cana de concreto",
+    "categoria": "Valeta",
+    "descricao": "Seção semicircular (meio tubo). Origem no fundo.",
+    "parametros": [
+      { "nome": "r", "padrao": 0.20, "descricao": "Raio interno" },
+      { "nome": "e", "padrao": 0.05, "descricao": "Espessura" }
+    ],
+    "contornoHidraulico": [ { "arco": true, "x": 0, "y": "r", "raio": "r", "de": 180, "ate": 360, "segmentos": 16 } ],
+    "concreto": [
+      { "arco": true, "x": 0, "y": "r", "raio": "r", "de": 180, "ate": 360, "segmentos": 16 },
+      { "arco": true, "x": 0, "y": "r", "raio": "r + e", "de": 360, "ate": 180, "segmentos": 16 }
+    ]
+  },
+  {
+    "id": "MEIO_FIO_SARJETA",
+    "nome": "Meio-fio com sarjeta conjugados (MFC)",
+    "categoria": "Sarjeta",
+    "descricao": "Origem no pé da guia (ponto mais baixo da sarjeta). X positivo em direção à pista. A água pode avançar sobre a pista até a largura de alagamento.",
+    "parametros": [
+      { "nome": "hg", "padrao": 0.15, "descricao": "Altura da guia acima da sarjeta" },
+      { "nome": "bg", "padrao": 0.15, "descricao": "Largura da guia" },
+      { "nome": "HTotal", "padrao": 0.45, "descricao": "Altura total da guia" },
+      { "nome": "w", "padrao": 0.30, "descricao": "Largura da sarjeta" },
+      { "nome": "sx", "padrao": 0.10, "unidade": "m/m", "descricao": "Declividade transversal da sarjeta" },
+      { "nome": "eg", "padrao": 0.10, "descricao": "Espessura da sarjeta" },
+      { "nome": "T", "padrao": 1.50, "descricao": "Largura máxima de alagamento (a partir da guia)" },
+      { "nome": "sp", "padrao": 0.02, "unidade": "m/m", "descricao": "Declividade transversal da pista" }
+    ],
+    "contornoHidraulico": [
+      { "x": 0, "y": "hg" }, { "x": 0, "y": 0 }, { "x": "w", "y": "w*sx" }, { "x": "max(T, w + 0.01)", "y": "w*sx + (max(T, w + 0.01) - w)*sp" }
+    ],
+    "concreto": [
+      { "x": "-bg", "y": "hg" }, { "x": 0, "y": "hg" }, { "x": 0, "y": 0 }, { "x": "w", "y": "w*sx" },
+      { "x": "w", "y": "w*sx - eg" }, { "x": 0, "y": "-eg" }, { "x": 0, "y": "hg - HTotal" }, { "x": "-bg", "y": "hg - HTotal" }
+    ]
+  },
+  {
+    "id": "MEIO_FIO",
+    "nome": "Meio-fio (guia) simples",
+    "categoria": "MeioFio",
+    "descricao": "Guia de concreto sem sarjeta (sem verificação hidráulica). Origem no pé da face exposta.",
+    "parametros": [
+      { "nome": "hg", "padrao": 0.15, "descricao": "Altura exposta" },
+      { "nome": "HTotal", "padrao": 0.45, "descricao": "Altura total" },
+      { "nome": "bt", "padrao": 0.12, "descricao": "Largura no topo" },
+      { "nome": "bb", "padrao": 0.15, "descricao": "Largura na base" }
+    ],
+    "contornoHidraulico": [],
+    "concreto": [ { "x": "-bt", "y": "hg" }, { "x": 0, "y": "hg" }, { "x": 0, "y": "hg - HTotal" }, { "x": "-bb", "y": "hg - HTotal" } ]
+  }
+]
