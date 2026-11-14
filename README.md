@@ -23,7 +23,7 @@ Para desinstalar: Configurações → Aplicativos → **PROJETA**, ou `Desinstal
 ## Depois de formatar o PC (recuperar o código)
 
 ```powershell
-git clone https://github.com/<seu-usuario>/projeta-suite.git C:\Users\User\Projects\PROJETA
+git clone https://github.com/IsaqueJoaxx/IsaqueThaty.git C:\Users\User\Projects\PROJETA
 cd C:\Users\User\Projects\PROJETA
 powershell -ExecutionPolicy Bypass -File .\build.ps1
 ```
