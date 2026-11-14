@@ -234,6 +234,22 @@ internal sealed class ConfigRotatoria
     public double RaioSaida { get; set; } = 20;
     public string CotaAnel { get; set; } = "Greides";
     public double CotaFixa { get; set; } = 0;
+    // montagens do corredor (subassemblies padrão do Civil)
+    public bool Montagens { get; set; } = true;
+    public double Revestimento { get; set; } = 0.05;
+    public double Base { get; set; } = 0.15;
+    public double SubBase { get; set; } = 0.20;
+    public double MeioFioAltura { get; set; } = 0.15;
+    public double MeioFioLargura { get; set; } = 0.15;
+    public double MeioFioProfundidade { get; set; } = 0.30;
+    public double SarjetaLargura { get; set; } = 0.30;
+    public double SarjetaCaimento { get; set; } = -0.05;
+    public double Passeio { get; set; } = 2.0;
+    public double PasseioCaimento { get; set; } = 0.02;
+    public double PasseioEspessura { get; set; } = 0.08;
+    /// <summary>Taludes até o terreno, em H para 1 V.</summary>
+    public double TaludeCorte { get; set; } = 1.0;
+    public double TaludeAterro { get; set; } = 1.5;
     /// <summary>Os parâmetros da rotatória já passaram pelo usuário (senão são os de partida, [PREMISSA]).</summary>
     public bool ParametrosDoUsuario { get; set; }
     /// <summary>Distância do eixo ao bordo onde a conexão encosta, por nome de alinhamento.</summary>
@@ -241,7 +257,10 @@ internal sealed class ConfigRotatoria
 
     public double Bordo(string alinhamento) => Bordos.TryGetValue(alinhamento, out var v) ? v : 0;
 
-    private static string Arquivo => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Projeta", "rotatoria.json");
+    /// <summary>%APPDATA%\Projeta\rotatoria.json; PROJETA_CONFIG_DIR troca a pasta (testes sem tela não mexem na configuração do usuário).</summary>
+    private static string Arquivo => Path.Combine(
+        Environment.GetEnvironmentVariable("PROJETA_CONFIG_DIR") is { Length: > 0 } d ? d : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Projeta"),
+        "rotatoria.json");
 
     public static ConfigRotatoria Carregar()
     {

@@ -25,6 +25,9 @@ public sealed record Verificacao(string Item, string Braco, string Valor, string
 public sealed record ParametroRotatoria(string Nome, string Valor, string Unidade, string Fonte);
 
 /// <summary>Dados do Civil que o relatório mostra por braço (o resto sai do modelo).</summary>
+/// <summary>Trecho do corredor: em que eixo (baseline), de que estaca a que estaca, com que montagem.</summary>
+public sealed record RegiaoCorredor(string Baseline, double De, double Ate, string Montagem, string Obs);
+
 public sealed record DadosBraco(string Eixo, double Estaca, string EstacaTexto, double Cota, double? ComprimentoEntrada, double? ComprimentoSaida);
 
 public static class VerificacaoRotatoria
@@ -143,6 +146,8 @@ public sealed class RelatorioRotatoria
     public List<AnaliseBraco> Analises { get; } = new();
     public List<Visada> Visadas { get; } = new();
     public List<Verificacao> Verificacoes { get; } = new();
+    public List<RegiaoCorredor> Corredor { get; } = new();
+    public List<string> Montagens { get; } = new();
     public List<string> Avisos { get; } = new();
     public List<string> Pendencias { get; } = new();
     public string GreideAnel { get; set; } = "";
@@ -262,6 +267,22 @@ public sealed class RelatorioRotatoria
             fs.Texto(ls++, 1, "Observador a 15 m da retenção, no meio da faixa de entrada; d = 0,278·tc·V com tc = 5 s; Ve = média de V1 e V2 do braço de montante, Vc = V4 (NCHRP 672, 6.7.3). O triângulo desenhado tem de ficar livre de obstáculos; o NCHRP também recomenda não dar muito mais visibilidade que a mínima.", txt with { Borda = false, Italico = true });
         }
 
+        // Corredor
+        if (Corredor.Count > 0 || Montagens.Count > 0)
+        {
+            var fc = pasta.NovaFolha("Corredor");
+            Cab(fc, 1, ("Eixo (baseline)", 44), ("De (est.)", 12), ("Até (est.)", 12), ("Montagem", 46), ("Observação", 70));
+            int lc = 2;
+            foreach (var r in Corredor)
+            {
+                fc.Texto(lc, 1, r.Baseline, q);
+                fc.Texto(lc, 2, Projeta.Core.Comum.Num.Estaca(r.De), txt); fc.Texto(lc, 3, Projeta.Core.Comum.Num.Estaca(r.Ate), txt);
+                fc.Texto(lc, 4, r.Montagem, q); fc.Texto(lc, 5, r.Obs, q);
+                lc++;
+            }
+            lc++;
+            foreach (var m in Montagens) fc.Texto(lc++, 1, m, txt with { Borda = false });
+        }
         // Verificações
         var fv = pasta.NovaFolha("Verificações");
         Cab(fv, 1, ("Verificação", 38), ("Braço", 14), ("Valor", 40), ("Critério", 22), ("Fonte", 50), ("Resultado", 13));

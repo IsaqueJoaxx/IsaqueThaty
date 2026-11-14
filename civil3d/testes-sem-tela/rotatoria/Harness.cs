@@ -113,6 +113,25 @@ public sealed class Cmd
         doc.Editor.WriteMessage("\nROTPREP3 OK");
     }
 
+    /// <summary>Rotatória (5000; 5000) com uma via N-S atravessando, um ramo leste que acaba 18 m antes do anel (no fim)
+    /// e um ramo oeste que começa 13 m antes do anel (no início): testa a pergunta do número de braços e o prolongamento.</summary>
+    [CommandMethod("PRJROTPREP4")]
+    public static void Prep4()
+    {
+        var doc = AcCore.DocumentManager.MdiActiveDocument;
+        var db = doc.Database;
+        var civ = CivilApplication.ActiveDocument;
+        using var tr = db.TransactionManager.StartTransaction();
+        var v = Eixo(tr, db, civ, "Via NS", Reta(5000, 4800, 5000, 5200));
+        Greide(tr, civ, v, "Via NS - greide", 902, 898);
+        var l = Eixo(tr, db, civ, "Rua Leste", Reta(5200, 5000, 5035, 5000));
+        Greide(tr, civ, l, "Rua Leste - greide", 903, 901);
+        var o = Eixo(tr, db, civ, "Rua Oeste", Reta(4970, 5000, 4800, 5000));
+        Greide(tr, civ, o, "Rua Oeste - greide", 900.5, 899);
+        tr.Commit();
+        doc.Editor.WriteMessage("\nROTPREP4 OK");
+    }
+
     [CommandMethod("PRJROTCHECK")]
     public static void Check()
     {
@@ -156,9 +175,19 @@ public sealed class Cmd
             if (en is MText m) { txt++; sb.AppendLine("  texto: " + m.Contents); }
         }
         sb.AppendLine($"MARCAS {circ} circulos {txt} textos");
-        tr.Commit();
         Directory.CreateDirectory(@"C:\Temp\rot\saida");
         File.WriteAllText(@"C:\Temp\rot\saida\rot_check.txt", sb.ToString(), Encoding.UTF8);
+        sb.Clear();
+        // montagens: só os nomes (ler grupos e pontos de uma montagem já gravada derruba o accoreconsole)
+        foreach (ObjectId aid in civ.AssemblyCollection)
+        {
+            string nome = "?";
+            try { nome = ((Autodesk.Civil.DatabaseServices.Assembly)tr.GetObject(aid, OpenMode.ForRead)).Name; } catch { }
+            File.AppendAllText(@"C:\Temp\rot\saida\rot_check.txt", "MONTAGEM " + nome + Environment.NewLine, Encoding.UTF8);
+        }
+        tr.Commit();
+        Directory.CreateDirectory(@"C:\Temp\rot\saida");
+        File.AppendAllText(@"C:\Temp\rot\saida\rot_check.txt", sb.ToString(), Encoding.UTF8);
         doc.Editor.WriteMessage("\nROTCHECK OK");
     }
 }
