@@ -6,20 +6,28 @@ using Autodesk.Civil.ApplicationServices;
 using Autodesk.Civil.DatabaseServices;
 using Projeta.Civil3D.Civil;
 using Projeta.Civil3D.Infra;
+using Projeta.Civil3D.UI;
 using Projeta.Core.Alinhamentos;
+using Projeta.Core.Comum;
 using Surface = Autodesk.Civil.DatabaseServices.Surface;
 
 namespace Projeta.Civil3D.Comandos;
 
 /// <summary>
 /// PRJROTATORIA — monta a rotatória de uma vez: clica no centro, seleciona os eixos dos ramos e sai o anel (eixo fechado
-/// anti-horário, mão direita) com o greide passando nas cotas dos braços, as conexões de entrada e de saída de cada braço
-/// (arcos tangentes ao bordo externo do anel e aos bordos do ramo, com greide casando com os dois), os bordos do anel e da
-/// ilha central desenhados e um relatório. Não mexe nos eixos dos ramos.
+/// anti-horário, mão direita) com o greide passando nas cotas dos braços; as conexões de entrada e de saída de cada braço
+/// (meios-fios tangentes ao bordo externo do anel e aos bordos do ramo, com greide casando com os dois); as ilhas
+/// divisórias, os bordos dos ramos com o alargamento, as linhas de retenção, o bordo externo, a ilha central e a faixa
+/// transponível; a trajetória mais rápida de cada braço (R1 a R5, NCHRP 672) e a tabela de verificações (aprovado /
+/// reprovado / atenção, cada uma com a fonte), com relatório em Excel. Não mexe nos eixos dos ramos.
 /// </summary>
 public sealed partial class CmdRotatoria
 {
     internal const string LayerRotatoria = "PRJ-ROTATORIA";
+    internal const string LayerIlha = "PRJ-ROTATORIA-ILHA";
+    internal const string LayerBordo = "PRJ-ROTATORIA-BORDO";
+    internal const string LayerRetencao = "PRJ-ROTATORIA-RETENCAO";
+    internal const string LayerTrajetoria = "PRJ-ROTATORIA-TRAJETORIA";
 
     /// <summary>Braço da rotatória: onde um eixo de ramo cruza o eixo do anel.</summary>
     private sealed record Braco(Alignment Eixo, double S, Point3d J, double Angulo, int SentidoFora, string Rumo);
@@ -47,6 +55,9 @@ public sealed partial class CmdRotatoria
             }
             double rExt = cfg.Dci / 2, rEixo = rExt - cfg.LarguraAnel / 2, rIlha = rExt - cfg.LarguraAnel;
             if (rIlha < 1) { Ctx.Msg($"Com DCI {cfg.Dci:0.##} m e pista anelar de {cfg.LarguraAnel:0.##} m não sobra ilha central. Ajuste em Parametros."); return; }
+            bool comIlha = cfg.IlhaLargura > 0 && cfg.IlhaComprimento > 0;
+            double meiaIlha = comIlha ? cfg.IlhaLargura / 2 : 0;
+            double bordoE = meiaIlha + cfg.FaixaEntrada, bordoS = meiaIlha + cfg.FaixaSaida;
 
             var f = new SelectionFilter(new[] { new TypedValue((int)DxfCode.Start, "AECC_ALIGNMENT") });
             var ps = ed.GetSelection(new PromptSelectionOptions { MessageForAdding = "\nSelecione os eixos dos ramos que chegam na rotatória: " }, f);
@@ -60,6 +71,7 @@ public sealed partial class CmdRotatoria
             {
                 var al = (Alignment)s.Tr.GetObject(id, OpenMode.ForRead);
                 if (RotatoriaCivil.Fechado(al)) { avisos.Add($"'{al.Name}' é um eixo fechado (outro anel?) e ficou de fora."); continue; }
+                if (al.Name.StartsWith("Rotatória ", StringComparison.OrdinalIgnoreCase) && al.Name.Contains(" - ")) continue; // conexões de uma rotatória anterior
                 var bs = Bracos(al, o, rEixo, out double dMin);
                 if (bs.Count == 0)
                     avisos.Add($"'{al.Name}' não chega no eixo do anel: passa a {dMin:0.00} m do centro e o eixo do anel fica a {rEixo:0.00} m. Prolongue o eixo até o anel (ou até o centro) e rode de novo.");
@@ -115,18 +127,18 @@ public sealed partial class CmdRotatoria
             double erroAnel = alvos.Max(a => Math.Abs(pf.ElevationAt(st0 + a.Estaca) - a.Cota));
             var rampaMax = PerfilAnel.RampaMaxima(pvis);
 
-            // bordos desenhados
+            // anel desenhado: bordo externo, ilha central (meio-fio) e faixa transponível
             var lay = Ctx.GarantirLayer(s.Tr, s.Db, LayerRotatoria, 30);
             var ms = Ctx.EspacoModelo(s.Tr, s.Db);
             Ctx.Adicionar(s.Tr, ms, new Circle(o, Vector3d.ZAxis, rExt) { Layer = lay });
             Ctx.Adicionar(s.Tr, ms, new Circle(o, Vector3d.ZAxis, rIlha) { Layer = lay });
+            if (cfg.Apron > 0 && cfg.Apron < rIlha - 0.5) Ctx.Adicionar(s.Tr, ms, new Circle(o, Vector3d.ZAxis, rIlha - cfg.Apron) { Layer = lay, ColorIndex = 8 });
             var rotulo = Ctx.Texto(Ctx.MTextLinhas(prefixo, $"DCI {cfg.Dci:0.##} m"), o, Math.Clamp(rIlha / 6, 0.5, 3), 0, AttachmentPoint.MiddleCenter);
             rotulo.Layer = lay;
             Ctx.Adicionar(s.Tr, ms, rotulo);
 
-            // conexões de entrada (lado anti-horário do braço) e de saída (lado horário)
-            var angEntrada = new double?[bracos.Count];
-            var angSaida = new double?[bracos.Count];
+            // conexões de entrada (lado anti-horário do braço) e de saída (lado horário), encostadas nos bordos com a ilha
+            var feitas = new Conectada?[bracos.Count, 2];
             var linhas = new List<string>();
             for (int i = 0; i < bracos.Count; i++)
             {
@@ -137,50 +149,209 @@ public sealed partial class CmdRotatoria
                 foreach (int lado in new[] { +1, -1 })
                 {
                     double r = lado > 0 ? cfg.RaioEntrada : cfg.RaioSaida;
+                    double bordo = lado > 0 ? bordoE : bordoS;
                     string tipo = lado > 0 ? "entrada" : "saída";
-                    var (cx, cy) = GeometriaRotatoria.ChuteCentroConexao(b.J.X, b.J.Y, ux, uy, lado, cfg.MeiaLarguraRamo + r, o.X, o.Y, rExt + r);
+                    var (cx, cy) = GeometriaRotatoria.ChuteCentroConexao(b.J.X, b.J.Y, ux, uy, lado, bordo + r, o.X, o.Y, rExt + r);
                     var pc = new Point3d(cx, cy, 0);
                     var pB = RotatoriaCivil.Ponto(b.Eixo, RotatoriaCivil.EstacaPerto(b.Eixo, pc), 0);
                     var pA = RotatoriaCivil.Ponto(anel, RotatoriaCivil.EstacaPerto(anel, pc), 0);
-                    var feito = Conectar(s, cfg, anelId, pA, b.Eixo.ObjectId, pB, r, $"{prefixo} - {b.Eixo.Name} {b.Rumo} - {tipo}", cfg.LarguraAnel / 2, cfg.MeiaLarguraRamo);
+                    var feito = Conectar(s, cfg, anelId, pA, b.Eixo.ObjectId, pB, r, $"{prefixo} - {b.Eixo.Name} {b.Rumo} - {tipo}", cfg.LarguraAnel / 2, bordo);
+                    feitas[i, lado > 0 ? 0 : 1] = feito;
                     if (feito is null) { partes.Add($"{tipo} R {r:0.##}: NÃO coube"); avisos.Add($"Braço {b.Rumo} ('{b.Eixo.Name}'): a conexão de {tipo} de R {r:0.##} m não coube (o eixo do ramo não vai longe o bastante para fora, ou o raio é grande demais)."); continue; }
-                    double ang = Math.Atan2(feito.C.TangenteA.Y - o.Y, feito.C.TangenteA.X - o.X);
-                    if (lado > 0) angEntrada[i] = ang; else angSaida[i] = ang;
                     partes.Add($"{tipo} R {r:0.##} ({feito.C.Desenvolvimento:0.00} m{(feito.ComGreide ? "" : ", sem greide")})");
                 }
                 linhas.Add($"  braço {b.Rumo,-2} '{b.Eixo.Name}' est. {RotatoriaCivil.Est(b.S)}: cota {cotas[i]:0.000} — {string.Join("; ", partes)}");
             }
 
-            // folga no bordo externo entre a entrada de um braço e a saída do próximo
-            var folgas = new List<string>();
-            if (bracos.Count > 1)
-                for (int i = 0; i < bracos.Count; i++)
+            // modelo plano da rotatória (ilhas, bordos, retenção e trajetórias)
+            var mod = new ModeloRotatoria { Ox = o.X, Oy = o.Y, RExt = rExt, RIlha = rIlha, RecuoIlha = cfg.IlhaRecuo };
+            for (int i = 0; i < bracos.Count; i++)
+            {
+                var b = bracos[i];
+                var eixo = PolilinhaDoBraco(b, 200, out bool prolongado);
+                if (prolongado) avisos.Add($"Braço {b.Rumo} ('{b.Eixo.Name}'): o eixo do ramo acaba antes de 200 m da rotatória; para a ilha, os bordos e a trajetória ele foi prolongado em reta.");
+                var br = new BracoRotatoria
                 {
-                    int j = (i + 1) % bracos.Count;
-                    if (angEntrada[i] is not { } e || angSaida[j] is not { } x) continue;
-                    double fm = GeometriaRotatoria.Folga(bracos[i].Angulo, e, bracos[j].Angulo, x) * rExt;
-                    folgas.Add($"{bracos[i].Rumo}→{bracos[j].Rumo} {fm:0.00} m");
-                    if (fm < 0) avisos.Add($"Entre os braços {bracos[i].Rumo} e {bracos[j].Rumo} a conexão de entrada e a de saída se sobrepõem {-fm:0.00} m no bordo do anel: diminua os raios ou aumente o DCI.");
+                    Nome = b.Eixo.Name, Rumo = b.Rumo, Angulo = b.Angulo, Eixo = eixo,
+                    BordoEntrada = bordoE, BordoSaida = bordoS, BordoNormal = cfg.MeiaLarguraRamo,
+                };
+                br.SRetencao = EstacaNoRaio(eixo, o, rExt);
+                if (feitas[i, 0] is { } fe) { br.MeioFioEntrada = (fe.C.Centro.X, fe.C.Centro.Y, fe.C.Raio); br.STangEntrada = eixo.Projetar(fe.C.TangenteB.X, fe.C.TangenteB.Y).S; }
+                if (feitas[i, 1] is { } fs) { br.MeioFioSaida = (fs.C.Centro.X, fs.C.Centro.Y, fs.C.Raio); br.STangSaida = eixo.Projetar(fs.C.TangenteB.X, fs.C.TangenteB.Y).S; }
+                if (comIlha)
+                {
+                    br.SIlhaIni = EstacaNoRaio(eixo, o, rExt + cfg.IlhaRecuo);
+                    br.SIlhaFim = br.SIlhaIni + cfg.IlhaComprimento;
+                    br.IlhaLarguraIni = cfg.IlhaLargura;
+                    br.IlhaLarguraFim = Math.Min(cfg.IlhaNariz, cfg.IlhaLargura);
                 }
+                double fimLarga = comIlha ? br.SIlhaFim + 5 : Math.Max(double.IsNaN(br.STangEntrada) ? 0 : br.STangEntrada, double.IsNaN(br.STangSaida) ? 0 : br.STangSaida) + 10;
+                br.SAlargIni = fimLarga;
+                br.SAlargFim = fimLarga + Math.Max(0, Math.Max(bordoE, bordoS) - cfg.MeiaLarguraRamo) * 10;
+                mod.Bracos.Add(br);
+            }
+
+            var layIlha = Ctx.GarantirLayer(s.Tr, s.Db, LayerIlha, 40);
+            var layBordo = Ctx.GarantirLayer(s.Tr, s.Db, LayerBordo, 30);
+            var layRet = Ctx.GarantirLayer(s.Tr, s.Db, LayerRetencao, 7);
+            foreach (var br in mod.Bracos)
+            {
+                if (br.TemIlha) Desenhar(s, ms, mod.Ilha(br), true, layIlha, 256);
+                double ate = Math.Min(br.Eixo.Comprimento, br.SAlargFim + 15);
+                if (br.MeioFioEntrada is not null) Desenhar(s, ms, mod.BordoRamo(br, true, ate), false, layBordo, 256);
+                if (br.MeioFioSaida is not null) Desenhar(s, ms, mod.BordoRamo(br, false, ate), false, layBordo, 256);
+                Desenhar(s, ms, mod.Retencao(br), false, layRet, 256);
+            }
+
+            // trajetórias mais rápidas
+            var analises = new List<AnaliseBraco>();
+            if (cfg.Trajetorias && mod.Bracos.Count >= 2)
+            {
+                Ctx.Msg("Calculando as trajetórias mais rápidas (R1 a R5)...");
+                var layTr = Ctx.GarantirLayer(s.Tr, s.Db, LayerTrajetoria, 1);
+                double ht = Math.Clamp(rIlha / 18, 0.4, 1.5);
+                for (int i = 0; i < mod.Bracos.Count; i++)
+                {
+                    var an = TrajetoriaRapida.Analisar(mod, i);
+                    analises.Add(an);
+                    foreach (var (t, cor) in new[] { (an.Direto, (short)1), (an.Esquerda, (short)5), (an.Direita, (short)3) })
+                        if (t is not null) Desenhar(s, ms, t.Pontos, false, layTr, cor);
+                    foreach (var rc in new[] { an.R1, an.R2, an.R3, an.R4, an.R5 })
+                    {
+                        if (rc is null) continue;
+                        var tx = Ctx.Texto($"{rc.Nome} {rc.Raio:0.0} m · {rc.Velocidade:0} km/h", new Point3d(rc.Ponto.X, rc.Ponto.Y, 0), ht);
+                        tx.Layer = layTr;
+                        tx.ColorIndex = (short)(rc.Nome is "R4" ? 5 : rc.Nome is "R5" ? 3 : 1);
+                        Ctx.Adicionar(s.Tr, ms, tx);
+                    }
+                }
+            }
+
+            // verificações
+            var crit = new CriteriosRotatoria { VelMaxEntrada = cfg.VelMaxEntrada, DifVelMax = cfg.DifVelMax };
+            var verif = VerificacaoRotatoria.Avaliar(mod, analises, crit);
 
             s.Tr.Commit();
 
             string premissa = cfg.ParametrosDoUsuario ? "" : " [PREMISSA: valores de partida, troque em Parametros]";
             Ctx.Msg($"{prefixo} criada no centro ({o.X:0.000}; {o.Y:0.000}): DCI {cfg.Dci:0.##} m, pista anelar {cfg.LarguraAnel:0.##} m → eixo do anel R {rEixo:0.00} m, ilha central R {rIlha:0.00} m; " +
-                    $"bordo dos ramos a {cfg.MeiaLarguraRamo:0.##} m do eixo; caimento {Pct(cfg.Caimento, 1)}{premissa}.");
+                    $"entrada {cfg.FaixaEntrada:0.##} m e saída {cfg.FaixaSaida:0.##} m{(comIlha ? $", ilha divisória {cfg.IlhaLargura:0.##} × {cfg.IlhaComprimento:0.##} m" : ", sem ilha divisória")}; caimento {Pct(cfg.Caimento, 1)}{premissa}.");
             foreach (var l in linhas) Ctx.Msg(l);
             Ctx.Msg($"  greide do anel ({origemCotas}): passa nas cotas dos braços (erro máx. {erroAnel * 1000:0.0} mm); rampa máxima {Pct(Math.Abs(rampaMax.Rampa))} " +
                     $"entre as est. {RotatoriaCivil.Est(st0 + rampaMax.De)} e {RotatoriaCivil.Est(st0 + rampaMax.Ate)}.");
-            if (folgas.Count > 0) Ctx.Msg($"  folga no bordo do anel entre a entrada de um braço e a saída do próximo: {string.Join("; ", folgas)}.");
+            foreach (var an in analises)
+            {
+                string R(RaioCritico? r) => r is null ? "-" : $"{r.Raio:0.0} m/{r.Velocidade:0} km/h";
+                Ctx.Msg($"  trajetória mais rápida, braço {mod.Bracos[an.Braco].Rumo}: R1 {R(an.R1)}, R2 {R(an.R2)}, R3 {R(an.R3)}, R4 {R(an.R4)}, R5 {R(an.R5)}");
+            }
+            int ap = verif.Count(v => v.Resultado == VerificacaoRotatoria.Aprovado);
+            var ruins = verif.Where(v => v.Resultado is VerificacaoRotatoria.Reprovado or VerificacaoRotatoria.Atencao).ToList();
+            Ctx.Msg($"Verificações: {ap} aprovada(s), {verif.Count(v => v.Resultado == VerificacaoRotatoria.Reprovado)} REPROVADA(S), {verif.Count(v => v.Resultado == VerificacaoRotatoria.Atencao)} com atenção.");
+            foreach (var v in ruins) Ctx.Msg($"  {v.Resultado}: {v.Item} — {v.Braco}: {v.Valor} (critério {v.Criterio}; {v.Fonte})");
             foreach (var a in avisos) Ctx.Msg("AVISO: " + a);
-            Ctx.Msg($"Bordo externo e ilha central na camada {LayerRotatoria}. Confira tudo com PRJCASAMENTO › Varios. U desfaz a rotatória inteira.");
+            Ctx.Msg($"Desenho nas camadas {LayerRotatoria}, {LayerIlha}, {LayerBordo}, {LayerRetencao} e {LayerTrajetoria} (vermelho = direto, azul = à esquerda, verde = à direita). " +
+                    "Confira com PRJCASAMENTO › Varios. U desfaz a rotatória inteira.");
+
+            // relatório
+            var rel = new RelatorioRotatoria { Titulo = prefixo, Desenho = s.Doc.Name, Modelo = mod, GreideAnel = $"{origemCotas}; erro máx. {erroAnel * 1000:0.0} mm; rampa máx. {Pct(Math.Abs(rampaMax.Rampa))}" };
+            rel.Parametros.AddRange(ParametrosDoRelatorio(cfg));
+            for (int i = 0; i < bracos.Count; i++)
+                rel.Dados.Add(new DadosBraco(bracos[i].Eixo.Name, bracos[i].S, RotatoriaCivil.Est(bracos[i].S), cotas[i], feitas[i, 0]?.C.Desenvolvimento, feitas[i, 1]?.C.Desenvolvimento));
+            rel.Analises.AddRange(analises);
+            rel.Verificacoes.AddRange(verif);
+            rel.Avisos.AddRange(avisos);
+            rel.Pendencias.AddRange(Pendencias());
+            if (s.PedirPalavra("Gravar o relatório da rotatória em Excel", new[] { "Sim", "Nao" }, "Sim") == "Sim")
+            {
+                var arq = UiUtil.SalvarArquivo("Planilha do Excel (*.xlsx)|*.xlsx", Texto.IdSeguro(prefixo.Replace(' ', '_'), 60) + ".xlsx");
+                if (arq is not null)
+                {
+                    rel.Salvar(arq);
+                    Ctx.Msg($"Relatório gravado: {arq}");
+                    if (s.PedirPalavra("Abrir a planilha", new[] { "Sim", "Nao" }, "Sim") == "Sim") UiUtil.AbrirNoSistema(arq);
+                }
+            }
         }
         catch (System.Exception ex) { Ctx.Msg($"[ERRO] PRJROTATORIA: {ex.Message}"); }
     }
 
+    private static void Desenhar(Sessao s, BlockTableRecord ms, IReadOnlyList<(double X, double Y)> pts, bool fechada, string layer, short cor)
+    {
+        if (pts.Count < 2) return;
+        var p = new Polyline();
+        for (int i = 0; i < pts.Count; i++) p.AddVertexAt(i, new Point2d(pts[i].X, pts[i].Y), 0, 0, 0);
+        p.Closed = fechada;
+        p.SetDatabaseDefaults();
+        p.Layer = layer;
+        p.ColorIndex = cor;
+        Ctx.Adicionar(s.Tr, ms, p);
+    }
+
+    /// <summary>O eixo do ramo do encontro para fora, amostrado a cada 1 m (até <paramref name="comprimento"/> ou o fim do eixo).</summary>
+    private static PolilinhaEixo PolilinhaDoBraco(Braco b, double comprimento, out bool prolongado)
+    {
+        var pts = new List<(double X, double Y)>();
+        double ini = b.Eixo.StartingStation, fim = b.Eixo.EndingStation;
+        double disp = b.SentidoFora > 0 ? fim - b.S : b.S - ini;
+        double l = Math.Min(comprimento, disp);
+        prolongado = disp < comprimento - 1e-6;
+        int n = Math.Max(2, (int)Math.Ceiling(l));
+        for (int k = 0; k <= n; k++)
+        {
+            var p = RotatoriaCivil.Ponto(b.Eixo, b.S + b.SentidoFora * l * k / n, 0);
+            pts.Add((p.X, p.Y));
+        }
+        return new PolilinhaEixo(pts);
+    }
+
+    /// <summary>Estaca no eixo do braço onde ele atinge a distância <paramref name="r"/> do centro (bisseção; o braço sai do anel).</summary>
+    private static double EstacaNoRaio(PolilinhaEixo e, Point3d o, double r)
+    {
+        double D(double s) { var p = e.Ponto(s, 0); return Math.Sqrt((p.X - o.X) * (p.X - o.X) + (p.Y - o.Y) * (p.Y - o.Y)); }
+        double a = 0, b = Math.Max(e.Comprimento, r * 3);
+        if (D(a) >= r) return 0;
+        for (int i = 0; i < 80; i++) { double m = (a + b) / 2; if (D(m) < r) a = m; else b = m; }
+        return (a + b) / 2;
+    }
+
+    private static IEnumerable<ParametroRotatoria> ParametrosDoRelatorio(ConfigRotatoria c)
+    {
+        string P(string referencia) => c.ParametrosDoUsuario ? "informado pelo usuário" : "[PREMISSA] valor de partida" + (referencia.Length > 0 ? " — " + referencia : "");
+        string V(double v) => v.ToString("0.00");
+        yield return new("DCI (diâmetro do círculo inscrito)", V(c.Dci), "m", P("sem estudo de tráfego; dimensionar pelo veículo de projeto e pela norma do órgão [A CONFIRMAR]"));
+        yield return new("Largura da pista anelar", V(c.LarguraAnel), "m", P("TxDOT RDM: 18 a 20 ft (5,5 a 6,1 m) em rotatória de uma faixa"));
+        yield return new("Faixa transponível (apron)", V(c.Apron), "m", P(""));
+        yield return new("Largura de entrada", V(c.FaixaEntrada), "m", P("TxDOT RDM: 16 a 20 ft (4,9 a 6,1 m)"));
+        yield return new("Largura de saída", V(c.FaixaSaida), "m", P(""));
+        yield return new("Ilha divisória: largura junto do anel", V(c.IlhaLargura), "m", P("FDOT FDM 213: refúgio ≥ 6 ft (1,8 m)"));
+        yield return new("Ilha divisória: comprimento", V(c.IlhaComprimento), "m", P("FDOT FDM 213: ≥ 100 ft (30,5 m)"));
+        yield return new("Ilha divisória: largura no nariz", V(c.IlhaNariz), "m", P(""));
+        yield return new("Ilha divisória: recuo do bordo do anel", V(c.IlhaRecuo), "m", P(""));
+        yield return new("Meia largura normal dos ramos", V(c.MeiaLarguraRamo), "m", P("alargamento até os bordos da rotatória com taper 1:10 [PREMISSA]"));
+        yield return new("Raio da conexão de entrada", V(c.RaioEntrada), "m", P(""));
+        yield return new("Raio da conexão de saída", V(c.RaioSaida), "m", P(""));
+        yield return new("Caimento transversal", (c.Caimento * 100).ToString("0.0"), "%", P("FHWA HIF-20-080: 2 % para fora da ilha central é típico"));
+        yield return new("Cota do anel", c.CotaAnel, "", "escolha do comando (Greides / Terreno / Fixa)");
+        yield return new("Afastamento da trajetória a meios-fios, ilhas e eixo da via", "1.50", "m", "NCHRP 672 (método da trajetória mais rápida)");
+        yield return new("Início e fim da trajetória antes/depois da retenção", "50.00", "m", "NCHRP 672 (pelo menos 50 m, método britânico)");
+        yield return new("Velocidade máxima de entrada V1", c.VelMaxEntrada.ToString("0"), "km/h", "TxDOT RDM 14.4.5 / NCHRP 672: 25 mph em uma faixa — referência complementar");
+        yield return new("Diferença máxima V1–V2 e V1–V4", c.DifVelMax.ToString("0"), "km/h", "AASHTO via TORUS (20 km/h); o TxDOT usa 10 mph (16 km/h)");
+    }
+
+    private static IEnumerable<string> Pendencias() => new[]
+    {
+        "Giro do veículo de projeto em todos os movimentos (inclusive retorno de 180°) com o PROJETA Giro (GIROSEGUIR / GIROVERIFICAR): largura varrida e folgas ao bordo e à ilha central.",
+        "Visibilidade: distância de visibilidade de parada na aproximação e visibilidade à esquerda na entrada.",
+        "Confirmar os parâmetros na norma do órgão (DNIT — Manual de Projeto de Interseções, 2005; IPR 740 em travessia urbana): os critérios usados aqui são referências complementares (NCHRP 672, TxDOT, FDOT, MaineDOT).",
+        "Sinalização horizontal e vertical (linha de retenção / dê a preferência, faixas de pedestres) conforme o CONTRAN.",
+        "Corredor, superfície de projeto e drenagem (montagens próprias; o PRJREDE para a drenagem).",
+        "Interferências (postes, árvores, acessos de lote, redes, faixa de domínio) e desapropriação, se houver.",
+    };
+
     private static string ResumoParametros(ConfigRotatoria c) =>
-        $"Rotatória: DCI {c.Dci:0.##} m, pista anelar {c.LarguraAnel:0.##} m, bordo dos ramos a {c.MeiaLarguraRamo:0.##} m do eixo, " +
-        $"raio de entrada {c.RaioEntrada:0.##} m e de saída {c.RaioSaida:0.##} m, caimento {Pct(c.Caimento, 1)}, cota do anel pelos {c.CotaAnel.ToLowerInvariant()}" +
+        $"Rotatória: DCI {c.Dci:0.##} m, pista anelar {c.LarguraAnel:0.##} m{(c.Apron > 0 ? $" (+ faixa transponível {c.Apron:0.##} m)" : "")}, entrada {c.FaixaEntrada:0.##} m, saída {c.FaixaSaida:0.##} m, " +
+        (c.IlhaLargura > 0 && c.IlhaComprimento > 0 ? $"ilha divisória {c.IlhaLargura:0.##} × {c.IlhaComprimento:0.##} m, " : "sem ilha divisória, ") +
+        $"raio de entrada {c.RaioEntrada:0.##} m e de saída {c.RaioSaida:0.##} m, ramos com {c.MeiaLarguraRamo:0.##} m do eixo ao bordo, caimento {Pct(c.Caimento, 1)}, cota do anel pelos {c.CotaAnel.ToLowerInvariant()}" +
         (c.ParametrosDoUsuario ? "." : " [PREMISSA: valores de partida].");
 
     private static bool PedirParametros(Editor ed, ConfigRotatoria cfg)
@@ -192,7 +363,19 @@ public sealed partial class CmdRotatoria
         }
         if (N("Diâmetro do círculo inscrito, DCI (m)", cfg.Dci) is not { } dci) return false;
         if (N("Largura da pista anelar (m)", cfg.LarguraAnel) is not { } la) return false;
-        if (N("Distância do eixo dos ramos até o bordo (m)", cfg.MeiaLarguraRamo, zero: true) is not { } mr) return false;
+        if (N("Faixa transponível em volta da ilha central (m; 0 = sem)", cfg.Apron, zero: true) is not { } apr) return false;
+        if (N("Largura da entrada, da ilha divisória ao meio-fio (m)", cfg.FaixaEntrada) is not { } fe) return false;
+        if (N("Largura da saída (m)", cfg.FaixaSaida) is not { } fs) return false;
+        if (N("Largura da ilha divisória junto do anel (m; 0 = sem ilha)", cfg.IlhaLargura, zero: true) is not { } il) return false;
+        double ic = cfg.IlhaComprimento, inz = cfg.IlhaNariz, ir = cfg.IlhaRecuo;
+        if (il > 0)
+        {
+            if (N("Comprimento da ilha divisória (m)", cfg.IlhaComprimento) is not { } v1) return false;
+            if (N("Largura da ilha no nariz (m)", cfg.IlhaNariz, zero: true) is not { } v2) return false;
+            if (N("Recuo da ilha em relação ao bordo do anel (m)", cfg.IlhaRecuo, zero: true) is not { } v3) return false;
+            ic = v1; inz = v2; ir = v3;
+        }
+        if (N("Distância do eixo ao bordo nos ramos, longe da rotatória (m)", cfg.MeiaLarguraRamo) is not { } mr) return false;
         if (N("Raio de entrada (m)", cfg.RaioEntrada) is not { } re) return false;
         if (N("Raio de saída (m)", cfg.RaioSaida) is not { } rs) return false;
         if (N("Caimento transversal do eixo até o bordo (%; negativo = desce)", cfg.Caimento * 100, neg: true, zero: true) is not { } ca) return false;
@@ -200,8 +383,15 @@ public sealed partial class CmdRotatoria
         pko.Keywords.Default = cfg.CotaAnel;
         var pk = ed.GetKeywords(pko);
         if (pk.Status == PromptStatus.Cancel || pk.Status == PromptStatus.Error) return false;
-        cfg.Dci = dci; cfg.LarguraAnel = la; cfg.MeiaLarguraRamo = mr; cfg.RaioEntrada = re; cfg.RaioSaida = rs; cfg.Caimento = ca / 100;
+        var pkt = new PromptKeywordOptions("\nCalcular a trajetória mais rápida (R1 a R5) [Sim/Nao]", "Sim Nao") { AllowNone = true };
+        pkt.Keywords.Default = cfg.Trajetorias ? "Sim" : "Nao";
+        var pt = ed.GetKeywords(pkt);
+        if (pt.Status == PromptStatus.Cancel || pt.Status == PromptStatus.Error) return false;
+        cfg.Dci = dci; cfg.LarguraAnel = la; cfg.Apron = apr; cfg.FaixaEntrada = fe; cfg.FaixaSaida = fs;
+        cfg.IlhaLargura = il; cfg.IlhaComprimento = ic; cfg.IlhaNariz = inz; cfg.IlhaRecuo = ir;
+        cfg.MeiaLarguraRamo = mr; cfg.RaioEntrada = re; cfg.RaioSaida = rs; cfg.Caimento = ca / 100;
         if (pk.Status == PromptStatus.OK && !string.IsNullOrEmpty(pk.StringResult)) cfg.CotaAnel = pk.StringResult;
+        if (pt.Status == PromptStatus.OK && !string.IsNullOrEmpty(pt.StringResult)) cfg.Trajetorias = pt.StringResult == "Sim";
         cfg.ParametrosDoUsuario = true;
         ConfigRotatoria.Salvar(cfg);
         return true;

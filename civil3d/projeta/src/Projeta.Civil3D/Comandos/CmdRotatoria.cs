@@ -74,7 +74,10 @@ public sealed partial class CmdRotatoria
             }
 
             // ponta oblíqua que só passa perto de outro eixo (nem encosta nele nem corre junto do bordo dele) não é encontro
-            int ignorados = encontros.RemoveAll(e => e.EhPonta && Math.Abs(e.Afastamento) > TolFalta && !Tangente(e));
+            // e ponta com ponta só é emenda quando as duas pontas estão juntas (ou quase, e em linha): duas conexões que
+            // começam perto uma da outra no bordo do anel não estão ligadas entre si
+            int ignorados = encontros.RemoveAll(e => (e.EhPonta && Math.Abs(e.Afastamento) > TolFalta && !Tangente(e))
+                || (e.Tipo == "ponta com ponta" && (Math.Abs(e.Afastamento) > TolFalta || (!Tangente(e) && Math.Abs(e.Afastamento) > cfg.TolPlanta))));
             string sobreIgnorados = ignorados > 0 ? $" {ignorados} ponta(s) que só passam perto de outro eixo (a mais de {TolFalta:0.0} m e oblíquas) não contam como encontro." : "";
             if (encontros.Count == 0)
             {
@@ -158,7 +161,7 @@ public sealed partial class CmdRotatoria
                     else linhas.Add("  rampas: não comparadas (encontro quase perpendicular; cada eixo tem a sua)");
                     rotulo = av.CotaCasa ? "casa" : $"Δz {Sn(av.Dz, 3)}";
                     // acerto possível: ponta de um greide editável com PIV na estaca do encontro
-                    if (!av.CotaCasa && e.EhPonta && PodeEditar(gt) is null && AcharPVI(gt, RotatoriaCivil.Ajustar(e.Ponta, e.SPonta)) is not null)
+                    if (!av.CotaCasa && e.EhPonta && (fora <= cfg.TolPlanta || bordo) && PodeEditar(gt) is null && AcharPVI(gt, RotatoriaCivil.Ajustar(e.Ponta, e.SPonta)) is not null)
                         ajustes.Add((e, gt, av.CotaAAjustada));
                 }
                 foreach (var l in linhas) Ctx.Msg(l);

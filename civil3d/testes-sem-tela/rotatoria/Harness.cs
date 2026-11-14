@@ -95,6 +95,24 @@ public sealed class Cmd
         doc.Editor.WriteMessage("\nROTPREP2 OK");
     }
 
+    /// <summary>Rotatória "boa" para o PRJROTATORIA, centro (3000; 3000): via leste-oeste atravessando, ramo norte e ramo sul chegando no centro.</summary>
+    [CommandMethod("PRJROTPREP3")]
+    public static void Prep3()
+    {
+        var doc = AcCore.DocumentManager.MdiActiveDocument;
+        var db = doc.Database;
+        var civ = CivilApplication.ActiveDocument;
+        using var tr = db.TransactionManager.StartTransaction();
+        var v = Eixo(tr, db, civ, "Avenida", Reta(2800, 3000, 3200, 3000));
+        Greide(tr, civ, v, "Avenida - greide", 902, 898);
+        var n = Eixo(tr, db, civ, "Rua Norte", Reta(3000, 3200, 3000, 3000));
+        Greide(tr, civ, n, "Rua Norte - greide", 903, 900);
+        var su = Eixo(tr, db, civ, "Rua Sul", Reta(3000, 2800, 3000, 3000));
+        Greide(tr, civ, su, "Rua Sul - greide", 899, 900);
+        tr.Commit();
+        doc.Editor.WriteMessage("\nROTPREP3 OK");
+    }
+
     [CommandMethod("PRJROTCHECK")]
     public static void Check()
     {

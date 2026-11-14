@@ -877,6 +877,16 @@ Teste("conexão: arco tangente a retas e anel, bordos afastados, greide da conex
     Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
 });
 
+Console.WriteLine("== Rotatória: trajetória mais rápida, ilhas e bordos");
+Teste("trajetória mais rápida (R1–R5), ilha divisória, bordos e linha de retenção", () =>
+{
+    var erros = new List<string>();
+    int n = 0;
+    Projeta.Core.Testes.TestesTrajetoria.Rodar((c, m) => { n++; Console.WriteLine($"       {(c ? "ok " : "XX ")} {m}"); if (!c) erros.Add(m); });
+    Console.WriteLine($"       {n} verificações");
+    Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
+});
+
 Console.WriteLine();
 Console.WriteLine($"Resultado: {ok} ok, {falhas} falha(s). Arquivos em {saida}");
 if (falhas > 0) { File.WriteAllLines(Path.Combine(saida, "falhas.log"), log); Environment.Exit(1); }

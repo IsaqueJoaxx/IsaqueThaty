@@ -216,7 +216,20 @@ internal sealed class ConfigRotatoria
     // PRJROTATORIA
     public double Dci { get; set; } = 40;
     public double LarguraAnel { get; set; } = 6;
+    /// <summary>Meia largura normal dos ramos, longe da rotatória (o alargamento vai dela até os bordos da entrada e da saída).</summary>
     public double MeiaLarguraRamo { get; set; } = 3.5;
+    public double FaixaEntrada { get; set; } = 5.0;
+    public double FaixaSaida { get; set; } = 5.0;
+    /// <summary>Largura da ilha divisória junto do anel (0 = sem ilha), comprimento, largura no nariz e recuo do bordo do anel.</summary>
+    public double IlhaLargura { get; set; } = 3.0;
+    public double IlhaComprimento { get; set; } = 30.5;
+    public double IlhaNariz { get; set; } = 0.6;
+    public double IlhaRecuo { get; set; } = 1.0;
+    /// <summary>Faixa transponível (truck apron) em volta da ilha central; 0 = sem.</summary>
+    public double Apron { get; set; } = 0;
+    public bool Trajetorias { get; set; } = true;
+    public double VelMaxEntrada { get; set; } = 40;
+    public double DifVelMax { get; set; } = 20;
     public double RaioEntrada { get; set; } = 15;
     public double RaioSaida { get; set; } = 20;
     public string CotaAnel { get; set; } = "Greides";
