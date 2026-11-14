@@ -237,6 +237,18 @@ internal static class MontagensRotatoria
 
     private static List<Peca> MeioFioPasseioTalude(ConfigRotatoria c) => new() { MeioFio(c), Passeio(c), Talude(c) };
 
+    /// <summary>Montagem das ruas do loteamento (PRJVIAS): faixa, meio-fio com sarjeta, passeio e talude dos dois lados.</summary>
+    public static List<Definicao> DefinirVias(ConfigRotatoria c, double meiaLargura)
+    {
+        double cai = c.Caimento;
+        List<Peca> Lado() => new() { Faixa("Faixa", meiaLargura, cai, c), MeioFio(c), Passeio(c), Talude(c) };
+        return new List<Definicao>
+        {
+            new($"Via do loteamento - pista de {2 * meiaLargura:0.00} m", AssemblyType.UndividedCrownedRoad,
+                "eixo de cada rua do loteamento: faixa, meio-fio com sarjeta, passeio e talude até o terreno dos dois lados", Lado(), Lado()),
+        };
+    }
+
     /// <summary>Meio-fio da ilha canalizadora, encostado pela face no bordo da pista de conversão.</summary>
     private static Peca MeioFioIlhaCanal(ConfigRotatoria c) =>
         new("BasicCurb", "Meio-fio da ilha canalizadora", sa =>

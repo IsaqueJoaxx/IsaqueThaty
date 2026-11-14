@@ -43,11 +43,28 @@ internal static class CorredorProjeta
     /// <summary>Superfície do terreno para os taludes (uma só: usa; várias: pergunta). Null = sem superfície.</summary>
     public static ObjectId Superficie(Sessao s)
     {
-        var sups = VolumesCivil.Superficies(s.Tr);
+        var sups = SuperficiesDeTerreno(s.Tr);
         if (sups.Count == 0) return ObjectId.Null;
         if (sups.Count == 1) return sups[0].Id;
         int k = s.EscolherDaLista("Superfície do terreno para os taludes", sups.Select(x => x.Nome).ToList(), 0);
         return k < 0 ? ObjectId.Null : sups[k].Id;
+    }
+
+    /// <summary>
+    /// Superfícies que podem ser o terreno: todas menos as de corredor (o topo de um corredor não serve de alvo para o
+    /// talude nem de terreno para o greide).
+    /// </summary>
+    public static List<(ObjectId Id, string Nome)> SuperficiesDeTerreno(Transaction tr)
+    {
+        var deCorredor = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        try
+        {
+            foreach (ObjectId cid in CivilApplication.ActiveDocument.CorridorCollection)
+                try { foreach (CorridorSurface cs in ((Corridor)tr.GetObject(cid, OpenMode.ForRead)).CorridorSurfaces) deCorredor.Add(cs.Name); } catch { }
+        }
+        catch { }
+        var l = VolumesCivil.Superficies(tr).Where(x => !deCorredor.Contains(x.Nome)).ToList();
+        return l.Count > 0 ? l : VolumesCivil.Superficies(tr);
     }
 
     /// <param name="greideDe">Greide de projeto de um alinhamento (null = sem greide: o eixo fica fora).</param>

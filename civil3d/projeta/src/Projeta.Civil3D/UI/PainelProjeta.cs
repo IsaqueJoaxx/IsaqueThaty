@@ -61,6 +61,7 @@ internal sealed class PainelProjeta : UserControl
         {
             ("Apagar PI", "PRJAPAGARPI", "Apaga o PI clicado mesmo com restrições (refaz o eixo no mesmo alinhamento)"),
             ("Apagar PIV (greide)", "PRJAPAGARPIV", "Apaga o PIV clicado no greide mesmo com restrições (refaz o greide no mesmo perfil)"),
+            ("Vias do loteamento em lote", "PRJVIAS", "Selecione as polilinhas dos eixos das ruas: alinhamentos com curva nos vértices, perfil do terreno, greide proposto passando na mesma cota nos encontros, vistas de perfil, corredor com superfície, linhas de amostragem e Excel"),
         }),
         ("Superfícies", new[]
         {

@@ -253,6 +253,19 @@ internal sealed class ConfigRotatoria
     public double CanalLadoMin { get; set; } = 3.6;
     /// <summary>Os parâmetros da faixa de conversão e da ilha já passaram pelo usuário.</summary>
     public bool IntersecaoExtrasDoUsuario { get; set; }
+    // PRJVIAS (vias do loteamento em lote)
+    public string ViasPrefixo { get; set; } = "Rua";
+    public double ViasRaio { get; set; } = 30;
+    public double ViasMeiaLargura { get; set; } = 3.5;
+    public double ViasRampaMin { get; set; } = 0.005;
+    public double ViasRampaMax { get; set; } = 0.15;
+    /// <summary>Greide proposto: distância máxima ao terreno, distância mínima entre PIVs, K e comprimento mínimo das curvas.</summary>
+    public double ViasTolGreide { get; set; } = 0.30;
+    public double ViasDistPiv { get; set; } = 20;
+    public double ViasK { get; set; } = 6;
+    public double ViasLMin { get; set; } = 10;
+    public double ViasEstacas { get; set; } = 20;
+    public bool ViasParametrosDoUsuario { get; set; }
     // montagens do corredor (subassemblies padrão do Civil)
     public bool Montagens { get; set; } = true;
     public double Revestimento { get; set; } = 0.05;

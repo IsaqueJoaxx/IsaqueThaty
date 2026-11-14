@@ -625,8 +625,8 @@ public sealed partial class CmdRotatoria
         return true;
     }
 
-    /// <summary>Perguntas das montagens do corredor (rotatória e interseção). false = cancelou.</summary>
-    private static bool PedirMontagens(Editor ed, ConfigRotatoria cfg)
+    /// <summary>Perguntas das montagens do corredor (rotatória, interseção e vias). false = cancelou.</summary>
+    internal static bool PedirMontagens(Editor ed, ConfigRotatoria cfg)
     {
         double? N(string m, double v, bool neg = false, bool zero = false)
         {

@@ -222,6 +222,7 @@ internal static class IconesProjeta
 
             // Alinhamento
             ["PRJAPAGARPI"] = new(L(3, 23, 14, 7, 28, 16), C(14, 7, 2.8), Selo.Xis),
+            ["PRJVIAS"] = new(L(3, 25, 13, 25) + "M13,25 Q22,25 25,17 L28,8 " + L(13, 3, 13, 29) + L(3, 12, 13, 12) + L(22, 3, 22, 12.5), C(13, 25, 2.4) + C(13, 12, 2.4)),
             ["PRJAPAGARPIV"] = new(L(4, 4, 4, 27, 16, 27) + L(6, 20, 15, 9, 28, 15), C(15, 9, 2.8), Selo.Xis),
 
             // Superfícies

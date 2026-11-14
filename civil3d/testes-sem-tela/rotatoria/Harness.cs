@@ -175,6 +175,40 @@ public sealed class Cmd
         tr.Commit();
         doc.Editor.WriteMessage("\nINTPREP OK");
     }
+    /// <summary>
+    /// Loteamento de teste para o PRJVIAS: terreno TIN inclinado e ondulado (9000–9400) e quatro polilinhas de eixo — uma rua
+    /// com vértice, uma que a cruza, uma que para a 3 m dela (T) e uma que continua na ponta de outra.
+    /// </summary>
+    [CommandMethod("PRJVIASPREP")]
+    public static void PrepVias()
+    {
+        var doc = AcCore.DocumentManager.MdiActiveDocument;
+        var db = doc.Database;
+        using var tr = db.TransactionManager.StartTransaction();
+        var sid = TinSurface.Create(db, "Terreno");
+        var sup = (TinSurface)tr.GetObject(sid, OpenMode.ForWrite);
+        var pts = new Point3dCollection();
+        for (double x = 9000; x <= 9400; x += 10)
+            for (double y = 9000; y <= 9400; y += 10)
+                pts.Add(new Point3d(x, y, 900 + 0.04 * (x - 9000) + 3 * Math.Sin((y - 9000) / 60.0) + 1.5 * Math.Cos((x - 9000) / 45.0)));
+        sup.AddVertices(pts);
+        var ms = (BlockTableRecord)tr.GetObject(SymbolUtilityServices.GetBlockModelSpaceId(db), OpenMode.ForWrite);
+        void Pl(params double[] xy)
+        {
+            var pl = new Polyline();
+            for (int i = 0; i < xy.Length / 2; i++) pl.AddVertexAt(i, new Point2d(xy[2 * i], xy[2 * i + 1]), 0, 0, 0);
+            pl.SetDatabaseDefaults();
+            ms.AppendEntity(pl);
+            tr.AddNewlyCreatedDBObject(pl, true);
+        }
+        Pl(9020, 9200, 9200, 9200, 9380, 9260);   // rua com vértice
+        Pl(9150, 9020, 9150, 9380);               // cruza a primeira
+        Pl(9300, 9050, 9300, 9230);               // para a ~3 m da primeira (T)
+        Pl(9150, 9380, 9250, 9380);               // continua na ponta da segunda
+        tr.Commit();
+        doc.Editor.WriteMessage("\nVIASPREP OK");
+    }
+
     [CommandMethod("PRJROTCHECK")]
     public static void Check()
     {

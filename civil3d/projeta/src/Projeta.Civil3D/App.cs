@@ -18,6 +18,7 @@ using Projeta.Civil3D.Infra;
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdGeo))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdMapas))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdRotatoria))]
+[assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdVias))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdLongitudinal))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdSimulacao))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdModelador))]

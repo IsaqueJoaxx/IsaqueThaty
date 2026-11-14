@@ -877,6 +877,16 @@ Teste("conexão: arco tangente a retas e anel, bordos afastados, greide da conex
     Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
 });
 
+Console.WriteLine("== Vias de loteamento em lote (PRJVIAS)");
+Teste("curvas nos vértices, encontros entre ruas, greide proposto, curvas verticais e planilha", () =>
+{
+    var erros = new List<string>();
+    int n = 0;
+    Projeta.Core.Testes.TestesVias.Rodar((c, m) => { n++; if (!c) erros.Add(m); });
+    Console.WriteLine($"       {n} verificações");
+    Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
+});
+
 Console.WriteLine("== Rotatória: trajetória mais rápida, ilhas e bordos");
 Teste("trajetória mais rápida (R1–R5), ilha divisória, bordos e linha de retenção", () =>
 {
