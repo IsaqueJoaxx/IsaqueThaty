@@ -15,7 +15,7 @@ namespace Projeta.Civil3D;
 // Aba "Point top" no ribbon (antes "PROJETA": o nome ficou para a aba do PROJETA Assistente Civil). Criada por código a cada sessão (não grava nada no CUI).
 // Os botões abrem o painel na aba certa, ou rodam um comando: IR AO PERFIL só muda a vista; VIAS DO LOTEAMENTO roda o
 // PRJVIAS do PROJETA Assistente Civil (outro complemento), que cria alinhamentos, perfis e corredor (um Ctrl+Z por etapa).
-// O painel INTERSEÇÕES roda PRJSINALIZA, PRJSEMAFORO e PRJCAPACIDADE, também do PROJETA Assistente Civil.
+// O painel INTERSEÇÕES roda PRJSINALIZA, PRJSEMAFORO, PRJSEGURANCA e PRJCAPACIDADE, também do PROJETA Assistente Civil.
 internal static class ProjetaRibbon
 {
     private const string TabId = "PROJETA_ASSISTENTE_TAB";
@@ -69,6 +69,8 @@ internal static class ProjetaRibbon
             "Sinalização horizontal e vertical (CONTRAN / MBST) da interseção ou rotatória montada pelo PROJETA: linhas de retenção, faixas de pedestres, setas, legenda PARE, placas R-1, R-2, R-33 e R-24a, e o quantitativo em Excel. Comando PRJSINALIZA (do PROJETA Assistente Civil, que precisa estar instalado)."));
         intersecoes.Items.Add(Command("PLANO SEMAFÓRICO", "semaforo", Icons.TrafficLight, "PRJSEMAFORO",
             "Plano semafórico da interseção (MBST vol. V e Webster): estágios, amarelo, vermelho geral, ciclo e verdes, grupos focais desenhados, laços e diagramas, e o Excel. Comando PRJSEMAFORO (do PROJETA Assistente Civil, que precisa estar instalado)."));
+        intersecoes.Items.Add(Command("AUDITOR DE SEGURANÇA", "seguranca", Icons.Shield, "PRJSEGURANCA",
+            "Auditor de segurança da rotatória montada pelo PROJETA: trajetória mais rápida (velocidade e deflexão de cada entrada), giro do veículo de projeto em todos os movimentos com a folga das rodas aos meios-fios e à ilha central, e visibilidade em 3D sobre as superfícies; desenha envoltórias, visadas e problemas, com REPROVADO no Excel. Comando PRJSEGURANCA (do PROJETA Assistente Civil, que precisa estar instalado)."));
         intersecoes.Items.Add(Command("CAPACIDADE E FILA", "capacidade", Icons.Queue, "PRJCAPACIDADE",
             "Capacidade, grau de saturação, atraso, nível de serviço e fila de 95 % de cada entrada da rotatória ou movimento da interseção com PARE (HCM 7ª ed.); faixas recomendadas no anel, armazenamento da faixa de conversão, fila desenhada e Excel. Comando PRJCAPACIDADE (do PROJETA Assistente Civil, que precisa estar instalado)."));
 
@@ -147,6 +149,9 @@ internal static class Icons
     // Fila de três veículos até a linha de retenção, com a cota do comprimento.
     public const string Queue = "M28,5 L28,27 M3,11 L8,11 L8,19 L3,19 Z M11,11 L16,11 L16,19 L11,19 Z M19,11 L24,11 L24,19 L19,19 Z M3,25 L24,25 M3,23 L3,27 M24,23 L24,27";
 
+    // Escudo com o visto (auditoria de segurança).
+    public const string Shield = "M16,3 L27,7 L27,15 C27,22 22,27 16,29 C10,27 5,22 5,15 L5,7 Z M10.5,16 L14.5,20 L22,11";
+
     // Áreas preenchidas (verde-água translúcido) por baixo do traço.
     private static readonly Dictionary<string, string> Fills = new()
     {
@@ -154,6 +159,7 @@ internal static class Icons
         [Signal] = "M12.6,3.7 L19.4,3.7 L24.3,8.6 L24.3,15.4 L19.4,20.3 L12.6,20.3 L7.7,15.4 L7.7,8.6 Z",
         [TrafficLight] = "M11,2 L21,2 L21,23 L11,23 Z",
         [Queue] = "M3,11 L8,11 L8,19 L3,19 Z M11,11 L16,11 L16,19 L11,19 Z M19,11 L24,11 L24,19 L19,19 Z",
+        [Shield] = "M16,3 L27,7 L27,15 C27,22 22,27 16,29 C10,27 5,22 5,15 L5,7 Z",
     };
 
     private static readonly Brush Stroke = Frozen(new SolidColorBrush(Color.FromRgb(38, 166, 140)));
