@@ -15,6 +15,7 @@ namespace Projeta.Civil3D;
 // Aba "Point top" no ribbon (antes "PROJETA": o nome ficou para a aba do PROJETA Assistente Civil). Criada por código a cada sessão (não grava nada no CUI).
 // Os botões abrem o painel na aba certa, ou rodam um comando: IR AO PERFIL só muda a vista; VIAS DO LOTEAMENTO roda o
 // PRJVIAS do PROJETA Assistente Civil (outro complemento), que cria alinhamentos, perfis e corredor (um Ctrl+Z por etapa).
+// O painel INTERSEÇÕES roda PRJSINALIZA, PRJSEMAFORO e PRJCAPACIDADE, também do PROJETA Assistente Civil.
 internal static class ProjetaRibbon
 {
     private const string TabId = "PROJETA_ASSISTENTE_TAB";
@@ -59,18 +60,32 @@ internal static class ProjetaRibbon
             ToolTip = "Clique no eixo e a tela vai para a vista de perfil dele; clique na vista de perfil para voltar ao eixo. Enter sai. Comando: PROJETAPERFIL.",
             Id = "PROJETA_irperfil", CommandParameter = "PROJETAPERFIL", CommandHandler = RunCommand.Instance
         });
-        source.Items.Add(new RibbonButton
-        {
-            Text = "VIAS DO LOTEAMENTO", ShowText = true, ShowImage = true, Size = RibbonItemSize.Large,
-            Orientation = System.Windows.Controls.Orientation.Vertical,
-            LargeImage = Icons.Draw(Icons.Streets, 32), Image = Icons.Draw(Icons.Streets, 16),
-            ToolTip = "Selecione as polilinhas dos eixos das ruas: alinhamentos com curva nos vértices, perfil do terreno, greide proposto passando na mesma cota nos encontros, vistas de perfil, corredor com superfície, linhas de amostragem e Excel. Comando PRJVIAS (do PROJETA Assistente Civil, que precisa estar instalado).",
-            Id = "PROJETA_vias", CommandParameter = "PRJVIAS", CommandHandler = RunCommand.Instance
-        });
+        source.Items.Add(Command("VIAS DO LOTEAMENTO", "vias", Icons.Streets, "PRJVIAS",
+            "Selecione as polilinhas dos eixos das ruas: alinhamentos com curva nos vértices, perfil do terreno, greide proposto passando na mesma cota nos encontros, vistas de perfil, corredor com superfície, linhas de amostragem e Excel. Comando PRJVIAS (do PROJETA Assistente Civil, que precisa estar instalado)."));
+
+        // Interseções e rotatórias montadas pelo PRJINTERSECAO / PRJROTATORIA (aba PROJETA).
+        var intersecoes = new RibbonPanelSource { Title = "INTERSEÇÕES E ROTATÓRIAS" };
+        intersecoes.Items.Add(Command("SINALIZAÇÃO", "sinalizacao", Icons.Signal, "PRJSINALIZA",
+            "Sinalização horizontal e vertical (CONTRAN / MBST) da interseção ou rotatória montada pelo PROJETA: linhas de retenção, faixas de pedestres, setas, legenda PARE, placas R-1, R-2, R-33 e R-24a, e o quantitativo em Excel. Comando PRJSINALIZA (do PROJETA Assistente Civil, que precisa estar instalado)."));
+        intersecoes.Items.Add(Command("PLANO SEMAFÓRICO", "semaforo", Icons.TrafficLight, "PRJSEMAFORO",
+            "Plano semafórico da interseção (MBST vol. V e Webster): estágios, amarelo, vermelho geral, ciclo e verdes, grupos focais desenhados, laços e diagramas, e o Excel. Comando PRJSEMAFORO (do PROJETA Assistente Civil, que precisa estar instalado)."));
+        intersecoes.Items.Add(Command("CAPACIDADE E FILA", "capacidade", Icons.Queue, "PRJCAPACIDADE",
+            "Capacidade, grau de saturação, atraso, nível de serviço e fila de 95 % de cada entrada da rotatória ou movimento da interseção com PARE (HCM 7ª ed.); faixas recomendadas no anel, armazenamento da faixa de conversão, fila desenhada e Excel. Comando PRJCAPACIDADE (do PROJETA Assistente Civil, que precisa estar instalado)."));
+
         var tab = new RibbonTab { Title = "Point top", Id = TabId };
         tab.Panels.Add(new RibbonPanel { Source = source });
+        tab.Panels.Add(new RibbonPanel { Source = intersecoes });
         ribbon.Tabs.Add(tab);
     }
+
+    // Botão que roda um comando do PROJETA Assistente Civil (ver RunCommand).
+    private static RibbonButton Command(string text, string id, string glyph, string command, string tip) => new()
+    {
+        Text = text, ShowText = true, ShowImage = true, Size = RibbonItemSize.Large,
+        Orientation = System.Windows.Controls.Orientation.Vertical,
+        LargeImage = Icons.Draw(glyph, 32), Image = Icons.Draw(glyph, 16),
+        ToolTip = tip, Id = "PROJETA_" + id, CommandParameter = command, CommandHandler = RunCommand.Instance
+    };
 
     private static RibbonButton Button(string text, string page, string glyph, string tip) => new()
     {
@@ -125,6 +140,21 @@ internal static class Icons
     public const string Profile = "M4,4 L4,28 L29,28 M4,22 C9,22 11,12 16,13 C21,14 23,9 29,8 M8,11 L13,11 M8,11 L10,9 M8,11 L10,13";
     public const string Streets = "M3,25 L13,25 Q22,25 25,17 L28,8 M13,3 L13,29 M3,12 L13,12 M22,3 L22,12.5 M11,25 A2,2 0 1 0 15,25 A2,2 0 1 0 11,25 M11,12 A2,2 0 1 0 15,12 A2,2 0 1 0 11,12";
     public const string Corridor = "M5,29 C9,18 14,12 27,4 M11,29 C14,21 18,16 29,10 M8,29 C11.5,19.5 16,14 28,7";
+    // Placa octogonal (PARE) no poste.
+    public const string Signal = "M12.6,3.7 L19.4,3.7 L24.3,8.6 L24.3,15.4 L19.4,20.3 L12.6,20.3 L7.7,15.4 L7.7,8.6 Z M11.5,12 L20.5,12 M16,20.3 L16,29 M10,29 L22,29";
+    // Semáforo de três focos no poste.
+    public const string TrafficLight = "M11,2 L21,2 L21,23 L11,23 Z M16,23 L16,30 M12,30 L20,30 M13.8,6.5 A2.2,2.2 0 1 0 18.2,6.5 A2.2,2.2 0 1 0 13.8,6.5 M13.8,12.5 A2.2,2.2 0 1 0 18.2,12.5 A2.2,2.2 0 1 0 13.8,12.5 M13.8,18.5 A2.2,2.2 0 1 0 18.2,18.5 A2.2,2.2 0 1 0 13.8,18.5";
+    // Fila de três veículos até a linha de retenção, com a cota do comprimento.
+    public const string Queue = "M28,5 L28,27 M3,11 L8,11 L8,19 L3,19 Z M11,11 L16,11 L16,19 L11,19 Z M19,11 L24,11 L24,19 L19,19 Z M3,25 L24,25 M3,23 L3,27 M24,23 L24,27";
+
+    // Áreas preenchidas (verde-água translúcido) por baixo do traço.
+    private static readonly Dictionary<string, string> Fills = new()
+    {
+        [Volume] = "M3,12 C9,6 15,18 21,10 C24,7 27,8 29,9 L29,20 L3,20 Z",
+        [Signal] = "M12.6,3.7 L19.4,3.7 L24.3,8.6 L24.3,15.4 L19.4,20.3 L12.6,20.3 L7.7,15.4 L7.7,8.6 Z",
+        [TrafficLight] = "M11,2 L21,2 L21,23 L11,23 Z",
+        [Queue] = "M3,11 L8,11 L8,19 L3,19 Z M11,11 L16,11 L16,19 L11,19 Z M19,11 L24,11 L24,19 L19,19 Z",
+    };
 
     private static readonly Brush Stroke = Frozen(new SolidColorBrush(Color.FromRgb(38, 166, 140)));
     private static readonly Brush Fill = Frozen(new SolidColorBrush(Color.FromArgb(70, 101, 212, 186)));
@@ -139,7 +169,7 @@ internal static class Icons
         {
             dc.PushTransform(new ScaleTransform(size / 32.0, size / 32.0));
             var pen = new Pen(Stroke, size >= 32 ? 2.4 : 3.2) { StartLineCap = PenLineCap.Round, EndLineCap = PenLineCap.Round, LineJoin = PenLineJoin.Round };
-            if (path == Volume) dc.DrawGeometry(Fill, null, MediaGeometry.Parse("M3,12 C9,6 15,18 21,10 C24,7 27,8 29,9 L29,20 L3,20 Z"));
+            if (Fills.TryGetValue(path, out var area)) dc.DrawGeometry(Fill, null, MediaGeometry.Parse(area));
             dc.DrawGeometry(null, pen, geometry);
             dc.Pop();
         }
