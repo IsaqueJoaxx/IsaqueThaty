@@ -269,6 +269,9 @@ internal sealed class ConfigRotatoria
 
     /// <summary>Parâmetros do PRJSINALIZA.</summary>
     public ParametrosSinalizacao Sinal { get; set; } = new();
+
+    /// <summary>Parâmetros do PRJSEMAFORO.</summary>
+    public ParametrosSemaforo Semaforo { get; set; } = new();
     // montagens do corredor (subassemblies padrão do Civil)
     public bool Montagens { get; set; } = true;
     public double Revestimento { get; set; } = 0.05;

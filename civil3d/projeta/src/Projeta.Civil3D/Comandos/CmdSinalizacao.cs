@@ -68,7 +68,7 @@ public sealed class CmdSinalizacao
                     if (resp != "Sim") { Ctx.Msg($"'{it.Nome}': ficou a sinalização que já existe."); continue; }
                     foreach (var oid in antigos) s.Tr.GetObject(oid, OpenMode.ForWrite).Erase();
                 }
-                ResultadoSinalizacao? res = it.Intersecao is not null ? GeradorSinalizacao.Intersecao(it.Nome, it.Intersecao, p)
+                ResultadoSinalizacao? res = it.Intersecao is not null ? GeradorSinalizacao.Intersecao(it.Nome, it.Intersecao, p, it.Semaforo is not null)
                                           : it.Rotatoria is not null ? GeradorSinalizacao.Rotatoria(it.Nome, it.Rotatoria, p) : null;
                 if (res is null) { Ctx.Msg($"'{it.Nome}': sem geometria guardada."); continue; }
                 var ids = new List<ObjectId>();

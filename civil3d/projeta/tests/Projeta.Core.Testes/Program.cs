@@ -897,6 +897,16 @@ Teste("retenção, dê a preferência, faixas de pedestres, PARE, placas, conver
     Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
 });
 
+Console.WriteLine("== Plano semafórico (PRJSEMAFORO)");
+Teste("entreverdes, Webster, verdes, pedestres, grupos focais, laços e sinalização com semáforo", () =>
+{
+    var erros = new List<string>();
+    int n = 0;
+    Projeta.Core.Testes.TestesSemaforo.Rodar((c, m) => { n++; Console.WriteLine($"       {(c ? "ok " : "XX ")} {m}"); if (!c) erros.Add(m); }, saida);
+    Console.WriteLine($"       {n} verificações");
+    Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
+});
+
 Console.WriteLine("== Rotatória: trajetória mais rápida, ilhas e bordos");
 Teste("trajetória mais rápida (R1–R5), ilha divisória, bordos e linha de retenção", () =>
 {

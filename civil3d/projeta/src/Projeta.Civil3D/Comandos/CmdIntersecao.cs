@@ -533,6 +533,8 @@ public sealed partial class CmdRotatoria
                         Conversao = conversao && temConversao[iSin], DRetencaoConversao = dRetencao,
                     });
                 }
+                foreach (var (_, _, cSin, _) in esquinas)
+                    if (cSin is not null) modSinal.Esquinas.Add(new[] { cSin.C.Centro.X, cSin.C.Centro.Y, cSin.C.Raio });
                 ArmazenamentoSinal.Gravar(s.Tr, s.Db, new ItemSinalizacao { Nome = prefixo, Tipo = "Interseção", Intersecao = modSinal });
             }
             catch (System.Exception ex) { avisos.Add($"Sinalização: a geometria não foi guardada no desenho ({ex.Message}); o PRJSINALIZA não vai achar esta interseção."); }            s.Tr.Commit();

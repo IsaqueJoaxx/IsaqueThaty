@@ -20,6 +20,7 @@ using Projeta.Civil3D.Infra;
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdRotatoria))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdVias))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdSinalizacao))]
+[assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdSemaforo))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdLongitudinal))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdSimulacao))]
 [assembly: CommandClass(typeof(Projeta.Civil3D.Comandos.CmdModelador))]

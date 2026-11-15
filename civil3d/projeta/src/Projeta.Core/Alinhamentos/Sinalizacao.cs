@@ -37,6 +37,29 @@ public sealed class ModeloIntersecaoSinal
     public double Ox { get; set; }
     public double Oy { get; set; }
     public List<BracoIntersecaoSinal> Bracos { get; set; } = new();
+    /// <summary>Meios-fios das esquinas: [x do centro, y do centro, raio].</summary>
+    public List<double[]> Esquinas { get; set; } = new();
+
+    /// <summary>
+    /// Leva um ponto para a calçada da esquina mais perto (a <paramref name="recuo"/> m atrás do meio-fio, para dentro do arco) quando ele
+    /// cai no asfalto alargado da esquina; longe das esquinas o ponto fica onde está.
+    /// </summary>
+    public (double X, double Y) NaCalcada((double X, double Y) p, double recuo)
+    {
+        double[]? melhor = null;
+        double folga = double.MaxValue;
+        foreach (var e in Esquinas)
+        {
+            if (e.Length < 3) continue;
+            double d = Math.Sqrt((p.X - e[0]) * (p.X - e[0]) + (p.Y - e[1]) * (p.Y - e[1])) - e[2];
+            if (d < folga) { folga = d; melhor = e; }
+        }
+        if (melhor is null || folga > 6 || folga <= -recuo) return p;
+        double dx = p.X - melhor[0], dy = p.Y - melhor[1], n = Math.Sqrt(dx * dx + dy * dy);
+        if (n < 1e-9) return p;
+        double r = Math.Max(0.1, melhor[2] - recuo);
+        return (melhor[0] + dx / n * r, melhor[1] + dy / n * r);
+    }
 }
 
 /// <summary>Braço da rotatória guardado no desenho (cópia serializável do <see cref="BracoRotatoria"/>).</summary>
@@ -120,6 +143,8 @@ public sealed class ItemSinalizacao
     /// <summary>Handles (hexadecimal) dos objetos que o PRJSINALIZA desenhou para este item.</summary>
     public List<string> Desenhados { get; set; } = new();
     public DateTime Gravado { get; set; } = DateTime.Now;
+    /// <summary>Semáforo calculado pelo PRJSEMAFORO (null = interseção sem semáforo).</summary>
+    public DadosSemaforo? Semaforo { get; set; }
 }
 
 public enum TipoViaSinal { Urbana, Estrada, Rodovia }
@@ -322,9 +347,9 @@ public static class GeradorSinalizacao
     /// da retenção, R-1 no lado direito e linha contínua amarela no eixo; na principal, faixa de pedestres (opção Todas),
     /// eixo contínuo e, com faixa de conversão à esquerda, as linhas da faixa e as setas.
     /// </summary>
-    public static ResultadoSinalizacao Intersecao(string nome, ModeloIntersecaoSinal m, ParametrosSinalizacao p)
+    public static ResultadoSinalizacao Intersecao(string nome, ModeloIntersecaoSinal m, ParametrosSinalizacao p, bool semaforo = false)
     {
-        var r = new ResultadoSinalizacao { Item = nome, Tipo = "Interseção" };
+        var r = new ResultadoSinalizacao { Item = nome, Tipo = semaforo ? "Interseção semaforizada" : "Interseção" };
         var eixos = m.Bracos.Select(b => b.Polilinha()).ToList();
         double lw = p.LarguraLinha;
         for (int i = 0; i < m.Bracos.Count; i++)
@@ -332,23 +357,29 @@ public static class GeradorSinalizacao
             var b = m.Bracos[i];
             var e = eixos[i];
             string onde = $"braço {b.Rumo} ({b.Nome})";
-            double dT = DistanciaTransversal(m, eixos, i, out bool achou);
-            if (!achou) r.Avisos.Add($"{nome}, {onde}: não achei o bordo da via transversal; usei a meia largura das outras vias ({dT:0.00} m).");
-            bool pare = !b.Principal;
-            bool ftp = p.FaixasPedestres == "Todas" || (p.FaixasPedestres == "Secundarias" && pare);
-            double fimFtp = dT;
-            if (ftp)
+            var pos = Posicoes(m, eixos, i, p, semaforo);
+            if (!pos.Achou) r.Avisos.Add($"{nome}, {onde}: não achei o bordo da via transversal; usei a meia largura das outras vias ({pos.DTransversal:0.00} m).");
+            bool pare = !b.Principal && !semaforo;
+            bool conv = b.Conversao && b.Alargamento > 0;
+            double c(double d) => conv ? GeometriaIntersecao.MeiaLarguraAlargada(0, b.Alargamento, b.DPlena, b.Teiper, d) : 0;
+            if (pos.Ftp)
             {
-                double f0 = dT + ParametrosSinalizacao.DistFtpTransversal, f1 = f0 + p.ExtensaoFtp;
-                double wl = Math.Min(b.MeiaLarguraEm(f0), b.MeiaLarguraEm(f1));
-                FaixaPedestres(r, e, f0, f1, -wl, wl, p, onde);
-                fimFtp = f1;
+                double wl = Math.Min(b.MeiaLarguraEm(pos.Ftp0), b.MeiaLarguraEm(pos.Ftp1));
+                FaixaPedestres(r, e, pos.Ftp0, pos.Ftp1, -wl, wl, p, onde);
+                r.Verificacoes.Add(new Verificacao("Faixa de pedestres (FTP-1)", $"{nome}, {onde}",
+                    $"a {ParametrosSinalizacao.DistFtpTransversal:0.00} m do alinhamento da pista transversal, extensão {p.ExtensaoFtp:0.00} m",
+                    "≥ 1,00 m do alinhamento; extensão ≥ 3,00 m (recomendada 4,00 m)", $"{ParametrosSinalizacao.MbstIV}, 5.4",
+                    p.ExtensaoFtp >= 3 - 1e-9 ? VerificacaoRotatoria.Aprovado : VerificacaoRotatoria.Reprovado));
+            }
+            double l0 = pos.Retencao;
+            if (pare || semaforo)
+            {
+                double w0 = b.MeiaLarguraEm(l0);
+                r.Marcas.Add(new MarcaViaria("LRE", "Linha de retenção", Branca, GeoSinal.Retangulo(e, l0, l0 + p.LarguraLre, -c(l0), w0), onde));
             }
             if (pare)
             {
-                double l0 = ftp ? fimFtp + ParametrosSinalizacao.DistLreFtp : dT + ParametrosSinalizacao.DistLreSemFtp;
                 double w0 = b.MeiaLarguraEm(l0);
-                r.Marcas.Add(new MarcaViaria("LRE", "Linha de retenção", Branca, GeoSinal.Retangulo(e, l0, l0 + p.LarguraLre, 0, w0), onde));
                 var (ux, uy) = e.Direcao(l0);
                 double chegando = Math.Atan2(-uy, -ux);
                 if (p.LegendaPare)
@@ -364,26 +395,23 @@ public static class GeradorSinalizacao
                 var placa = new PlacaSinal("R-1", "Parada obrigatória", "octogono", p.LadoR1, 0, 0, chegando, onde, $"{ParametrosSinalizacao.MbstI}, 3.7 e 4.1");
                 var pp = e.Ponto(l0 + p.LarguraLre / 2, w0 + p.AfastamentoPlaca + placa.Largura / 2);
                 r.Placas.Add(placa with { X = pp.X, Y = pp.Y });
-                double dist = l0 + p.LarguraLre / 2 - dT;
+                double dist = l0 + p.LarguraLre / 2 - pos.DTransversal;
                 bool ok = dist <= p.DistMaxPlaca + 1e-9 && dist >= p.DistMinPlaca - 1e-9;
                 r.Verificacoes.Add(new Verificacao("Posição do R-1 (parada obrigatória)", $"{nome}, {onde}", $"{dist:0.00} m do prolongamento do meio-fio da via transversal",
                     p.Rural ? "entre 1,5 e 15,0 m" : "até 10,0 m", $"{ParametrosSinalizacao.MbstI}, 4.1", ok ? VerificacaoRotatoria.Aprovado : VerificacaoRotatoria.Reprovado));
-                r.Marcas.Add(new MarcaViaria("LFO-1", "Linha simples contínua (fluxos opostos)", Amarela,
-                    GeoSinal.Longitudinal(e, l0, l0 + p.ComprimentoLfo, _ => 0, lw), onde));
             }
-            else if (b.Conversao && b.Alargamento > 0)
+            if (conv)
             {
-                double c(double d) => GeometriaIntersecao.MeiaLarguraAlargada(0, b.Alargamento, b.DPlena, b.Teiper, d);
-                double l0 = Math.Max(b.DRetencaoConversao, ftp ? fimFtp + ParametrosSinalizacao.DistLreFtp : dT + ParametrosSinalizacao.DistLreSemFtp);
+                double ini = (pare || semaforo) ? l0 + p.LarguraLre : l0;
                 double fimT = b.DPlena + b.Teiper;
-                if (b.DPlena > l0)
+                if (b.DPlena > ini)
                     r.Marcas.Add(new MarcaViaria("LMS-1", "Linha simples contínua (mesmo sentido) – faixa de conversão", Branca,
-                        GeoSinal.Longitudinal(e, l0, b.DPlena, d => c(d), lw), onde));
-                if (fimT > l0)
+                        GeoSinal.Longitudinal(e, ini, b.DPlena, d => c(d), lw), onde));
+                if (fimT > ini)
                     r.Marcas.Add(new MarcaViaria("LFO-1", "Linha simples contínua (fluxos opostos)", Amarela,
-                        GeoSinal.Longitudinal(e, l0, fimT, d => -c(d), lw), onde));
+                        GeoSinal.Longitudinal(e, ini, fimT, d => -c(d), lw), onde));
                 r.Marcas.Add(new MarcaViaria("LFO-1", "Linha simples contínua (fluxos opostos)", Amarela,
-                    GeoSinal.Longitudinal(e, Math.Max(l0, fimT), Math.Max(l0, fimT) + p.ComprimentoLfo, _ => 0, lw), onde));
+                    GeoSinal.Longitudinal(e, Math.Max(ini, fimT), Math.Max(ini, fimT) + p.ComprimentoLfo, _ => 0, lw), onde));
                 var (d0, d1, d2) = p.EspacamentoSetas;
                 double L = p.ComprimentoSeta;
                 int setas = 0;
@@ -403,24 +431,40 @@ public static class GeradorSinalizacao
             }
             else
             {
-                double l0 = ftp ? fimFtp + ParametrosSinalizacao.DistFtpTransversal : dT + ParametrosSinalizacao.DistFtpTransversal;
+                double ini = (pare || semaforo) ? l0 : l0;
                 r.Marcas.Add(new MarcaViaria("LFO-1", "Linha simples contínua (fluxos opostos)", Amarela,
-                    GeoSinal.Longitudinal(e, l0, l0 + p.ComprimentoLfo, _ => 0, lw), onde));
+                    GeoSinal.Longitudinal(e, ini, ini + p.ComprimentoLfo, _ => 0, lw), onde));
             }
-            if (ftp)
-                r.Verificacoes.Add(new Verificacao("Faixa de pedestres (FTP-1)", $"{nome}, {onde}",
-                    $"a {ParametrosSinalizacao.DistFtpTransversal:0.00} m do alinhamento da pista transversal, extensão {p.ExtensaoFtp:0.00} m",
-                    "≥ 1,00 m do alinhamento; extensão ≥ 3,00 m (recomendada 4,00 m)", $"{ParametrosSinalizacao.MbstIV}, 5.4",
-                    p.ExtensaoFtp >= 3 - 1e-9 ? VerificacaoRotatoria.Aprovado : VerificacaoRotatoria.Reprovado));
         }
         return r;
+    }
+
+    /// <summary>Posições num braço (distâncias no eixo, a partir do centro): bordo da via transversal, faixa de pedestres e retenção.</summary>
+    public sealed record PosicoesBraco(double DTransversal, bool Achou, bool Ftp, double Ftp0, double Ftp1, double Retencao);
+
+    /// <summary>
+    /// Faixa de pedestres a 1,00 m do alinhamento da pista transversal (se houver nesse braço); retenção (ou início do eixo, na principal
+    /// sem semáforo) a 1,60 m dela, ou a 1,00 m do alinhamento sem faixa; na faixa de conversão, não antes do início do armazenamento.
+    /// </summary>
+    public static PosicoesBraco Posicoes(ModeloIntersecaoSinal m, IReadOnlyList<PolilinhaEixo> eixos, int i, ParametrosSinalizacao p, bool semaforo)
+    {
+        var b = m.Bracos[i];
+        double dT = DistanciaTransversal(m, eixos, i, out bool achou);
+        bool pare = !b.Principal && !semaforo;
+        bool ftp = semaforo || p.FaixasPedestres == "Todas" || (p.FaixasPedestres == "Secundarias" && pare);
+        double f0 = dT + ParametrosSinalizacao.DistFtpTransversal, f1 = f0 + p.ExtensaoFtp;
+        bool retem = pare || semaforo || (b.Conversao && b.Alargamento > 0);
+        double l0 = ftp ? f1 + (retem ? ParametrosSinalizacao.DistLreFtp : ParametrosSinalizacao.DistFtpTransversal)
+                        : dT + ParametrosSinalizacao.DistLreSemFtp;
+        if (b.Conversao && b.Alargamento > 0) l0 = Math.Max(l0, b.DRetencaoConversao);
+        return new PosicoesBraco(dT, achou, ftp, f0, f1, l0);
     }
 
     /// <summary>
     /// Distância (no eixo do braço, a partir do centro) até o alinhamento do meio-fio da pista transversal: o ponto mais longe
     /// onde linhas paralelas ao eixo, dentro da pista do braço, cortam os bordos das outras vias.
     /// </summary>
-    public static double DistanciaTransversal(ModeloIntersecaoSinal m, IReadOnlyList<PolilinhaEixo> eixos, int i, out bool achou)
+    public static double DistanciaTransversal(ModeloIntersecaoSinal m, IReadOnlyList<PolilinhaEixo> eixos, int i, out bool achou, int sentido = 1)
     {
         var bi = m.Bracos[i];
         var ei = eixos[i];
@@ -432,12 +476,15 @@ public static class GeradorSinalizacao
         foreach (double f in new[] { 0.95, 0.5, -0.5, -0.95 })
         {
             var linha = new List<(double X, double Y)>();
-            for (int k = 0; k <= n; k++) linha.Add(ei.Ponto(k * passo, f * wi));
+            for (int k = 0; k <= n; k++) linha.Add(ei.Ponto(sentido * k * passo, f * wi));
             for (int j = 0; j < m.Bracos.Count; j++)
             {
                 var bj = m.Bracos[j];
                 if (j == i || bj.Nome == bi.Nome) continue;
                 var ej = eixos[j];
+                var (dix, diy) = ei.Direcao(0);
+                var (djx, djy) = ej.Direcao(0);
+                if (Math.Abs(dix * djx + diy * djy) > 0.866) continue;   // quase paralelo (a rua do outro lado não é transversal)
                 foreach (int lado in new[] { 1, -1 })
                 {
                     var bordo = new List<(double X, double Y)>();
