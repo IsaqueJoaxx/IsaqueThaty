@@ -887,6 +887,16 @@ Teste("curvas nos vértices, encontros entre ruas, greide proposto, curvas verti
     Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
 });
 
+Console.WriteLine("== Sinalização da interseção e da rotatória (PRJSINALIZA)");
+Teste("retenção, dê a preferência, faixas de pedestres, PARE, placas, conversão, quantitativo e gravação", () =>
+{
+    var erros = new List<string>();
+    int n = 0;
+    Projeta.Core.Testes.TestesSinalizacao.Rodar((c, m) => { n++; Console.WriteLine($"       {(c ? "ok " : "XX ")} {m}"); if (!c) erros.Add(m); }, saida);
+    Console.WriteLine($"       {n} verificações");
+    Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
+});
+
 Console.WriteLine("== Rotatória: trajetória mais rápida, ilhas e bordos");
 Teste("trajetória mais rápida (R1–R5), ilha divisória, bordos e linha de retenção", () =>
 {

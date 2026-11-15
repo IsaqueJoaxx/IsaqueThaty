@@ -266,6 +266,9 @@ internal sealed class ConfigRotatoria
     public double ViasLMin { get; set; } = 10;
     public double ViasEstacas { get; set; } = 20;
     public bool ViasParametrosDoUsuario { get; set; }
+
+    /// <summary>Parâmetros do PRJSINALIZA.</summary>
+    public ParametrosSinalizacao Sinal { get; set; } = new();
     // montagens do corredor (subassemblies padrão do Civil)
     public bool Montagens { get; set; } = true;
     public double Revestimento { get; set; } = 0.05;

@@ -508,7 +508,34 @@ public sealed partial class CmdRotatoria
             var rot = Ctx.Texto(prefixo, new Point3d(o.X, o.Y - wMax - 2, 0), 1.2, 0, AttachmentPoint.TopCenter);
             rot.Layer = lay;
             Ctx.Adicionar(s.Tr, ms, rot);
-            s.Tr.Commit();
+
+            // geometria guardada no desenho para a sinalização (PRJSINALIZA)
+            try
+            {
+                var modSinal = new ModeloIntersecaoSinal { Ox = o.X, Oy = o.Y };
+                for (int iSin = 0; iSin < n; iSin++)
+                {
+                    var bSin = bracos[iSin];
+                    double limSin = bSin.SentidoFora > 0 ? bSin.Eixo.EndingStation : bSin.Eixo.StartingStation;
+                    double compSin = Math.Min(Math.Abs(limSin - sCentro[iSin]), alcance[iSin] + 60);
+                    if (compSin < 1) continue;
+                    var ptsSin = new List<double[]>();
+                    int nSin = Math.Max(2, (int)Math.Ceiling(compSin));
+                    for (int kSin = 0; kSin <= nSin; kSin++)
+                    {
+                        var qSin = RotatoriaCivil.Ponto(bSin.Eixo, sCentro[iSin] + bSin.SentidoFora * compSin * kSin / nSin, 0);
+                        ptsSin.Add(new[] { qSin.X, qSin.Y });
+                    }
+                    modSinal.Bracos.Add(new BracoIntersecaoSinal
+                    {
+                        Nome = bSin.Eixo.Name, Rumo = bSin.Rumo, Principal = bSin.Eixo.ObjectId == principal.ObjectId, Eixo = ptsSin,
+                        MeiaLargura = w[bSin.Eixo.ObjectId], Alargamento = alargado(iSin) ? alarg : 0, DPlena = dPlena[iSin], Teiper = convTeiper,
+                        Conversao = conversao && temConversao[iSin], DRetencaoConversao = dRetencao,
+                    });
+                }
+                ArmazenamentoSinal.Gravar(s.Tr, s.Db, new ItemSinalizacao { Nome = prefixo, Tipo = "Interseção", Intersecao = modSinal });
+            }
+            catch (System.Exception ex) { avisos.Add($"Sinalização: a geometria não foi guardada no desenho ({ex.Message}); o PRJSINALIZA não vai achar esta interseção."); }            s.Tr.Commit();
 
             // mensagens
             string premissa = cfg.IntersecaoParametrosDoUsuario ? "" : " [PREMISSA: valores de partida, troque em Parametros]";
@@ -541,6 +568,7 @@ public sealed partial class CmdRotatoria
             foreach (var a in avisos) Ctx.Msg("AVISO: " + a);
             Ctx.Msg($"Desenho nas camadas {LayerIntersecaoBordo} (bordos), {LayerIntersecaoVisib} (visadas)" + (conversoes.Count > 0 ? $", {LayerIntersecaoConv} (faixa de conversão)" : "")
                     + (ilhas.Any(x => x is not null) ? $", {LayerIntersecaoIlha} (ilhas)" : "") + ". Confira com PRJCASAMENTO › Varios. U desfaz a interseção inteira.");
+            Ctx.Msg("Sinalização horizontal e vertical desta interseção: PRJSINALIZA.");
 
             // relatório
             var rel = new RelatorioIntersecao { Titulo = prefixo, Desenho = s.Doc.Name, Ox = o.X, Oy = o.Y, Principal = principal.Name };

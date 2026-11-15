@@ -334,6 +334,8 @@ public sealed partial class CmdRotatoria
                 }
             }
 
+            try { ArmazenamentoSinal.Gravar(s.Tr, s.Db, new ItemSinalizacao { Nome = prefixo, Tipo = "Rotatória", Rotatoria = ModeloRotatoriaSinal.De(mod, cfg.LarguraAnel, cfg.Apron) }); }
+            catch (System.Exception ex) { avisos.Add($"Sinalização: a geometria não foi guardada no desenho ({ex.Message}); o PRJSINALIZA não vai achar esta rotatória."); }
             s.Tr.Commit();
 
             string premissa = cfg.ParametrosDoUsuario ? "" : " [PREMISSA: valores de partida, troque em Parametros]";
@@ -367,6 +369,7 @@ public sealed partial class CmdRotatoria
             foreach (var a in avisos) Ctx.Msg("AVISO: " + a);
             Ctx.Msg($"Desenho nas camadas {LayerRotatoria}, {LayerIlha}, {LayerBordo}, {LayerRetencao}, {LayerTrajetoria} (vermelho = direto, azul = à esquerda, verde = à direita) e {LayerVisibilidade} (triângulos de visibilidade: magenta = circulante, ciano = entrante). " +
                     "Confira com PRJCASAMENTO › Varios. U desfaz a rotatória inteira.");
+            Ctx.Msg("Sinalização horizontal e vertical desta rotatória: PRJSINALIZA.");
 
             // relatório
             var rel = new RelatorioRotatoria { Titulo = prefixo, Desenho = s.Doc.Name, Modelo = mod, GreideAnel = $"{origemCotas}; erro máx. {erroAnel * 1000:0.0} mm; rampa máx. {Pct(Math.Abs(rampaMax.Rampa))}" };
