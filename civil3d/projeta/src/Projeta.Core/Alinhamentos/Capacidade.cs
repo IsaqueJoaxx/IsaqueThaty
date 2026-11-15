@@ -404,7 +404,7 @@ public sealed class RelatorioCapacidade
             new("Espaço por veículo na fila", $"{p.EspacoVeiculo:0.0}", "m", pre),
             new("Grau de saturação máximo de projeto", $"{p.XProjeto:0.00}", "", $"{pre} (0,85 usual em rotatória; 0,90 é a capacidade prática)"),
             new("Atraso de controle", "3600/c + 900T[x − 1 + √((x−1)² + (3600/c)x/(450T))] + 5·min(x,1)", "s/veíc", $"{h}, eq. 22-17 (e cap. 20)"),
-            new("Fila de 95 %", "900T[x − 1 + √((1−x)² + (3600/c)x/(150T))]·c/3600", "veíc", $"{h} (cap. 20 e 22)"),
+            new("Fila de 95 %", "900T[x − 1 + √((1−x)² + (3600/c)x/(150T))]·c/3600", "veíc", $"{h} (cap. 20 e 22) [A CONFIRMAR na edição]"),
             new("Nível de serviço", "A ≤ 10; B ≤ 15; C ≤ 25; D ≤ 35; E ≤ 50; F > 50 s ou x > 1", "s/veíc", $"{h}, Exhibit 22-8 / cap. 20"),
         };
         if (tipo == "Rotatória")
