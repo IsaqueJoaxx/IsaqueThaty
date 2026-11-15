@@ -13,8 +13,8 @@ using Pen = System.Windows.Media.Pen;
 namespace Projeta.Civil3D;
 
 // Aba "Point top" no ribbon (antes "PROJETA": o nome ficou para a aba do PROJETA Assistente Civil). Criada por código a cada sessão (não grava nada no CUI).
-// Os botões abrem o painel na aba certa, ou (IR AO PERFIL) rodam um comando que só muda a vista;
-// nenhum deles altera o desenho.
+// Os botões abrem o painel na aba certa, ou rodam um comando: IR AO PERFIL só muda a vista; VIAS DO LOTEAMENTO roda o
+// PRJVIAS do PROJETA Assistente Civil (outro complemento), que cria alinhamentos, perfis e corredor (um Ctrl+Z por etapa).
 internal static class ProjetaRibbon
 {
     private const string TabId = "PROJETA_ASSISTENTE_TAB";
@@ -59,6 +59,14 @@ internal static class ProjetaRibbon
             ToolTip = "Clique no eixo e a tela vai para a vista de perfil dele; clique na vista de perfil para voltar ao eixo. Enter sai. Comando: PROJETAPERFIL.",
             Id = "PROJETA_irperfil", CommandParameter = "PROJETAPERFIL", CommandHandler = RunCommand.Instance
         });
+        source.Items.Add(new RibbonButton
+        {
+            Text = "VIAS DO LOTEAMENTO", ShowText = true, ShowImage = true, Size = RibbonItemSize.Large,
+            Orientation = System.Windows.Controls.Orientation.Vertical,
+            LargeImage = Icons.Draw(Icons.Streets, 32), Image = Icons.Draw(Icons.Streets, 16),
+            ToolTip = "Selecione as polilinhas dos eixos das ruas: alinhamentos com curva nos vértices, perfil do terreno, greide proposto passando na mesma cota nos encontros, vistas de perfil, corredor com superfície, linhas de amostragem e Excel. Comando PRJVIAS (do PROJETA Assistente Civil, que precisa estar instalado).",
+            Id = "PROJETA_vias", CommandParameter = "PRJVIAS", CommandHandler = RunCommand.Instance
+        });
         var tab = new RibbonTab { Title = "Point top", Id = TabId };
         tab.Panels.Add(new RibbonPanel { Source = source });
         ribbon.Tabs.Add(tab);
@@ -95,6 +103,12 @@ internal static class ProjetaRibbon
             if (parameter is RibbonButton b) parameter = b.CommandParameter;
             var document = Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.MdiActiveDocument;
             if (document is null || parameter is not string command) return;
+            // Comando de outro complemento (PRJ... é do PROJETA Assistente Civil): se ele não estiver carregado, avisa em vez de dar "comando desconhecido".
+            if (!Autodesk.AutoCAD.Internal.Utils.IsCommandDefined(command))
+            {
+                document.Editor.WriteMessage($"\nO comando {command} é do PROJETA Assistente Civil, que não está carregado nesta sessão. Instale o PROJETA (Instalar-PROJETA.exe) e reabra o Civil 3D.\n");
+                return;
+            }
             document.SendStringToExecute("\x03\x03_" + command + " ", true, false, false);
         }
     }
@@ -109,6 +123,7 @@ internal static class Icons
     public const string Section = "M3,22 L9,22 L13,14 L19,14 L23,22 L29,22 M16,4 L16,28";
     public const string Network = "M3,9 L13,9 M19,9 L29,9 M16,12 L16,20 M3,23 L13,23 M19,23 L29,23 M13,6 L19,6 L19,12 L13,12 Z M13,20 L19,20 L19,26 L13,26 Z";
     public const string Profile = "M4,4 L4,28 L29,28 M4,22 C9,22 11,12 16,13 C21,14 23,9 29,8 M8,11 L13,11 M8,11 L10,9 M8,11 L10,13";
+    public const string Streets = "M3,25 L13,25 Q22,25 25,17 L28,8 M13,3 L13,29 M3,12 L13,12 M22,3 L22,12.5 M11,25 A2,2 0 1 0 15,25 A2,2 0 1 0 11,25 M11,12 A2,2 0 1 0 15,12 A2,2 0 1 0 11,12";
     public const string Corridor = "M5,29 C9,18 14,12 27,4 M11,29 C14,21 18,16 29,10 M8,29 C11.5,19.5 16,14 28,7";
 
     private static readonly Brush Stroke = Frozen(new SolidColorBrush(Color.FromRgb(38, 166, 140)));

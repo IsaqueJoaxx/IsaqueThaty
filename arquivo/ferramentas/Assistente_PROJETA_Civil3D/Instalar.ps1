@@ -4,7 +4,7 @@
 # "Locais confiáveis" nem desligar o SECURELOAD. Por isso o script pede permissão de administrador.
 # Cada instalação ganha um nome próprio (Projeta.Civil3D_aaaammdd_hhmmss.dll), para atualizar mesmo
 # com o Civil 3D aberto: a versão nova entra na próxima vez que ele abrir.
-param([string]$Previa = 'Previa22-AbaPointTop')
+param([string]$Previa = 'Previa23-ViasPointTop')
 $ErrorActionPreference = 'Stop'
 
 $admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
@@ -47,17 +47,17 @@ foreach ($v in 2026, 2027) {
 $xml = @'
 <?xml version="1.0" encoding="utf-8"?>
 <ApplicationPackage SchemaVersion="1.0" AutodeskProduct="AutoCAD" ProductType="Application"
-  Name="Assistente PROJETA" AppVersion="0.21.1" Description="Assistente PROJETA para Civil 3D: superfícies, volumes, seções, corredores, junção, greide, poligonal, redes e IRI rodoviário" Author="PROJETA ENGENHARIA"
+  Name="Assistente PROJETA" AppVersion="0.21.2" Description="Assistente PROJETA para Civil 3D: superfícies, volumes, seções, corredores, junção, greide, poligonal, redes e IRI rodoviário" Author="PROJETA ENGENHARIA"
   ProductCode="{5E2B7C41-8D3A-4F6E-9B12-7A4C3D2E1F05}" UpgradeCode="{A9C4E2D7-1B3F-4E58-8D6A-2F7B9C0E4D13}">
   <CompanyDetails Name="PROJETA ENGENHARIA" />
   <Components Description="Civil 3D 2026">
     <RuntimeRequirements OS="Win64" Platform="Civil3D" SeriesMin="R25.1" SeriesMax="R25.1" />
-    <ComponentEntry AppName="ProjetaCivil3D" Version="0.21.1" ModuleName="./Contents/2026/ARQ" AppDescription="Assistente PROJETA" LoadOnAutoCADStartup="True" />
+    <ComponentEntry AppName="ProjetaCivil3D" Version="0.21.2" ModuleName="./Contents/2026/ARQ" AppDescription="Assistente PROJETA" LoadOnAutoCADStartup="True" />
 
   </Components>
   <Components Description="Civil 3D 2027">
     <RuntimeRequirements OS="Win64" Platform="Civil3D" SeriesMin="R26.0" SeriesMax="R26.0" />
-    <ComponentEntry AppName="ProjetaCivil3D" Version="0.21.1" ModuleName="./Contents/2027/ARQ" AppDescription="Assistente PROJETA" LoadOnAutoCADStartup="True" />
+    <ComponentEntry AppName="ProjetaCivil3D" Version="0.21.2" ModuleName="./Contents/2027/ARQ" AppDescription="Assistente PROJETA" LoadOnAutoCADStartup="True" />
 
   </Components>
 </ApplicationPackage>
