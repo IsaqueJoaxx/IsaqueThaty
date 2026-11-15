@@ -8,7 +8,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>Projeta.Civil3D</AssemblyName>
-    <Version>0.21.4</Version>
+    <Version>0.21.5</Version>
     <AutoCAD2026Root Condition="'$(AutoCAD2026Root)' == ''">C:\Program Files\Autodesk\AutoCAD 2026</AutoCAD2026Root>
     <AutoCAD2027Root Condition="'$(AutoCAD2027Root)' == ''">C:\Program Files\Autodesk\AutoCAD 2027</AutoCAD2027Root>
   </PropertyGroup>

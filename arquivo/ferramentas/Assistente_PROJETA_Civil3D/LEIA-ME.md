@@ -27,7 +27,7 @@ As seções tipo do template que usam submontagens do Subassembly Composer guard
 
 - **Leitura automática.** Depois de cada comando, ao trocar de desenho e ao reabrir a paleta. As abas só são atualizadas se algo mudou, então escolhas e resultados não se perdem. O botão "Atualizar" força a releitura.
 - **Desfazer reconhecido.** Depois de `U` ou Refazer o painel relê o desenho e tira da tela o "criado" que foi desfeito. Na aba Volumes, o botão de criar volta a ficar disponível, porque o cálculo continua valendo.
-- **Aba Point top no ribbon**, com os botões Superfícies, Volumes, Seções e Corredores. Ela volta sozinha se o espaço de trabalho for trocado. O botão **VIAS DO LOTEAMENTO** roda o `PRJVIAS` do PROJETA Assistente Civil, e o painel **INTERSEÇÕES E ROTATÓRIAS** roda o `PRJSINALIZA` (sinalização), o `PRJSEMAFORO` (plano semafórico), o `PRJSEGURANCA` (auditor de segurança da rotatória) e o `PRJCAPACIDADE` (capacidade e fila), também do PROJETA Assistente Civil (precisa estar instalado; sem ele, o botão só avisa). A interseção ou a rotatória é montada antes, com o `PRJINTERSECAO` ou o `PRJROTATORIA` da aba PROJETA.
+- **Aba Point top no ribbon**, em cinco painéis por tema, cada botão com ícone próprio e a dica com título, descrição e comando: **Terreno e volumes** (Superfícies, Volumes, Seções), **Greide e perfil** (Greide, Correção do greide, IRI, Ir ao perfil), **Topografia** (Poligonal e Locação de campo — `PRJLOCACAO`), **Vias e redes** (Corredores, Vias do loteamento — `PRJVIAS`, Redes) e **Interseções e rotatórias** (`PRJSINALIZA`, `PRJSEMAFORO`, `PRJCAPACIDADE`, `PRJSEGURANCA`, `PRJALTERNATIVAS` — comparador de alternativas — e `PRJINTERFERENCIAS` — interferências e desapropriação). Ela volta sozinha se o espaço de trabalho for trocado. Os comandos `PRJ...` são do PROJETA Assistente Civil (precisa estar instalado; sem ele, o botão só avisa). A interseção ou a rotatória é montada antes, com o `PRJINTERSECAO` ou o `PRJROTATORIA` da aba PROJETA.
 - **Leitura leve.** A lista não lê triângulos; a ficha completa só é lida ao selecionar a superfície.
 - **Clique do limite só enxerga polilinhas.** Antes, clicar na borda da polilinha pegava a superfície que estava por baixo.
 - **Exportar volumes para CSV.**
@@ -97,7 +97,7 @@ Cada versão foi carregada com NETLOAD ("Carregar uma vez") numa janela separada
 
 | Verificação | 2027 | 2026 |
 |---|---|---|
-| DLL carrega; aba Point top no ribbon com os 4 botões | sim | sim |
+| DLL carrega; aba Point top no ribbon com os 5 painéis e 18 botões | sim | sim |
 | Leitura automática ao abrir o painel, após comandos e ao trocar/fechar desenho | sim | sim |
 | Ficha da superfície lida ao selecionar (121 pontos, 200 triângulos, 4 ha) | sim | sim |
 | Volumes na área comum: corte 10.000 m³ e aterro 10.000 m³ (esperado: 10.000 e 10.000) | sim | sim |
