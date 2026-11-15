@@ -907,6 +907,36 @@ Teste("entreverdes, Webster, verdes, pedestres, grupos focais, laços e sinaliza
     Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
 });
 
+Console.WriteLine("== Comparador de alternativas (PRJALTERNATIVAS)");
+Teste("PARE, canalizada, mini e rotatórias de 1 e 2 faixas", () =>
+{
+    var erros = new List<string>();
+    int n = 0;
+    Projeta.Core.Testes.TestesAlternativas.Rodar((c, m) => { n++; Console.WriteLine($"       {(c ? "ok " : "XX ")} {m}"); if (!c) erros.Add(m); }, saida);
+    Console.WriteLine($"       {n} verificações");
+    Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
+});
+
+Console.WriteLine("== Interferências e desapropriação (PRJINTERFERENCIAS)");
+Teste("limite, lotes, áreas atingidas, objetos e shapefile", () =>
+{
+    var erros = new List<string>();
+    int n = 0;
+    Projeta.Core.Testes.TestesInterferencias.Rodar((c, m) => { n++; Console.WriteLine($"       {(c ? "ok " : "XX ")} {m}"); if (!c) erros.Add(m); }, saida);
+    Console.WriteLine($"       {n} verificações");
+    Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
+});
+
+Console.WriteLine("== Locação de campo (PRJLOCACAO)");
+Teste("pontos notáveis, intermediários, curvas, CSV e quadros", () =>
+{
+    var erros = new List<string>();
+    int n = 0;
+    Projeta.Core.Testes.TestesLocacao.Rodar((c, m) => { n++; Console.WriteLine($"       {(c ? "ok " : "XX ")} {m}"); if (!c) erros.Add(m); }, saida);
+    Console.WriteLine($"       {n} verificações");
+    Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
+});
+
 Console.WriteLine("== Auditor de segurança da rotatória (PRJSEGURANCA)");
 Teste("trajetória, giro do veículo de projeto, folgas e visibilidade 3D", () =>
 {

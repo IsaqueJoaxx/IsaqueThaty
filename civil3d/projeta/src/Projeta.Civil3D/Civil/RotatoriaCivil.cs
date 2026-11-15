@@ -278,6 +278,15 @@ internal sealed class ConfigRotatoria
 
     /// <summary>Parâmetros do PRJSEGURANCA (auditor de segurança da rotatória).</summary>
     public ParametrosSeguranca Seguranca { get; set; } = new();
+
+    /// <summary>Parâmetros do PRJLOCACAO.</summary>
+    public ParametrosLocacao Locacao { get; set; } = new();
+
+    /// <summary>Parâmetros do PRJINTERFERENCIAS.</summary>
+    public ParametrosInterferencias Interferencias { get; set; } = new();
+
+    /// <summary>Parâmetros do PRJALTERNATIVAS.</summary>
+    public ParametrosAlternativas Alternativas { get; set; } = new();
     // montagens do corredor (subassemblies padrão do Civil)
     public bool Montagens { get; set; } = true;
     public double Revestimento { get; set; } = 0.05;
