@@ -230,6 +230,23 @@ public sealed class Cmd
         doc.Editor.WriteMessage("\nSEGMORRO OK");
     }
 
+    /// <summary>Terreno ondulado em volta da interseção do PRJINTPREP (7000,7000) para a terraplenagem do PRJALTERNATIVAS.</summary>
+    [CommandMethod("PRJALTTERRENO")]
+    public static void AltTerreno()
+    {
+        var doc = AcCore.DocumentManager.MdiActiveDocument;
+        var db = doc.Database;
+        using var tr = db.TransactionManager.StartTransaction();
+        var sid = TinSurface.Create(db, "Terreno");
+        var sup = (TinSurface)tr.GetObject(sid, OpenMode.ForWrite);
+        var pts = new Point3dCollection();
+        for (double x = 6800; x <= 7200; x += 5)
+            for (double y = 6800; y <= 7200; y += 5)
+                pts.Add(new Point3d(x, y, 850 + 0.02 * (x - 7000) - 0.015 * (y - 7000) + 0.8 * Math.Sin((x - 7000) / 25.0) * Math.Cos((y - 7000) / 30.0)));
+        sup.AddVertices(pts);
+        tr.Commit();
+        doc.Editor.WriteMessage("\nALTTERRENO OK");
+    }
     [CommandMethod("PRJROTCHECK")]
     public static void Check()
     {
