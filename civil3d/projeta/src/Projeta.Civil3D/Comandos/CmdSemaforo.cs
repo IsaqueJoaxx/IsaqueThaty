@@ -51,7 +51,7 @@ public sealed class CmdSemaforo
             Ctx.Msg($"{it.Nome}: informe a contagem da hora de pico em ucp/h (sem contagem, os valores sugeridos são só um ponto de partida [PREMISSA]).");
             foreach (var b in m.Bracos)
             {
-                double padrao = dados.Volumes.TryGetValue(b.Rumo, out var vv) ? vv : b.Principal ? 600 : 250;
+                double padrao = dados.Volumes.TryGetValue(b.Rumo, out var vv) ? vv : it.Capacidade is { } cap && cap.Total(b.Rumo) > 0 ? cap.Total(b.Rumo) : b.Principal ? 600 : 250;
                 var v = s.PedirNumero($"Volume que chega pelo braço {b.Rumo} ('{b.Nome}') na hora de pico (ucp/h)", padrao);
                 if (v is null) return;
                 vols.Add(v.Value);

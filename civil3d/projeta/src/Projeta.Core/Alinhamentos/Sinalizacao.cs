@@ -145,6 +145,8 @@ public sealed class ItemSinalizacao
     public DateTime Gravado { get; set; } = DateTime.Now;
     /// <summary>Semáforo calculado pelo PRJSEMAFORO (null = interseção sem semáforo).</summary>
     public DadosSemaforo? Semaforo { get; set; }
+    /// <summary>Volumes por movimento do PRJCAPACIDADE.</summary>
+    public DadosCapacidade? Capacidade { get; set; }
 }
 
 public enum TipoViaSinal { Urbana, Estrada, Rodovia }
