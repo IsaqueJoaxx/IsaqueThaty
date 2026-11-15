@@ -147,6 +147,8 @@ public sealed class ItemSinalizacao
     public DadosSemaforo? Semaforo { get; set; }
     /// <summary>Volumes por movimento do PRJCAPACIDADE.</summary>
     public DadosCapacidade? Capacidade { get; set; }
+    /// <summary>O que o PRJSEGURANCA desenhou (auditoria de segurança da rotatória).</summary>
+    public DadosSeguranca? Seguranca { get; set; }
 }
 
 public enum TipoViaSinal { Urbana, Estrada, Rodovia }

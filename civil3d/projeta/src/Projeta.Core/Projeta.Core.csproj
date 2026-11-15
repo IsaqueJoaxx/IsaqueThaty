@@ -20,5 +20,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Recursos\**\*.json" />
   </ItemGroup>
+  <!--
+    Núcleo do PROJETA Giro (veículos de projeto do DNIT, cinemática da varredura e conflitos), compilado aqui dentro para o
+    auditor de segurança da rotatória (PRJSEGURANCA). Os tipos ficam neste assembly: não conflitam com o Projeta.Giro.Core.dll
+    do plugin PROJETA Giro quando os dois estão carregados no Civil 3D.
+  -->
+  <PropertyGroup>
+    <GiroCore>..\..\..\giro\src\Projeta.Giro.Core\</GiroCore>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(GiroCore)**\*.cs" Exclude="$(GiroCore)bin\**;$(GiroCore)obj\**" Link="Giro\%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="$(GiroCore)Recursos\veiculos_dnit.json" LogicalName="Projeta.Giro.Core.Recursos.veiculos_dnit.json" Link="Giro\Recursos\veiculos_dnit.json" />
+    <PackageReference Include="Clipper2" Version="1.5.4" />
+  </ItemGroup>
 
 </Project>

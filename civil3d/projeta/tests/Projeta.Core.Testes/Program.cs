@@ -907,6 +907,16 @@ Teste("entreverdes, Webster, verdes, pedestres, grupos focais, laços e sinaliza
     Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
 });
 
+Console.WriteLine("== Auditor de segurança da rotatória (PRJSEGURANCA)");
+Teste("trajetória, giro do veículo de projeto, folgas e visibilidade 3D", () =>
+{
+    var erros = new List<string>();
+    int n = 0;
+    Projeta.Core.Testes.TestesSeguranca.Rodar((c, m) => { n++; Console.WriteLine($"       {(c ? "ok " : "XX ")} {m}"); if (!c) erros.Add(m); }, saida);
+    Console.WriteLine($"       {n} verificações");
+    Verdade(erros.Count == 0, $"{erros.Count} de {n} verificações falharam: {string.Join(" | ", erros)}");
+});
+
 Console.WriteLine("== Capacidade e fila (PRJCAPACIDADE)");
 Teste("HCM: rotatória e interseção com PARE, faixas e armazenamento", () =>
 {

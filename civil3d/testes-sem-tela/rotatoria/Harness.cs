@@ -209,6 +209,27 @@ public sealed class Cmd
         doc.Editor.WriteMessage("\nVIASPREP OK");
     }
 
+    /// <summary>
+    /// Terreno para o PRJSEGURANCA na rotatória do PRJROTPREP4: superfície "Terreno" plana (cota 900) com um morro de 4 m no canto
+    /// entre os braços L e S, dentro do triângulo de visibilidade à esquerda da entrada L.
+    /// </summary>
+    [CommandMethod("PRJSEGMORRO")]
+    public static void SegMorro()
+    {
+        var doc = AcCore.DocumentManager.MdiActiveDocument;
+        var db = doc.Database;
+        using var tr = db.TransactionManager.StartTransaction();
+        var sid = TinSurface.Create(db, "Terreno");
+        var sup = (TinSurface)tr.GetObject(sid, OpenMode.ForWrite);
+        var pts = new Point3dCollection();
+        for (double x = 4840; x <= 5160; x += 2)
+            for (double y = 4840; y <= 5160; y += 2)
+                pts.Add(new Point3d(x, y, 900 + 4 * Math.Exp(-((x - 5022) * (x - 5022) + (y - 4983) * (y - 4983)) / 16.0)));
+        sup.AddVertices(pts);
+        tr.Commit();
+        doc.Editor.WriteMessage("\nSEGMORRO OK");
+    }
+
     [CommandMethod("PRJROTCHECK")]
     public static void Check()
     {
